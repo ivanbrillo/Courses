@@ -1,0 +1,855 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>MapReduce and Hadoop</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1b2eea59-ca7a-809f-8cff-c76d24020b56" class="page sans"><header><h1 class="page-title" dir="auto">MapReduce and Hadoop</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="1aceea59-ca7a-80a8-ae90-c1ba1b65bbf9" class="">MapReduce</h1></div><div style="display:contents" dir="auto"><div id="1aceea59-ca7a-803d-b1f1-ebfc50c8f43d" class="column-list"><div style="display:contents" dir="auto"><div id="1aceea59-ca7a-8000-bc1f-fd4a47bbdcc9" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1aceea59-ca7a-80b0-b440-e4b78bfc9669" class="">It is a programming model. It’s based in <mark class="highlight-blue">Divide and Conquer</mark> (since it is big-data)</p></div><div style="display:contents" dir="auto"><p id="1aceea59-ca7a-8039-9ae5-c3ed2d63e8ac" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1aceea59-ca7a-8006-bb44-dd5f0b7b8406" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1aceea59-ca7a-802d-9331-f2ea07c97ad3" class="image"><a href="MapReduce%20and%20Hadoop/image.png"><img style="width:533.1704711914062px" src="MapReduce%20and%20Hadoop/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><div id="1aceea59-ca7a-80eb-8058-fad5bf426675" class="column-list"><div style="display:contents" dir="auto"><div id="1aceea59-ca7a-8031-bc19-f754694af4a9" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="1aceea59-ca7a-80b9-85c0-eca2f5fa68aa" class="bulleted-list"><li style="list-style-type:disc">Static partitioning of the input data</li></ul></div><div style="display:contents" dir="auto"><ul id="1aceea59-ca7a-800b-95e4-cf5e4b3fe0c2" class="bulleted-list"><li style="list-style-type:disc">N slaves are created dynamically</li></ul></div><div style="display:contents" dir="auto"><ul id="1aceea59-ca7a-806a-9511-c0b65d94c660" class="bulleted-list"><li style="list-style-type:disc">Each slave is assigned a partition of the input</li></ul></div><div style="display:contents" dir="auto"><p id="1eceea59-ca7a-80c6-8948-f93c0e2a980d" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1aceea59-ca7a-80f1-9bf3-c0a1b397eed9" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1aceea59-ca7a-80e0-950b-de04f37993f6" class="image"><a href="MapReduce%20and%20Hadoop/image%201.png"><img style="width:533.1591186523438px" src="MapReduce%20and%20Hadoop/image%201.png"/></a><figcaption>Master-Slave Implementation</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1aceea59-ca7a-802c-928b-cd8fe31e6f71" class="">This pattern doesn’t work well if the assigned task are <mark class="highlight-teal">unbalanced</mark></p></div><div style="display:contents" dir="auto"><p id="1eceea59-ca7a-809b-9165-c2d53ae306e0" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1eceea59-ca7a-80bb-adec-c38e50251ba7" class="">Tackling large-data problems requires a new approach:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1aceea59-ca7a-8079-8e44-f6c943dc8ee6" class="numbered-list" start="1"><li>Right level of abstraction → hide implementation details<div style="display:contents" dir="auto"><ol type="a" id="1aceea59-ca7a-8097-b12e-da8b20c67f87" class="numbered-list" start="1"><li>Drawbacks: evertything needs to fit into the abstraction</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1aceea59-ca7a-8076-b115-d66bf5feb563" class="numbered-list" start="2"><li>Scale out, not up<div style="display:contents" dir="auto"><ol type="a" id="1aceea59-ca7a-80d0-9ae2-c0a998877562" class="numbered-list" start="1"><li>Higher probability of failures but cheaper</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1aceea59-ca7a-806b-af1a-fb8bffe00b2a" class="numbered-list" start="3"><li>Move processing to the data → drawback need portable code<div style="display:contents" dir="auto"><ol type="a" id="1aceea59-ca7a-80ef-8f22-f5656164a883" class="numbered-list" start="1"><li>fixed location of data and deploy the task where the data is, not moving data</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><p id="1aceea59-ca7a-80d0-bc54-facd8e0f8ada" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1aceea59-ca7a-803d-b0e8-e27aa348d161" class="">MapReduce inherits a lot of principle of <mark class="highlight-teal">functional programming</mark></p></div><div style="display:contents" dir="auto"><ol type="1" id="1aceea59-ca7a-80fc-a444-e5d6b78ed915" class="numbered-list" start="1"><li><mark class="highlight-brown">Purity </mark>→ will always produce the same output, given the same input parameters (idempotency). Deterministic Behaviour</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1aceea59-ca7a-80a4-a0ab-fd224fb34ddd" class="numbered-list" start="2"><li><mark class="highlight-brown">Immutability </mark>→ no variables in functional programming, just constants<div style="display:contents" dir="auto"><ol type="a" id="1aceea59-ca7a-803b-b464-fadbe2df4137" class="numbered-list" start="1"><li>A process does not need to bother about other processes when dealing with a data structure, as nobody can modify it</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1aceea59-ca7a-8059-a958-c3c125d28ec6" class="numbered-list" start="2"><li>History is not wiped out</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1aceea59-ca7a-8002-a2b2-e4d7d720c464" class="numbered-list" start="3"><li><mark class="highlight-brown">Higher-order functions</mark> → functions that operate on other functions (taking them as argument or spit it out as output)</li></ol></div><div style="display:contents" dir="auto"><p id="1aceea59-ca7a-80e6-9fa7-fb9e64ecd785" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="1b2eea59-ca7a-8005-8564-c0e8d7ab486e" class="image"><a href="MapReduce%20and%20Hadoop/image%202.png"><img style="width:432px" src="MapReduce%20and%20Hadoop/image%202.png"/></a><figcaption>in the middle no distributed file system</figcaption></figure></div><div style="display:contents" dir="auto"><p id="1b2eea59-ca7a-8048-89cd-c2df86c4c749" class="">Programmers specify two functions:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1b2eea59-ca7a-8077-a67e-ca685dc13a2c" class="numbered-list" start="1"><li><mark class="highlight-blue">map function</mark>: from [key, value] (1) to [key, value] (0*)<div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-8088-9119-faf423880286" class="bulleted-list"><li style="list-style-type:disc">Produces as output a list of key-value pairs (typically 1 or more per input)</li></ul></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-80f1-a606-c49eb5ca7f61" class="bulleted-list"><li style="list-style-type:disc">The function is invoked by the mapper (<mark class="highlight-teal">higher order function</mark>)</li></ul></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-80fd-8b2b-c36b1c2322e7" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Mappers should run on nodes which hold their (portion of the) data locally</mark>, to avoid network traffic</li></ul></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-80cc-bad5-fe1728fd73c3" class="bulleted-list"><li style="list-style-type:disc">Multiple mappers run in parallel, each processing (a portion of) the input data</li></ul></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-80e4-b8a6-eba5d974ee29" class="bulleted-list"><li style="list-style-type:disc">Most of the time map tasks ignore the key</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b2eea59-ca7a-8017-8a18-f77f905f666c" class="numbered-list" start="2"><li><mark class="highlight-blue">reduce function</mark>: from [key, list of values] (1) to [key, value] (0*)<div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-801f-87e1-f742b845bdff" class="bulleted-list"><li style="list-style-type:disc">Produces as output a list of key-value pairs (typically none or 1 per input)</li></ul></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-8053-afa6-c1621d7c61f4" class="bulleted-list"><li style="list-style-type:disc">The function is invoked by the Reducer (function)</li></ul></div><div style="display:contents" dir="auto"><p id="1f9eea59-ca7a-80d1-9ff8-fd66a3201aec" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1f9eea59-ca7a-8086-bc88-f6b6e3207dcb" class="">Both are <mark class="highlight-orange"><mark class="highlight-pink_background">STATELESS</mark></mark></p></div></li></ol></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-80f8-91ff-ec9cbe921839" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-8090-84bb-eea57f1d4a82" class=""><strong>In Between Steps</strong>:</p></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-802f-b529-fff870a224e3" class="bulleted-list"><li style="list-style-type:disc">Intermediate values for a specific key, that are outputted by the map function, are combined into a list (<mark class="highlight-teal">shuffle</mark>) → Each of this given to a reducer. There may be a single reducer, or multiple reducers<div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-8076-8330-d8ea2c2c7418" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-pink_background">All values associated with a particular intermediate key are guaranteed to go to the same reducer</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-8055-9aa7-c85eaee8b47a" class="bulleted-list"><li style="list-style-type:circle">The intermediate keys, and their value lists, are passed to the reducer in <mark class="highlight-teal"><mark class="highlight-pink_background">sorted key order</mark></mark> → <mark class="highlight-teal">sort</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-802a-8a2a-f7e86345875d" class="bulleted-list"><li style="list-style-type:circle">Output is written to the distributed file system</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><div id="1b2eea59-ca7a-8032-9495-c0bc14a9b099" class="column-list"><div style="display:contents" dir="auto"><div id="1b2eea59-ca7a-804a-b649-c3bb00036304" style="width:62.5%" class="column"><div style="display:contents" dir="ltr"><figure id="1b2eea59-ca7a-80cf-a7b4-cafcc0bb0dff" class="image"><a href="MapReduce%20and%20Hadoop/image%203.png"><img style="width:533.1591186523438px" src="MapReduce%20and%20Hadoop/image%203.png"/></a></figure></div></div></div><div style="display:contents" dir="auto"><div id="1b2eea59-ca7a-805f-ad31-dbe9a8828b2c" style="width:37.50000000000001%" class="column"><div style="display:contents" dir="ltr"><figure id="1b2eea59-ca7a-8091-ae57-da2de9d862c6" class="image"><a href="MapReduce%20and%20Hadoop/image%204.png"><img style="width:182.02273559570312px" src="MapReduce%20and%20Hadoop/image%204.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-80ca-ba44-e132b869defc" class="bulleted-list"><li style="list-style-type:disc">Mapper takes the doc (entry, like a byte line of a document) and the offset of the entry in the overall document</li></ul></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Examples</summary><div class="indented"><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-80d6-81ff-fecb64cbb5b8" class="bulleted-list"><li style="list-style-type:disc">I take the key of the first a “total”</li></ul></div><div style="display:contents" dir="ltr"><figure id="1b2eea59-ca7a-809c-8314-df1ce3a632aa" class="image"><a href="MapReduce%20and%20Hadoop/image%205.png"><img style="width:501.9886474609375px" src="MapReduce%20and%20Hadoop/image%205.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="1b2eea59-ca7a-8088-98e5-ed0857ca398d" class="image"><a href="MapReduce%20and%20Hadoop/image%206.png"><img style="width:501.9886474609375px" src="MapReduce%20and%20Hadoop/image%206.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="1b2eea59-ca7a-800f-a18f-ede4499eb51d" class="image"><a href="MapReduce%20and%20Hadoop/image%207.png"><img style="width:533.1704711914062px" src="MapReduce%20and%20Hadoop/image%207.png"/></a></figure></div></div></details></div><div style="display:contents" dir="auto"><p id="1b2eea59-ca7a-80c4-bfe9-ea4d93881836" class="">Both functions are <mark class="highlight-teal"><mark class="highlight-pink_background">STATELESS</mark></mark><mark class="highlight-teal"> </mark>(no state sharing between two invokations)</p></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1b2eea59-ca7a-800f-9523-e9c9777b1309"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1b2eea59-ca7a-8037-a41c-d8efc54a6497" class="">Keys are not unique! (eg hello word 10 times)</p></div></div></figure></div><div style="display:contents" dir="ltr"><figure id="1b2eea59-ca7a-8086-b022-ceb992ba0659" class="image"><a href="MapReduce%20and%20Hadoop/image%208.png"><img style="width:480px" src="MapReduce%20and%20Hadoop/image%208.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="1c7eea59-ca7a-8057-8aea-ddb0361f1022" class="">Partitioners</h3></div><div style="display:contents" dir="auto"><p id="1b2eea59-ca7a-801b-a7e8-f3b0c065b84b" class=""><mark class="highlight-orange">Partitioners </mark>balance the key assignments to reducers (in-between mapper and reducers)</p></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-80d6-810b-e7f6d8212347" class="bulleted-list"><li style="list-style-type:disc">By default, intermediate keys are hashed to reducers</li></ul></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-8039-89eb-de16b202d795" class="bulleted-list"><li style="list-style-type:disc">Partitioner specifies the node to which an intermediate key-value pair must be copied</li></ul></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-8079-986d-e71befdbec14" class="bulleted-list"><li style="list-style-type:disc">Partitions key space for parallel reduce operations</li></ul></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-8057-8884-f8d26bf556ad" class="bulleted-list"><li style="list-style-type:disc">Partitioner <mark class="highlight-pink_background">only considers the key</mark> and ignores the value → same reducer (hash)</li></ul></div><div style="display:contents" dir="ltr"><figure id="1b2eea59-ca7a-80cf-bad6-da12a45b7ae6" class="image"><a href="MapReduce%20and%20Hadoop/image%209.png"><img style="width:533.1704711914062px" src="MapReduce%20and%20Hadoop/image%209.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="1c7eea59-ca7a-8087-8f51-cb0a6e69f881" class="">Combiners</h3></div><div style="display:contents" dir="auto"><p id="1b2eea59-ca7a-8010-b502-e25123a786a3" class=""><mark class="highlight-orange">Combiners </mark>does a local aggregation before the shuffle</p></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-809d-a687-ff8f44b28a5d" class="bulleted-list"><li style="list-style-type:disc">is <mark class="highlight-pink_background">optional</mark>, not mandatory. It’s an optimizer </li></ul></div><div style="display:contents" dir="auto"><p id="1b2eea59-ca7a-80ff-b1a9-e93acf040eda" class="">All the key-value pairs from mappers need to be copied across the network</p></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-80c4-99fc-ed84946d0505" class="bulleted-list"><li style="list-style-type:disc">The amount of intermediate data may be larger than the input collection itself</li></ul></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-8068-bfa7-c4603c566df3" class="bulleted-list"><li style="list-style-type:disc">Perform local aggregation on the output of each mapper (same machine)</li></ul></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-8003-81c2-c8ff94db25a1" class="bulleted-list"><li style="list-style-type:disc">Typically, a combiner is a (local) copy of the reducer, a «<mark class="highlight-teal">mini-reducer</mark>» that takes place on the output of a specific mapper → same code</li></ul></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-80a9-89d7-f93905de06a8" class="bulleted-list"><li style="list-style-type:disc">To use combiners, the reduce function must be <mark class="highlight-teal">associative </mark>and <mark class="highlight-teal">commutative </mark>→ Otherwise I cannot use the combiner before reducer</li></ul></div><div style="display:contents" dir="ltr"><figure id="1b2eea59-ca7a-8019-a5f6-ede660ef021e" class="image"><a href="MapReduce%20and%20Hadoop/image%2010.png"><img style="width:576px" src="MapReduce%20and%20Hadoop/image%2010.png"/></a><figcaption>Output of the map bigger of the input</figcaption></figure></div><div style="display:contents" dir="auto"><h1 id="1b2eea59-ca7a-8029-b267-e176e0209226" class="">MapReduce FrameWorks</h1></div><div style="display:contents" dir="auto"><p id="1b2eea59-ca7a-80f5-bb16-f19736b1d5a0" class="">In 2003 Google presented its distributed file system for storing large data sets</p></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-8060-a9a3-ea3f79f90c33" class="bulleted-list"><li style="list-style-type:disc">Google File System</li></ul></div><div style="display:contents" dir="auto"><p id="1b2eea59-ca7a-807a-be60-c59309df781d" class="">In 2004 Google presented its distributed platform for processing large data sets</p></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-80af-81d8-ecc10f1e2699" class="bulleted-list"><li style="list-style-type:disc">MapReduce</li></ul></div><div style="display:contents" dir="auto"><p id="1b2eea59-ca7a-8063-b51f-efc75ac7bb3c" class="">In 2007, at Yahoo, Doug Cutting formed the new project Hadoop</p></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-8073-ad06-f44213c09b2b" class="bulleted-list"><li style="list-style-type:disc">Open-source implementation of Google&#x27;s MapReduce software</li></ul></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-8026-8d57-c92bb0f8e7d0" class="bulleted-list"><li style="list-style-type:disc">Include the open-source implementation of Google&#x27;s GFS software (Hadoop Distributed File System, HDFS)</li></ul></div><div style="display:contents" dir="auto"><h2 id="1b2eea59-ca7a-80bd-a336-c7f67337d4cb" class="">Hadoop</h2></div><div style="display:contents" dir="auto"><p id="1b2eea59-ca7a-8071-a092-eca6e2d68237" class=""><mark class="highlight-pink_background">A MapReduce job</mark> is a unit of work that the client wants to be performed. It consists of:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1b2eea59-ca7a-801a-89f4-ec9bd0696ee5" class="numbered-list" start="1"><li>Input data</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b2eea59-ca7a-80a1-8545-c85b5875909b" class="numbered-list" start="2"><li>MapReduce program</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b2eea59-ca7a-8019-9b09-e4909f1d96a6" class="numbered-list" start="3"><li>Configuration information</li></ol></div><div style="display:contents" dir="auto"><p id="1f9eea59-ca7a-80dc-950b-ddbe5d3a5059" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b2eea59-ca7a-80dc-81e3-e6774c6cb4c7" class="">Hadoop runs the MapReduce job by dividing it into <mark class="highlight-pink_background">tasks </mark>(map and reduce tasks)</p></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-8016-94a6-cf1ff74f216d" class="bulleted-list"><li style="list-style-type:disc">The tasks are scheduled using <mark class="highlight-teal">YARN </mark>(Yet Another Resource Negotiation) and run on nodes in the cluster.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-809b-a505-f4866f3dda0c" class="bulleted-list"><li style="list-style-type:disc">If a task fails, it will be automatically rescheduled to run on a different node.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-80e5-bd8a-e453224ddc23" class="bulleted-list"><li style="list-style-type:disc">Hadoop divides the input to a MapReduce job into fixed-size pieces called Input Splits</li></ul></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-808c-8006-ff31e5ab938a" class="bulleted-list"><li style="list-style-type:disc">Hadoop spawns <mark class="highlight-pink_background">one map task for each split</mark>, which runs the user-defined map function for each record in the split</li></ul></div><div style="display:contents" dir="auto"><p id="1b2eea59-ca7a-801a-81c4-e59b53b0eae5" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b2eea59-ca7a-80a8-9633-e35e57c5b306" class="">Generally Hadoop can run in three modes:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1b2eea59-ca7a-8007-9a05-ff8ab7e34c59" class="numbered-list" start="1"><li><mark class="highlight-orange">Local </mark>(or standalone) mode - this is the default<div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-80d1-8c96-d3d7c710240b" class="bulleted-list"><li style="list-style-type:disc">Hadoop runs as a single Java process</li></ul></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-804e-abb6-f375fabd2c75" class="bulleted-list"><li style="list-style-type:disc">Mainly used for debugging</li></ul></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-805b-ab4e-ff3052443fef" class="bulleted-list"><li style="list-style-type:disc">The jobs will run as if there is 1 mapper and 1 reducer</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b2eea59-ca7a-801e-aa58-ed96760a49db" class="numbered-list" start="2"><li><mark class="highlight-orange">Pseudo-distributed mode </mark>(also known as single-node cluster)<div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-80d3-87ea-e0a7fae2eb7b" class="bulleted-list"><li style="list-style-type:disc">All the daemons run on a single machine</li></ul></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-80b0-8805-fd646296001a" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">A separate JVM for every Hadoop component</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-8052-b2ae-e5b4a3153666" class="bulleted-list"><li style="list-style-type:disc">This setting mimics the behaviour of a cluster</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b2eea59-ca7a-80b9-81c3-d0ffecd3935f" class="numbered-list" start="3"><li><mark class="highlight-orange">Fully-distributed mode</mark><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-800d-a77c-ed49c617ccf9" class="bulleted-list"><li style="list-style-type:disc">This is how Hadoop runs on a real cluster</li></ul></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-800c-8c7a-e16c251b4510" class="bulleted-list"><li style="list-style-type:disc">All the daemons run on (a subset of) the cluster&#x27;s machines using the HDFS protocol</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><h3 id="1b2eea59-ca7a-8066-9524-dc170461a08f" class="">Word Count Example</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1b2eea59-ca7a-8033-9702-d3f3b88bba13" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public static class TokenizerMapper extends Mapper&lt;Object, Text, Text, IntWritable&gt;
+{
+	 private final static IntWritable one = new IntWritable(1); // value type
+	 private Text word = new Text(); // key type
+	 
+	 // value -&gt; input value (doc line), the key is the offset
+	 // context includes configuration infos, in order to interact with hadoop (db, combiners, ...))
+	 public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
+		 StringTokenizer itr = new StringTokenizer(value.toString());  // devide line into list of words, better then splits (also \n and more spaces)
+		 while (itr.hasMoreTokens()) {
+			 word.set(itr.nextToken());
+			 context.write(word, one);
+		 }
+	 }
+}</code></pre></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-80bf-82f2-db6a1b48a0d5" class="bulleted-list"><li style="list-style-type:disc">Text and IntWritable are not default types in Java, but are needed for <mark class="highlight-teal">serialization</mark></li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1b2eea59-ca7a-80d3-81e7-e7e9a1519b4d" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public static class IntSumReducer extends Reducer&lt;Text,IntWritable,Text,IntWritable&gt; 
+{
+	 private IntWritable result = new IntWritable();
+	 
+	 public void reduce(Text key, Iterable&lt;IntWritable&gt; values, Context context) throws IOException, InterruptedException {  
+		 int sum = 0;
+		 for (IntWritable val : values) {
+			 sum += val.get();
+		 }
+		 result.set(sum);
+		 context.write(key, result);
+	 }
+ }</code></pre></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1b2eea59-ca7a-800d-aa32-ea765e37e2aa" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all"> public static void main(String[] args) throws Exception {
+	 Configuration conf = new Configuration(); // exchange infos between mapper and reducer
+	 String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();  // analyze the input argumets provided by the command line
+	 if (otherArgs.length &lt; 2){ // one argument is the input data and the second where to store the output
+		 System.err.println(&quot;Usage: wordcount &lt;in&gt; [&lt;in&gt;...] &lt;out&gt;&quot;);
+		 System.exit(2);
+	 }
+	 
+	 Job job = Job.getInstance(conf, &quot;word count&quot;);
+	 job.setJarByClass(WordCount.class); // map and reduce inside that archive (specify a class in that archive)
+	 job.setMapperClass(TokenizerMapper.class);
+	 job.setCombinerClass(IntSumReducer.class);  // same as reducer!
+	 job.setReducerClass(IntSumReducer.class);
+	 job.setOutputKeyClass(Text.class);
+	 job.setOutputValueClass(IntWritable.class);
+	 // the output type from map by default is the same as the reducer
+	 
+	 for (int i = 0; i &lt; otherArgs.length - 1; ++i)
+		 FileInputFormat.addInputPath(job, new Path(otherArgs[i])); // several inputs
+	 
+	 FileOutputFormat.setOutputPath(job, new Path(otherArgs[otherArgs.length - 1])); // only one directory, it will have one file for each reducer
+	 // violates the immutability principle if I&#x27;m trying to overwrite it
+	 
+	 System.exit(job.waitForCompletion(true) ? 0 : 1);   // true is verbose
+ }</code></pre></div><div style="display:contents" dir="auto"><p id="1b2eea59-ca7a-80c5-b747-f0378b399e1d" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1b2eea59-ca7a-8066-aa3b-dc3b3c9fa789" class="">Types</h3></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-8061-a23c-ec7e53482911" class="bulleted-list"><li style="list-style-type:disc">map function: from [key (K1), value (V1)] pair to list of [key (K2), value (V2)] pairs</li></ul></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-8055-a608-fdc2de5025a0" class="bulleted-list"><li style="list-style-type:disc">combiner function: from [key (K2), list of values (V2)] pair to list of [key (K2), values (V2)] pairs</li></ul></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-8048-9cf9-db594dfb78a2" class="bulleted-list"><li style="list-style-type:disc">reduce function: from [key (K2), list of values (V2)] pair to list of [key (K3), values (V3)] pairs</li></ul></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-8074-aed9-d1abbf5ea185" class="bulleted-list"><li style="list-style-type:disc">partitioner function: from [key (K2), value (V2)] pair to integer (hash code of the key) → <mark class="highlight-teal">module </mark>with the number of reducers</li></ul></div><div style="display:contents" dir="ltr"><figure id="1b2eea59-ca7a-80c6-81ac-ca89be2b1f6d" class="image"><a href="MapReduce%20and%20Hadoop/image%2011.png"><img style="width:528px" src="MapReduce%20and%20Hadoop/image%2011.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1b2eea59-ca7a-8070-8656-f82019812e55" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b2eea59-ca7a-80a9-b40c-c2984d882d3f" class="">Input types are set by the input format</p></div><div style="display:contents" dir="auto"><p id="1b2eea59-ca7a-80d1-930b-ed6c8d90e058" class="">If not set explicitly, the intermediate types default to the (final) output types, which default to <mark class="highlight-pink_background">LongWritable and Text</mark></p></div><div style="display:contents" dir="auto"><ul id="1b2eea59-ca7a-8017-95a8-dc0d408e0aeb" class="bulleted-list"><li style="list-style-type:disc">It is possible to configure an Hadoop job with incompatible types, because the configuration isn’t checked at compile time.</li></ul></div><div style="display:contents" dir="auto"><h3 id="1b9eea59-ca7a-8042-a519-dfa3286fcc5a" class="">Serialization in Hadoop</h3></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-8028-8f45-fcdf6a5f4047" class=""><mark class="highlight-teal">Serialization </mark>is the process of turning objects into a byte stream. <mark class="highlight-teal">Deserialization </mark>is the reverse process of turning a byte stream back into a series of objects.</p></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-80fb-aa32-c9f50ed8b381" class="bulleted-list"><li style="list-style-type:disc">Serialization is used in two quite distinct areas of distributed data processing<div style="display:contents" dir="auto"><ol type="1" id="1b9eea59-ca7a-80c0-810a-cc2b4f732357" class="numbered-list" start="1"><li>for interprocess communication → <mark class="highlight-pink_background">using </mark><mark class="highlight-orange"><mark class="highlight-pink_background">RPC </mark></mark><mark class="highlight-pink_background">protocol</mark></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b9eea59-ca7a-8007-89d8-df4f66bfe012" class="numbered-list" start="2"><li>for persistent storage</li></ol></div></li></ul></div><div style="display:contents" dir="auto"><div id="1b9eea59-ca7a-8017-8deb-ef377812da41" class="column-list"><div style="display:contents" dir="auto"><div id="1b9eea59-ca7a-8067-9118-c84f15870277" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-804c-8d4d-f854d2adf47f" class="bulleted-list"><li style="list-style-type:disc">Hadoop uses its own serialization format called <mark class="highlight-orange">Writables</mark><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-80fe-b083-f5f493ce9d39" class="bulleted-list"><li style="list-style-type:circle">eg IntWritable</li></ul></div><div style="display:contents" dir="auto"><p id="1f9eea59-ca7a-801a-a5f6-e4da6be3abcb" class="">
+</p></div></li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1b9eea59-ca7a-809a-90af-c7a6cb7d65ca" style="width:43.74999999999999%" class="column"><div style="display:contents" dir="ltr"><figure id="1b9eea59-ca7a-8013-b8a5-e73bfd77936d" class="image"><a href="MapReduce%20and%20Hadoop/image%2012.png"><img style="width:288px" src="MapReduce%20and%20Hadoop/image%2012.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-8063-9958-dcc42df219a7" class="bulleted-list"><li style="list-style-type:disc">Compact (least overhead possible) and fast (in terms of serialization deserialization process) → I need it because custom data types</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1b9eea59-ca7a-80fd-b06f-d74d34a6fb4a" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public interface Writable 
+{
+	 void write(DataOutput out) throws IOException;  // serialization
+	 void readFields(DataInput in) throws IOException; // deserialization
+} 
+
+public interface WritableComparable&lt;T&gt; extends Writable, Comparable&lt;T&gt; 
+{ }  // Comparable is built in in Java
+// Comparable is needed eg. in the sorter</code></pre></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1b9eea59-ca7a-8027-bcc4-c862cd4e1d7b" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">
+public class IntWritable implements WritableComparable {
+ private int value;
+ 
+ public IntWritable() {}
+ public IntWritable(int value) { set(value); }
+ 
+ public void set(int value) {  this.value = value; }
+ public int get() {  return value;  }
+ 
+ public void readFields(DataInput in) throws IOException {
+	 value = in.readInt();
+ }
+ 
+ public void write(DataOutput out) throws IOException {
+	 out.writeInt(value);
+ }
+ 
+	public boolean equals(Object o) {
+	 if (!(o instanceof IntWritable))
+		 return false;
+	 IntWritable other = (IntWritable)o;
+	 return this.value == other.value;
+	}
+	
+	// for the paritioner, just the value because it&#x27;s already an int
+	public int hashCode() {  return value; }
+	
+	// used by the sorter
+	public int compareTo(Object o) {
+	 int thisValue = this.value;
+	 int thatValue = ((IntWritable) o).value;
+	 return (thisValue&lt;thatValue ? -1 : (thisValue==thatValue ? 0 : 1));
+	}
+	 
+	// Not for serialization -&gt; output format is text (takes the 
+	// output (key and value) of the reducer and convert it to String, 
+	// separated by a tab)
+	public String toString() {  return Integer.toString(value); }
+}	</code></pre></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-80d3-a05f-d34cdd7fd40a" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1b9eea59-ca7a-80f9-bdf4-e7c34c617db7" class="">Hadoop Input</h3></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-80d5-b553-e1d29c123baa" class=""><mark class="highlight-orange"><mark class="highlight-pink_background">Chunks </mark></mark>→ physical decomposition of the input</p></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-8008-adc5-e7fa82916f5c" class="">An <mark class="highlight-orange">input split</mark> is a logical split → just a <mark class="highlight-pink_background">reference to the data </mark>(doesn’t contain the data)</p></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-80bc-8ce7-e57d22d2b53c" class="bulleted-list"><li style="list-style-type:disc">An input split is a portion of the input that is processed by a single <mark class="highlight-teal">map </mark>task</li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-80fc-9b14-eed150fcc222" class="bulleted-list"><li style="list-style-type:disc">Each split is divided into <mark class="highlight-orange"><mark class="highlight-pink_background">records</mark></mark>, and the map task processes each record – a key-value pair – in turn</li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-802f-a733-cbbf1a8de906" class="bulleted-list"><li style="list-style-type:disc">In a database context, a split might correspond to a range of rows from a table, and a record to a row in that range</li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-803b-ab8b-cdcbe9723f77" class="bulleted-list"><li style="list-style-type:disc">Input splits are represented by the class <mark class="highlight-blue">InputSplit</mark><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-80bd-a57e-d321551b1aa2" class="bulleted-list"><li style="list-style-type:circle">An InputSplit has a length in bytes and a set of storage locations (i.e., hostname strings)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-80a1-bea0-fde046064c2c" class="bulleted-list"><li style="list-style-type:disc">The <mark class="highlight-pink_background">storage </mark><mark class="highlight-blue"><mark class="highlight-pink_background">locations</mark></mark><mark class="highlight-blue"> </mark>are used by Hadoop to place map tasks as close to the split’s data as possible</li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-80e4-abd0-cb422fba4ca4" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">The </mark><mark class="highlight-blue"><mark class="highlight-yellow_background">size </mark></mark><mark class="highlight-yellow_background">is used to order the splits so that the largest get processed first, to minimize the job runtime → maximize parallelization (try to finish at the same time)</mark></li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1b9eea59-ca7a-8052-af06-e3218c60eb72" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public abstract class InputFormat&lt;K, V&gt;  {
+	public abstract List&lt;InputSplit&gt; getSplits(JobContext context)
+		 throws IOException, InterruptedException; 
+		 // get the split based on the infos in the context
+	
+	public abstract RecordReader&lt;K, V&gt; createRecordReader(InputSplit split, TaskAttemptContext context) 
+			throws IOException, InterruptedException;
+			// invoked by the mapper task (not the one we implement)
+			// the first thing it does is to call the method to get the records 
+}</code></pre></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-8032-b946-dff5dd17d416" class="">Splits for the job are created through the <code>getSplits()</code> method</p></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-8074-b394-f6b24a07de8b" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Splits are then sent to the </mark><mark class="highlight-orange">application master</mark><mark class="highlight-yellow_background">, which uses their storage locations to schedule map tasks that will process them on the cluster</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-80b1-900c-f76021cbf38f" class="bulleted-list"><li style="list-style-type:disc">The <mark class="highlight-blue">map task</mark> passes the split to the <code>createRecordReader()</code> method on InputFormat to obtain a RecordReader for that split.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-8015-8b79-f23df4e014ac" class="bulleted-list"><li style="list-style-type:disc">A RecordReader is little more than an <mark class="highlight-blue">iterator </mark>over records, and the map task uses one to generate record key-value pairs, which it passes to the map method.</li></ul></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-80b8-9a40-d35a21ffdcaf" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1b9eea59-ca7a-806b-8a3d-f2a3688b8002" class="">Setup and Clean-Up methods</h3></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-803f-b5d6-e19c2fb24006" class="">It is common to want your Mapper or Reducer to execute some code before the map() or reduce() method is called for the first time → <code>setup(context)</code></p></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-80c2-a0a4-f581491444d7" class="bulleted-list"><li style="list-style-type:disc">Initialize data structures</li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-8048-a287-ecd448871b25" class="bulleted-list"><li style="list-style-type:disc">Read data from an external file</li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-8051-aec6-e3a6cd43d9ad" class="bulleted-list"><li style="list-style-type:disc">Set parameters</li></ul></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-8074-8889-dbc29441f114" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-80a3-9ada-cfffb55e23ea" class="">Similarly, you may wish to perform some action(s) after all the records have been processed by your Mapper or Reducer</p></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-8022-aa3b-ccc18ae8a03c" class="bulleted-list"><li style="list-style-type:disc">The <code>cleanup()</code> method is called before the Mapper or Reducer terminates</li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-80fe-b463-db89d120c43c" class="bulleted-list"><li style="list-style-type:disc">free resources</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1b9eea59-ca7a-8082-bf3e-d8d4a8a874a9" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public void setup(Context context)
+public void cleanup(Context context)</code></pre></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1b9eea59-ca7a-80bf-a3e1-c07a766301ba" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class MyDriverClass {
+    public int main(String[] args) throws Exception {
+        int value = 42;
+        Configuration conf = new Configuration(); 
+        conf.setInt (&quot;paramname&quot;, value);
+        Job job = new Job(conf);
+        // ... 
+        return job.waitForCompletion(true); 
+    }
+ } 
+ 
+public class MyMapper extends Mapper {
+    public void setup(Context context) {
+        Configuration conf = context.getConfiguration(); 
+        int myParam = conf.getInt(&quot;paramname&quot;, 0); // zero if doesn&#x27;t exist
+        // ... 
+    }
+ 
+    public void map... 
+}  </code></pre></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-8058-b03b-f34711c737e3" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

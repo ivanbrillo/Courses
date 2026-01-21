@@ -1,0 +1,731 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Cloud Storage</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1fceea59-ca7a-8086-a90c-f4b3c74e10ce" class="page sans"><header><h1 class="page-title" dir="auto">Cloud Storage</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80de-96fa-d565a86f7cae" class="">The simplest type of storage that can be implemented with a hard drive is <mark class="highlight-orange">block storage</mark>, the possibility of store a continuous blocks of raw unstructured data</p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8090-a0c1-fd306b4d5f05" class="bulleted-list"><li style="list-style-type:disc">On top of a set of blocks, a<mark class="highlight-teal"> file system</mark> is usually created: the file system organizes the data into files and manages the metadata required to store files on different blocks</li></ul></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80a5-9bc7-ef9125e5ae79" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8098-8c38-dd463351ad1a" class="">Recently a new storage type has been created, the <mark class="highlight-orange">object storage </mark>(bundled data with corresponding metadata)</p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8017-b054-cad90999f4d0" class="bulleted-list"><li style="list-style-type:disc">Each object has associated a unique ID, that is calculated based on the file content and meta-data → applications can access it via the ID</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80a9-86c3-f93b466caa79" class="bulleted-list"><li style="list-style-type:disc">Each object is <mark class="highlight-teal">immutable</mark>, a change produce a new version</li></ul></div><div style="display:contents" dir="ltr"><figure id="1fceea59-ca7a-8051-9d6a-dda1dcaca83f" class="image"><a href="Cloud%20Storage/image.png"><img style="width:605.7875366210938px" src="Cloud%20Storage/image.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8040-9108-f50872cc74c8" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-80fb-b6c5-c1af53997862" class="numbered-list" start="1"><li>In order to handle failure on a single server the <mark class="highlight-teal">RAID </mark>technology is employed, to ensure replica and fault tolerance of HDD</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-8086-857c-f01169aa9234" class="numbered-list" start="2"><li>The maximum storage is limited to the physical number of bays (hard drives slots) of the server<div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8014-8bf8-fd93a0fc421c" class="bulleted-list"><li style="list-style-type:disc">In order to overcome this physical limitation <mark class="highlight-teal">distributed file systems</mark> are employed</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8069-a30c-ef8942c5c66f" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1fceea59-ca7a-8050-9119-f936d874a50e" class="">RAID</h3></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-808f-8c26-eef7d5da2788" class="">RAID (Redundant Array of Independent Disks) is a technology that combines multiple physical hard drives into one or more <mark class="highlight-teal">logical hard drive</mark> (virtual)</p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80f0-a6fd-f2721358bc46" class="bulleted-list"><li style="list-style-type:disc">Different <mark class="highlight-orange">RAID schema </mark>are possible depending on the purpose: data redundancy, performance improvement or both</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8029-ae18-db3081a7c1e2" class="bulleted-list"><li style="list-style-type:disc">RAID functionalities can be implemented in <mark class="highlight-blue">hardware </mark>(through a RAID controller to which the hard drives are connected → hidden from OS, access directly the logical drives) or via <mark class="highlight-blue">software </mark>(by the OS)</li></ul></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80d5-bb1c-dc95ea1f3452" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8053-8497-c4b773fb3aec" class="">Three schema are popular:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-8027-9d86-d8e4ec89a1c0" class="numbered-list" start="1"><li><mark class="highlight-blue">RAID 0</mark>, adopted for performance, where blocks are <mark class="highlight-teal">striped </mark>across the physical hard drive for performance</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-80fd-a5c0-e4d2397947a6" class="numbered-list" start="2"><li><mark class="highlight-blue">RAID 1</mark>, adopted for maximum redundancy, where blocks are <mark class="highlight-teal">mirrored </mark>across the physical hard drives for redundancy</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-80a1-8b96-ece0b5aa88f2" class="numbered-list" start="3"><li><mark class="highlight-blue">RAID 5</mark>, tradeoff between performance and redundancy, where blocks are striped across hard drives, however, a <mark class="highlight-teal">parity block</mark> (e.g. calculated via XOR) is added to a set of block to ensure fault tolerance, i.e. to recover the data if a failure occurs</li></ol></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-802f-bdb4-d7ac3499ddcd" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1fceea59-ca7a-808b-96de-f99da7d9e9f9" class="">Distributed File System</h2></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-806a-b30f-c4d5f5e02f39" class="">Data transfer and synchronization is achieved exploiting a local <mark class="highlight-teal">LAN</mark></p></div><div style="display:contents" dir="auto"><h3 id="1fceea59-ca7a-8027-816e-f98714134ca7" class="">Network File System (NFS)</h3></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8027-8e23-dff0826efa2e" class="">NFS adopts a <mark class="highlight-teal">client-server approach</mark>: a central server offers access to clients to its local file system</p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80ac-b921-c16084ce4820" class="bulleted-list"><li style="list-style-type:disc">NFS defines a communication protocol between client and server, the messages are <mark class="highlight-blue">synchronous messages </mark>in order to ensure consistency and simplify the implementation</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8041-9187-d1454f2a2439" class="bulleted-list"><li style="list-style-type:disc">All NFS functionalities are implemented inside the Linux kernel, NFS functionalities are hidden from applications</li></ul></div><div style="display:contents" dir="ltr"><figure id="1fceea59-ca7a-804e-9f26-cae3843f64fb" class="image"><a href="Cloud%20Storage/image%201.png"><img style="width:432px" src="Cloud%20Storage/image%201.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="1fceea59-ca7a-80f9-97cb-d37dd40b8cf4" class="">GlusterFS</h3></div><div style="display:contents" dir="auto"><div id="1fceea59-ca7a-8085-b0c0-cdb9172ed80e" class="column-list"><div style="display:contents" dir="auto"><div id="1fceea59-ca7a-8005-b1e8-c18127a320a9" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8098-a086-dc26a91a60c1" class="">Although NFS is a shared storage its <mark class="highlight-pink_background">centralized </mark>architecture refrains its usage in practical deployments</p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8039-9659-c6366135ef9d" class="bulleted-list"><li style="list-style-type:disc">GlusterFS is an example of DFS that creates a distributed file system piecing together the storage capabilities available on all nodes</li></ul></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80f2-9f44-c855e287e7e8" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1fceea59-ca7a-8034-aaae-e4866dd2a0b2" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1fceea59-ca7a-8047-85e3-cc70c6664317" class="image"><a href="Cloud%20Storage/image%202.png"><img style="width:278.875px" src="Cloud%20Storage/image%202.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-801d-afa9-d1793c6364c1" class="bulleted-list"><li style="list-style-type:disc">similar to NFS → mount a volume, all is hidden from OS perspective</li></ul></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-805f-b624-e5e46a18c212" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="1fceea59-ca7a-80f8-afe7-dad1f877ed7c" class="">Cloud Storage</h1></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80b7-af92-e86fd7ea2e45" class="">Storage requirements of cloud computing platforms is different from the traditional computing model</p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80af-8613-fb22d5efefdf" class="bulleted-list"><li style="list-style-type:disc">Its main requirement is that the <mark class="highlight-blue">storage scales</mark>, i.e. it can scale with the amount of data that the platform has to store, for instance:<div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80dc-b712-e76061a7b97c" class="bulleted-list"><li style="list-style-type:circle">It scales with the number of VMs that the platform has to handle</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8076-bb36-c3230f183d60" class="bulleted-list"><li style="list-style-type:circle">It scales with the amount of data the data generated by different service, e.g. the object storage Swift</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80b7-9ce5-c9ac98f9c850" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-804f-9219-c75b516a0343" class="">Exploiting local hard drives in cloud computing platforms is feasible, the <mark class="highlight-teal">hypervisor creates virtual drives </mark>or volumes for the VMs on the local hard drive of the physical machine on which it is installed</p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8062-b73f-fb2d76a1d3e2" class="bulleted-list"><li style="list-style-type:disc">Such solution, however, is not scalable as it still has the limitations of the traditional computing model</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80b8-bd00-de5d24994456" class="bulleted-list"><li style="list-style-type:disc">cannot implement <mark class="highlight-orange">VM live migration</mark> → move dynamically from one compute node to another, while VM is still running<div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8098-89f3-e75ec634e70b" class="bulleted-list"><li style="list-style-type:circle">Live migration requires a shared storage, otherwise, it needs the VM to be shut off and the virtual hard drive to be moved from the local storage of a compute node to another with significant downtime</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h2 id="1fceea59-ca7a-80cd-a282-e33eb1d5eb26" class="">Storage Area Network</h2></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80c2-a764-d5b38e46aca7" class="">In order to overcome this limitation a Storage Area Network (SAN) can be introduced</p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8019-a459-c6eddf7f2277" class="bulleted-list"><li style="list-style-type:disc">A SAN is a high-speed network (fiber channels) of specific high-capacity storage devices (different from regular servers)</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80b6-8575-d16da51c1e07" class="bulleted-list"><li style="list-style-type:disc">those devices are connected to the nodes of the servers, to provide block level storage</li></ul></div><div style="display:contents" dir="ltr"><figure id="1fceea59-ca7a-803d-ab3d-ea9e8a452f71" class="image"><a href="Cloud%20Storage/image%203.png"><img style="width:336px" src="Cloud%20Storage/image%203.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80c1-bdbd-d6d9b73d5a2a" class="">Ad hoc protocols are introduced for the communication between servers and storage devices</p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8035-95fb-d91784cbba1b" class="bulleted-list"><li style="list-style-type:disc">one of them is the <mark class="highlight-orange">iSCSI </mark>protocol, an IP based storage networking standard for linking data storage facilities, which provides block-level access to storage devices by carrying SCSI commands over a TCP/IP network</li></ul></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80b8-bf26-e40257dbd8d1" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-801a-908f-fc7dede15fc3" class="">SANs require ad-hoc hardware solutions that are complex and expensive</p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80ce-b35a-e75313b37189" class="bulleted-list"><li style="list-style-type:disc">For these reasons not all cloud deployments can justify them</li></ul></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-805a-86f9-cf2483f7c781" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1fceea59-ca7a-80ce-90f5-f156a2ab907b" class="">Distributed Storage Systems - Ceph</h2></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80ea-a2c6-c1f65d4fe7d7" class="">SANs are too expensive → new solutions based on DFS, that could run on general-purpose commodity hardware</p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8034-b36c-c7f19bf4941c" class="bulleted-list"><li style="list-style-type:disc">It can be installed on regular servers to create a distributed storage system (a <mark class="highlight-orange">Ceph cluster</mark>) in which the capacity of all the hard drives of all the servers is made available</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8069-8f5e-d530537a816b" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Ceph offers different storage types:</mark> object storage, block storage and file system storage</li></ul></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80d7-837b-c5a2a9630d86" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8034-a2e1-f0709dde310a" class="">A Ceph storage cluster is made up of several different software services (independently from each other)</p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8026-934e-f312790f1143" class="bulleted-list"><li style="list-style-type:disc">Clients (i.e. applications or cloud services) interact with one of such components depending on the required storage service type</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80bb-9253-dca712ca72b7" class="bulleted-list"><li style="list-style-type:disc">At the core of Ceph we have <mark class="highlight-orange">RADOS</mark> (Reliable Autonomic Distributed Object Store)</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-809e-b15a-de4c18326776" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Everything in Ceph is stored in the form of </mark><mark class="highlight-teal"><mark class="highlight-pink_background">objects</mark></mark>. Other storage types are created on top of this basic object storage</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8084-9a2e-e5637c30cf1e" class="bulleted-list"><li style="list-style-type:disc">The RADOS layer makes sure that data always remains in a consistent state and is <mark class="highlight-teal">reliable</mark>. For<mark class="highlight-teal"> data consistency</mark>, it performs data replication, failure detection, and  recovery, as well as data migration and rebalancing across cluster nodes</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80f8-8f75-f23128828ca0" class="bulleted-list"><li style="list-style-type:disc">Applications that want to access to the object storage service interacts with RADOS via <mark class="highlight-orange">LIBRADOS</mark>, a library that offers a native interface to RADOS available for different programming languages</li></ul></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80c2-bbf9-f1df2c3c6ed4" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80e3-8c5a-e2257f1a6049" class="">Over LIBRADOS additional services are created in order to achive other types of storage:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-8025-95bc-cca24e8bf592" class="numbered-list" start="1"><li>Ceph Block Device → block storage, that can be mounted just like any other disk</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-802a-90ce-ecfbf06b5860" class="numbered-list" start="2"><li>Ceph File System → offers a POSIX-compliant, distributed filesystem of any size.</li></ol></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8071-9562-e1c217651abc" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-801a-a832-f4ce4c21aa72" class="">The RADOS layer functionalities (reliability, no single point of failure, high availability) are implemented in a distributed manner by the services OSD and MON</p></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-8057-8c91-fec72015fd96" class="numbered-list" start="1"><li><mark class="highlight-blue">OSD</mark>, Ceph Object Storage Device, it takes care of storing the actual data on the<br/>physical hard disk drives of each node in the cluster handling single I/O operations on the disks. <div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-805c-bdba-edd2eccd6f6b" class="bulleted-list"><li style="list-style-type:disc">Usually, for each physical hard drive a different OSD instance is created.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-804a-9161-c6ded4013477" class="numbered-list" start="2"><li><mark class="highlight-blue">MON</mark>, Ceph monitor, is responsible for monitoring the health of the entire cluster. These monitor services maintain the cluster state and store critical cluster information (both status and configuration). <div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80e4-a3dc-ccbc4870016f" class="bulleted-list"><li style="list-style-type:disc">A set of MON instances is deployed in order to ensure fault tolerance</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8005-9bdd-ec966033e3d2" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8074-8937-ddbae0bfe08d" class="">A Ceph object comprises data and metadata components that are bundled together and provided with a globally unique identifier</p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80ad-87ea-e04a535557c8" class="bulleted-list"><li style="list-style-type:disc">Unlike file-based storage, where files are limited by size, objects can be of enormous size along with variable-sized metadata</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-802d-b5b1-d430e2770708" class="bulleted-list"><li style="list-style-type:disc">Objects are stored in Object-based Storage Device (OSDs) in a replicated fashion, which provide high availability</li></ul></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8077-8f45-f9c9962e4632" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8039-9188-c434f1ae3e4f" class="">Ceph Clients and Ceph OSDs both use the <mark class="highlight-orange">CRUSH algorithm</mark> to efficiently compute information about<mark class="highlight-blue"> </mark><mark class="highlight-teal">object location</mark></p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8000-8467-efa938aca799" class="bulleted-list"><li style="list-style-type:disc">CRUSH provides a better data management mechanism compared to older approaches, and <mark class="highlight-teal">enables massive scale</mark> by cleanly distributing the work to all the clients and OSD daemons in the cluster</li></ul></div><div style="display:contents" dir="auto"><p id="203eea59-ca7a-80b3-b36f-d5c18e990099" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8097-9715-f54272273c45" class="">The status of the cluster is represented through a<mark class="highlight-orange"> Cluster Map </mark>(snapshot of all the cluster, must be distributed)</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80d9-b8c7-d87eb7abb180" class=""><mark class="highlight-pink_background">The Map can be retrieved from any MON instance</mark> includes the following information:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-8081-870a-ea1572825cfd" class="numbered-list" start="1"><li>The Monitor Map→ Keeps track of the <strong>MON daemons</strong>, and their status</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-80ee-ba28-c2674a819f12" class="numbered-list" start="2"><li>The OSD Map → contains replica sizes, the list of OSDs and their status (e.g., up, in)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-803a-9098-dfaab9125128" class="numbered-list" start="3"><li>The PG Map contains the details on each <mark class="highlight-teal">placement group </mark>such as the PG ID, the Up Set, the Acting Set, the state of the PG (e.g., active + clean)<div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8051-beaf-e899c0e3a26f" class="bulleted-list"><li style="list-style-type:disc">A placement group determines the actual OSD (and consequently the physical hard drive) on which an object is saved</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8090-b155-e0b4b6be5092" class="bulleted-list"><li style="list-style-type:disc">A <strong>Placement Group</strong> acts like a “bucket” that contains many objects.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-801d-b16f-d1973c095e6b" class="numbered-list" start="4"><li>The Cluster Map contains a list of storage devices (e.g., device, host, rack, row, room, etc.), and rules for traversing the hierarchy when storing data</li></ol></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8017-80dd-f41f93b3a78f" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8089-b183-f5c33fb082fa" class=""><mark class="highlight-pink_background">Data Placement Pipeline</mark></p></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-8076-a436-ea3e5a21a316" class="numbered-list" start="1"><li>Before Ceph Clients can read or write data, they must contact a Ceph Monitor to obtain the most recent copy of the cluster map</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-807d-aa6e-da96a76e9eb7" class="numbered-list" start="2"><li>Then, the client first derives the placement group by applying a hash function to the object ID</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-8009-a9ba-f472b9e64802" class="numbered-list" start="3"><li>In order to compute the actual OSDs to save the objects the CRUSH algorithm is executed to translate the placement group on the list of OSDs based on the cluster state</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-805c-9371-f3553c25de8f" class="numbered-list" start="4"><li>The result is a list of ordered OSDs, a primary OSD and a set of secondary OSDs that store the object (primary OSD) and its replicas (secondary OSDs)</li></ol></div><div style="display:contents" dir="ltr"><figure id="1fceea59-ca7a-8025-b7d4-c3b66406963a" class="image"><a href="Cloud%20Storage/image%204.png"><img style="width:605.7750244140625px" src="Cloud%20Storage/image%204.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8097-b8f4-ce33f2bc8f9d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-806a-bb1b-e502ba5eb42e" class=""><mark class="highlight-pink_background">Data Replication</mark></p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-803c-9403-f3a6c79c68f4" class="bulleted-list"><li style="list-style-type:disc">The client writes the object to the identified placement group in the primary OSD</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-807e-b328-cc659f95265c" class="bulleted-list"><li style="list-style-type:disc">Then, the primary OSD with its own copy of the CRUSH map identifies the secondary and tertiary OSDs for replication purposes</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80b3-a6c6-eef9694a317a" class="bulleted-list"><li style="list-style-type:disc">After that it replicates the object to the appropriate placement groups in the secondary and tertiary OSDs (as many OSDs as additional replicas)</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80b7-8138-c8adaa4b747e" class="bulleted-list"><li style="list-style-type:disc">Eventually it responds to the client once it has confirmed the object is stored successfully</li></ul></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

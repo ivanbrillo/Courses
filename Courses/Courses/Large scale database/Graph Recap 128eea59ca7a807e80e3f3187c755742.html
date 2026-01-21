@@ -1,0 +1,722 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Graph Recap</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="128eea59-ca7a-807e-80e3-f3187c755742" class="page sans"><header><h1 class="page-title" dir="auto">Graph Recap</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="128eea59-ca7a-805b-8b80-c6fb93df9e7d" class="">A <mark class="highlight-orange">vertex</mark> can represent any instance of an entity that may have a relation with another instance of the same entity or of a different entity.</p></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-8058-b85c-c9161fef8d5e" class="">A <mark class="highlight-orange">Weight</mark> is a commonly used property of an <mark class="highlight-orange">edge</mark> (strenght of the relationship, eg. distance).</p></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-802d-9273-ed15cf40d2ef" class="bulleted-list"><li style="list-style-type:disc">Directed or not depends on the type of relations we want to modellize (eg city distances)</li></ul></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-8048-b43c-ea9c40475b00" class="">
+</p></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-8066-b801-ceae1d2ca98c" class="">A <mark class="highlight-orange">path</mark> through a graph is a set of vertices along with the edges between those vertices.</p></div><div style="display:contents" dir="auto"><div id="128eea59-ca7a-80f6-aefa-feb49090d3fe" class="column-list"><div style="display:contents" dir="auto"><div id="128eea59-ca7a-80de-9aa9-f61e84126503" style="width:75%" class="column"><div style="display:contents" dir="auto"><p id="128eea59-ca7a-80eb-b0db-e408adddac8e" class="">A <mark class="highlight-orange">loops</mark> represents a relation that a vertex has with itself. Proteins, for example, may interacts with proteins of the same type.</p></div><div style="display:contents" dir="auto"><p id="17feea59-ca7a-80ba-813e-e3b26293f0a4" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="128eea59-ca7a-8065-8d00-e82f2746d994" style="width:24.999999999999993%" class="column"><div style="display:contents" dir="ltr"><figure id="128eea59-ca7a-801b-996e-cc7b0f3286c2" class="image"><a href="Graph%20Recap/image.png"><img style="width:229.125px" src="Graph%20Recap/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-8069-96fb-ca7caa0a529f" class=""><mark class="highlight-orange">Graph traversal</mark> is the process of visiting all vertices in a graph.</p></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-80c3-8924-fa6ea252de43" class="bulleted-list"><li style="list-style-type:disc">carried out is some way, maybe to reduce the cost</li></ul></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-8036-9897-de6837532096" class="">
+</p></div><div style="display:contents" dir="auto"><div id="128eea59-ca7a-806c-b7d7-fb5b70bbeba4" class="column-list"><div style="display:contents" dir="auto"><div id="128eea59-ca7a-8020-bd2f-d8170c6b3794" style="width:68.75%" class="column"><div style="display:contents" dir="auto"><p id="128eea59-ca7a-80d7-803a-d0a854518ced" class="">Two graphs are <mark class="highlight-orange">isomorphic</mark> if:</p></div><div style="display:contents" dir="auto"><ol type="1" id="128eea59-ca7a-8063-962e-cc761a06bae8" class="numbered-list" start="1"><li>for each vertex in the first graph, there is a corresponding vertex in the other graph</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="128eea59-ca7a-8089-adf6-f71ebaea390d" class="numbered-list" start="2"><li>for each edge between a pair of vertices in the first graph, there is a corresponding edge between the corresponding vertices of the other graph.</li></ol></div></div></div><div style="display:contents" dir="auto"><div id="128eea59-ca7a-805a-b3cf-c528d1494740" style="width:31.25%" class="column"><div style="display:contents" dir="ltr"><figure id="128eea59-ca7a-801f-9e61-c352c11629a9" class="image"><a href="Graph%20Recap/image%201.png"><img style="width:330.9875183105469px" src="Graph%20Recap/image%201.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-8057-beaf-d24b846326ce" class=""><mark class="highlight-orange">Order</mark>: the number of vertices</p></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-808e-bad1-eeff7080c6bb" class=""><mark class="highlight-orange">Size</mark>: the number of edges</p></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-801d-8b95-c87f0be4a589" class="">These two measures are very important to evaluate time and memory occupancy required to handle specific operations.</p></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-807f-bc8f-ddc2c763561b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-80d5-b167-cfbf8285425c" class=""><mark class="highlight-orange">Degree</mark>: is the number of edges linked to a vertex. It measures the <span style="border-bottom:0.05em solid">importance</span> of any given vertex in a graph.</p></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-80e0-a833-c851d4b8581e" class=""><mark class="highlight-orange">Closeness</mark>: is the measure of how far the vertex is from all others in the graph. It can be calculated, in a fully connected graph, as the reciprocal of the sum of the length of the shortest paths between the<br/>node and all other nodes in the graph.</p></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-8038-ae3d-ea24350c0237" class="bulleted-list"><li style="list-style-type:disc">It is useful to evaluate the <span style="border-bottom:0.05em solid">speed of information spreading in a network</span>, starting from a specific node.</li></ul></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-80b7-b15b-f2e7a5b3b442" class=""><mark class="highlight-orange">Betweenness</mark> is a measure of how much of a bottleneck a given vertex is.</p></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-802f-b310-da1329b6bdec" class="">
+</p></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-8046-84a7-c58346ec52f2" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="128eea59-ca7a-804d-b861-e50d4f3042d0" class="">Flow Networks</h1></div><div style="display:contents" dir="auto"><div id="128eea59-ca7a-80b8-b2cf-e68d473d4064" class="column-list"><div style="display:contents" dir="auto"><div id="128eea59-ca7a-8092-b854-f59949aeb019" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="128eea59-ca7a-80fc-939e-e25a55c12d86" class="">A flow network is a direct graph.</p></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-803e-b39d-c6a2c7e14925" class="bulleted-list"><li style="list-style-type:disc">It adopts capacitated edges.</li></ul></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-80ba-b6f5-fb9f4b7d0daf" class="bulleted-list"><li style="list-style-type:disc">Each vertex has a set of incoming and outcoming edges.</li></ul></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-80f1-be7f-c1e91e484a1a" class="bulleted-list"><li style="list-style-type:disc">In each vertex the sum of the capacities of incoming edges cannot be greater than the sum of the capacities of outcoming edges.</li></ul></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-80b1-9706-e71c0146e785" class="bulleted-list"><li style="list-style-type:disc">The unique exception to the previous rule regards the source and the sink nodes.</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="128eea59-ca7a-808c-9706-e7c95d5da7bf" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="128eea59-ca7a-808c-aa2a-f58ff7e28769" class="image"><a href="Graph%20Recap/image%202.png"><img style="width:330.9750061035156px" src="Graph%20Recap/image%202.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-80e5-bca2-c8a03f822c3a" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="128eea59-ca7a-8061-9ae5-c93f126fe2ff" class="">Bipartite Graph</h1></div><div style="display:contents" dir="auto"><div id="128eea59-ca7a-809c-bc31-d298f79b602e" class="column-list"><div style="display:contents" dir="auto"><div id="128eea59-ca7a-809a-a16b-f98dbaf343ff" style="width:62.5%" class="column"><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-804f-8d45-c6e913232111" class="bulleted-list"><li style="list-style-type:disc">There are two distinct sets of vertices.</li></ul></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-801a-b857-dbeb50492665" class="bulleted-list"><li style="list-style-type:disc">Each vertex is connected only with vertices of the other set.</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="128eea59-ca7a-8063-b28f-f452380887c1" style="width:37.5%" class="column"><div style="display:contents" dir="ltr"><figure id="128eea59-ca7a-801a-bd0c-f7b5f0e1be9e" class="image"><a href="Graph%20Recap/image%203.png"><img style="width:707.9625244140625px" src="Graph%20Recap/image%203.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><div id="128eea59-ca7a-805a-84d6-cade48f8a623" class="column-list"><div style="display:contents" dir="auto"><div id="128eea59-ca7a-8048-ac42-dc941e724c46" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-80f4-9ce5-d1de540980d1" class="bulleted-list"><li style="list-style-type:disc">It can be used for modeling relationships between students and teachers.</li></ul></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-8096-8bc3-ed2daf8012df" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="128eea59-ca7a-80d1-8dcf-da6ea0c85174" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="128eea59-ca7a-8085-b822-fd569a7ee8a0" class="image"><a href="Graph%20Recap/image%204.png"><img style="width:384px" src="Graph%20Recap/image%204.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h1 id="128eea59-ca7a-8022-9e32-c54597e02344" class="">Multigraph</h1></div><div style="display:contents" dir="auto"><div id="128eea59-ca7a-80cd-92b2-d1321554adf8" class="column-list"><div style="display:contents" dir="auto"><div id="128eea59-ca7a-8070-ba48-f4a63d6bf2a2" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-8082-b044-e6caaf49ac89" class="bulleted-list"><li style="list-style-type:disc">It is characterized by the presence of multiple edges between vertices.</li></ul></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-805e-9bfc-e876f01f1b33" class="bulleted-list"><li style="list-style-type:disc">Each edge can be equipped with different sets of properties.</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="128eea59-ca7a-8097-bd80-c43776644ef0" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="128eea59-ca7a-807d-9e44-d20df22c4a78" class="image"><a href="Graph%20Recap/image%205.png"><img style="width:330.9750061035156px" src="Graph%20Recap/image%205.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><div id="128eea59-ca7a-8073-86c8-e8ee7044a76e" class="column-list"><div style="display:contents" dir="auto"><div id="128eea59-ca7a-8026-b751-f04d2f7339a9" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-80bc-84df-e9e2bab87669" class="bulleted-list"><li style="list-style-type:disc">In the example above, each edge may represents a different way (by plane, by truck, etc.) to shipping item between the cities.</li></ul></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-802d-8062-d51cf6376599" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="128eea59-ca7a-80cf-8fa2-c43436cd7020" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="128eea59-ca7a-8086-9287-c4f9b40e23b4" class="image"><a href="Graph%20Recap/image%206.png"><img style="width:240px" src="Graph%20Recap/image%206.png"/></a><figcaption>Modeling Infectious Diseases</figcaption></figure></div></div></div></div></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

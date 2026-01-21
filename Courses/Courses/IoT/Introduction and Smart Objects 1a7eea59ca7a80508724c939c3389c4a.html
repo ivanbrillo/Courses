@@ -1,0 +1,734 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Introduction and Smart Objects</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1a7eea59-ca7a-8050-8724-c939c3389c4a" class="page sans"><header><h1 class="page-title" dir="auto">Introduction and Smart Objects</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="1a7eea59-ca7a-8082-b435-cac4a80ff8f9" class=""><mark class="highlight-brown">Smart Object</mark>: any real-world object empowered with</p></div><div style="display:contents" dir="auto"><ol type="1" id="1a7eea59-ca7a-80d4-b143-ca18e59bcd26" class="numbered-list" start="1"><li>Communication capabilities</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1a7eea59-ca7a-80de-91c9-d43a06765d06" class="numbered-list" start="2"><li>Computing capabilities</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1a7eea59-ca7a-8036-8778-cc61413db458" class="numbered-list" start="3"><li>Sensing/Actuating capabilities → physical word interaction</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1a7eea59-ca7a-8003-a195-d2d1b70645e2" class="numbered-list" start="4"><li>Power Source → battery-solar panel</li></ol></div><div style="display:contents" dir="auto"><p id="1a7eea59-ca7a-80d1-bc71-d34dda4eb7bd" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1a7eea59-ca7a-80a7-907e-dd2cdcf20670" class="column-list"><div style="display:contents" dir="auto"><div id="1a7eea59-ca7a-80a3-b036-e7ed11f74b01" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1a7eea59-ca7a-80ec-91bc-d4289a80b74d" class=""><mark class="highlight-brown">Instrumenting Device</mark>: low cost device embedded to the object, providing computing, power, communication and sensing/actuators.</p></div><div style="display:contents" dir="auto"><ul id="1a7eea59-ca7a-80d9-9bd6-c90a343ee18c" class="bulleted-list"><li style="list-style-type:disc">RFID readers</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1a7eea59-ca7a-8069-a10b-f226b2a85f9e" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1a7eea59-ca7a-80bc-8771-e987fde60cde" class="image"><a href="Introduction%20and%20Smart%20Objects/image.png"><img style="width:709.9431762695312px" src="Introduction%20and%20Smart%20Objects/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="205eea59-ca7a-8037-a9fb-e83b5c45c87b" class="">When you integrate an instrumenting device into a physical object, that object transforms into a smart object capable of interacting with its environment and other systems</p></div><div style="display:contents" dir="auto"><ul id="205eea59-ca7a-809a-9bec-fd303d70bb83" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Smartphones </mark>are instrumenting devices (lot of sensors)</li></ul></div><div style="display:contents" dir="auto"><div id="1adeea59-ca7a-8093-9d1a-d60e74f5edf5" class="column-list"><div style="display:contents" dir="auto"><div id="1adeea59-ca7a-8096-a5dd-f004c8e5028c" style="width:62.5%" class="column"><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-8013-b170-c9ead4c76c1c" class="">Not all necessary, in a RFID we need only memory and the communication module</p></div><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-8016-89c3-f2ceb75be409" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1adeea59-ca7a-8074-b3d1-d9d5c747ab6e" style="width:37.5%" class="column"><div style="display:contents" dir="ltr"><figure id="1adeea59-ca7a-80a0-9aa4-e01169b6af4d" class="image"><a href="Introduction%20and%20Smart%20Objects/image%201.png"><img style="width:378.9772644042969px" src="Introduction%20and%20Smart%20Objects/image%201.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1a7eea59-ca7a-805c-8cba-fc03c5775f8b" class="">Different smart objects can cooperate to perform a specific task with Wireless/Wired communication → <mark class="highlight-brown">Smart Object Network</mark></p></div><div style="display:contents" dir="auto"><p id="205eea59-ca7a-8098-b4b1-f9a900728d1b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1a7eea59-ca7a-807a-989a-e4a9a8d160d3" class=""><mark class="highlight-brown">Smart Environment</mark> → place where human activities are assisted and supported by ICT (information and communication technologies) via smart objects</p></div><div style="display:contents" dir="auto"><ul id="1a7eea59-ca7a-8054-b3e2-c4277348b2d2" class="bulleted-list"><li style="list-style-type:disc">most of the place where we live or spend time are smart, or can be made smart</li></ul></div><div style="display:contents" dir="auto"><ul id="1a7eea59-ca7a-80b3-b673-fdb8d10f40b9" class="bulleted-list"><li style="list-style-type:disc">smart home or buildings</li></ul></div><div style="display:contents" dir="auto"><p id="1a7eea59-ca7a-80af-9203-fdc83043773f" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1a7eea59-ca7a-8011-b11c-e707c8c1f0b4" class="">Buildings, Factories, Energy Plants are connected via a <mark class="highlight-brown">smart grid</mark>, exchanging power and data</p></div><div style="display:contents" dir="auto"><p id="1a7eea59-ca7a-8024-91c7-c749b7df4c2f" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1a7eea59-ca7a-8002-9c9d-fc092262dac5" class=""><mark class="highlight-brown">Smart Mobility</mark> → made of sensor deployed at the main entrance of the city, allows to take timely and appropriate decision (eg. semaphor)</p></div><div style="display:contents" dir="auto"><p id="1a7eea59-ca7a-8052-b78d-fa2325f7da89" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1a7eea59-ca7a-807b-8ebc-fcfa4bc467f9" class=""><mark class="highlight-brown">Smart Factory</mark> → Real-time networking of human beings, machines, and smart objects for intelligent factory management</p></div><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-806c-922f-ef017c8d2d61" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1adeea59-ca7a-8000-9a80-ea56dba0050b" class="">Digital Twins</h3></div><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-80f9-8cd5-df92e38e0332" class="">A DT is the digital replica of a real system. It has 3 parts:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1adeea59-ca7a-8042-9bac-e91a085dc5a9" class="numbered-list" start="1"><li>The physical system in the real space</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1adeea59-ca7a-80a7-897e-fd48dd3a8bf7" class="numbered-list" start="2"><li>the virtual copy in the cyberspace</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1adeea59-ca7a-80d1-89f9-cb20ec098f68" class="numbered-list" start="3"><li>the connections of data between the two</li></ol></div><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-806a-828d-c7dce682cbe2" class="">It improves control, mantainability and helps improving the efficency</p></div><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-80df-b480-fd9f026e114a" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1adeea59-ca7a-80c8-bce1-ef712ffecfc6" class="">Cyber-Physical System (CPS)</h3></div><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-8043-997e-f97db33f88b3" class="">Lots of smart sensor and actuators, wirelessly connected</p></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-803d-ac23-d1e8b35c1740" class="bulleted-list"><li style="list-style-type:disc">Unlike more traditional embedded system, a CPS is typically designed as a network of interacting elements with physical input and output instead of as standalone devices.</li></ul></div><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-8029-bb07-f1a6dfde351d" class="">There is a:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1adeea59-ca7a-8000-bd0c-cd5a67b55f06" class="numbered-list" start="1"><li>Real space (people, animals, vehicles, machines)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1adeea59-ca7a-804f-affe-d8731ba459cf" class="numbered-list" start="2"><li>Cyber space (hardware, software, algorithms, data) → receives data from the physical world, processes the received data and takes intelligent decisions that are communicated to actuators</li></ol></div><div style="display:contents" dir="ltr"><figure id="1adeea59-ca7a-80c9-a319-c23436b79d1e" class="image"><a href="Introduction%20and%20Smart%20Objects/image%202.png"><img style="width:432px" src="Introduction%20and%20Smart%20Objects/image%202.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="205eea59-ca7a-8049-b6dc-c115119a82b7" class="">
+</p></div><div style="display:contents" dir="auto"><p id="205eea59-ca7a-80c5-8c5c-fe8d29f0235d" class=""><mark class="highlight-pink_background">CPS is IoT?</mark> No because a CPS could be not connected to internet. Ex. robot with camera</p></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8008-b312-ffa7ac709135" class="bulleted-list"><li style="list-style-type:disc">but IoT is a CPS</li></ul></div><div style="display:contents" dir="auto"><ul id="205eea59-ca7a-805f-a165-c1b0d1054f92" class="bulleted-list"><li style="list-style-type:disc">IoT communicate with other devices via specific protocols via the internet</li></ul></div><div style="display:contents" dir="auto"><p id="205eea59-ca7a-80b0-a77e-ee00b90cabdf" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1adeea59-ca7a-8074-abcd-fe2e87243b23" class="column-list"><div style="display:contents" dir="auto"><div id="1adeea59-ca7a-804e-97cc-eba46d65d344" style="width:75%" class="column"><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-80f7-ae95-db934b80803c" class=""><strong>Reference architecute for IoT</strong></p></div><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-80af-9944-fe6d6b3c6914" class="">We have to remember that devices (black dots) have to save as much as possible energy (since the majority of them use battery).</p></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8098-a7ec-da9de35838f5" class="bulleted-list"><li style="list-style-type:disc">The <mark class="highlight-brown">backbone router </mark>is the device able to communicate with both the Internet and the LLN</li></ul></div><div style="display:contents" dir="auto"><p id="231eea59-ca7a-8055-961e-fd9f1c4a9981" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1adeea59-ca7a-8040-8625-e5af0c608dc1" style="width:24.999999999999993%" class="column"><div style="display:contents" dir="ltr"><figure id="1adeea59-ca7a-80ee-a511-eab797364343" class="image"><a href="Introduction%20and%20Smart%20Objects/image%203.png"><img style="width:331.984375px" src="Introduction%20and%20Smart%20Objects/image%203.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><div id="1adeea59-ca7a-80fd-9383-d23db2a594a8" class="column-list"><div style="display:contents" dir="auto"><div id="1adeea59-ca7a-8024-8ae6-ee91f9a46021" style="width:75%" class="column"><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-8051-9b50-d7e9f6f678f6" class=""><mark class="highlight-brown">IPv6 </mark>offers:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1adeea59-ca7a-80a9-87e4-ea09a111d9cf" class="numbered-list" start="1"><li><mark class="highlight-blue">Interoperability</mark>: independece of underlying technologies (MAC layer)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1adeea59-ca7a-80e9-964a-f7e3c1fb399c" class="numbered-list" start="2"><li><mark class="highlight-blue">Scalability</mark>: unique adressing and self configuration<div style="display:contents" dir="auto"><ul id="205eea59-ca7a-800a-9739-dddecce46963" class="bulleted-list"><li style="list-style-type:disc">lot of addresses</li></ul></div><div style="display:contents" dir="auto"><ul id="205eea59-ca7a-80ed-b945-dc140eb00e42" class="bulleted-list"><li style="list-style-type:disc">no DHCP needed → auto configuration</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1adeea59-ca7a-80f4-93c5-d381b850a582" class="numbered-list" start="3"><li><mark class="highlight-blue">End-to-End</mark>: no multi-protocol intermediate gateways that have security holes and are expensive<div style="display:contents" dir="auto"><ul id="205eea59-ca7a-8073-b2f5-eb3fff3d4174" class="bulleted-list"><li style="list-style-type:disc">no NAT protocol needed anymore as IPv4</li></ul></div></li></ol></div></div></div><div style="display:contents" dir="auto"><div id="1adeea59-ca7a-807e-b86a-ed637cf8ef11" style="width:25%" class="column"><div style="display:contents" dir="ltr"><figure id="1adeea59-ca7a-802a-9086-c2898006bd2b" class="image"><a href="Introduction%20and%20Smart%20Objects/image%204.png"><img style="width:207.484375px" src="Introduction%20and%20Smart%20Objects/image%204.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h2 id="1adeea59-ca7a-8027-996d-d210e477ba5f" class="">IoT protocol defined by IETF </h2></div><div style="display:contents" dir="auto"><div id="1adeea59-ca7a-8026-8e98-feff801df4f6" class="column-list"><div style="display:contents" dir="auto"><div id="1adeea59-ca7a-80ae-99dd-f9647a62e8f7" style="width:75%" class="column"><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-803e-a83e-c478032801a6" class="">Protocols that have been chosen by the IETF (Internet Engineering Task Force) to enable communication between constrained devices in IoT systems.</p></div><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-80f7-b344-c429834604ba" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1adeea59-ca7a-80b5-828c-ed94d6693349" style="width:25%" class="column"><div style="display:contents" dir="ltr"><figure id="1adeea59-ca7a-80d7-8326-c1bd836fb805" class="image"><a href="Introduction%20and%20Smart%20Objects/image%205.png"><img style="width:331.984375px" src="Introduction%20and%20Smart%20Objects/image%205.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8099-86e5-dd53033479c8" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Data Link layer</mark>: the IETF assumes the IEE 802.15.4 MAC protocol, which has been designed for low-power communications. <div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-80b6-bdce-ebe09bfda5eb" class="bulleted-list"><li style="list-style-type:circle">Small frames, the max payload is 127 bytes.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8068-9eb3-e8208c7e673d" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Adaptation Layer</mark> to allow the transmission of IPv6 datagram on a IEEE 802.15.4 frame → <mark class="highlight-brown">6LowPAN</mark><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8023-91a1-cc627bdd3bc8" class="bulleted-list"><li style="list-style-type:circle">Not present in the default architecture, because IPv6 <mark class="highlight-teal">minimum len</mark> is 1280 bytes</li></ul></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-80e7-9837-c27bd6673f80" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">compress/translate the IPv6 header</mark> (since the max payload is 127 bytes, we want to compress to the max possible)</li></ul></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8047-b863-ea3bd7b3b5a7" class="bulleted-list"><li style="list-style-type:circle">how <mark class="highlight-teal">fragmentation </mark>can be performed (IPv6 standard payload is 65.535 byte).</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-80e9-aa92-c2a93d7b2d1f" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Network layer</mark>: IPv6 in order to have a protocol that guarantees interoperability, scalability and QoS.</li></ul></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-80c0-898f-f2773de019d1" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Transport layer</mark>: UDP, because TCP it requires a lot of resources (like memory and computational complexity)</li></ul></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8050-b962-e3d377497300" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Application layer</mark>: The Constrained Application Protocol (<mark class="highlight-brown">CoAP</mark>) fulfill IoT devices needs. It’s a simplified version of HTTP with specific features for the IoT (since they have lack of resources to use HTTP) → less memory usages then HTTP<div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-808a-8fa6-c7ca3ae79433" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-brown">RPL </mark>instead is the Routing Protocol for multi-hop communication. It collects  information on the network topology, computes the multi-hop routes and populates the routing tables of each node.</li></ul></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-805a-99a3-c793b9466a1c" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">Multihop </mark>is used since the trasmission range of devices is limited (low power)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-8053-be49-c4de3d461c9e" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1adeea59-ca7a-801b-afdb-fba00a361df3" class="">C2TC Cloud to things continuum</h3></div><div style="display:contents" dir="auto"><p id="205eea59-ca7a-8016-89bb-c4389e6f06c4" class="">The <strong>C2TC continuum</strong> represents the seamless integration of computing resources from centralized cloud infrastructure to distributed edge devices and IoT endpoints. Three key layers:</p></div><div style="display:contents" dir="auto"><ol type="1" id="205eea59-ca7a-80bc-b807-dcf9e7ea610e" class="numbered-list" start="1"><li><mark class="highlight-blue"><strong>Cloud computing</strong></mark> handles computationally intensive tasks that require significant processing power and storage, leveraging centralized data centers for heavy workloads.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="205eea59-ca7a-80c0-adff-c81710af3427" class="numbered-list" start="2"><li><mark class="highlight-blue"><strong>Edge computing</strong></mark><mark class="highlight-blue"> </mark>provides low-latency support for delay-sensitive applications by processing data closer to its source, enhancing privacy and security while reducing data transfer requirements.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="205eea59-ca7a-80bc-bc7a-eae1553efc49" class="numbered-list" start="3"><li><mark class="highlight-blue"><strong>AIoT </strong></mark><strong>(Artificial Intelligence of Things)</strong> extends AI capabilities throughout the entire continuum, enabling intelligent decision-making not just at centralized locations but distributed across edge devices and IoT sensors for real-time, context-aware responses.</li></ol></div><div style="display:contents" dir="auto"><p id="205eea59-ca7a-80ad-8018-e586cbf8d0c0" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1adeea59-ca7a-80d6-b236-da6ac33799fa" class="">Sustainability</h3></div><div style="display:contents" dir="auto"><ol type="1" id="205eea59-ca7a-8096-9fb5-f330ff641c82" class="numbered-list" start="1"><li><mark class="highlight-blue">Batteryless IoT</mark> → collect energy from external sources<div style="display:contents" dir="auto"><ul id="205eea59-ca7a-8093-8e0b-f07eaea56fab" class="bulleted-list"><li style="list-style-type:disc">Coordination of a network of batteryless devices not trivial since they could be <mark class="highlight-teal">out of sync</mark> → generally doesn’t communicate with other nodes</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="205eea59-ca7a-808e-9d28-e35442b7d1ec" class="numbered-list" start="2"><li><mark class="highlight-blue">Energy-Aware Task Offloading  </mark>→ algorithms that dynamically decide where process tasks (cloud, edge, or device) based on energy consumption and latency requirements</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="205eea59-ca7a-80d8-acee-c452633d658e" class="numbered-list" start="3"><li><mark class="highlight-blue">Energy-Aware Resource Allocation </mark>→ algorithms that prioritize energy efficiency, such as <mark class="highlight-teal">scaling down </mark>resource usage during low-demand periods</li></ol></div><div style="display:contents" dir="auto"><h1 id="21aeea59-ca7a-8020-82ba-c15afef938f3" class="">Smart Objects</h1></div><div style="display:contents" dir="auto"><ol type="1" id="1adeea59-ca7a-802d-9ead-d54627b1d836" class="numbered-list" start="1"><li><mark class="highlight-orange">Passive sensors</mark> are sensors that stores some information, reachable by some readers. They don’t need any source power<div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8030-8778-f16cc67d62e7" class="bulleted-list"><li style="list-style-type:disc">RFID (to identify an object) or QR-code</li></ul></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-80b7-a29c-e4c248b78da3" class="bulleted-list"><li style="list-style-type:disc">Library infos, ticketing, animal tagging, augmented reality in smart city (points of interests), …</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1adeea59-ca7a-8048-b8e6-e26608f6404c" class="numbered-list" start="2"><li><mark class="highlight-orange">Semi-passive sensors</mark>, also called data loggers, they need limited amount of energy and memory to measure and store some physical information, so they are powered by a battery<div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-80ff-bce2-c2d7da7b0563" class="bulleted-list"><li style="list-style-type:disc">No need for communication</li></ul></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8047-a123-fed89d050188" class="bulleted-list"><li style="list-style-type:disc">temperature monitoring, shock tracking</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><div id="205eea59-ca7a-804b-b823-e01c564b82f3" class="column-list"><div style="display:contents" dir="auto"><div id="205eea59-ca7a-801e-8d11-c3b0ad6481b4" style="width:75%" class="column"><div style="display:contents" dir="auto"><ol type="1" id="1adeea59-ca7a-805a-9026-fb00f2bf0114" class="numbered-list" start="3"><li><mark class="highlight-orange">Active sensors</mark>: sensors battery powered, with computational and communication capabilities<div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-80c2-96ed-daa2d9417c6c" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Beacons </mark>are hardware transmitters that emit periodic signals using <mark class="highlight-blue">Bluetooth Low Energy</mark> (BLE)<div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8077-9932-f71020e41ef2" class="bulleted-list"><li style="list-style-type:circle">Beacons enable devices to perform actions when in proximity based on the received signal (periodic)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8059-8bea-c04136bcdff5" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Sensor nodes</mark></li></ul></div></li></ol></div></div></div><div style="display:contents" dir="auto"><div id="205eea59-ca7a-80f7-9e7c-c727289cbf80" style="width:25.000000000000007%" class="column"><div style="display:contents" dir="ltr"><figure id="1adeea59-ca7a-80d8-b194-eb69a30ea990" class="image"><a href="Introduction%20and%20Smart%20Objects/image%206.png"><img style="width:240px" src="Introduction%20and%20Smart%20Objects/image%206.png"/></a><figcaption>beacon architecture → only trasmission</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="1adeea59-ca7a-808d-a9c8-c6dbc398a371" class="">Beacon for Advertisement messages (ADV)</h3></div><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-80ba-b739-ebec5dec65e2" class="">The ADV message is received by a smartphone and forwarded to a server</p></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-802f-8b7d-e33146975822" class="bulleted-list"><li style="list-style-type:disc">The server localizes the device (user) and sends appropriate information to the smartphone</li></ul></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-801e-a703-c1897fb1cada" class="bulleted-list"><li style="list-style-type:disc">Small packet trasmitetd at intervals → <mark class="highlight-teal">one way communication</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-80a9-8ece-f6dc3bbf9928" class="bulleted-list"><li style="list-style-type:disc">Can be used in localization in buildings, coupons delivered via becons to customer phone, locate museum artworks, indoor navigation</li></ul></div><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-80c1-b19e-ef3f1fae5c1d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-8008-8057-edcb3abc0ec7" class="">Lifetime up to 3 years with a single coin cell battery thanks to BLE</p></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-803d-8abd-cc5d70392a17" class="bulleted-list"><li style="list-style-type:disc">Traditional Bluetooth is better for more complex applications requiring consistent communication and higher throughput</li></ul></div><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-8037-9837-c15a2c405da5" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-8056-8bc3-d1531bbf366b" class="">Advertisement messages consist of four main pieces of information:</p></div><div style="display:contents" dir="auto"><div id="1adeea59-ca7a-808a-95f6-feb4c53c5953" class="column-list"><div style="display:contents" dir="auto"><div id="1adeea59-ca7a-809e-81a1-db5c0462670c" style="width:81.25%" class="column"><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8065-96ff-df347ad1136d" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">UUID </mark>(Universal Unique IDentifier):<mark class="highlight-teal"> 16 byte</mark> string used to differentiate a large group of related Beacons. <div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8032-bd34-cd1145b44abf" class="bulleted-list"><li style="list-style-type:circle">Typically represented with 32 hex digits</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8084-94d8-e4a45923f662" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Major</mark>:<mark class="highlight-teal"> 2-byte</mark> string distinguishing a subset of Beacons within the larger group</li></ul></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8062-8f02-ea124dc69ace" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Minor</mark>: <mark class="highlight-teal">2-byte</mark> string used to identify individual Beacons</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1adeea59-ca7a-80f0-b2f6-c6a0baad1503" style="width:18.750000000000007%" class="column"><div style="display:contents" dir="ltr"><figure id="1adeea59-ca7a-80cd-9f3c-c5c7c72a8ffd" class="image"><a href="Introduction%20and%20Smart%20Objects/image%207.png"><img style="width:373.991455078125px" src="Introduction%20and%20Smart%20Objects/image%207.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-80cc-9d87-c1f3ec04818b" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Tx Power</mark>: Used to <mark class="highlight-teal">determine the distance </mark>from the beacon.<div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8099-8795-ccc27fd4c4a8" class="bulleted-list"><li style="list-style-type:circle">TX power is defined as the strength of the signal at exactly 1 meter from the device.</li></ul></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-80e9-9756-edfb6921dff6" class="bulleted-list"><li style="list-style-type:circle">This has to be calibrated and hardcoded in advance.</li></ul></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-804e-afe2-c5aab58d308f" class="bulleted-list"><li style="list-style-type:circle">Devices can then use this as a baseline to give a rough distance estimate</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="1adeea59-ca7a-80cf-baa3-c5568b07c305" class="">Sensor Node architecture</h3></div><div style="display:contents" dir="auto"><div id="205eea59-ca7a-8071-a33b-fd0e42f72aeb" class="column-list"><div style="display:contents" dir="auto"><div id="205eea59-ca7a-80e6-bb24-e32bb3c673d4" style="width:43.75%" class="column"><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-80f1-8db9-ead9fed9d3e2" class="">They not only measure quantities, but also process them and are capable of transmitting the collected information.</p></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-80a8-b7d1-eed80e785624" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Reliability</mark>: Although an individual node may fail, we require long-lasting applications. We do not have an on field recovery mechanism, except for <mark class="highlight-teal">automatic rebooting</mark></li></ul></div></div></div><div style="display:contents" dir="auto"><div id="205eea59-ca7a-8069-b6fc-ea286c84b0bb" style="width:56.25%" class="column"><div style="display:contents" dir="ltr"><figure id="1adeea59-ca7a-80cc-9273-d678e6a0eac1" class="image"><a href="Introduction%20and%20Smart%20Objects/image%208.png"><img style="width:480px" src="Introduction%20and%20Smart%20Objects/image%208.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-80e4-b4f8-e77554b05f02" class="">Examples: the <mark class="highlight-orange">smartphone </mark>is a very special sensor node since it has a lot of sensors, but it’s easy to recharge so power management is not a big issue</p></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8055-9960-f7bd224a22ef" class="bulleted-list"><li style="list-style-type:disc">PCs, smartphones operate mainly based on <strong>user input</strong>, instead sensor nodes act based on <strong>external conditions</strong></li></ul></div><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-805c-b551-c9b35c3b9ed7" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="1adeea59-ca7a-80df-85a9-e1010e5b2ccc" class="">OS for Sensor Nodes</h1></div><div style="display:contents" dir="auto"><ol type="1" id="1adeea59-ca7a-8002-8170-e54e6b5d1473" class="numbered-list" start="1"><li><mark class="highlight-teal">Limited Resources</mark> (energy, communication, computational)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1adeea59-ca7a-80b6-a849-c71169b8ea53" class="numbered-list" start="2"><li>Activities driven by interaction with environment → message arrival, sensor acquisition that can be concurrent → needs to handle that</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1adeea59-ca7a-807b-ad2a-d603216ee05f" class="numbered-list" start="3"><li><mark class="highlight-teal">Over the air programming</mark></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1adeea59-ca7a-80ef-a043-f2ee0df1a9e6" class="numbered-list" start="4"><li>App may have soft realt time requirements</li></ol></div><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-807a-bd28-c15fc1f7fdc5" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1adeea59-ca7a-80cc-8378-fd0b44516a55" class="">TinyOS</h3></div><div style="display:contents" dir="auto"><div id="1adeea59-ca7a-8079-b790-d89bc440b2ea" class="column-list"><div style="display:contents" dir="auto"><div id="1adeea59-ca7a-80f8-91c1-d59f0b0953ee" style="width:62.5%" class="column"><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-809c-85f5-cab15f697c70" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Component </mark>based architecture <div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8068-9591-c7b945055af6" class="bulleted-list"><li style="list-style-type:circle">unused services are excluded from the application</li></ul></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8093-a6c7-c5a1a90f5de3" class="bulleted-list"><li style="list-style-type:circle">provide an abstraction (expose an <mark class="highlight-teal">interface</mark>) over the hardware to the programmer</li></ul></div><div style="display:contents" dir="auto"><ul id="205eea59-ca7a-8013-8aad-e9c4b5bdf092" class="bulleted-list"><li style="list-style-type:circle">Frames are the private variables of the component</li></ul></div></li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1adeea59-ca7a-80a2-8ab8-eddd3bbb6f81" style="width:37.49999999999999%" class="column"><div style="display:contents" dir="ltr"><figure id="1adeea59-ca7a-80f3-b7ad-e59f07fe3a40" class="image"><a href="Introduction%20and%20Smart%20Objects/image%209.png"><img style="width:333.9772644042969px" src="Introduction%20and%20Smart%20Objects/image%209.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8083-b859-e5ae419bc2fb" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Command </mark>is a service request to a component<div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-80fb-95d5-cb821bca4e9a" class="bulleted-list"><li style="list-style-type:circle">non-blocking</li></ul></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8031-a96d-d1f6a418c243" class="bulleted-list"><li style="list-style-type:circle">Rather than performing a computation immediately, commands and event handlers may post a <mark class="highlight-teal">task</mark>, a function <mark class="highlight-teal">executed by the TinyOS scheduler </mark>at a later time.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-80b7-8c48-f2271caa431a" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Tasks </mark>are an explicit entity in the language. A program submits a task to the scheduler for execution with the post operator<div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8066-8bb6-d011f9f3c330" class="bulleted-list"><li style="list-style-type:circle">The scheduler can execute tasks in any order, but must obey the <mark class="highlight-teal">run-to-completion rule</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8004-b832-c6d23914afc1" class="bulleted-list"><li style="list-style-type:circle">They are<mark class="highlight-pink_background"> </mark><mark class="highlight-teal"><mark class="highlight-pink_background">not pre-empted</mark></mark> by other task, but only by interrupts/messages</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8028-a8e4-d32ffdd914fb" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Event </mark>when a command is completed (message or interrupt)<div style="display:contents" dir="auto"><ul id="205eea59-ca7a-8072-ad26-e63cb7a27f40" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-orange">Event based concurrency</mark></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-80f1-b273-eff43d19e8f8" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-8048-8a79-e20a06d151a2" class="">It uses <mark class="highlight-orange">nesC </mark>language → extention to C that provides interfaces</p></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-808c-b7a3-edd64e8a4607" class="bulleted-list"><li style="list-style-type:disc">Provides also a simulator (TOSSIM) in order to simplify the code debugging phase</li></ul></div><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-80eb-8c1a-fcc3c373b894" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1adeea59-ca7a-80d5-8bc1-ffd9602d1003" class="">Contiki OS</h3></div><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-8000-9ba7-d4b6c5561858" class="">Specific for <mark class="highlight-teal">IoT</mark>, not for embedded OS</p></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-80f2-9e8b-e00222c8399a" class="bulleted-list"><li style="list-style-type:disc">event driven kernel</li></ul></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-80c5-879f-e0a0d34070df" class="bulleted-list"><li style="list-style-type:disc">portability</li></ul></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8033-b588-d69af4a07359" class="bulleted-list"><li style="list-style-type:disc">C language</li></ul></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-802f-ade7-d6ff864f2a7b" class="bulleted-list"><li style="list-style-type:disc">Dynamic loading and over-the-air programming</li></ul></div><div style="display:contents" dir="auto"><ul id="1adeea59-ca7a-8039-82a6-d076ab3fd181" class="bulleted-list"><li style="list-style-type:disc">low footprint</li></ul></div><div style="display:contents" dir="auto"><p id="1adeea59-ca7a-80a4-8746-f59e4d767c79" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,765 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Introduction to RT Systems</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2abeea59-ca7a-80e1-bba2-d1ad78117317" class="page sans"><header><h1 class="page-title" dir="auto">Introduction to RT Systems</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="2abeea59-ca7a-8030-8791-f0e87f0d6cee"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-806b-92e2-f38c159d1130" class="">The correct behavior of RT systems depends not only on the value of the computation but also on the time at which the results are produced.</p></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80ee-9af1-dc6750e864b1" class="bulleted-list"><li style="list-style-type:disc">A reaction that occurs too late could be useless or even dangerous</li></ul></div></div></figure></div><div style="display:contents" dir="ltr"><figure id="2abeea59-ca7a-80b9-af3c-c3a90164be34" class="image"><a href="Introduction%20to%20RT%20Systems/image.png"><img style="width:709.9573364257812px" src="Introduction%20to%20RT%20Systems/image.png"/></a><figcaption>if late is dangerous</figcaption></figure></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-8023-b551-df6a3334be32" class="">In many cases, the <mark class="highlight-teal">real-time computer </mark>running the application is <mark class="highlight-orange">embedded </mark>into the system to be controlled (embedded systems)</p></div><div style="display:contents" dir="auto"><p id="2eaeea59-ca7a-8009-b775-dec1bb5a5e5f" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2eaeea59-ca7a-8003-95e0-cb87d471df7b" class="">Most RT applications rely on empirical techniques (trial and error):</p></div><div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-804e-b80b-fefa564c7f7f" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Assembly </mark>Programming: used for the most critical sections of code to ensure maximum efficiency and control</li></ul></div><div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-807f-9df6-dd0bc540674e" class="bulleted-list"><li style="list-style-type:disc">Timing via <mark class="highlight-teal">Dedicated Hardware Timers </mark><mark class="highlight-default">instead of softwares</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-80c4-b5f5-c337cadeb80a" class="bulleted-list"><li style="list-style-type:disc">Control via <mark class="highlight-teal">Driver </mark>Programming<br/>    ◦ Execution is triggered by hardware events through <mark class="highlight-blue">Interrupt Service Routines</mark> (ISRs)<div style="display:contents" dir="auto"><ul id="2eceea59-ca7a-80eb-9e24-eb7e4de8aca2" class="bulleted-list"><li style="list-style-type:circle">The software doesn&#x27;t decide when to run, the <strong>hardware</strong> forces it to run</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-8083-8535-fe104fbf5f5f" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Priority Manipulation</mark> (Heuristic)<br/>    ◦ Priorities are manually adjusted or &quot;tweaked&quot; to force tasks to meet their deadlines</li></ul></div><div style="display:contents" dir="auto"><p id="2eaeea59-ca7a-8038-9ad8-da56ea0b0abb" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-8039-a2be-cf2c82cbc789" class=""><mark class="highlight-orange">Disadvantages</mark>:</p></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-80ad-a196-d085ada3305b" class="numbered-list" start="1"><li>Tedious programming which heavily depends on programmer’s ability</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-804f-a8a9-e945be1068db" class="numbered-list" start="2"><li>Time consuming</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-8096-a696-c6b3c487b752" class="numbered-list" start="3"><li>Difficult to understand  <mark class="highlight-teal">Readability ≈ 1/efficiency</mark></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-801d-8100-fedb68537c77" class="numbered-list" start="4"><li>Difficult software maintainability (understanding takes more that re-writing, that is error prone) </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-80de-b29e-fad6537063ec" class="numbered-list" start="5"><li>Difficult to verify timing constraints without explicit support from the OS and the language</li></ol></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-803b-b794-f112d34b2d21" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-803f-a4a2-ffc9c361e082" class=""><mark class="highlight-orange">Consequences</mark>:</p></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-80ec-b635-ce01cc98874f" class="numbered-list" start="1"><li>The code produced by empirical techniques can be highly <mark class="highlight-pink_background">unpredicatable</mark> (we cannot test in all possible ways)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-80c8-bd5b-fa1ba5c839c6" class="numbered-list" start="2"><li>Time constraints cannot be verified a priori → low reliability<div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-8009-a55e-d974929fe2ca" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Patriot system </mark>that uses ISR with disabled interrupt, and thus loosing some clock cycles in 100hours accumulated over 350ms of delay causing a miss </li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-804a-96fd-c7a1defa3e3b" class="">
+</p></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="2abeea59-ca7a-806b-97cb-f272c89a19e1"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-8074-8c46-f7febda2d0be" class=""><mark class="highlight-teal">Tests</mark>, although necessary, can provide only a partial verification of the software behavior, relative to the particular subset of data provided as input.</p></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-8081-9e94-d03a4f404576" class="bulleted-list"><li style="list-style-type:disc">A more robust guarantee of the performance of RT system can be achieved by using more sophisticated design methodologies, combined with <mark class="highlight-orange">Real Time Operating System – RTOS</mark></li></ul></div></div></figure></div><div style="display:contents" dir="auto"><p id="2eaeea59-ca7a-80e2-9a1b-f3c6fb304620" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2eaeea59-ca7a-8035-8d0c-fe5c2f05fde6" class=""><strong><span style="border-bottom:0.05em solid">RT System defintion</span></strong><strong>:</strong> A computing system where correctness depends not only on the logical output values but also on the <strong>time</strong> at which they are produced. </p></div><div style="display:contents" dir="auto"><div id="2eaeea59-ca7a-807e-ad78-c09458c28587" class="column-list"><div style="display:contents" dir="auto"><div id="2eaeea59-ca7a-8075-8b35-dbd13d84ee18" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-8040-bdcb-c581f1cfc83c" class="bulleted-list"><li style="list-style-type:disc">The system interacts with an environment, taking input <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">X(t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> and returning output <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo stretchy="false">(</mo><mi>t</mi><mo>+</mo><mi mathvariant="normal">Δ</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">Y(t+\Delta)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Δ</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span></li></ul></div></div></div><div style="display:contents" dir="auto"><div id="2eaeea59-ca7a-807c-94c5-c3e910f0ef18" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="2abeea59-ca7a-8011-ae33-fa1557e4aa98" class="image"><a href="Introduction%20to%20RT%20Systems/62f2e8ec-42b3-4827-a869-73e52a2a7b0b.png"><img style="width:432px" src="Introduction%20to%20RT%20Systems/62f2e8ec-42b3-4827-a869-73e52a2a7b0b.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-80d1-8746-cbd26e54de11" class="bulleted-list"><li style="list-style-type:disc">REAL implies the system time is synchronized with the environment&#x27;s flow <div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-8039-b75b-c2bc9f1a2c60" class="bulleted-list"><li style="list-style-type:circle">The system clock must be fast enough to detect and respond to changes. For example, a 2GHz system cannot serve a 5GHz environment</li></ul></div><div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-8092-a5ec-d4a1c22da534" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-pink_background">Real Time wrt the environment</mark></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-80c9-8369-ca012bb097b2" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-805d-a0bb-fcfcfb2ed6eb" class=""><mark class="highlight-teal">Objection</mark>: It is not worth to invest in RT theory, because computer speed is increasing exponentially, and all timing constraints can eventually be handled.<br/><mark class="highlight-teal">Answer</mark>: Given an arbitrary computer speed, we must always guarantee that timing constraints can be met. Testing is NOT sufficient.</p></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="2abeea59-ca7a-8008-b9d5-dfa7cf58c8c9"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-80fa-9cba-e8222f2f847f" class="">A real-time system is not a fast system.<br/>• Speed is always relative to a specific environment<br/>• Running faster is good, but does not guarantee a correct behavior</p></div></div></figure></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-80b6-bfae-f2830b510b64" class="">
+</p></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-809e-96ae-c294c43232e3" class="bulleted-list"><li style="list-style-type:disc">The<mark class="highlight-blue"> objective of a real-time system</mark> is to guarantee the timing behavior of each individual task<div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-802d-92c7-f34ea23b207b" class="numbered-list" start="1"><li>TDMA is suitable for RT system, meanwhile CSMA/CA no</li></ol></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-8065-87fb-d35543b11c32" class="bulleted-list"><li style="list-style-type:disc">The <mark class="highlight-blue">objective of a fast system</mark> is to minimize the average response time of a tasks set. This not guarantee that each task respects its temporal requirement</li></ul></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-8042-b188-d675f25b5b6c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-80a2-8653-e3284b574ad6" class="">An <mark class="highlight-orange">RTOS </mark>is an OS responsible for:</p></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-808c-bb52-dda10ee20d59" class="numbered-list" start="1"><li>Managing Tasks</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-808e-8ef0-cd528bb74406" class="numbered-list" start="2"><li>Managing <mark class="highlight-teal">concurrency</mark></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-8083-b9e4-f23274cfa1e9" class="numbered-list" start="3"><li>Activating periodic tasks at the beginning of each period (<mark class="highlight-teal">time management</mark>)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-8006-b0fa-c508b50f22a7" class="numbered-list" start="4"><li>Deciding the execution order of tasks (<mark class="highlight-teal">scheduling</mark>)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-80d6-8b91-ff461a727eb6" class="numbered-list" start="5"><li>Solving possible timing conflicts during the access of shared resources (<mark class="highlight-teal">mutual exclusion</mark>)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-8065-ab74-d39302fc14a3" class="numbered-list" start="6"><li>Manage the timely execution of asynchronous events (<mark class="highlight-teal">interrupt handling</mark>)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-80ae-9f8e-ec125dd56067" class="numbered-list" start="7"><li>It implements <mark class="highlight-pink_background">mechanism to guarantee the predictable execution of task with </mark><mark class="highlight-teal"><mark class="highlight-pink_background">real-time constraints</mark></mark></li></ol></div><div style="display:contents" dir="auto"><p id="2eceea59-ca7a-8087-bbd3-d7fd6d98f9da" class="">Handles differently the memory, scheduler, provides bounds and is more deterministic </p></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-80e4-bc38-fe7c2bc1f247" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-80f6-b683-c5d505f9b63d" class="">Example of RTOS:</p></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80dc-8cf6-eb91ebf00780" class="bulleted-list"><li style="list-style-type:disc">FreeRTOS</li></ul></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-8068-88e7-fcc5ba813eed" class="bulleted-list"><li style="list-style-type:disc">RT-Linux (RealTime Linux)</li></ul></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-8009-ae6b-c96099ad7737" class="bulleted-list"><li style="list-style-type:disc">Linux with scheduling SCHED_DEADLINE instead SCHED_FIFO</li></ul></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-8041-a0a2-de2705e59387" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-809a-a2e9-cc92eab3d719" class="">A <mark class="highlight-orange">real-time task</mark> is characterized by a <mark class="highlight-teal">deadline</mark>, which is the maximum time within which it must complete its execution</p></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-8010-97e4-c2ff4a128b94" class="bulleted-list"><li style="list-style-type:disc">In critical (real-time) applications, a result produced after the deadline is not only late but wrong.</li></ul></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80c0-b815-dba2e22febab" class="bulleted-list"><li style="list-style-type:disc">A non real-time has no deadline</li></ul></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-8015-9cc7-eeafa7a33250" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-80dc-a520-f2fe63a8dea0" class="">Classification (based on the implications of missing one):</p></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-802f-8961-d6c0f999454f" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Hard</mark>: A real-time task is said to be hard if producing the results after its deadline may cause catastrophic consequences on the system under control<div style="display:contents" dir="auto"><ul id="2eceea59-ca7a-80b2-98bd-c4a3454b6526" class="bulleted-list"><li style="list-style-type:circle">someone dies if airbags are not inflated</li></ul></div><div style="display:contents" dir="auto"><ul id="2eceea59-ca7a-809a-b305-d04ecc7f73af" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-pink_background">guaranteed offline</mark></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80ed-8236-fbcf44132d8d" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Firm</mark>: A real-time task is said to be firm if producing the results after its deadline is useless for the system, but does not cause any damage.<div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80d6-99f2-fb02c9a1182b" class="bulleted-list"><li style="list-style-type:circle">Common in <strong>multimedia and networked systems</strong>, where freshness matters more than completeness → e.g. <mark class="highlight-teal">packets</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="2eceea59-ca7a-8016-9671-ea045a51cf2b" class="bulleted-list"><li style="list-style-type:circle">guaranteed online</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80af-b093-fd7af3a0dfc8" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Soft</mark>: A real-time task is said to be soft if producing the results after its deadline has still some utility for the system, although causing a performance degradation<div style="display:contents" dir="auto"><ul id="2eceea59-ca7a-80eb-b7b8-f0bdc1c420f3" class="bulleted-list"><li style="list-style-type:circle">User interface commands processing</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-8019-8667-ed1078cdb905" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-805e-8a42-d73ef69c0cfa" class="">A real-time operating system that is able to handle hard real-time tasks is called a <mark class="highlight-orange">hard real-time system</mark></p></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80b7-81f7-e33e1e3252da" class="bulleted-list"><li style="list-style-type:disc">should guarantee all thre types of tasks with different strategies</li></ul></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-80fb-9650-e7bca06475e0" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-8010-8760-c623275025ee" class="numbered-list" start="1"><li><mark class="highlight-blue">Offline guarantees</mark> → check at compile time if the deadline can be met (statically)<div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80c2-bb7a-f01512c55e61" class="bulleted-list"><li style="list-style-type:disc">all hard tasks should be guarded in this way (e.g. airbags, detection of critical conditions, …)</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-8088-ac07-f6408c86995f" class="numbered-list" start="2"><li><mark class="highlight-blue">Online guarantees</mark> → checks while running if the new task can met the deadline<div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-809b-b7c4-f8f5c3eb01f7" class="bulleted-list"><li style="list-style-type:disc">Firm tasks should be guarded, aborting if the deadline cannot be met<div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-8089-8f8a-f289bf3e7e57" class="bulleted-list"><li style="list-style-type:circle">Tasks that <strong>should meet deadlines</strong>, but if they can’t, it&#x27;s better to <strong>skip the result</strong> rather than deliver it late.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-8088-a743-e631cf3df13d" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Soft tasks should be handled to minimize their average response time</mark><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-8056-bd3c-c299f5e07755" class="bulleted-list"><li style="list-style-type:circle">Tasks where <strong>delays are acceptable</strong>, since they mainly support <strong>user interaction or interface management</strong></li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-80bc-bf49-c9cc14af06d2" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="2abeea59-ca7a-801b-a443-ce5868cea208" class="">Predictability</h1></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-8057-8eed-efa992175e9b" class="">A hard real-time system should be <mark class="highlight-orange">predictable</mark></p></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-801a-b951-d731b4bcbe35" class="bulleted-list"><li style="list-style-type:disc">Based on the kernel features and on the information associated with each task, the system should be able to predict the evolution of the tasks and guarantee in advance that all critical timing constraints will be met</li></ul></div><div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-8029-9b97-fbf2ae8f71f9" class="bulleted-list"><li style="list-style-type:disc">The reliability of the prediction could be affected by a lot of factor, thus we can add a <mark class="highlight-teal">margin </mark>of 10% to the worst case execution time (<mark class="highlight-teal"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mtext>exe</mtext></msub></mrow><annotation encoding="application/x-tex">T_{\text{exe}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">exe</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span></mark>) <mark class="highlight-orange">WCET</mark><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-8098-9829-ebf8a7d5915c" class="bulleted-list"><li style="list-style-type:circle">To have the execution time I have to run different test with different possible input and pick the worst case of execution time of this task</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-8068-be9b-d8378ee7b70d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-8099-a928-fb8e21714d6a" class=""><mark class="highlight-orange_background">What limits predictability:</mark></p></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-8048-9d81-f3c23883b939" class="numbered-list" start="1"><li>Architectural hardware features like cache/DMA, brench predictor, …</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-8075-9ff9-f44b72ddf61c" class="numbered-list" start="2"><li>Policies adopted in kernels (semaphores)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-80a5-a258-f55ed0b9d5d8" class="numbered-list" start="3"><li>Programming styles and languages (e.g. Java and GC)</li></ol></div><div style="display:contents" dir="auto"><p id="2eceea59-ca7a-8008-a5a8-ccf0f6a6dcff" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="2eaeea59-ca7a-8076-83ad-ed57cc7296aa" class="">DMA</h2></div><div style="display:contents" dir="auto"><p id="2eaeea59-ca7a-80f9-a7f1-c4e0d3cfb292" class=""><mark class="highlight-orange"><strong>DMA</strong></mark><strong>:</strong> A technique allowing peripheral devices to transfer data directly to/from main memory to relieve the CPU of I/O control tasks</p></div><div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-8043-be19-c87cb5282727" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal"><strong>Cycle Stealing</strong></mark><strong>:</strong> The DMA controller &quot;steals&quot; a memory cycle to execute a data transfer</li></ul></div><div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-80b7-8aad-cbcb2b00319e" class="bulleted-list"><li style="list-style-type:disc">If both the CPU and DMA require a memory cycle simultaneously, the <mark class="highlight-teal"><strong>Arbiter</strong></mark><mark class="highlight-teal"> </mark>prioritizes the DMA. This is because incoming data is often RT and takes precedence to avoid data loss.</li></ul></div><div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-8008-b474-c25ab3a7a478" class="bulleted-list"><li style="list-style-type:disc">The CPU continues working if instructions/data are in the cache. However, if a cache miss occurs, the CPU must access main memory and is forced to wait for the DMA to finish.<div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-801a-a9b2-eac3372f1188" class="bulleted-list"><li style="list-style-type:circle">Since it is impossible to predict how many times the CPU will have to wait for the DMA during a task, <span style="border-bottom:0.05em solid">the response time cannot be precisely determined</span>.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="2eceea59-ca7a-8089-95b9-df0f941eaa40" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="2eaeea59-ca7a-8062-aa58-fe0f10b008d0" class=""><strong>Solutions</strong></h3></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-80f3-8de0-ce9e5f85f929" class="">In the <mark class="highlight-orange">memory time-slice method</mark>, each memory cycle is split into two adjacent time slots:</p></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80d6-a5e3-f67a34807ddb" class="bulleted-list"><li style="list-style-type:disc">one reserved for the CPU</li></ul></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-809a-8bc1-f05407e1133a" class="bulleted-list"><li style="list-style-type:disc">the other for the DMA device</li></ul></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-8066-9a1e-ff41bbb83574" class="">This solution is more expensive than cycle stealing but more predictable (no conflicts)</p></div><div style="display:contents" dir="auto"><p id="2eaeea59-ca7a-801d-bdf7-ea6e1f9e3a39" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2eaeea59-ca7a-80e4-a80e-f4883ee4a688" class=""><mark class="highlight-blue">Multi-Bus </mark>and <mark class="highlight-blue">Dual Port Memory</mark></p></div><div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-80e4-9c62-ea98a5ff6a46" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Dual Port Memory</mark>: Allows memory to be accessed through two distinct ports simultaneously, provided the accesses target <span style="border-bottom:0.05em solid">different memory blocks (</span><mark class="highlight-pink_background"><span style="border-bottom:0.05em solid">linker responsibility</span></mark><span style="border-bottom:0.05em solid">)</span>.<div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-806c-993c-c1fa49bc3271" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-blue">Double Buffering</mark>: A technique utilizing dual ports to overlap data transfer with computation (common in GPUs) [decouple consumer - producer]<div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-8029-844e-f5d609ce706d" class="bulleted-list"><li style="list-style-type:square">While data is being transferred into Block 2 by the DMA, the CPU processes the data already in Block 1, then change </li></ul></div><div style="display:contents" dir="ltr"><figure id="2eceea59-ca7a-8022-b899-dfc4fc1d2e3f" class="image" style="text-align:center"><a href="Introduction%20to%20RT%20Systems/image%201.png"><img style="width:432px" src="Introduction%20to%20RT%20Systems/image%201.png"/></a></figure></div></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-8030-b313-d90c9d8ae0e0" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Multi-Bus Architecture</mark>: The CPU utilizes dedicated buses for different tasks (DMA, I-BUS for instructions, D-BUS for data).<div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-800a-8bba-d5985ed108c8" class="bulleted-list"><li style="list-style-type:circle"><em>Parallelism:</em> The CPU can fetch an instruction from the I-BUS while simultaneously accessing data on the D-BUS.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="2eaeea59-ca7a-8055-a42d-f6f916d21991" class=""><em>Cons:</em> Significant increase in power consumption</p></div><div style="display:contents" dir="auto"><div id="2eaeea59-ca7a-80f8-b2b8-c22744ee6e6a" class="column-list"><div style="display:contents" dir="auto"><div id="2eaeea59-ca7a-808f-93d0-d466b309fa1e" style="width:56.25%" class="column"><div style="display:contents" dir="ltr"><figure id="2eaeea59-ca7a-801f-9052-e46585662b04" class="image"><a href="Introduction%20to%20RT%20Systems/image%202.png"><img style="width:384px" src="Introduction%20to%20RT%20Systems/image%202.png"/></a><figcaption>separate addresses between I and D in cache and memory</figcaption></figure></div></div></div><div style="display:contents" dir="auto"><div id="2eaeea59-ca7a-8081-a36c-f2a44dc3df79" style="width:43.75%" class="column"><div style="display:contents" dir="ltr"><figure id="2eaeea59-ca7a-809b-86f9-c2cc7a835234" class="image"><a href="Introduction%20to%20RT%20Systems/f92c3455-a812-42e3-b04c-693e9ed8dddb.png"><img style="width:308.82539682539687px" src="Introduction%20to%20RT%20Systems/f92c3455-a812-42e3-b04c-693e9ed8dddb.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><div id="2eaeea59-ca7a-80d6-9002-f87714e5c4b1" class="column-list"><div style="display:contents" dir="auto"><div id="2eaeea59-ca7a-80ea-8aac-e5618fda0bda" style="width:37.5%" class="column"><div style="display:contents" dir="auto"><p id="2eaeea59-ca7a-8007-b475-cd5f4339c180" class=""><mark class="highlight-orange"><strong>Bus Matrix in ARM Architecture</strong></mark>:<mark class="highlight-orange"><strong> </strong></mark>A complex interconnect system (crossbar <span style="border-bottom:0.05em solid">switch</span>) that allows multiple <mark class="highlight-blue"><strong>Masters</strong></mark><mark class="highlight-blue"> </mark>(components that initiate transfers) to communicate with multiple <mark class="highlight-blue"><strong>Slaves</strong></mark><mark class="highlight-blue"> </mark>(components that respond) simultaneously.</p></div><div style="display:contents" dir="auto"><p id="2eaeea59-ca7a-806c-8872-d0bd23c32e87" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="2eaeea59-ca7a-80c7-b70a-e2f0347e438a" style="width:62.5%" class="column"><div style="display:contents" dir="ltr"><figure id="2eaeea59-ca7a-80db-b561-c2b3ced612e7" class="image"><a href="Introduction%20to%20RT%20Systems/image%203.png"><img style="width:480px" src="Introduction%20to%20RT%20Systems/image%203.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-806b-bac9-e8c31189e7fe" class="bulleted-list"><li style="list-style-type:disc"><strong>Bus Types:</strong><div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-80e6-94d1-fe36b2adf04e" class="bulleted-list"><li style="list-style-type:circle"><strong>AHB (Advanced High-performance Bus):</strong> Used for high-speed components like the CPU, DMA, and main memory (SRAM/Flash)</li></ul></div><div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-803e-933f-fd07d06848b9" class="bulleted-list"><li style="list-style-type:circle"><strong>APB (Advanced Peripheral Bus):</strong> Used for slower peripherals (Timers, UART, GPIO)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-8033-8a0f-c3257c1ee62d" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal"><strong>Memory Banking</strong></mark><strong>: </strong>SRAM is often divided into distinct &quot;banks&quot; (e.g., 16KB or 32KB blocks).<div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-80a0-8da3-f18825c24173" class="bulleted-list"><li style="list-style-type:circle">This physically separates addresses, allowing the DMA to write to one bank while the CPU reads from another without stalling.</li></ul></div></li></ul></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="2abeea59-ca7a-8064-b006-cd8342675287"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-800d-8022-f7a8f2a96725" class="">Remember if I have a variable that can be modify from &quot;CPU&quot; and peripherals it&#x27;s important <mark class="highlight-blue">volatile</mark></p></div></div></figure></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-8000-9e09-d54624ab76d5" class="">
+</p></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80e1-a319-c73e3f0f8f21" class="bulleted-list"><li style="list-style-type:disc">If I have a variable <code>A</code> and, at the same time, the CPU wants to compute something else, the code and the variable <code>A</code> must reside in different memory banks. The <mark class="highlight-teal">linker </mark>performs this allocation automatically<div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-80eb-980a-e308e39ee9ac" class="bulleted-list"><li style="list-style-type:circle">Otherwise, we have to use double buffering, but is more costly<br/></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h2 id="2abeea59-ca7a-80ff-9a5a-e68d51a4b010" class="">Cache</h2></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-80fa-9bc3-fae338ea8c7e" class="">A cache is a small fast memory that holds copies of some of the contents of main memory</p></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-801e-a0d4-ee888450bb7b" class="bulleted-list"><li style="list-style-type:disc">needed for high performance systems</li></ul></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-801a-b978-d2526fd049ab" class="bulleted-list"><li style="list-style-type:disc">The cache speeds up average memory access time when properly used (<mark class="highlight-orange">working set</mark>)</li></ul></div><div style="display:contents" dir="auto"><ul id="2eceea59-ca7a-809c-976e-c075bcdfb838" class="bulleted-list"><li style="list-style-type:disc">Performance may degrades depending on the input data → problems with predictability</li></ul></div><div style="display:contents" dir="ltr"><figure id="2abeea59-ca7a-805e-a20f-c47d2ae711db" class="image"><a href="Introduction%20to%20RT%20Systems/image%204.png"><img style="width:480px" src="Introduction%20to%20RT%20Systems/image%204.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="2eceea59-ca7a-80ac-b00a-e403c5d6131f" class=""><strong>Solutions to unpredictability</strong></h3></div><div style="display:contents" dir="auto"><ol type="1" id="2eceea59-ca7a-804c-b66a-dde0f50b5e1a" class="numbered-list" start="1"><li>Cache is disabled </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2eceea59-ca7a-804b-9cc1-d988c2969344" class="numbered-list" start="2"><li>Execution time increased by a constant factor<div style="display:contents" dir="auto"><ul id="2eceea59-ca7a-803a-8561-dd3944989fda" class="bulleted-list"><li style="list-style-type:disc">just an approximation, I don’t know if I computed the worst case</li></ul></div><div style="display:contents" dir="auto"><ul id="2eceea59-ca7a-80ec-bbcc-f96093c08315" class="bulleted-list"><li style="list-style-type:disc">just for soft or firm RT tasks</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2eceea59-ca7a-80de-be4a-f4374140c275" class="numbered-list" start="3"><li>Consider every access as miss and compute the worst time</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-800a-a045-c58416ad83ee" class="numbered-list" start="4"><li>Use tools that estimate the number of miss/hit and produces a right estimate of WCET (worst-case execution time)</li></ol></div><div style="display:contents" dir="auto"><p id="2eceea59-ca7a-8071-b3e4-d96cd1359f37" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="2abeea59-ca7a-8041-a571-e5db671174eb" class="">Interrupts</h1></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-80d7-9b5b-f0417a8dbc0d" class="">The <mark class="highlight-orange">interrupt </mark>mechanism is utilized to manage efficiently I/O operations</p></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80b7-a846-d3943a73c2b5" class="bulleted-list"><li style="list-style-type:disc">Interrupts allow devices to signal the cpu and to force the execution of particular pieces of code (<mark class="highlight-blue">Interrupt handler routine</mark>, driver)<div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80e4-bfcf-ee68e2871ada" class="bulleted-list"><li style="list-style-type:circle">To get data from an I/O device, each task must <mark class="highlight-teal">enable </mark>the hardware to generate interrupts, wait for the interrupt, and read the data from a memory buffer shared with the driver</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80fd-bbe5-cb9467e7ad96" class="bulleted-list"><li style="list-style-type:disc">Is an alternative to busy waiting or DMA</li></ul></div><div style="display:contents" dir="auto"><div id="2eceea59-ca7a-8060-8175-f20779557149" class="column-list"><div style="display:contents" dir="auto"><div id="2eceea59-ca7a-809c-9b3a-d1f91b17502e" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-801c-8a09-dbf3df58d98d" class="bulleted-list"><li style="list-style-type:disc"><strong>Request (</strong><code><strong>intr request</strong></code><strong>):</strong> The Device sends this to the CPU to indicate an event has occurred.</li></ul></div><div style="display:contents" dir="auto"><p id="2eceea59-ca7a-806a-8446-d64f001c96bc" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="2eceea59-ca7a-8039-a8f4-f6426b725974" style="width:49.99999999999999%" class="column"><div style="display:contents" dir="ltr"><figure id="2eaeea59-ca7a-80bd-840e-cfd00e7f2a5b" class="image"><a href="Introduction%20to%20RT%20Systems/53e9ffb2-9309-4769-8dc6-415639d4d129.png"><img style="width:432px" src="Introduction%20to%20RT%20Systems/53e9ffb2-9309-4769-8dc6-415639d4d129.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-80a9-ae9c-e81f108e6318" class="bulleted-list"><li style="list-style-type:disc"><strong>Acknowledgement (</strong><code><strong>intr ack</strong></code><strong>):</strong> The CPU completes its current instruction (in the <strong>IR</strong>), saves its current location (from the <strong>PC</strong>), and sends this signal back to confirm it is ready</li></ul></div><div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-8060-b7e2-e8547afc679f" class="bulleted-list"><li style="list-style-type:disc"><strong>Data Transfer:</strong> The CPU interacts with the device via the <strong>data/address</strong> bus to service the request.</li></ul></div><div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-8036-a7a3-deae4bb42aa7" class="bulleted-list"><li style="list-style-type:disc"><strong>Key Registers:</strong><div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-8057-a0b6-ce178932ac04" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal"><strong>Status</strong></mark><strong> Register:</strong> The CPU reads this to understand <em>why</em> the interrupt happened</li></ul></div><div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-807e-bf0b-f4019860fc44" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal"><strong>Data </strong></mark><strong>Register:</strong> Holds the actual data being transferred to or from the CPU</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="2eceea59-ca7a-80c4-9eb4-ef0d2e34c949" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2eceea59-ca7a-8005-bad2-da023f7e09e1" class="">Since I don’t know how many times an interrupt may happen to a task I have a non-determinist component on the delay of a task (<mark class="highlight-pink_background">not the execution time, that is constant</mark>)</p></div><div style="display:contents" dir="auto"><p id="2eceea59-ca7a-80e7-82d9-df5f4cc9d1db" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-8023-a011-d94180ea536b" class="">In many operating systems, interrupts are served using a <mark class="highlight-blue">fixed priority scheme</mark></p></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80ef-8181-c5148ba1c84b" class="bulleted-list"><li style="list-style-type:disc">Each driver is scheduled based on a static priority, higher than process priorities</li></ul></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-8084-89f2-de615036a61b" class="bulleted-list"><li style="list-style-type:disc">This rule is motivated by the fact that interrupt handling routines usually deal with I/O devices that have real-time constraints, whereas most application programs do not</li></ul></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="2abeea59-ca7a-80a7-b904-d888a7a3ffc5"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-80c9-b0ac-e0adbe788d3f" class="">In real-time systems, this assumption could be not valid, because a control process could be more urgent than an interrupt handling routine</p></div><div style="display:contents" dir="auto"><ul id="2eaeea59-ca7a-80e1-91f1-edd7021d0409" class="bulleted-list"><li style="list-style-type:disc">Might have a high-criticality control process (&quot;Deploy Airbag&quot;) and a low-criticality interrupt (&quot;Radio Volume Knob turned&quot;)</li></ul></div></div></figure></div><div style="display:contents" dir="auto"><p id="2eceea59-ca7a-8016-b682-d7effe79b4b4" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="2abeea59-ca7a-80be-b970-e26da3921a43" class="">Solutions</h2></div><div style="display:contents" dir="auto"><h3 id="2abeea59-ca7a-801e-bf94-c56f6cfffbed" class="">Polling in user level</h3></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-8075-869b-d5d870c5d6ed" class="">All external interrupts are disabled, except the one from the timer (necessary for basic system operations) → we do not allow devices to trigger interrupts</p></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-800c-b24a-c090cd187342" class="bulleted-list"><li style="list-style-type:disc">all peripheral devices must be handled by the application tasks, thus <span style="border-bottom:0.05em solid">the polling’s cost is related to this task</span></li></ul></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80c0-8d64-ff880d32e549" class="bulleted-list"><li style="list-style-type:disc">they have direct access to the registers of the interfacing boards</li></ul></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-8031-bb07-c95a294d1e5d" class="bulleted-list"><li style="list-style-type:disc">data transfer takes place through polling</li></ul></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-809e-874d-d660157acbe7" class=""><mark class="highlight-teal">Advantages</mark>:</p></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-8016-af4b-d45806a5a6de" class="numbered-list" start="1"><li>The time needed for transferring data can be precisely evaluated and charged to the task that performs the operation (e.g. looking at the ADC datasheet)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-8036-a131-d16a3913b404" class="numbered-list" start="2"><li>The kernel does not need to be modified as the I/O devices are replaced or added</li></ol></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-8033-bd73-c105b519f6b6" class=""><mark class="highlight-teal">Disadvantage</mark>:</p></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-8036-bb65-c6bc36d4c27d" class="numbered-list" start="1"><li>Busy Wait</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-8084-8902-c3f6167ae4cd" class="numbered-list" start="2"><li>Application tasks must know all low-level details of the devices that they want to handle<div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-8088-af96-f9e65e453af0" class="bulleted-list"><li style="list-style-type:disc">However, this can be easily solved by encapsulating all device dependent routines in a set of library functions that can be called by the application tasks.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="2eaeea59-ca7a-80ad-9342-e57382484ab8" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="2abeea59-ca7a-80f5-9cb4-d00dc63c2809" class="">Polling in the kernel</h3></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-809d-bf7d-e68e07a2a701" class="bulleted-list"><li style="list-style-type:disc">All external interrupts are disabled, except the one from the timer</li></ul></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80a6-9ff9-eaac6d4ce6fc" class="bulleted-list"><li style="list-style-type:disc"><span style="border-bottom:0.05em solid">The devices are managed by dedicated kernel routines, periodically activated by the timer</span> → all the I/O operations are done via these tasks</li></ul></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80b0-b22b-e8ac9fd7b275" class="bulleted-list"><li style="list-style-type:disc">Their computational load can be computed once and for all and taken into account through a specific utilization factor</li></ul></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-80c1-a264-d47d122e5d36" class=""><mark class="highlight-teal">Advantages</mark>:</p></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-80af-a1ff-d67c88e01914" class="numbered-list" start="1"><li>The unbounded delays due to the execution of interrupt drivers are eliminated</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-8029-87df-c7b02aa41676" class="numbered-list" start="2"><li>Hardware details of the peripheral devices can be encapsulated into kernel procedures and do not need to be known to the application tasks</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2eceea59-ca7a-80e8-98ac-d8ae9a056388" class="numbered-list" start="3"><li>The data can be accessed by more than one task</li></ol></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-800a-a3fa-c9d84c876f4b" class=""><mark class="highlight-teal">Disadvantages</mark>:</p></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-807d-a93f-f1752a72a48d" class="numbered-list" start="1"><li>Busy wait</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-80d1-993e-e01f92f034b5" class="numbered-list" start="2"><li>Higher system overhead than A, due to the context switches between user and kernel modes</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-8019-9641-d4521ee00241" class="numbered-list" start="3"><li>The device handling routines are part of the kernel that needs to be modified if new peripheral are added or replaced</li></ol></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-80e2-af26-f3a4a5b7c308" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="2abeea59-ca7a-8047-810c-cbb8ee71fbd1" class=""><mark class="highlight-default">ISR with a server task</mark></h3></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80f1-8519-e79dc75f7d0b" class="bulleted-list"><li style="list-style-type:disc">All external interrupts <mark class="highlight-teal">enabled </mark>(so I/O can trigger them at any time)</li></ul></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-807f-9da8-c9ad20c45562" class="bulleted-list"><li style="list-style-type:disc">Drivers (<mark class="highlight-teal">ISR</mark>) have the smaller possible size → the only purpose of each driver is to activate a proper task that will do the work</li></ul></div><div style="display:contents" dir="auto"><div id="2eaeea59-ca7a-8059-80a5-d7ea5fef2ffd" class="column-list"><div style="display:contents" dir="auto"><div id="2eaeea59-ca7a-80bf-9885-eb17d389e13d" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80db-b1d5-f790a05cc0e8" class="bulleted-list"><li style="list-style-type:disc">The <mark class="highlight-blue">device manager task</mark> (the one triggered by the ISR) is guaranteed and scheduled like any other application task.</li></ul></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-803b-a24d-e88fb3f2e1f4" class="bulleted-list"><li style="list-style-type:disc">It may have temporal constraint depending on application requirements</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="2eaeea59-ca7a-804e-a66d-dbe206502139" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="2abeea59-ca7a-80d2-8375-c221e96b31aa" class="image"><a href="Introduction%20to%20RT%20Systems/image%205.png"><img style="width:432px" src="Introduction%20to%20RT%20Systems/image%205.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80d6-9447-f075d3c484bf" class="bulleted-list"><li style="list-style-type:disc">A control task can have a higher priority than a device handling task</li></ul></div><div style="display:contents" dir="auto"><p id="2eceea59-ca7a-807d-9c0c-e2085261a863" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-80df-a8ff-d1ab52bc754e" class=""><mark class="highlight-teal">Advantages</mark>:</p></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-80f3-b318-ccfea6dd7d7d" class="numbered-list" start="1"><li>busy wait during I/O operations are eliminated</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-80fa-aa55-ecd7aed00674" class="numbered-list" start="2"><li>the task execution times become more predictable, since everything is handled by normal tasks and not by driver</li></ol></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-801e-820a-c26d4fdfeb93" class=""><mark class="highlight-teal">Disadvantages</mark>:</p></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-80c6-986a-fbc90d6509f7" class="numbered-list" start="1"><li>A little unbounded overhead due to the execution of the small drivers <div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80fb-8eda-df1e66c72a5b" class="bulleted-list"><li style="list-style-type:disc">It should be taken into account in the guarantee mechanism.</li></ul></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-803f-af05-da15e4fbc90d" class="bulleted-list"><li style="list-style-type:disc">However, it can be neglected in most practical cases.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-8097-9c73-c7676de00081" class="">If I have data that are particularly important, then I could do directly pooling, instead of using the interrupt</p></div><div style="display:contents" dir="auto"><p id="2eceea59-ca7a-80f3-9ce6-ed725bf2b617" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="2abeea59-ca7a-8044-b307-c949e114f396" class="">System Calls</h2></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-8046-931b-da7c9441806b" class="">In order to precisely evaluate the worst-case execution time of each task, <mark class="highlight-teal_background">all kernel calls should be characterized by a bounded execution time</mark>.</p></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-8022-a06d-db0a1ee1866d" class="bulleted-list"><li style="list-style-type:disc">It is desirable that each kernel primitive should be <mark class="highlight-teal">preemptable </mark>(as much as possible) → interrupt enabled.<div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80b9-95cf-f579642925fb" class="bulleted-list"><li style="list-style-type:circle">In fact, any non-preemptable section could delay the activation or the execution of critical activities, causing a <mark class="highlight-teal">deadlines miss</mark></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h2 id="2abeea59-ca7a-803d-aa0c-f53fbdd2cb44" class="">Semaphores</h2></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-8067-aed3-d8ca3c5beaa7" class=""><mark class="highlight-teal">Mutual exclusion semaphore</mark> as implemented in traditional system can cause the <mark class="highlight-orange">priority inversion problem</mark></p></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-808c-9f9d-ffe2fb028deb" class="bulleted-list"><li style="list-style-type:disc">it introduces nondeterministic delays on the execution of critical tasks with higher priorities</li></ul></div><div style="display:contents" dir="auto"><ul id="2eceea59-ca7a-8052-9290-ef5c2b554ae6" class="bulleted-list"><li style="list-style-type:disc">Solutions: use specific alogirthms to avoid and bound waiting (e.g. priority inheritance)</li></ul></div><div style="display:contents" dir="auto"><h2 id="2eceea59-ca7a-80d7-a491-db792f910e08" class="">Memory Management</h2></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="2abeea59-ca7a-8061-a5ed-d62e868cefa2"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-80c9-9600-dbd539666d52" class=""><mark class="highlight-teal">TLB</mark>, as cache and DMA is not used in critical systems</p></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80de-b4f1-c701fbb2cfa2" class="bulleted-list"><li style="list-style-type:disc">We can fix the addresses on TLB and then it will become predictable</li></ul></div></div></figure></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-8070-95d0-dec00665821c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-809a-b86a-c49d906d13ab" class="">Also memory management techniques (<mark class="highlight-blue">virtual memory</mark>) must not introduce non-deterministic delays during the execution of real-time activities.</p></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-8010-8c5b-fde38fdc4baa" class="bulleted-list"><li style="list-style-type:disc">demand paging schemes are not suitable to real-time applications subject to rigid time constraints because of the large and unpredictable delays caused by <mark class="highlight-teal">page faults</mark> and <mark class="highlight-teal">page replacements</mark>.</li></ul></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-8095-b608-e196adbbac59" class="bulleted-list"><li style="list-style-type:disc">Typical solutions adopted in most real-time systems adhere to a <mark class="highlight-teal">memory segmentation </mark>or a <mark class="highlight-teal">static partitioning</mark> (FreeRTOS) rule with a fixed memory management scheme.<div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80e0-a827-cfc831edf435" class="bulleted-list"><li style="list-style-type:circle">Disadvantage: <mark class="highlight-blue">fragmentation</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-803a-ada6-f080461837dc" class="bulleted-list"><li style="list-style-type:circle">We cannot use <code>malloc()</code> , because it uses a <strong>complex algorithm </strong>to find free memory, that is not deterministic → instead we use primitives exposed by the RTOS</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h2 id="2abeea59-ca7a-809e-a712-cdf751d281ad" class="">Programming Languages</h2></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-801f-98e9-f4df273a3883" class="">In programming languages specific for real-time systems, specific statement have been added and different constructs have been eliminated to limit unpredictability:</p></div><div style="display:contents" dir="auto"><ul id="2edeea59-ca7a-8057-8884-c5c22ecdc20f" class="bulleted-list"><li style="list-style-type:disc">recursion limits the time analysis</li></ul></div><div style="display:contents" dir="auto"><ul id="2edeea59-ca7a-802a-8455-c8613bdbb2d1" class="bulleted-list"><li style="list-style-type:disc">dynamic structure have problems with the allocation of memory</li></ul></div><div style="display:contents" dir="auto"><ul id="2edeea59-ca7a-80ef-854b-fc9d42669649" class="bulleted-list"><li style="list-style-type:disc">only time bounded loops</li></ul></div><div style="display:contents" dir="auto"><p id="2edeea59-ca7a-80b5-8eb7-c75deb9d1237" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-80b1-95d0-e3696932346d" class="numbered-list" start="1"><li><span style="border-bottom:0.05em solid">Languages for Static RT System</span> → all tasks are scheduled at compilation time<div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80a7-998f-c56b9e677973" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Real-Time Euclid</mark> allows the classification of processes as periodic or aperiodic and provides statements for specifying activation time, period and deadlines</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2abeea59-ca7a-80d5-86ab-c114c04ac213" class="numbered-list" start="2"><li><span style="border-bottom:0.05em solid">Languages for Dynamic RT System</span>  → allows dynamic creation and destruction of tasks<div style="display:contents" dir="auto"><ul id="2abeea59-ca7a-80eb-8b04-e20340848463" class="bulleted-list"><li style="list-style-type:disc">provides facilities to specify periodicity and deadline constraints, to seek guarantees that timing constraints will be met, and to perform alternative actions when either the timing constraints cannot be met</li></ul></div><div style="display:contents" dir="auto"><ul id="2edeea59-ca7a-80fe-b111-d60625eec728" class="bulleted-list"><li style="list-style-type:disc">Example <mark class="highlight-blue">Real-Time Concurrent C</mark><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2abeea59-ca7a-80b7-a0ae-f1ea47a0b823" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">/*  Start a timer for d seconds
+    Execute statement-1
+    If the timer expires before statement-1 finishes → 
+				    interrupt and run statement-2 (recovery action)
+	 - This is reactive - it only discovers the deadline was missed AFTER the fact
+*/
+ within deadline (d) statement-1
+ [else statement-2]
+ 
+ every (p) [until expression] statement-1
+ [else statement-2]
+ 
+/*
+	 The system must perform schedulability analysis BEFORE executing the 
+	 statement to guarantee the deadline can be met
+	 - we need to know all the tasks that are running and their Priority/deadlines
+	 - the scheduling algorithms and the Worst-Case Execution Time
+*/
+ within deadline (gd) Guarantee 
+	 time-constrained_statement
+ [else statement]</code></pre></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="2abeea59-ca7a-80ea-8d0a-d4dbe86093c2" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

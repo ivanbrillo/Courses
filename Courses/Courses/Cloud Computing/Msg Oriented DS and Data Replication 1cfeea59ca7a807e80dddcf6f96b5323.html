@@ -1,0 +1,748 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Msg Oriented DS and Data Replication</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1cfeea59-ca7a-807e-80dd-dcf6f96b5323" class="page sans"><header><h1 class="page-title" dir="auto">Msg Oriented DS and Data Replication</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80fa-b31f-c68489277c73" class="">VMs host different functionalities. Such VMs are clustered into tiers, in which the VMs are replicated in order to ensure high availability and scalability</p></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80a3-8b78-ce89ceb52c4d" class="bulleted-list"><li style="list-style-type:disc">Requests from clients are received by VMs of the first tier (<mark class="highlight-teal">frontend tier</mark>) and then dispatched to others tiers (<mark class="highlight-teal">backend tiers</mark>)</li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-804b-8c6d-fe3db9048e5d" class="bulleted-list"><li style="list-style-type:disc">The frontend is typically implemented as RESTful interface</li></ul></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-807b-ae20-f5ed11e34c0b" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-803c-9238-f780f10e2088" class="column-list"><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-8033-8683-d707bab0134d" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-806f-b3bb-d06810ad2551" class="">A service oriented architecture is adopted: each VM hosts one (or more) self-contained software component, referred as service, that interact with others via <mark class="highlight-teal">message passing</mark>, that can be done via:</p></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8051-93ab-c25fc76d1c5e" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-8070-8026-c94abbe2a7ba" class="numbered-list" start="1"><li>SOAP → decreased utilization, typically used in the front/back communication (two developers teams that collaborate)<div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8030-afe2-e8bc3803ba41" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">less interoperability</mark></li></ul></div></li></ol></div></div></div><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-80a4-a979-e69195b65eff" style="width:43.75000000000001%" class="column"><div style="display:contents" dir="ltr"><figure id="1cfeea59-ca7a-80e6-b4b8-dce6f12f45fd" class="image"><a href="Msg%20Oriented%20DS%20and%20Data%20Replication/dabefac5-586d-432a-8d9c-d4953a7dd9f1.png"><img style="width:288px" src="Msg%20Oriented%20DS%20and%20Data%20Replication/dabefac5-586d-432a-8d9c-d4953a7dd9f1.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-804d-80f1-d561596e98c5" class="numbered-list" start="2"><li>REST → usually implemented as interface with clients for its semplicity (rapid developement for external companies) </li></ol></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8081-8127-e42af2324908" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8003-9064-f5f165c47f3c" class="">Both SOAP and REST adopt a <mark class="highlight-blue">Request-Reply </mark>communication protocol</p></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-807d-80f2-f8e2bcb3f6b4" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">synchronous communication</mark> (client block until the reply arrives from the server)<div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8073-9d98-d5822e1aa661" class="bulleted-list"><li style="list-style-type:circle">Also called <mark class="highlight-blue">time-coupled</mark> since for some period client and server share the timeline → syncronized</li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-802b-b29f-f2a1bcac1b30" class="bulleted-list"><li style="list-style-type:circle">Reliable because the reply act like an ack (also since in TCP everything is ack)</li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80fb-ac81-f0edff0e8fbc" class="bulleted-list"><li style="list-style-type:circle">Direct communication betwen the two (client knows the adress of the server)<div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80b4-a28d-cdc18ca3bc85" class="bulleted-list"><li style="list-style-type:square">also called <mark class="highlight-blue">space-coupling</mark> → because they need to be in direct communication </li></ul></div></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-802a-945f-c295d8927d96" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-808e-9bd4-d471542ddef8" class="">The most implemented in client-frontend interface because it is the simplest and time and space coupling is ok (In an app I want a response before go forward)</p></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80cc-8e73-ecf7ecb2211e" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8062-a9c8-c3bb24b351fc" class="">The backend is expected to have a varying number of VMs to support <mark class="highlight-teal">scalability </mark>(load balancing) or <mark class="highlight-teal">availability </mark>(data replication)</p></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80bb-a9e8-de054a91a4fb" class="bulleted-list"><li style="list-style-type:disc">Supporting such dynamicity is important: the space and time coupling is not suited to ensure scalability in the communication inside the backend </li></ul></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80fd-9cb5-ea3ba238ea5b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80cc-9f64-ce79220e4dd1" class="">An indirect communication paradigm is required to ensure:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-80a3-bd13-c37a54b96049" class="numbered-list" start="1"><li><mark class="highlight-blue">Space uncoupling</mark>: the sender does not know or need to know the identity of the receiver(s), and vice versa. <div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80ed-ab72-c4cfb677680a" class="bulleted-list"><li style="list-style-type:disc">Senders/Receivers can be replaced, migrated, replicated at runtime</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-8015-8689-dbf6f323a9a1" class="numbered-list" start="2"><li><mark class="highlight-blue">Time uncoupling</mark>: sender and receiver(s) have independent lifetimes. <div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-809c-abaf-fbd3995ae2a6" class="bulleted-list"><li style="list-style-type:disc">In a volatile environment the sender and receiver(s) do not need to exist at the same time to communicate (VMs can be destroyed/created dynamically)</li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80f1-bda0-c2f387419dd7" class="bulleted-list"><li style="list-style-type:disc">Per esempio nel transitorio dove altre VM sono create, tutte le richieste dal frontend devono essere gestite da VMs già create, non da quelle future</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80a9-bd54-cfd85651d267" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80e1-9213-cdedf41f7767" class="">Introduce an <mark class="highlight-teal">intermediary </mark>between tiers in order to achive space and time uncoupling</p></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80d8-bcc9-d6cdce07d05b" class="bulleted-list"><li style="list-style-type:disc">decrease overhead, more throughput</li></ul></div><div style="display:contents" dir="auto"><h2 id="1cfeea59-ca7a-80e3-94a8-c435e307a8dd" class="">Indirect Message Oriented Communication</h2></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80fd-b1de-d55760aa70a0" class="">Source and destination does not open a direct communication channel (TCP-UDP channel), but rather the sender injects the message into a <mark class="highlight-teal">bus</mark></p></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8098-afd8-d77b83541f4a" class="bulleted-list"><li style="list-style-type:disc">the communication bus is implemented by an intermediary: the sender forwards the message to an intermediary, which takes care of forwarding the message to the receiver, and vice versa</li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80f0-ad98-db01b9d80484" class="bulleted-list"><li style="list-style-type:disc">Different types of intermediary has been defined: <div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-8036-a94a-e913c91e2931" class="numbered-list" start="1"><li>broker</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-800d-8e3a-e3f7c773f92d" class="numbered-list" start="2"><li>message queue</li></ol></div></li></ul></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8065-878e-f4562e60cbb1" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1cfeea59-ca7a-807e-9154-d1b1019e6460" class="">Broker</h3></div><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-80a5-92ff-c67700998829" class="column-list"><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-805a-af86-ff28517c5596" style="width:62.5%" class="column"><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8005-9f52-e766a12f6619" class="">A <mark class="highlight-orange">Publish-Suscribe </mark>system is a system where senders (named producers or publishers) publish structured data, while receivers (named consumers or subscribers) express interest on a specific type of data through subscriptions</p></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8082-9eb5-e40d8c17d76c" class="bulleted-list"><li style="list-style-type:disc">At the core of the system, we have the message broker, which is responsible for relaying the data from publishers to subscribers</li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80bc-a24d-d19630b924b0" class="bulleted-list"><li style="list-style-type:disc">The result is a<mark class="highlight-teal"> </mark><mark class="highlight-teal"><mark class="highlight-pink_background">one-to-many communication</mark></mark></li></ul></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-80d1-841f-fbea7b5cbb0f" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-80bf-afe5-d9e543dc649e" style="width:37.5%" class="column"><div style="display:contents" dir="ltr"><figure id="1cfeea59-ca7a-80ed-8a7f-d5d9f9a16214" class="image"><a href="Msg%20Oriented%20DS%20and%20Data%20Replication/image.png"><img style="width:278.875px" src="Msg%20Oriented%20DS%20and%20Data%20Replication/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80d1-af0a-c85babd48da7" class="">Could define different filtering for subscriptions</p></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-806c-8326-d8d0154a2ad9" class="numbered-list" start="1"><li>channel based communication: create channels intially identified by a name</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-808e-99e8-c5dea2358f31" class="numbered-list" start="2"><li>Topic-Based: defined at runtime, based on names</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-804a-9753-d6be9c803d44" class="numbered-list" start="3"><li>Type-Based: filtering based on types of events (different datastructures, no different names)</li></ol></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-800a-ae8a-ce976abbc572" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1cfeea59-ca7a-804b-adbe-edc148929059" class="">Message Queue</h3></div><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-8000-8f26-d36213ec62d4" class="column-list"><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-8094-9cfe-ce5fbfcfa2a6" style="width:75%" class="column"><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-802c-b008-e088e567af99" class="">Provides a<mark class="highlight-pink_background"> </mark><mark class="highlight-teal"><mark class="highlight-pink_background">point-to-point</mark></mark><mark class="highlight-teal"> </mark>message exchange between producer ad consumer</p></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8057-894f-df969798b2ee" class="bulleted-list"><li style="list-style-type:disc">the sender places the message into a queue, and it is then removed by the receiver</li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-807a-b66f-ff3e3d7e2e93" class="bulleted-list"><li style="list-style-type:disc">Messages queues are implemented by the <mark class="highlight-teal">Message Queueing System</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8059-8ece-d44d00756830" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-80f4-a693-fac3b7f5a88a" style="width:25%" class="column"><div style="display:contents" dir="ltr"><figure id="1cfeea59-ca7a-80af-9a83-f23b5fb4d108" class="image"><a href="Msg%20Oriented%20DS%20and%20Data%20Replication/image%201.png"><img style="width:278.875px" src="Msg%20Oriented%20DS%20and%20Data%20Replication/image%201.png"/></a><figcaption>Service3 is in an upper tier</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8017-965a-c2fc1785c6d1" class="">The operations offered by the queuing system is:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-808b-b373-e9e80b64ab88" class="numbered-list" start="1"><li>send to put a msg in a queue</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-8047-a525-c1a8536eea12" class="numbered-list" start="2"><li>blocking receive</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-8063-980d-fb66e189a3e5" class="numbered-list" start="3"><li>non blocking receive (polling)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-807e-ab1b-d8e130dd28df" class="numbered-list" start="4"><li>notify, issued by the message queuing system to notify a consumer that a new msg is available (need to subscribe to a queue before)<div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80a4-980f-d40297748873" class="bulleted-list"><li style="list-style-type:disc">works like in the broker system, in alternative to avoid receive operations continously</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80a7-9ab3-d6305cc70d5e" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80f6-a79d-e22fcbad0992" class="">Every message consists of:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-8068-b727-f8f8ec196eb9" class="numbered-list" start="1"><li>A destination (unique ID for the queue)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-803e-b221-c82b7a908e43" class="numbered-list" start="2"><li>metadata associated with the msg - like priority</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-8007-9517-ec22d231defa" class="numbered-list" start="3"><li>body of the msg → typically opaque for the message queue system</li></ol></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80f6-9ed3-f49e0fa83f89" class="">
+</p></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80af-87f6-edcc8cb1b65d" class="bulleted-list"><li style="list-style-type:disc">Typically <mark class="highlight-teal">FIFO </mark>queuing policy, but maybe also with priority</li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80c7-9f95-e0e8d13a7a40" class="bulleted-list"><li style="list-style-type:disc">One crucial property of message queue systems is that messages are <mark class="highlight-teal">persistent</mark>: message queues will store the messages indefinitely (until they are consumed) and will also commit the messages to disk to enable <mark class="highlight-blue">reliable delivery</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80ca-a984-e116ad813c15" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Message Transformation </mark>can be performed on arriving<div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8042-87a4-e6a8b72c11b9" class="bulleted-list"><li style="list-style-type:circle">change data format to deal with heterogenity of data representations (JSON to XML) or little endian to big endian</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8053-b463-f2fec196b9f0" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-8074-b4fb-d2462b767df7" class="column-list"><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-803f-969e-ef6725f0d4e0" style="width:75%" class="column"><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-806b-8421-d7e247731687" class=""><mark class="highlight-pink_background">They are perfect for cloud applications, and comunications in deeper tiers</mark></p></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-805c-ac89-f793ee37fbb5" class="bulleted-list"><li style="list-style-type:disc">they can handle the varying number of VMs in a tier, since a new VM will poll a msg (nothing change for the upper layer)</li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8031-9277-d69801de6213" class="bulleted-list"><li style="list-style-type:disc">same if a VM is destroyed</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-8078-8e3b-f6b9165ff1af" style="width:25%" class="column"><div style="display:contents" dir="ltr"><figure id="1cfeea59-ca7a-803e-a2ff-e4517372aeea" class="image"><a href="Msg%20Oriented%20DS%20and%20Data%20Replication/image%202.png"><img style="width:278.875px" src="Msg%20Oriented%20DS%20and%20Data%20Replication/image%202.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80b0-b0d1-fbff287164f0" class="">Message Brokers and Message Queuing Systems can be implemented in a centralized and distributed manner</p></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-806d-9320-d0a13750201c" class="numbered-list" start="1"><li>In a <mark class="highlight-blue">centralized implementation </mark>the broker is implemented in a single system<div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8062-8b34-dc153d413f8d" class="bulleted-list"><li style="list-style-type:disc">simple, however introduces a single point of failure, may be also a bottleneck</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-80e7-ab48-f1172d8cfd57" class="numbered-list" start="2"><li>In a <mark class="highlight-blue">distributed implementation </mark>a network of brokers/message queuing systems is adopted<div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80b7-9bf2-cd34d5f15b4f" class="bulleted-list"><li style="list-style-type:disc">more complex, however guarantees resiliency and scalability</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8047-ae1f-ecca24ea55aa" class="">The <mark class="highlight-orange">Advanced Message Queuing Protocol</mark> (AMQP) is one of the most widely adopted implementation for Message Queuing Systems</p></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80f3-8b92-cb95a7b1db51" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1cfeea59-ca7a-80e6-853f-fd53c82568c2" class="">Data Replication</h2></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-809d-8b05-f73db63bacf2" class="">Data replication across the VMs of the same tier is required in order to ensure that they all work on the same set of data, so they can provide the same service to users</p></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-806b-abe0-f91304316da1" class="bulleted-list"><li style="list-style-type:disc">We need to ensure that the data across VMs are <mark class="highlight-teal">syncronized </mark>(the system must behave independently of the VM that handle my request) → the system must be consistent over time</li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8054-8326-ebf890be4752" class="bulleted-list"><li style="list-style-type:disc">scalability, availability and fault tolerance</li></ul></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80d8-bd2c-ff83573c282c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8020-b83d-e254e53b17d2" class="">Can be implemented in two ways:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-804a-9453-cd106a87f265" class="numbered-list" start="1"><li>Generally, data replication is implemented via message exchange among the VMs of the same cluster</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-80c3-8fdf-efbc3ac379c8" class="numbered-list" start="2"><li>When large datasets are involved, a shared storage is usually adopted across different VMs<div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8012-aecd-e0af8b5cd918" class="bulleted-list"><li style="list-style-type:disc">exchange of data for coordination is still required</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80df-a44b-e2929d254eec" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8003-afd6-d58874f0fa1e" class=""><mark class="highlight-orange">Requirements </mark>of data replication:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-80a0-9fa7-d40addfa46e3" class="numbered-list" start="1"><li><mark class="highlight-blue">Transparent</mark>: data replication must be transparent from users<div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80c4-a7ce-d7e7727f1d53" class="bulleted-list"><li style="list-style-type:disc">they should access different copies of data without being aware of that</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-8085-896a-d9a03d945148" class="numbered-list" start="2"><li><mark class="highlight-blue">Consistency</mark>: replicas should be consistent to each other<div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80da-9829-d5ce0b1f4a9e" class="bulleted-list"><li style="list-style-type:disc">an operation performed on any replica should produce the same result</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-80db-a2e3-ca852aa7c2a5" class="numbered-list" start="3"><li><mark class="highlight-blue">Resiliency </mark>from VM failure, however it is assumed that <mark class="highlight-teal">network partitions cannot occur</mark><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80f0-934f-de4df988dafc" class="bulleted-list"><li style="list-style-type:disc">reasonable since VMs are on the same LAN (same datacenter) - often redundant</li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-803e-8042-f2160f3f006f" class="bulleted-list"><li style="list-style-type:disc">Data replications mechanism often assume this, to assure availability and consistency (CAP theorem)</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80fe-9249-f9cfca2729fc" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1cfeea59-ca7a-802c-96ca-ed3fc1334d85" class="">System Model</h3></div><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-808f-a17a-e2c15c67ca0b" class="column-list"><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-8044-b132-d09ad7f7b785" style="width:62.5%" class="column"><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-801b-b13a-eeb4c701284a" class="">Each replica is stored in a different <mark class="highlight-blue">replica managers</mark></p></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-807d-a3e0-c04411d7829c" class="bulleted-list"><li style="list-style-type:disc">Each replica manager accept read/query and update operations (typically in a recoverable manner → inconsistencies due to failure can be recovered)</li></ul></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-800e-add8-c612931acc8d" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-8051-afb7-e072e3b68557" style="width:37.5%" class="column"><div style="display:contents" dir="ltr"><figure id="1cfeea59-ca7a-80b7-b3bc-ccf77764d5a3" class="image"><a href="Msg%20Oriented%20DS%20and%20Data%20Replication/image%203.png"><img style="width:240px" src="Msg%20Oriented%20DS%20and%20Data%20Replication/image%203.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8043-9459-d5432d097014" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-807c-b50f-ded48e89af7b" class="">Five phases to handle a single request form a client (general overview):</p></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-8024-aea6-fabfee8d27d5" class="numbered-list" start="1"><li>A <mark class="highlight-teal">request </mark>is received by the frontend module that is issued to one or more replica managers (depend on implementation)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-80b0-bb77-f6bbdf84831e" class="numbered-list" start="2"><li><mark class="highlight-teal">Coordination</mark>: the replica managers that receive the request prepare to execute it. They can coordinate to execute immediatly or to delay the execution to mantain consistency  </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-8033-b18c-ce4bc9a904b4" class="numbered-list" start="3"><li><mark class="highlight-teal">Execution </mark>in one or more replica manager<div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80d9-aec3-ed13015530b9" class="bulleted-list"><li style="list-style-type:disc">The request is usually executed <mark class="highlight-blue">tentatively </mark>(in a manner that can be undone later if needed, e.g. to recover from faults)</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-808a-a8e5-fef04689ab26" class="numbered-list" start="4"><li><mark class="highlight-teal">Agreement</mark>: the replica managers must reach consensus on the effect of the request. When agreement is reached, the execution of the request is committed, changes are applied (if any)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-802a-9444-c3e4be2d8078" class="numbered-list" start="5"><li><mark class="highlight-teal">Response</mark>: one or more replica manager respond to the frontend</li></ol></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80c9-8d65-d03a9fb4bf80" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-807b-ab84-e175e087360c" class="">Multiple phases exploit group communication among replica managers (the group members) for coordination and data exchange → <mark class="highlight-orange">multicast communication</mark></p></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-808e-8d22-d830050d8bee" class="numbered-list" start="1"><li><mark class="highlight-blue">Reliable/Atomic</mark>: the msg is delivered to every alive member or to no member at all (equivalent to TCP)<div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-800b-bb6d-f03fce43c45b" class="bulleted-list"><li style="list-style-type:disc">duplicates are removed, loss of msgs are handled</li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8007-bdf8-fa7cd6dcb782" class="bulleted-list"><li style="list-style-type:disc">no guarantee on the msgs order</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-80cb-ab4f-fe95a3a4b91f" class="numbered-list" start="2"><li><mark class="highlight-blue">Total/Casual order</mark>: every member must receive all updates in the same order<div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80f5-a2b2-e2ac6e2e508d" class="bulleted-list"><li style="list-style-type:disc">if <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">a</span></span></span></span></span><span>﻿</span></span> HB <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">b</span></span></span></span></span><span>﻿</span></span> then every memeber must receive <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">a</span></span></span></span></span><span>﻿</span></span> before <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">b</span></span></span></span></span><span>﻿</span></span></li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80d9-aea2-e71486645742" class="bulleted-list"><li style="list-style-type:disc">No guarantees on absolute order (time of reception) across different members</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-80a2-9df1-d05070b7911f" class="numbered-list" start="3"><li><mark class="highlight-blue">View-synchronous</mark>: with respect to each msg, all members have the same exact view all the time</li></ol></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80bb-81bc-e70234953a72" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80ff-9122-fecd9c49e43f" class=""><mark class="highlight-pink_background">Tradeoff between </mark><mark class="highlight-teal"><mark class="highlight-pink_background">complexity </mark></mark><mark class="highlight-pink_background">and guarantees</mark></p></div><div style="display:contents" dir="auto"><p id="1d2eea59-ca7a-805a-978d-fc483296b691" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1cfeea59-ca7a-800c-b76e-ecfe77d1ff38" class="">1. Primary-Backup Replication</h3></div><div style="display:contents" dir="auto"><div id="1d2eea59-ca7a-80c0-ac4a-de0c014a9a50" class="column-list"><div style="display:contents" dir="auto"><div id="1d2eea59-ca7a-80e7-83e5-d4e42fbe64e3" style="width:62.5%" class="column"><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-806f-86e2-dad4f55a28cb" class="">The simpler one. One replica managers is selected as the primary, responsible all the request coming from the front end layer</p></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80dc-a731-d6a876eea509" class="bulleted-list"><li style="list-style-type:disc">replicas to guarantee <mark class="highlight-teal">fault tolerance </mark>and <mark class="highlight-teal">high availability</mark><div style="display:contents" dir="auto"><ul id="1d2eea59-ca7a-8023-8c51-da49799a300b" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-blue">waste of resources </mark>of the backups</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8089-8cdd-d017ac8ff22b" class="bulleted-list"><li style="list-style-type:disc">the primary is also responsible for handling the sending of backup copies to the slaves</li></ul></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1feeea59-ca7a-80c1-aade-c63d9668cb5f"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1feeea59-ca7a-8000-8e6e-e6fe7977837f" class="">The <strong>unique identifier (UID)</strong> plays a crucial role in ensuring <strong>idempotency, consistency</strong>, and <strong>fault tolerance</strong></p></div></div></figure></div></div></div><div style="display:contents" dir="auto"><div id="1d2eea59-ca7a-80db-87ba-f0ba78eb709c" style="width:37.50000000000001%" class="column"><div style="display:contents" dir="ltr"><figure id="1d2eea59-ca7a-804c-8114-ed133425a073" class="image"><a href="Msg%20Oriented%20DS%20and%20Data%20Replication/6eb4deeb-4f11-4ae0-98fc-cf5ba3089771.png"><img style="width:260.8333333333333px" src="Msg%20Oriented%20DS%20and%20Data%20Replication/6eb4deeb-4f11-4ae0-98fc-cf5ba3089771.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-80ac-a046-c21eea8b7490" class="numbered-list" start="1"><li><mark class="highlight-default"><span style="border-bottom:0.05em solid">Request</span></mark>: the frontend issues a request, the request contains a <mark class="highlight-pink_background">unique identifier</mark>, which identifies univocally the request</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-805a-9865-e30ad11ae9f6" class="numbered-list" start="2"><li><span style="border-bottom:0.05em solid">Coordination</span>: The primary handles requests <mark class="highlight-teal">atomically</mark>, in the order in which they have been received.<div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8013-b990-ee878a5f93ef" class="bulleted-list"><li style="list-style-type:disc">It checks the unique identifier, if the request has been already executed, the same response is sent back</li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-800c-8e68-c177508d7d0a" class="bulleted-list"><li style="list-style-type:disc">No coordination with other replica managers is needed</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-80db-9717-d15ced79bdef" class="numbered-list" start="3"><li><span style="border-bottom:0.05em solid">Execution</span>: The primary executes the request and stores the response</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-8087-a696-e3e680847fd2" class="numbered-list" start="4"><li><span style="border-bottom:0.05em solid">Agreement</span>: If the request is an update, the primary sends the updated state, the response and the unique identifier to all the backups. <div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-807f-8714-dcd9d3bd133b" class="bulleted-list"><li style="list-style-type:disc">The backups send an <mark class="highlight-teal">acknowledgment</mark>. For this kind of communication <mark class="highlight-blue">atomic multicast is sufficient</mark></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-808a-a2e1-fb17cff89102" class="numbered-list" start="5"><li><span style="border-bottom:0.05em solid">Response</span>: the primary responds to the frontend, which hands back the response to the client</li></ol></div><div style="display:contents" dir="auto"><p id="1d2eea59-ca7a-80a9-9ba3-dcc3ee270a4e" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d2eea59-ca7a-80d2-b631-c747a2677bbc" class="">2. Active Replication</h3></div><div style="display:contents" dir="auto"><div id="1d2eea59-ca7a-809e-9e04-df97da69a30c" class="column-list"><div style="display:contents" dir="auto"><div id="1d2eea59-ca7a-80b5-80cd-e0759752898d" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1d2eea59-ca7a-8098-83fe-c8b11a16b6ad" class="">Different approach to guarantee high availability</p></div><div style="display:contents" dir="auto"><ul id="1d2eea59-ca7a-80a8-b74b-d65a2b0a70d1" class="bulleted-list"><li style="list-style-type:disc">replica managers are organized in <mark class="highlight-blue">groups </mark>→ specialized to a particular functionality</li></ul></div><div style="display:contents" dir="auto"><ul id="1d2eea59-ca7a-8068-8730-e60219607128" class="bulleted-list"><li style="list-style-type:disc">frontends multicast their request to the group, so all the replica manager in the gropup can process the request independently and reply <div style="display:contents" dir="auto"><ul id="1d2eea59-ca7a-80d8-ac35-c289aef76087" class="bulleted-list"><li style="list-style-type:circle">identical reply since consistent data replication</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="208eea59-ca7a-8045-94e2-c297dd9aade1" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1d2eea59-ca7a-8095-a0ab-fb7fd51ee331" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1d2eea59-ca7a-80dd-ac54-c5536bf74b5e" class="image"><a href="Msg%20Oriented%20DS%20and%20Data%20Replication/image%204.png"><img style="width:278.875px" src="Msg%20Oriented%20DS%20and%20Data%20Replication/image%204.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1d2eea59-ca7a-80db-9de6-eaf590f794cb" class="">If a <mark class="highlight-teal">crash </mark>occurs in any of the replica managers, there is no impact on the performance as the remaining replica managers can reply</p></div><div style="display:contents" dir="auto"><ul id="1d2eea59-ca7a-808a-8c7d-f882a7898328" class="bulleted-list"><li style="list-style-type:disc">the data sycronization is achived since all the request is done by the whole group</li></ul></div><div style="display:contents" dir="auto"><p id="1d2eea59-ca7a-8062-acd4-d24694bffd3e" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="1d2eea59-ca7a-80a6-9443-e23dbe7f6308" class="numbered-list" start="1"><li><span style="border-bottom:0.05em solid">Request</span>: The frontend attaches a <mark class="highlight-teal">unique identifier</mark> to the request and multicast it to all the replica managers.<div style="display:contents" dir="auto"><ul id="1d2eea59-ca7a-8043-804c-e817da3667b6" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Total order multicast</mark> to ensure that requests are received in the same order by all the replica managers</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d2eea59-ca7a-80f4-a5da-cc0edacf9140" class="numbered-list" start="2"><li><span style="border-bottom:0.05em solid">Coordination</span>: No coordination is needed</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d2eea59-ca7a-80c6-9501-c2eea4d831b6" class="numbered-list" start="3"><li><span style="border-bottom:0.05em solid">Execution</span>: Every replica manager executes the request. Since the requests are delivered in total order, replica managers process the request identically</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d2eea59-ca7a-8019-81ac-f3e432160bcb" class="numbered-list" start="4"><li><span style="border-bottom:0.05em solid">Agreement</span>: Thanks to the total order multicast, there is no need for agreement</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d2eea59-ca7a-8088-8094-cc3254058943" class="numbered-list" start="5"><li><span style="border-bottom:0.05em solid">Response</span>: Each replica manager sends its response to the frontend. Since is guaranteed that the responses are all equal → forward the <mark class="highlight-teal">first to arrive</mark></li></ol></div><div style="display:contents" dir="auto"><p id="1d2eea59-ca7a-80d0-90a4-e801529f7364" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d2eea59-ca7a-808b-b43d-e7f5c7942736" class="">Load Balancing Requirements</h3></div><div style="display:contents" dir="auto"><p id="1d2eea59-ca7a-802d-855d-c1833e7dc7db" class="">Passive/active approaches focus on providing <mark class="highlight-blue">high availability</mark>:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1d2eea59-ca7a-801d-b3bf-ebc84194661b" class="numbered-list" start="1"><li>In the <mark class="highlight-orange">passive approach</mark>, backup replicas do not take part at handling users request, consequently the load is all on the primary replica</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d2eea59-ca7a-801c-9f2f-c1f846dced05" class="numbered-list" start="2"><li>In the <mark class="highlight-orange">active approach</mark> the replicas serve the replicas in a redundant manner<br/></li></ol></div><div style="display:contents" dir="auto"><p id="1d2eea59-ca7a-8094-b2cb-c57377d4e219" class="">A different approach has been defined to provide high availability and <mark class="highlight-blue">scalability </mark>at the same time:</p></div><div style="display:contents" dir="auto"><ul id="1d2eea59-ca7a-80cd-adf9-ff4444d819f2" class="bulleted-list"><li style="list-style-type:disc">Different replica managers are involved in handling requests from the frontend (<mark class="highlight-pink_background">not just one or all handling the same request</mark>), in <mark class="highlight-teal">parallel</mark>, thus maximizing utilization</li></ul></div><div style="display:contents" dir="auto"><ul id="1d2eea59-ca7a-8081-a5bd-f3a3d07da193" class="bulleted-list"><li style="list-style-type:disc">Replica managers do not propagate updates in a <mark class="highlight-teal">prompt manner</mark> (as soon as they are available and before passing back control to the client), updates are <mark class="highlight-teal">deferred </mark>when possible, while the control is given back to the client as soon as possible (even before propagating the update to other replica managers)</li></ul></div><div style="display:contents" dir="auto"><ul id="1d2eea59-ca7a-80c0-bd8d-ea974b5977a2" class="bulleted-list"><li style="list-style-type:disc">Data maybe a little <mark class="highlight-teal">outdated</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1d2eea59-ca7a-808d-8700-c7079577a917" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d2eea59-ca7a-8076-8192-c529fa980bf9" class="">1. Gossip Architecture</h3></div><div style="display:contents" dir="auto"><div id="1d2eea59-ca7a-8001-9e3d-f0db53eda8d9" class="column-list"><div style="display:contents" dir="auto"><div id="1d2eea59-ca7a-8007-a602-e6e39eea8e3d" style="width:68.75%" class="column"><div style="display:contents" dir="auto"><p id="1d2eea59-ca7a-80df-80ea-fb22bdc2040e" class="">In the gossip architecture, the replica managers exchange <mark class="highlight-orange">gossip messages </mark>periodically in order to convey the updates they have received from client</p></div><div style="display:contents" dir="auto"><ul id="1d2eea59-ca7a-80ca-9761-f0c55266a08c" class="bulleted-list"><li style="list-style-type:disc">Clients are assigned to specific frontend instances for <mark class="highlight-teal">load balancing</mark>, even though they can change, if the assigned instance crashes</li></ul></div><div style="display:contents" dir="auto"><p id="1d2eea59-ca7a-80f0-a48a-df9bb721ebd7" class="">The service provides two basic types of operations:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1d2eea59-ca7a-8078-8519-fe76c64dfb11" class="numbered-list" start="1"><li>Query, which are read-only operations</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d2eea59-ca7a-805d-a6bd-d963bc4d4888" class="numbered-list" start="2"><li>Update, which modifies the state of an object. The update operation does no read the state</li></ol></div><div style="display:contents" dir="auto"><p id="208eea59-ca7a-80c6-b521-fd45c92215b8" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1d2eea59-ca7a-804e-b71d-ecb333ec9567" style="width:31.25%" class="column"><div style="display:contents" dir="ltr"><figure id="1d2eea59-ca7a-80a1-b4d1-c52597e5a91d" class="image"><a href="Msg%20Oriented%20DS%20and%20Data%20Replication/image%205.png"><img style="width:278.875px" src="Msg%20Oriented%20DS%20and%20Data%20Replication/image%205.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1d2eea59-ca7a-809d-9e2e-e19ac33c58ba" class="">The gossip system makes <mark class="highlight-teal">two guarantees</mark>:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1d2eea59-ca7a-80b1-9d94-d477a35f8ee7" class="numbered-list" start="1"><li>Each <mark class="highlight-pink_background">client </mark>obtain a <mark class="highlight-blue">consistent service over time</mark><div style="display:contents" dir="auto"><ul id="1d2eea59-ca7a-8055-b9d0-e234aa0a2857" class="bulleted-list"><li style="list-style-type:disc">In answer to a query, a replica manager provides a response with data that reflects the last updates that the client has observed so far (its own updates)</li></ul></div><div style="display:contents" dir="auto"><ul id="1d2eea59-ca7a-8061-b8ed-ddc2be95335d" class="bulleted-list"><li style="list-style-type:disc">A client receive an <mark class="highlight-blue">old </mark>(but <mark class="highlight-blue">consistent with his view of the system</mark>) information when a query is issued →<mark class="highlight-pink_background"> </mark><mark class="highlight-orange"><mark class="highlight-pink_background">Sequential consistency </mark></mark><mark class="highlight-pink_background">is guaranteed</mark></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d2eea59-ca7a-80e1-9f25-d35486d2d410" class="numbered-list" start="2"><li>The consistency between <mark class="highlight-pink_background">replicas </mark>can be relaxed in time due to the frequency of the exchange of gossip messages</li></ol></div><div style="display:contents" dir="auto"><p id="1feeea59-ca7a-806d-b293-eed9e3acecfb" class="">
+</p></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1feeea59-ca7a-80c3-930b-d63e14a74761"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1feeea59-ca7a-808b-9154-e03ac64d1fde" class="">Sequential consistency is a memory consistency model in distributed systems that ensures all operations appear to execute in a sequential order, preserving the order of operations as issued by each individual process. </p></div><div style="display:contents" dir="auto"><ul id="1feeea59-ca7a-8054-b5d2-d8ee2c21bad1" class="bulleted-list"><li style="list-style-type:disc">in eventual consitency there is no such order</li></ul></div></div></figure></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1ffeea59-ca7a-80a2-9396-c71478d8a31a"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1ffeea59-ca7a-8027-a9db-d4ba6ce4c489" class="">Sequential: all updates occur in the same order everywhere (due to vector timestamps)</p></div><div style="display:contents" dir="auto"><ul id="1ffeea59-ca7a-80a2-815b-f6864ec334a1" class="bulleted-list"><li style="list-style-type:disc">Every client sees the writes in the same order</li></ul></div><div style="display:contents" dir="auto"><ul id="1ffeea59-ca7a-80c4-9349-d88486f4f12b" class="bulleted-list"><li style="list-style-type:disc">Order of writes from the same client is preserved</li></ul></div><div style="display:contents" dir="auto"><ul id="1ffeea59-ca7a-8030-9039-f7938093bb8d" class="bulleted-list"><li style="list-style-type:disc">Order of writes from different clients may not be preserved</li></ul></div></div></figure></div><div style="display:contents" dir="auto"><p id="1d2eea59-ca7a-80fe-be40-ef80227756fc" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="1d2eea59-ca7a-807b-b3b2-ed1f87ecaaf9" class="numbered-list" start="1"><li><span style="border-bottom:0.05em solid">Request</span>: The front end normally <mark class="highlight-pink_background">sends requests to only a</mark><mark class="highlight-teal"><mark class="highlight-pink_background"> single replica </mark></mark><mark class="highlight-pink_background">manager </mark></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d2eea59-ca7a-80e8-bdc9-e91abcd4f73c" class="numbered-list" start="2"><li><span style="border-bottom:0.05em solid">Coordination</span>: The replica manager that receives the request does not process it until it can apply the request according to the <mark class="highlight-teal">required ordering constraints</mark>.<div style="display:contents" dir="auto"><ul id="1d2eea59-ca7a-8087-96e4-f5e1be0d8bb5" class="bulleted-list"><li style="list-style-type:disc">This may involve receiving updates from other replica managers, in gossip messages.</li></ul></div><div style="display:contents" dir="auto"><ul id="1d2eea59-ca7a-80e8-be4b-c36af3b70542" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">If the client view is more updated than the one of the replica manager, it needs to wait and update, otherwise inconsistencies</mark></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d2eea59-ca7a-800e-b86f-c06712ac785f" class="numbered-list" start="3"><li><span style="border-bottom:0.05em solid">Execution</span>: The replica manager executes the request</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d2eea59-ca7a-80cd-9258-ef73e88f795d" class="numbered-list" start="4"><li><span style="border-bottom:0.05em solid">Agreement</span>: The replica managers update the data by exchanging gossip msgs<div style="display:contents" dir="auto"><ul id="1d2eea59-ca7a-809b-9bbd-ed3d3c41ce0f" class="bulleted-list"><li style="list-style-type:disc">The updates are exchanged in a lazy fashion </li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d2eea59-ca7a-8020-aa4b-e7d89d1d79f4" class="numbered-list" start="5"><li><span style="border-bottom:0.05em solid">Response</span>: If the request is a <mark class="highlight-teal">query</mark>, the replica manager replies after the execution, if it is an <mark class="highlight-teal">update</mark>, it replies right after receiving it</li></ol></div><div style="display:contents" dir="auto"><p id="1d2eea59-ca7a-80ab-acb5-e534796cf522" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d2eea59-ca7a-804c-9dcf-e60582a3c64c" class="">In order to keep ordering of requests, timestamps are adopted (to this aim FEs must have their clock synchronized)</p></div><div style="display:contents" dir="auto"><ul id="1d2eea59-ca7a-803f-b96f-dfedb2d16307" class="bulleted-list"><li style="list-style-type:disc">Specifically,<mark class="highlight-pink_background"> each FE keeps a</mark><mark class="highlight-orange"><mark class="highlight-pink_background"> vector of timestamps</mark></mark><mark class="highlight-pink_background"> that reflect the version of the latest data values accessed by the client</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1d2eea59-ca7a-80e5-ad89-fbe0f533f081" class="bulleted-list"><li style="list-style-type:disc">This timestamp is sent to the replica manager (the field <code>prev</code>) together with the query</li></ul></div><div style="display:contents" dir="auto"><ul id="1d2eea59-ca7a-8006-a14f-c38f80944649" class="bulleted-list"><li style="list-style-type:disc">The replica manager supplies a new timestamp with the response (the field <code>new</code>)<div style="display:contents" dir="auto"><ul id="1d2eea59-ca7a-8072-828f-e48136b9dfdb" class="bulleted-list"><li style="list-style-type:circle">This will replace the old timestamp in the FE</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1d2eea59-ca7a-80e9-9c91-e3a7528bcd60" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d2eea59-ca7a-80d2-91f5-e8f9d8f67f02" class=""><mark class="highlight-orange">Processing Queries</mark></p></div><div style="display:contents" dir="auto"><ul id="1d2eea59-ca7a-8029-b74d-c85cf9d8f6f1" class="bulleted-list"><li style="list-style-type:disc">If the timestamp of the latest local replica’s update is oldest than the timestamp provided (<style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>valueTS</mtext><mo>&lt;</mo><mtext>prev</mtext></mrow><annotation encoding="application/x-tex">\text{valueTS} &lt; \text{prev}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7335em;vertical-align:-0.0391em;"></span><span class="mord text"><span class="mord">valueTS</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord">prev</span></span></span></span></span></span><span>﻿</span></span>) the request is deferred and kept on a <mark class="highlight-teal">list of pending operation</mark>, in order to wait for a missing update</li></ul></div><div style="display:contents" dir="auto"><ul id="1d2eea59-ca7a-809a-a47e-c2117fc054e1" class="bulleted-list"><li style="list-style-type:disc">Once the query can be executed, the replica manager returns the <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>valueTS</mtext></mrow><annotation encoding="application/x-tex">\text{valueTS}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord text"><span class="mord">valueTS</span></span></span></span></span></span><span>﻿</span></span> of the last value update to the frontend</li></ul></div><div style="display:contents" dir="auto"><p id="1d2eea59-ca7a-806a-8f8a-d4fd312db2d4" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d2eea59-ca7a-807f-af6f-ecf9f99d035a" class=""><mark class="highlight-orange">Processing Updates</mark></p></div><div style="display:contents" dir="auto"><p id="1d2eea59-ca7a-80a1-a43a-e9932600391d" class="">The update request is forwarded to the replica manager and checks for the same conditions</p></div><div style="display:contents" dir="auto"><ul id="1d2eea59-ca7a-8029-9cd5-d675186703f0" class="bulleted-list"><li style="list-style-type:disc">If the request is not duplicated, the replica manager creates a unique timestamp by incrementing the <code>prev</code> value received from the FE and then it sends back the response with the updated timestamp (<mark class="highlight-blue">immediately</mark>)</li></ul></div><div style="display:contents" dir="auto"><ul id="1d2eea59-ca7a-8000-b60d-e6b47aa8941e" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">add the operation in the log of pending update operations</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1d2eea59-ca7a-8074-be86-c32d9de8c16e" class="bulleted-list"><li style="list-style-type:disc">If the same timestamp condition of the query is satisfied (<style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>prev</mtext><mo>≤</mo><mtext>valueTS</mtext></mrow><annotation encoding="application/x-tex">\text{prev} \le \text{valueTS}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8304em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord">prev</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord text"><span class="mord">valueTS</span></span></span></span></span></span><span>﻿</span></span>) the update operation is committed, otherwise it is deferred until it is satisfied</li></ul></div><div style="display:contents" dir="auto"><p id="1d2eea59-ca7a-806d-9f85-c59a1e3b176e" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

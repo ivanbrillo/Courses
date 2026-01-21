@@ -1,0 +1,737 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Para and Lightweight Virtualization</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1baeea59-ca7a-805d-8e2e-e1ae45d68275" class="page sans"><header><h1 class="page-title" dir="auto">Para and Lightweight Virtualization</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="1c1eea59-ca7a-8081-a6bb-c63011f32af5" class="">ParaVirtualization</h1></div><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-80eb-9b5f-dcae7b142c0e" class="bulleted-list"><li style="list-style-type:disc">No more used nowadays</li></ul></div><div style="display:contents" dir="auto"><p id="1baeea59-ca7a-80e0-b3ea-eddd892d8466" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1baeea59-ca7a-80ed-86b6-c807ee0c21fc" class="">Full virtualization required the virtualization of the whole architecture</p></div><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-8078-a227-ed175b7a9ed3" class="bulleted-list"><li style="list-style-type:disc">The virtual hardware is exposed to the VM, in which an OS runs <mark class="highlight-teal">unchanged</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-80cd-a563-d90ddd7c22a9" class="bulleted-list"><li style="list-style-type:disc">Guest OS instructions that can not be directly executed, are emulated by the VMM</li></ul></div><div style="display:contents" dir="auto"><p id="1baeea59-ca7a-8073-911a-cad0c1d67034" class=""><br/>As an alternative approach (before hardware support was introduced) <mark class="highlight-orange">paravirtualization </mark>was introduced</p></div><div style="display:contents" dir="auto"><p id="1baeea59-ca7a-8083-889f-c017c77bcfc0" class="">The goal is to introduce modifications to the guest OS that prevent the OS to:</p></div><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-80e2-914e-dca2fd746add" class="bulleted-list"><li style="list-style-type:disc">VMM start from the assumption that the guest OS is aware of the fact that is running inside a VM</li></ul></div><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-8037-980a-e1b152b5f430" class="bulleted-list"><li style="list-style-type:disc">Modifications to the guest OS are usually limited to the kernel (applications running inside the VM are still unaware)</li></ul></div><div style="display:contents" dir="auto"><p id="1baeea59-ca7a-800b-a3c5-c738ee2c2c5c" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="1baeea59-ca7a-80b0-aaca-cedd95867420" class="numbered-list" start="1"><li>Execute instructions that cannot be executed directly (e.g. an I/O instruction)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1baeea59-ca7a-808a-a220-ec5d02af0a1a" class="numbered-list" start="2"><li>Implement some functionalities in a manner that does not require emulation (e.g. memory management)</li></ol></div><div style="display:contents" dir="auto"><p id="206eea59-ca7a-8070-89cc-c76915e4e1f0" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1baeea59-ca7a-8053-b16f-cf112e16d487" class="">Hypervisor provides interface via API called <mark class="highlight-blue">Virtualization Layer </mark>to VMs, in order to implent some operatios that required context switch + emulations </p></div><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-80af-9480-d327bf91d908" class="bulleted-list"><li style="list-style-type:disc">Reduce the number of context switches required</li></ul></div><div style="display:contents" dir="auto"><div id="1c1eea59-ca7a-801e-8e92-d4c485dcbbda" class="column-list"><div style="display:contents" dir="auto"><div id="1c1eea59-ca7a-80a3-b9a9-f52ce2fa578b" style="width:62.5%" class="column"><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80b3-8837-f1fa12818d6f" class=""><mark class="highlight-teal"><mark class="highlight-pink_background">MODS </mark></mark><mark class="highlight-pink_background">→ modification to the OS that instead of running kernel instruction or IO operations, it call the functions exposed by the hypervisor</mark></p></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-806f-81b1-d6e1ca40af78" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1c1eea59-ca7a-8027-a86e-e4224dae927e" style="width:37.5%" class="column"><div style="display:contents" dir="ltr"><figure id="1c1eea59-ca7a-8076-b2c1-e778e726b8b8" class="image"><a href="Para%20and%20Lightweight%20Virtualization/image.png"><img style="width:709.9750366210938px" src="Para%20and%20Lightweight%20Virtualization/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h2 id="1c1eea59-ca7a-80b5-8765-fbf86b01683d" class="">Implementation</h2></div><div style="display:contents" dir="auto"><div id="1c1eea59-ca7a-80a4-9c45-e6c54226bb30" class="column-list"><div style="display:contents" dir="auto"><div id="1c1eea59-ca7a-80bf-ab9d-ef4fe5b44cb5" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80b4-b774-fa3b3d7e0ec1" class=""><mark class="highlight-orange">Hypercalls </mark>code and the VMM are executed in <mark class="highlight-pink_background">system mode</mark>, so they can execute privileged instructions and interact <mark class="highlight-teal">directly with the hardware</mark></p></div><div style="display:contents" dir="auto"><p id="1eceea59-ca7a-80b5-9c7f-caa9bc77873b" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1c1eea59-ca7a-80db-a2ea-f50a456053d6" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1c1eea59-ca7a-804a-b038-c6c52033cfc6" class="image"><a href="Para%20and%20Lightweight%20Virtualization/image%201.png"><img style="width:288px" src="Para%20and%20Lightweight%20Virtualization/image%201.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80b2-bd19-efb1bc5c2d46" class="">Pros</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-8068-a39d-e1278f93a4c3" class="numbered-list" start="1"><li>It improves significantly virtualization performance, as emulation is avoided</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-805a-a74f-fda49e84afab" class="numbered-list" start="2"><li>It does not require specific hardware support</li></ol></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-802a-8d71-ee3a2a77507a" class="">Cons</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-8005-9312-cb842788727f" class="numbered-list" start="1"><li>It supports only modified version of the OS</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-8066-bf83-eae55efed870" class="numbered-list" start="2"><li>Some closed source OSs cannot be supported</li></ol></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80ef-95dc-c5ece44436ab" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80d0-b091-d5bf55a852f3" class="">With the advent of hardware support for virtualization they <mark class="highlight-teal">no longer have a significant advantage</mark> over full virtualization, consequently they are not popular</p></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-8014-a6e0-d9cb0389f6ca" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-803e-a80a-dcd8394d60f9" class="">Paravirtualization systems, e.g. <mark class="highlight-orange">XEN</mark>, were very popular at the beginning for the considerable performance increase</p></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-804e-be3b-c36100a3cc42" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1c1eea59-ca7a-80fa-a911-f7b746576222" class="">XEN</h3></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-8070-b20f-f2673782f64c" class="">Xen is the most popular hypervisor based on paravirtualization</p></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-8013-8997-c8afd4ca9d5a" class="bulleted-list"><li style="list-style-type:disc">Released in 2003, it was build before the introduction of hardware virtualization support, to reduce the overhead of full virtualization, as in normal x86 systems were not easy to virtualize by a standard trap-and-emulate hypervisor</li></ul></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-805f-99bd-e94c5ba398cb" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-8016-831c-de9aff205fd8" class=""><mark class="highlight-pink_background">It tried to find a compromise between rewriting the kernel of the OS and extensive emulation</mark></p></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-8091-a365-ed216ef24cb3" class="bulleted-list"><li style="list-style-type:disc">Xen is based on a set of modifications of the <mark class="highlight-teal">Linux kernel </mark>so you can run a linux OS in an efficient manner in a paravirtualized manner → <mark class="highlight-orange">bare-metal approach</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-804b-90a3-c0c6ecb797ea" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-800b-93b6-dcecf7f02f15" class="">On top of Xen, at lower privilege level, we have so-called <mark class="highlight-teal">domains </mark>(VMs)</p></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-80ca-9048-d0d41e063ccb" class="bulleted-list"><li style="list-style-type:disc">There may be as many domains as needed, and  inside  each  domain  we  may  run  an entire  OS with its own applications</li></ul></div><div style="display:contents" dir="auto"><div id="1c1eea59-ca7a-8050-86e6-fcabefaa1493" class="column-list"><div style="display:contents" dir="auto"><div id="1c1eea59-ca7a-80da-9a18-e629b2e14879" style="width:37.5%" class="column"><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80e0-a122-d38f3843aace" class="">Domains are isolated from each other, and are used to implement  the virtual machines</p></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-809d-8c8c-d1c05613aaaa" class="bulleted-list"><li style="list-style-type:disc">Domains can be given direct access to some I/O devices, or they can use <mark class="highlight-teal">fully virtualized devices</mark>, or they can use <mark class="highlight-teal">paravirtual devices</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1eceea59-ca7a-8090-ab27-ce00dd2998b9" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1c1eea59-ca7a-80d9-929c-d69768255349" style="width:62.5%" class="column"><div style="display:contents" dir="ltr"><figure id="1c1eea59-ca7a-8036-aa17-d0af7895b399" class="image"><a href="Para%20and%20Lightweight%20Virtualization/image%202.png"><img style="width:605.7875366210938px" src="Para%20and%20Lightweight%20Virtualization/image%202.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-807b-aefd-f1fccd9cb5da" class="bulleted-list"><li style="list-style-type:disc">One special domain, Dom 0, has access to the<mark class="highlight-blue"> Xen API </mark>to create and destroy other domains.<div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-8041-a1ca-ddef4f354aee" class="bulleted-list"><li style="list-style-type:circle">for security and isolation not call directly the hypervisor</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-80ac-9af4-f733f9ce6d15" class="bulleted-list"><li style="list-style-type:disc">Inside Dom 0 any Linux OS can be installed, custom tools can be developed to manage the other domains</li></ul></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-8063-a888-c297c2b24161" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1c1eea59-ca7a-8005-b09b-db5050fe8668" class="">Overheads</h3></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-801c-9302-c868acaf4bbe" class="">One use-case for virtualization is the safe sharing of hardware resources among different applications running on the same system</p></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-80ad-8653-e4110a466dad" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Application isolation</mark> (no apps tracking each others) should be provided by the OS itself, however, recently OSs become less and less effective in ensuring isolation → because they are too complex (security issues)</li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-80d7-9db2-f869020aa251" class="bulleted-list"><li style="list-style-type:disc">As consequence, the typical configuration to ensure isolation is to run applications on different virtual machines</li></ul></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-800a-bed2-d0c18cb901f7" class="">The virtualization <mark class="highlight-teal">overhead </mark>is not negligible, both in terms of memory and processing time:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-80d6-a3d3-dede7f0b3f67" class="numbered-list" start="1"><li>the VMM</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-80f3-8b66-ea88e3c39701" class="numbered-list" start="2"><li>the guest OS in which the application runs</li></ol></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-807f-a8dd-d88b9a880e59" class="">It can often happen that different VMs share the same guest OS</p></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-8097-bbde-c9695d9d850e" class="bulleted-list"><li style="list-style-type:disc">As result, we can have multiple instances of the same OS running in the same hardware (eg. two distrinct Ubuntu VMs)</li></ul></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80fc-8a45-d07068bad72b" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="1c1eea59-ca7a-80a2-9fa0-ed8d2fae4c4d" class="">Lightweight Virtualization</h1></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-8077-812d-efafcc734f29" class="">Introduced for reducing the overhead for isolation requirements</p></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-8062-aff2-dc32b6adbeb0" class="bulleted-list"><li style="list-style-type:disc">Paravirtualization is still characterized by the overhead introduced by the VMM<div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-80ce-af08-f75bc0489870" class="bulleted-list"><li style="list-style-type:circle">In addition to this, in case multiple instances of the same OS are deployed inside VMs on the same hardware multiple instances of the kernel, OS processes and libraries will run on the machine</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-8041-97e9-f2d30e0be09d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-806b-8b1d-d5602e5cd62d" class=""><mark class="highlight-teal">Goal</mark>: create a lightweight execution environment for services and applications that do not require the virtualization of an entire system and still guarantees the same advantages of virtualization:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-8032-b08b-cd554feee78c" class="numbered-list" start="1"><li>Isolation</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-8024-a610-e865b65f086c" class="numbered-list" start="2"><li>Dynamic instantiation</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-80de-b2f9-fb0d7674e991" class="numbered-list" start="3"><li>Self contained environment</li></ol></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-807a-b8cc-e6bb80fae184" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1c1eea59-ca7a-80b9-8543-c040b2da6356" class="">Operating System Virtualization</h2></div><div style="display:contents" dir="ltr"><figure id="1c1eea59-ca7a-80b0-b929-e4c9c31b09e8" class="image"><a href="Para%20and%20Lightweight%20Virtualization/image%203.png"><img style="width:528px" src="Para%20and%20Lightweight%20Virtualization/image%203.png"/></a><figcaption>They are not VM, they are <mark class="highlight-teal">isolated environment</mark></figcaption></figure></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80de-bc05-c43ac287d8b1" class="">A different lightweight virtualization approach that has been proposed recently</p></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-8007-bbd4-d0f8cc5f33df" class="bulleted-list"><li style="list-style-type:disc">With OS virtualization, the <mark class="highlight-teal"><mark class="highlight-pink_background">hypervisor is removed</mark></mark><mark class="highlight-pink_background">:</mark> virtual servers are enabled by the kernel of the operating system of the physical machine</li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-801f-a1c4-f1ba8ad9d56e" class="bulleted-list"><li style="list-style-type:disc">The kernel of the OS is shared among all the virtual servers running over it</li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-80d2-aad6-ef93db39d7f0" class="bulleted-list"><li style="list-style-type:disc">OS has to implement <span style="border-bottom:0.05em solid">logically distinct user space instances</span></li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-8058-88d5-f95f26f995ff" class="bulleted-list"><li style="list-style-type:disc">Example: Linux Containers</li></ul></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80fd-aa4d-de6115b0b94c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80d5-8093-dec5a3ae694d" class="">Pros</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-80f9-986d-fb8c0d521845" class="numbered-list" start="1"><li>OS virtualization is lighter in overhead since all the virtual servers share the same instance of the kernel</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-80ab-a3eb-c2a89d390a19" class="numbered-list" start="2"><li>A single system with the same amount of resources can support more VMs than full virtualization</li></ol></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80ff-b3de-e2fc8783471d" class="">Cons</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-808d-9c0c-c3c54192ee34" class="numbered-list" start="1"><li>All VMs must share the same kernel</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-803b-8204-cd655779bbf7" class="numbered-list" start="2"><li>Not all the OSs offers OS virtualization solutions</li></ol></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-8055-84a2-c5cf0bcd8af6" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1c1eea59-ca7a-806a-902a-fca8bea44638" class="">Containers</h2></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80af-9db2-ff01a35d6b0a" class="">Implementation of OS Virtualization</p></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-8095-bc37-efa19fa6cf77" class="bulleted-list"><li style="list-style-type:disc">Containers are a way to <mark class="highlight-teal">isolate </mark>a set of processes and make them think that they are the only ones running on the machine</li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-80a8-88c7-e190562dfe95" class="bulleted-list"><li style="list-style-type:disc">The machine they see may feature only a <mark class="highlight-teal">subset of the resources</mark> actually available on the physical hardware (e.g., less memory, less disk space, less CPUs, less network bandwidth) → but <mark class="highlight-pink_background">they access</mark><mark class="highlight-blue"><mark class="highlight-pink_background"> real resources</mark></mark><mark class="highlight-pink_background">, not virtual</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-802b-99b7-f6baf76fbb32" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Containers are </mark><mark class="highlight-pink_background"><strong><span style="border-bottom:0.05em solid">not</span></strong></mark><mark class="highlight-pink_background"> virtual machines</mark>: processes running inside a container are normal processes running on the <mark class="highlight-teal">host kernel </mark>(no guest kernel exists)<div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-80e7-a323-d5925ce2e382" class="bulleted-list"><li style="list-style-type:circle">No Windows Container inside a Linux machine</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-8020-b431-ed548ebf4076" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1c1eea59-ca7a-8055-a788-f6fbe6bbc4de" class="column-list"><div style="display:contents" dir="auto"><div id="1c1eea59-ca7a-80eb-9e82-c3635ad023f6" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-802b-8161-d65552418234" class="">The most important advantage with respect to virtual machines is performance: <mark class="highlight-pink_background">there is </mark><mark class="highlight-teal"><mark class="highlight-pink_background">no performance penalty</mark></mark><mark class="highlight-pink_background"> in running an application inside a container compared to running it on the host</mark></p></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-805d-930d-e8845d30a797" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1c1eea59-ca7a-80b1-91b0-d93bcaa06ea6" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1c1eea59-ca7a-804e-9dad-d57a10768a3e" class="image"><a href="Para%20and%20Lightweight%20Virtualization/image%204.png"><img style="width:278.875px" src="Para%20and%20Lightweight%20Virtualization/image%204.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="1c1eea59-ca7a-801f-8a6c-f950cf16cb19" class="">Linux Containers</h3></div><div style="display:contents" dir="auto"><div id="1c1eea59-ca7a-80d8-9066-c3bcc2292773" class="column-list"><div style="display:contents" dir="auto"><div id="1c1eea59-ca7a-8033-8bd6-cec13e9248a0" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80ef-8f09-e402e8cb3b81" class="">Linux containers are the most famous and most widely adopted implementation of OS virtualization</p></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-800d-b8d6-fec3164979fe" class="bulleted-list"><li style="list-style-type:disc">They are implemented using two distinct kernel features: <mark class="highlight-blue"><mark class="highlight-pink_background">namespaces </mark></mark><mark class="highlight-pink_background">and </mark><mark class="highlight-blue"><mark class="highlight-pink_background">control groups</mark></mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-80bf-81cb-ea4d5ae4d64f" class="bulleted-list"><li style="list-style-type:disc">Those features ensure that each container represents an isolated running space for applications that can access only the resources (file system, devices, other processes, etc.) they are allowed to</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1c1eea59-ca7a-8026-ae1e-de3b8d6137a1" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1c1eea59-ca7a-808f-b896-e0d66424abe6" class="image"><a href="Para%20and%20Lightweight%20Virtualization/image%205.png"><img style="width:288px" src="Para%20and%20Lightweight%20Virtualization/image%205.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-8035-93f2-c2e82becec5d" class="">
+</p></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-804a-afbd-fe96cb7502b7" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-8092-93bb-c8223b184a28" class=""><mark class="highlight-orange">Namespaces </mark>provide a means to segregate system resources so that they can be hidden from selected processes</p></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-8063-ab5a-c055a59b8227" class="">They are the extension of an old Unix function: <code>chroot()</code>, a system call that allows for a process to specify a portion of the file system, to which the application is confined (subtree of FS). Used for limiting unstrusted apps</p></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-80a9-b431-d2996ae856ce" class="bulleted-list"><li style="list-style-type:disc">Namespaces (<mark class="highlight-teal">generalization </mark>of chroot, not only FS) have been introduced to hide or create other copies of other resources of the system</li></ul></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-8077-9abf-f56d17b5951b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-8056-9f7b-e81fe60f512e" class="">Namespaces are not sufficient to isolate a set of processes so they can not interfere with others</p></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-80b8-8dfb-f800c1a4e9b3" class="bulleted-list"><li style="list-style-type:disc">Even if processes cannot interact with others, they can <mark class="highlight-teal">abuse of system resources</mark>, e.g. by allocating too much memory, by using too much CPU time or network bandwidth</li></ul></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-8096-a10c-eda2f4f0d95a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-8073-8b14-db8d16c50b06" class=""><mark class="highlight-orange">Control groups</mark> are groups of processes, for which the resource usage is controller and enforced</p></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-8093-85d1-c860e4ed8b3b" class="bulleted-list"><li style="list-style-type:disc">They are created by root user, each process must belong to a group to which it cannot escape. </li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-80f1-9e66-e0e2a432ab73" class="bulleted-list"><li style="list-style-type:disc">When a process creates a child process the child inherits the control group of the parent</li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-8028-93bb-c5cb444b4df6" class="bulleted-list"><li style="list-style-type:disc">Each group can be linked to one or more subsystems to limit access to system resources, for instance: cpu, ram or network throughput</li></ul></div><div style="display:contents" dir="auto"><p id="1feeea59-ca7a-80d5-afa8-f834300cf785" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

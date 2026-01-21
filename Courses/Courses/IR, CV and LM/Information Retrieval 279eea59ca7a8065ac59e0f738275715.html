@@ -1,0 +1,735 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Information Retrieval</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="279eea59-ca7a-8065-ac59-e0f738275715" class="page sans"><header><h1 class="page-title" dir="auto">Information Retrieval</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="279eea59-ca7a-80a0-a354-cad45463dea1" class="">Introduction</h1></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-801a-9fb0-c109e34f3e1c" class="">IR born for the library lookup → then used for WWW</p></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-8063-8102-ea3cf34c659b" class="bulleted-list"><li style="list-style-type:disc">social media search, email search, product search, conversational search (Alexa), image search, audio search, legal search, medical search</li></ul></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-801a-b7f6-ca59ec109097" class="">
+</p></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="279eea59-ca7a-8043-be43-db37e650385f"><div style="font-size:1.5em"><span class="icon">➡️</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="279eea59-ca7a-8034-8d0f-cbcbac8b7e3a" class=""><strong>First definition (1968)</strong>:<strong> </strong>information retrieval is a field concerned with the structure, analysis, organisation, storage, searching, and retrieval of information</p></div></div></figure></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-8018-a26d-cbc7ae80b163" class="bulleted-list"><li style="list-style-type:disc">The complexity of IR comes from the impossibility to describe formally and unambigously the content of documents</li></ul></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-8085-9841-eece0bce2e6c" class="">
+</p></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="279eea59-ca7a-802e-b765-c5a662497176"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="279eea59-ca7a-80a5-a1cc-c33589754618" class=""><strong>General definition</strong>: retrieval of relevant information from data sources which were not originally intended for access, e.g., unstructured data</p></div></div></figure></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-80fc-a976-d38684161213" class="">We need to get the informations needed from the user: <mark class="highlight-teal">efficiently </mark>and <mark class="highlight-teal">effectively</mark></p></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-80fb-95a8-ffa1f644219b" class="bulleted-list"><li style="list-style-type:disc">Difficult because the relevant infos that are looked for, change between users → it is <mark class="highlight-blue">fuzzy</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-8088-a4fa-da96dc9f9195" class="bulleted-list"><li style="list-style-type:disc">Tech that does that: MapReduce, Distributed DBs, Datacenters of Google (cloud), …</li></ul></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-8084-bf22-ddcbf057ff99" class="">
+</p></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-8090-88ca-e17774dd32ae" class="">Difficult to define information, we can start from <mark class="highlight-blue">concept</mark> set <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span></span></span><span>﻿</span></span></p></div><div style="display:contents" dir="auto"><ol type="1" id="279eea59-ca7a-8029-9c55-de7446a20474" class="numbered-list" start="1"><li>Define a subset <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>⊂</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">S \sub C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">⊂</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span></span></span><span>﻿</span></span> called <mark class="highlight-teal">information source </mark>(e.g. Wikipedia articles)<div style="display:contents" dir="auto"><ul id="279eea59-ca7a-8055-b4b4-c12e9290d061" class="bulleted-list"><li style="list-style-type:disc"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>S</mi></msub><mo stretchy="false">(</mo><mo>−</mo><mo separator="true">,</mo><msub><mi>ϵ</mi><mi>S</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f_S(-, \epsilon_S)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">S</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord">−</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">ϵ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">S</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> → noisy function that returns a document <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi></mrow><annotation encoding="application/x-tex">d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">d</span></span></span></span></span><span>﻿</span></span></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="279eea59-ca7a-8011-a332-cf3a5e4e0e0e" class="numbered-list" start="2"><li>Define <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>⊂</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">I \sub C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">⊂</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span></span></span><span>﻿</span></span> an <mark class="highlight-teal">information need</mark> set (e.g. a particular paper on ML)<div style="display:contents" dir="auto"><ul id="279eea59-ca7a-8084-abc4-d5b49593bb9f" class="bulleted-list"><li style="list-style-type:disc"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>I</mi></msub><mo stretchy="false">(</mo><mo>−</mo><mo separator="true">,</mo><msub><mi>ϵ</mi><mi>I</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f_I(-, \epsilon_I)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07847em;">I</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord">−</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">ϵ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07847em;">I</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> → noisy function that returns a <mark class="highlight-orange">query </mark><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span></span></span></span></span><span>﻿</span></span><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-8040-b85a-f4987badb183" class="bulleted-list"><li style="list-style-type:circle">Query is an imprecise description of the user need</li></ul></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-8001-b31f-e89e068c9000" class="bulleted-list"><li style="list-style-type:circle">Thypically the <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>I</mi></msub></mrow><annotation encoding="application/x-tex">f_I</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07847em;">I</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> function is implemented in our head when we interact with Google, or done for us by an LLM (<mark class="highlight-orange">Agentic AI</mark>)</li></ul></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-80f8-8ba4-cff0d03db100" class="">
+</p></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-80d5-a71d-f0396d98573e" class="">With the query and the document, we can define a<mark class="highlight-blue"> relevance function</mark> <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo stretchy="false">(</mo><mi>d</mi><mo separator="true">,</mo><mi>q</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">r(d, q)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord mathnormal">d</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> to describe if the document will respond to the query </p></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-80fa-9f1f-c2fddf408602" class="bulleted-list"><li style="list-style-type:disc">no idea on how to implement <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span></span></span><span>﻿</span></span>, cannot be written in closed form</li></ul></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-8020-bf89-c1654747ef21" class="bulleted-list"><li style="list-style-type:disc">Given a piece of text (keywords, questions, …) and a set of documents, we want to rank them wrt the query<div style="display:contents" dir="auto"><ul id="279eea59-ca7a-809d-b1c2-cd205ab9adbf" class="bulleted-list"><li style="list-style-type:circle">we will not do exact matching</li></ul></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-80e6-b22c-f875e37abe25" class="">
+</p></div></li></ul></div><div style="display:contents" dir="auto"><div id="279eea59-ca7a-8082-b752-fd34a04df200" class="column-list"><div style="display:contents" dir="auto"><div id="279eea59-ca7a-8061-9e2b-e50b4ac7ad91" style="width:43.75%" class="column"><div style="display:contents" dir="auto"><p id="279eea59-ca7a-8006-9da8-dd0dd5cc88ef" class="">Primary concer of IR are text and documents</p></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-80cb-a240-d5c03768d62b" class="bulleted-list"><li style="list-style-type:disc">the data is <mark class="highlight-teal">unstructured </mark>→ different from DBs that have well-defined attributes</li></ul></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-806e-a06d-c88cda79e3b1" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="279eea59-ca7a-80f1-b60b-e2a8d8552e4e" style="width:56.25%" class="column"><div style="display:contents" dir="ltr"><figure id="279eea59-ca7a-80fc-88b7-e6b7b53b4df7" class="image"><a href="Information%20Retrieval/image.png"><img style="width:300.3999938964844px" src="Information%20Retrieval/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-8055-98e8-e5afd936a5db" class="bulleted-list"><li style="list-style-type:disc">Easier to compare fields with well-defined semantics to queries in order to find matches<div style="display:contents" dir="auto"><ul id="279eea59-ca7a-80b9-9dd4-f5905688ebd7" class="bulleted-list"><li style="list-style-type:circle">Text is more difficult, even more multimedia (video, images, audio)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-8014-9d30-f11265ff9496" class="">
+</p></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-80e6-a01e-d58120f18445" class="">A <mark class="highlight-blue">heuristic </mark>tries to guess something close to the right answer </p></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-8034-b6f1-ed1a4f80bef8" class="bulleted-list"><li style="list-style-type:disc">IR techniques are heuristics because we don’t know the right answer. Examples of heuristics:<div style="display:contents" dir="auto"><div id="279eea59-ca7a-8006-ba1c-ce4751d14fae" class="column-list"><div style="display:contents" dir="auto"><div id="279eea59-ca7a-801a-abfc-ca53a4d5379d" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-802c-ab05-c2f691f8204d" class="bulleted-list"><li style="list-style-type:disc">It contains the query terms? </li></ul></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-802a-b3c6-d56806d5bb41" class="bulleted-list"><li style="list-style-type:disc">It contains the query terms many times?</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="279eea59-ca7a-802a-ae66-dfbe23fb815d" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-80ab-82e3-e6e3af079daf" class="bulleted-list"><li style="list-style-type:disc">It contains the query terms close together?</li></ul></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-8087-af9f-ea6b694505d6" class="bulleted-list"><li style="list-style-type:disc">It contains terms similar to the query terms?</li></ul></div></div></div></div></div></li></ul></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-8014-a56e-f2588dc0299e" class="">What retrieval means?</p></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-805e-a328-c9b6ff341934" class="bulleted-list"><li style="list-style-type:disc">Ad hoc search → find document about this topic</li></ul></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-80b3-8c2b-f7c1b20576cc" class="bulleted-list"><li style="list-style-type:disc">Known item → find unipi web page</li></ul></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-80c4-819f-f77b7c898e2e" class="bulleted-list"><li style="list-style-type:disc">Answer seeking → find the capital of belgium</li></ul></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-807a-809e-c6695b8dd919" class="">
+</p></div><div style="display:contents" dir="auto"><div id="279eea59-ca7a-8055-b79d-fc61d6ad4834" class="column-list"><div style="display:contents" dir="auto"><div id="279eea59-ca7a-804d-bb7f-ec1e1ced64c8" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="279eea59-ca7a-8075-b01f-d4c9d51b7591" class="image"><a href="Information%20Retrieval/image%201.png"><img style="width:541.8099975585938px" src="Information%20Retrieval/image%201.png"/></a></figure></div></div></div><div style="display:contents" dir="auto"><div id="279eea59-ca7a-8053-b2fd-e45d6db5a56b" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="279eea59-ca7a-8032-9047-c0b6f402ff4e" class="">Given few query words, IR:</p></div><div style="display:contents" dir="auto"><ol type="1" id="279eea59-ca7a-80a6-880f-e6cd4f6dcd82" class="numbered-list" start="1"><li><mark class="highlight-teal">Infer </mark>what a user wants</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="279eea59-ca7a-8031-a482-e794ce7dbf99" class="numbered-list" start="2"><li><mark class="highlight-teal">Fetch </mark>relevant documents as fast as possible</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="279eea59-ca7a-8053-a2e6-d2d8e85c3af6" class="numbered-list" start="3"><li><mark class="highlight-teal">Present </mark>to users in a way they understand</li></ol></div></div></div></div></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-8022-8f21-cbbb16b45c07" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="279eea59-ca7a-80b3-b961-d40c91cb7035" class="">Index Data Structure</h1></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-80ab-a58f-c64aeae9e7fa" class="">Which plays of Shakespeare contain the words Brutus AND Caesar but NOT Calpurnia?</p></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-805f-84a0-ecbe7613e2f3" class="bulleted-list"><li style="list-style-type:disc">One could grep all of Shakespeare’s plays for Brutus and Caesar, then strip out lines containing Calpurnia?<div style="display:contents" dir="auto"><ul id="279eea59-ca7a-80d2-9834-d4815758a3c4" class="bulleted-list"><li style="list-style-type:circle">Problems: slow, other queries cannot be expressed with grep (find the word Romans near countrymen), canno rank the retrieval</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><div id="279eea59-ca7a-80dc-82d4-cd7dd89f007a" class="column-list"><div style="display:contents" dir="auto"><div id="279eea59-ca7a-80e2-a048-fb3663906eaa" style="width:68.75%" class="column"><div style="display:contents" dir="ltr"><figure id="279eea59-ca7a-8058-b61d-d5e047e36599" class="image"><a href="Information%20Retrieval/image%202.png"><img style="width:432px" src="Information%20Retrieval/image%202.png"/></a><figcaption>Term-Document <mark class="highlight-orange">Incidence Matrix</mark></figcaption></figure></div></div></div><div style="display:contents" dir="auto"><div id="279eea59-ca7a-8091-9f16-d27fc9e085c0" style="width:31.25%" class="column"><div style="display:contents" dir="auto"><p id="279eea59-ca7a-80a3-9988-cff2d0a1291f" class="">For the search I can take the binary rows of Brutus, Ceaser and complemented Calpurina and perform a bitwise AND </p></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-80c7-9406-f89b33cba484" class="">
+</p></div></div></div></div></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-8024-8ce8-fe93a8c748bf" class="">With massive documents collections, computing this matrix is really spatially heavy</p></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-8087-ad97-e2e0acc1a63d" class="bulleted-list"><li style="list-style-type:disc">But the incidence matrix is <mark class="highlight-blue">extremely sparse</mark>, we could just record the 1’s positions</li></ul></div><div style="display:contents" dir="auto"><h2 id="279eea59-ca7a-8009-99ab-fd214f3ae641" class="">Indexes</h2></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="279eea59-ca7a-80c4-baf8-d859f3bd3c3b"><div style="font-size:1.5em"><span class="icon">➡️</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="279eea59-ca7a-8093-a1bd-c94cabd628bd" class="">Indexes are data structures designed to support search</p></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-8069-880f-f3b183428938" class="bulleted-list"><li style="list-style-type:disc">avoid linear scan, faster response time, supports updates and ranking</li></ul></div></div></figure></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-8094-a882-d5655d4908fe" class="">We can measures the <mark class="highlight-blue">performance </mark>of an index data structure:</p></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-806e-95d1-c5ae2500c916" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">indexing time</mark>: time needed to build the index</li></ul></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-809f-b828-d436a1fb7381" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">indexing space</mark>: space used during the generation of the index</li></ul></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-80e6-8152-fdab11234017" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">index storage</mark>: space required to store the index, once it has been generated</li></ul></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-8026-b1e4-d0be78cfb39e" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">query latency</mark>: time interval between the arrival of the query in the IR system and the generation of the answer</li></ul></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-80a0-bd1b-eae77078ab02" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">query throughput</mark>: number of queries answered per second</li></ul></div><div style="display:contents" dir="auto"><p id="27deea59-ca7a-807f-96b2-cd86d573790a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27deea59-ca7a-802e-970f-f24f224dacd3" class=""><mark class="highlight-orange"><mark class="highlight-pink_background">Inverted Index</mark></mark><mark class="highlight-pink_background"> is a data structure providing mapping between terms and their location in documents</mark></p></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="2cdeea59-ca7a-80e7-9893-e55d1faaf6a8"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="2cdeea59-ca7a-8080-8413-e32b486c36c2" class="">An <em>inverted index</em> maps each term to a <em>posting list</em>, and the <em>posting list</em> contains the documents (and possibly positions) where that term appears.</p></div></div></figure></div><div style="display:contents" dir="auto"><div id="27deea59-ca7a-80e8-a64f-e8016aac1fd5" class="column-list"><div style="display:contents" dir="auto"><div id="27deea59-ca7a-80bd-b064-f4bd432cfbce" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-8006-b149-d6f31356e20e" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">dictionary</mark>: list of all dinstinct index terms</li></ul></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-8034-bcb8-e86bcee26c91" class="bulleted-list"><li style="list-style-type:disc">Each document is given a unique number called <mark class="highlight-blue">docid</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-8081-8021-dc79bb37d110" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">posting list</mark> associated to a term: list containing documents (or locations) where the term appears<div style="display:contents" dir="auto"><ul id="27deea59-ca7a-809c-aab1-c16d68f1a09b" class="bulleted-list"><li style="list-style-type:circle">typically document ordered</li></ul></div><div style="display:contents" dir="auto"><p id="29eeea59-ca7a-8087-a535-f8f65125d518" class="">
+</p></div></li></ul></div></div></div><div style="display:contents" dir="auto"><div id="27deea59-ca7a-80a6-bc1f-ca3840ee84a4" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="27deea59-ca7a-80c9-bc6b-e717f33371b0" class="image"><a href="Information%20Retrieval/image%203.png"><img style="width:237.89999389648438px" src="Information%20Retrieval/image%203.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="27deea59-ca7a-80ef-a73d-c9487b5fde3e" class="">Case 1: Posting List = [docid]</h3></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-807c-b8fa-c4bd6ab1d6b6" class="bulleted-list"><li style="list-style-type:disc">Allows to search for any (union) or all (intersection) query terms </li></ul></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-8000-a863-e6f83a2e346f" class="bulleted-list"><li style="list-style-type:disc">No ranking possible</li></ul></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-8005-9f05-c307308b1b65" class="bulleted-list"><li style="list-style-type:disc">No proximity match or phrase match</li></ul></div><div style="display:contents" dir="auto"><h3 id="27deea59-ca7a-8050-9263-d3e72a5ccad2" class="">Case 2: Posting List = [docid : term_freq]</h3></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-809f-9a60-d00d3026a5ac" class="bulleted-list"><li style="list-style-type:disc">Allows ranking by relevance</li></ul></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-80a3-8c2e-d9a5eeb783a1" class="bulleted-list"><li style="list-style-type:disc">No proximity match or phrase match</li></ul></div><div style="display:contents" dir="auto"><h3 id="27deea59-ca7a-80b8-9204-cfae883cffa4" class="">Case 3: Posting List = [docid : positions]</h3></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-80da-8a7f-e9f5d549748d" class="bulleted-list"><li style="list-style-type:disc">Allows relevance ranking, phrase match and proximity match (find small within 5 words of marsupial)</li></ul></div><div style="display:contents" dir="auto"><h3 id="27deea59-ca7a-8038-85f6-da25c4153dd8" class="">Case 4: Posting List = [docid : impact score]</h3></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-80c8-83d2-ff8a69248ca0" class="bulleted-list"><li style="list-style-type:disc">widely used in production</li></ul></div><div style="display:contents" dir="auto"><p id="27deea59-ca7a-80ca-a270-c5df1ba980cd" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27deea59-ca7a-8059-abf5-dfd205f95a5c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27deea59-ca7a-80c7-8dc5-e875c35b11fa" class="">Auxilliary data structures of inverted index:</p></div><div style="display:contents" dir="auto"><ol type="1" id="27deea59-ca7a-807d-b994-c470b0d51eb6" class="numbered-list" start="1"><li><mark class="highlight-blue">Lexicon </mark>(or Vocabulary): contains term stats across whole connection<div style="display:contents" dir="auto"><ul id="27deea59-ca7a-8054-adca-d311361a0445" class="bulleted-list"><li style="list-style-type:disc">document frequency <code>df</code> [number of docs where it appears at least once]</li></ul></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-802e-a551-db247442e159" class="bulleted-list"><li style="list-style-type:disc"><code>cf</code> (collection frequency) - total number of occurrences of the term across the whole collection</li></ul></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-80f7-b63d-cf08a59b8b72" class="bulleted-list"><li style="list-style-type:disc">lookup table from the term to byte offset of the inverted file (inverted index)</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><div id="27eeea59-ca7a-804f-92ef-cf9198f07be4" class="column-list"><div style="display:contents" dir="auto"><div id="27eeea59-ca7a-80ed-b251-cbdbd7e67ca8" style="width:50%" class="column"><div style="display:contents" dir="auto"><ol type="1" id="27deea59-ca7a-80fe-aec0-f3198b723d5d" class="numbered-list" start="2"><li><mark class="highlight-blue">Document index </mark>contains information on the single documents (e.g. URL, title, doc len, importance scores, …)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="27deea59-ca7a-802e-ad95-f2964785d796" class="numbered-list" start="3"><li><mark class="highlight-blue">Collection Statistics</mark>: stored in a separate file, contains total number of docs, total numbers of terms, total number of postings, …</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="27deea59-ca7a-804d-80b5-e6e3633f9327" class="numbered-list" start="4"><li><mark class="highlight-blue">Direct Index</mark>: index mapping documents to termids and their frequencies</li></ol></div><div style="display:contents" dir="auto"><p id="2c4eea59-ca7a-806e-8e72-e38e0e82c2b9" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="27eeea59-ca7a-804e-a235-e28e203d77ea" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="27eeea59-ca7a-8053-8d6b-fea13aae83a9" class="image"><a href="Information%20Retrieval/image%204.png"><img style="width:331.9750061035156px" src="Information%20Retrieval/image%204.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="27deea59-ca7a-8024-8ad9-f09d15bae526" class="">What is a term for indexing?</p></div><div style="display:contents" dir="auto"><ol type="1" id="27deea59-ca7a-806c-8678-e0cadc36d890" class="numbered-list" start="1"><li>Any string between two separating symbols → <mark class="highlight-blue">full-text indexing</mark><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-802b-92db-c88e9d12bf4a" class="bulleted-list"><li style="list-style-type:disc">Problems for things like “New York City”</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="27deea59-ca7a-8054-8898-c80cd4e831e9" class="numbered-list" start="2"><li>By important keywords → <mark class="highlight-blue">keyword indexing</mark><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-8031-895f-ff5de5236df4" class="bulleted-list"><li style="list-style-type:disc">only terms from a given list</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="27deea59-ca7a-80a5-bf5b-d9f15871c5ef" class="numbered-list" start="3"><li><mark class="highlight-blue">Phrase indexing</mark><div style="display:contents" dir="auto"><ol type="a" id="27deea59-ca7a-8037-8aa9-cab7caf7aeab" class="numbered-list" start="1"><li>common phrases (eg good morning)</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="2c4eea59-ca7a-8071-8800-d529437a5f40" class="numbered-list" start="2"><li>bigram</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="27deea59-ca7a-80a9-af91-dfe4e9823a38" class="numbered-list" start="4"><li><mark class="highlight-blue">Term pair indexing</mark>: eg. all the documents that contain both “cat” and “dog” → <mark class="highlight-default"><mark class="highlight-pink_background">not sequentially</mark></mark><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-80ab-abf8-e49ec5f7bdf8" class="bulleted-list"><li style="list-style-type:disc">much larger index with more inverted lists, but each one much shorter than single-term lists </li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="27deea59-ca7a-80df-9db1-d76ba1253adf" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27deea59-ca7a-80ae-8af1-f0a20b200908" class="">How to store these structures?</p></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-80f4-bbb7-d81125e3d804" class="bulleted-list"><li style="list-style-type:disc">At end of indexing, each structure should be a file(s) on disk</li></ul></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-8028-93e1-c2d6cbe5d6f1" class="bulleted-list"><li style="list-style-type:disc">Lexicon and document index are smaller than inverted index</li></ul></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-809a-84ee-d20f2a3e8430" class="bulleted-list"><li style="list-style-type:disc">Note: lexicon stores term frequencies, document index stores <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mi>D</mi><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">|D|</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mord">∣</span></span></span></span></span><span>﻿</span></span></li></ul></div><div style="display:contents" dir="auto"><p id="27deea59-ca7a-80cc-9fc5-df93d69f08c3" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27deea59-ca7a-80de-bedd-f3496e520a64" class=""><mark class="highlight-orange">Lexicon Layout</mark></p></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-809a-b644-cea9d6cf214e" class="bulleted-list"><li style="list-style-type:disc">Contains one element for each distinct term (term is the key)<div style="display:contents" dir="auto"><ul id="27deea59-ca7a-8087-ad6c-f9d8f4da3058" class="bulleted-list"><li style="list-style-type:circle">Dictionary, hash table, succinct data structure or disk based data structure</li></ul></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-8005-9849-cbab8af2d45b" class="bulleted-list"><li style="list-style-type:circle">Stores start of corresponding posting list (file offset for disk-based index or a pointer)</li></ul></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-8054-be0d-eb3adff095c5" class="bulleted-list"><li style="list-style-type:circle">Also stores length of list, maybe other items → If you know <code>offset</code> and <code>length_bytes</code>, you can <code>seek(offset)</code>, <code>read(length_bytes)</code> and stop without looking for a sentinel<div style="display:contents" dir="auto"><ul id="27eeea59-ca7a-807e-bb69-fede63a7fd6d" class="bulleted-list"><li style="list-style-type:square">useful in particular for compression<br/></li></ul></div></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="27deea59-ca7a-80cd-a3eb-d3c31e01a99a" class=""><mark class="highlight-orange">Document Index Layout</mark></p></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-8096-bdcd-f9341cbaea37" class="bulleted-list"><li style="list-style-type:disc">Contains one element for each indexed document</li></ul></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-809b-9548-e4a326a716d0" class="bulleted-list"><li style="list-style-type:disc">Keeps the mapping between documents (<code>URL</code>/<code>docno</code> [external identifier]) and <code>docids</code><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-8052-bcd5-c3ba3c1f5775" class="bulleted-list"><li style="list-style-type:circle">Maybe store document size and pagerank</li></ul></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-8098-819f-d0ee7730f8a9" class="bulleted-list"><li style="list-style-type:circle">Simplest approach: records <mark class="highlight-teal">ordered by docid</mark> → because they are typically dense, thus access in <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> when the elements have constant size</li></ul></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-80e5-9145-d27c5e4bd42e" class="bulleted-list"><li style="list-style-type:circle">More space-efficient:<div style="display:contents" dir="auto"><ul id="27eeea59-ca7a-8066-aeff-c31e8c219162" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-pink_background">Since URL has variable size, move to another file and keep a pointer or offset → this allows lookup of docid by URL</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-809b-805b-ef15dadf83c4" class="bulleted-list"><li style="list-style-type:square">Store URLs in alphabetic order, maybe compressed</li></ul></div></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="27deea59-ca7a-805a-b195-d6093b8dc2c4" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27deea59-ca7a-8027-bf4c-f8f26bc1ad95" class=""><mark class="highlight-orange">Inverted Index Layout</mark></p></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-8022-929d-d88d3a9bb254" class="bulleted-list"><li style="list-style-type:disc">The inverted index is usually stored on disk, and in memory</li></ul></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-80a2-9e86-cf23796ab1d9" class="bulleted-list"><li style="list-style-type:disc">Usually multiple inverted indexes, with a constant number of documents per index</li></ul></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-808e-b1bb-e92c59027fbe" class="bulleted-list"><li style="list-style-type:disc">In compressed form, even if in memory (never ever fully decompressed)</li></ul></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-807f-b2dc-d62686ae3f9b" class="bulleted-list"><li style="list-style-type:disc">De-facto posting format is (docid, frequency)</li></ul></div><div style="display:contents" dir="auto"><ul id="27deea59-ca7a-8074-8df1-eb080225c802" class="bulleted-list"><li style="list-style-type:disc">Do not store docids and frequencies in interleaved form<div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="27deea59-ca7a-80fa-873e-e547cf9adaa9" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">• d,d,d,d,d  f,f,f,f,f   YES   -&gt; separate fetch (better caching) + better 
+																	compression since d1, d2,... are increasing 
+																	(stored as diffiference d2-d1)
+• d,f,d,f,d,f,d,f,d,f    NO</code></pre></div></li></ul></div><div style="display:contents" dir="auto"><p id="27deea59-ca7a-806d-9be2-e055b5a010b2" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

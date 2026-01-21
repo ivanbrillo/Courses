@@ -1,0 +1,749 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Communication Technologies for LLN</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1bbeea59-ca7a-80c6-876c-e973cf208d54" class="page sans"><header><h1 class="page-title" dir="auto">Communication Technologies for LLN</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><div id="205eea59-ca7a-8059-8ff0-fd520951d2db" class="column-list"><div style="display:contents" dir="auto"><div id="205eea59-ca7a-800f-834c-e664e7d04f02" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1bbeea59-ca7a-8013-a9ab-c60cde3eebec" class="">We will consider MAC layer for this networks (LLN)</p></div><div style="display:contents" dir="auto"><p id="21eeea59-ca7a-8011-aa3b-f29dd3ad1f5a" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="205eea59-ca7a-809a-8240-e2a5e187dc5a" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1bbeea59-ca7a-8043-9d0c-c11ed95e2e93" class="image"><a href="Communication%20Technologies%20for%20LLN/image.png"><img style="width:288px" src="Communication%20Technologies%20for%20LLN/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h1 id="1bbeea59-ca7a-80e4-b52f-def45714ba4e" class="">Low Duty-Cycle MAC Protocols</h1></div><div style="display:contents" dir="auto"><p id="1bbeea59-ca7a-8092-bf2b-ef72588cf683" class="">Part of the duty-cycling for energy saving (previous page)</p></div><div style="display:contents" dir="auto"><ol type="1" id="1bbeea59-ca7a-808b-8357-e58cf64d4ca0" class="numbered-list" start="1"><li><mark class="highlight-orange">Time-Slotted Access Protocols</mark> → effective reduction of power consuption, assigning each time slots to a specific node (<mark class="highlight-blue">TDMA</mark>)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1bbeea59-ca7a-8016-a90c-ce1417025418" class="numbered-list" start="2"><li><mark class="highlight-orange">Contention-based MAC </mark>(<mark class="highlight-blue">CSMA</mark>) → also called random access<div style="display:contents" dir="auto"><ul id="1bbeea59-ca7a-80a9-8301-c201b56a71e1" class="bulleted-list"><li style="list-style-type:disc">High energy expenditure (over-hearing, collisions)</li></ul></div><div style="display:contents" dir="auto"><ul id="1bbeea59-ca7a-804f-881e-e3adbee6a1f3" class="bulleted-list"><li style="list-style-type:disc">No need for synchronization between nodes</li></ul></div><div style="display:contents" dir="auto"><ul id="1bbeea59-ca7a-80f3-b646-dc06015c6977" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">High scalability</mark> → no maximum number of nodes in the network (increase the probability of collisions and then energy consumption)<div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-80b1-aacd-cd10d1abb355" class="bulleted-list"><li style="list-style-type:circle">Good when the number of nodes are not that high</li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1bbeea59-ca7a-8046-b893-d7db72db7aba" class="numbered-list" start="3"><li><mark class="highlight-orange">Hybrid Scheme </mark>→ both TDMA + CSMA, switching based on <mark class="highlight-pink_background">contention</mark></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1bbeea59-ca7a-8064-84e0-e9c2a43eb26f" class="numbered-list" start="4"><li><mark class="highlight-orange">Polling-Based Access Protocols </mark>→ master-slave approach<div style="display:contents" dir="auto"><ul id="1bbeea59-ca7a-80f1-9460-c922261a97e4" class="bulleted-list"><li style="list-style-type:disc">Slaves are polled by the master node, according to some schedule, then they can communicate</li></ul></div><div style="display:contents" dir="auto"><ul id="1bbeea59-ca7a-804d-a058-c822310b292a" class="bulleted-list"><li style="list-style-type:disc">effectively reduce the power consuption</li></ul></div><div style="display:contents" dir="auto"><ul id="1bbeea59-ca7a-8002-a99b-f0e50db62702" class="bulleted-list"><li style="list-style-type:disc">Synchronization is required, because nodes needs to know when to wake-up</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1bbeea59-ca7a-8039-aa07-e05ddb81e928" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1bbeea59-ca7a-80ca-a2d9-c3897ff1a2c8" class="">Time Slotted access</h3></div><div style="display:contents" dir="auto"><p id="1bbeea59-ca7a-802c-9c50-eaec3a57b8dd" class="">Each node is active only during its own slot(s), and can sleep during the other slots. Each node gets one or more fixed-length slots in each round → same in every frame</p></div><div style="display:contents" dir="auto"><ul id="1beeea59-ca7a-804e-9358-e859be4b09df" class="bulleted-list"><li style="list-style-type:disc">Effective <mark class="highlight-teal">power reduction</mark>, but needs precise <mark class="highlight-teal">syncronization</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1bbeea59-ca7a-8062-85ef-e0ac353bf7ff" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">No </mark><mark class="highlight-teal"><mark class="highlight-pink_background">medium contemption</mark></mark> → more reliability (less energy consuption)</li></ul></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-80a9-9a86-c1a3aa74de0d" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Bounded and Predictable </mark><mark class="highlight-teal"><mark class="highlight-pink_background">Latency</mark></mark>: each node accesses the same slot(s) in every frame. You can calculate the max time the node has to wait before to send the packet</li></ul></div><div style="display:contents" dir="auto"><ul id="1bbeea59-ca7a-8047-93a0-d78820f3f8fc" class="bulleted-list"><li style="list-style-type:disc">Join and leave of nodes may cause <mark class="highlight-pink_background">slot re-allocation</mark> → unused slots go idle → <mark class="highlight-pink_background">limited </mark><mark class="highlight-teal"><mark class="highlight-pink_background">flexibility</mark></mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-80b4-9cfc-f4c829871af8" class="bulleted-list"><li style="list-style-type:disc">Vulnerability to <mark class="highlight-teal">Selective Jamming attacks</mark>: for example you can try to transmit simultaneously during a specific slot → confused with communication error</li></ul></div><div style="display:contents" dir="ltr"><figure id="1bceea59-ca7a-806d-9d64-dc5186f838ec" class="image"><a href="Communication%20Technologies%20for%20LLN/image%201.png"><img style="width:528px" src="Communication%20Technologies%20for%20LLN/image%201.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1bbeea59-ca7a-8090-b02b-d0011a8b6dce" class=""><mark class="highlight-orange">Superframe reserved slot</mark> used for:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1bbeea59-ca7a-8015-80e9-d3220672b9df" class="numbered-list" start="1"><li>Coordinator to node communication (SYNCH, slot allocation,…)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1bbeea59-ca7a-800d-9d01-d8874481301c" class="numbered-list" start="2"><li>Node to Coordinator communication (slot request, …)</li></ol></div><div style="display:contents" dir="auto"><p id="1beeea59-ca7a-80e7-9dd8-ea873a184cdf" class=""><strong>Example protocol</strong>: <mark class="highlight-blue">Time Division Multiple Access</mark> (TDMA)</p></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1beeea59-ca7a-80d6-984f-d665fc3533c7"><div style="font-size:1.5em"><span class="icon">📢</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1beeea59-ca7a-808c-8a65-e4db8af4e59e" class="">In general, time division-based protocols has an high energy efficiency, but have also:</p></div><div style="display:contents" dir="auto"><ul id="205eea59-ca7a-8043-9caf-c87bac503756" class="bulleted-list"><li style="list-style-type:disc">limited flexibility (topology change may require a different slot allocation pattern)</li></ul></div><div style="display:contents" dir="auto"><ul id="205eea59-ca7a-8084-b8f4-e7d0a7d119f5" class="bulleted-list"><li style="list-style-type:disc">limited scalability and needs for <mark class="highlight-pink_background">synchronization</mark></li></ul></div></div></figure></div><div style="display:contents" dir="auto"><h3 id="1bceea59-ca7a-805d-8e1d-f7616f3deb27" class="">Random-Based Access</h3></div><div style="display:contents" dir="auto"><p id="1bceea59-ca7a-8061-a3a0-ddd0f4889bc3" class="">Communication approach where devices transmit data without a predefined schedule or slot allocation.</p></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-805a-9ecf-c1d0eb47da98" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Asyncronous → no need for syncronization</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-8008-bc82-d43236409fc7" class="bulleted-list"><li style="list-style-type:disc">Nodes wake up only when they need to transmit or receive data</li></ul></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-8085-a625-d0d60f2e9a92" class="bulleted-list"><li style="list-style-type:disc">A large number of nodes can cause a large number of <mark class="highlight-teal">collisions </mark>and <mark class="highlight-teal">retransmissions</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-807a-8d98-ec1c7a3b9849" class="bulleted-list"><li style="list-style-type:disc">A topology change do not require any re-configuration or schedule update notification</li></ul></div><div style="display:contents" dir="ltr"><figure id="1bceea59-ca7a-80f7-850b-c90e9cc5b783" class="image"><a href="Communication%20Technologies%20for%20LLN/image%202.png"><img style="width:432px" src="Communication%20Technologies%20for%20LLN/image%202.png"/></a><figcaption>Personal area network</figcaption></figure></div><div style="display:contents" dir="auto"><h1 id="1bceea59-ca7a-8011-9a17-fe9b4bb12313" class="">IEEE 802.15.4</h1></div><div style="display:contents" dir="auto"><p id="1bceea59-ca7a-80e4-a9d2-f0bbd6257179" class="">One of the most popular technologies used for low power communication in <mark class="highlight-teal">Personal Area Networks </mark>(PANs)</p></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-8060-8f1c-e51fe2936c15" class="bulleted-list"><li style="list-style-type:disc">This standard covers only <mark class="highlight-pink_background">physical and data link layer</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-8090-8e6a-e2df1ce5b0eb" class="bulleted-list"><li style="list-style-type:disc">It is also known as <mark class="highlight-orange">Zigbee </mark>(network layer and upper layers), in reality they are complementary (IEEE 802.15.4 is data link and physical layers)</li></ul></div><div style="display:contents" dir="ltr"><figure id="1bceea59-ca7a-800d-92cb-df3c01c54102" class="image"><a href="Communication%20Technologies%20for%20LLN/image%203.png"><img style="width:480px" src="Communication%20Technologies%20for%20LLN/image%203.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="1bceea59-ca7a-8089-8dc9-d8aa4b76de9a" class="">IEEE 802.15.4 Topologies</h3></div><div style="display:contents" dir="auto"><div id="205eea59-ca7a-800d-a3d4-ebcf5d673198" class="column-list"><div style="display:contents" dir="auto"><div id="205eea59-ca7a-803a-bc6e-c544a83cb4d9" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-80c3-bc6f-e88237cd2ae9" class="bulleted-list"><li style="list-style-type:disc">In star network I cannot have peer-to-peer communication since they need to communicate first with <mark class="highlight-blue">PAN coordinator</mark></li></ul></div><div style="display:contents" dir="auto"><p id="232eea59-ca7a-802d-a98b-cf334f8f7330" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="205eea59-ca7a-80a6-b707-ecf0238ecff7" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1bceea59-ca7a-803e-94f6-dbfb6678ba4d" class="image"><a href="Communication%20Technologies%20for%20LLN/image%204.png"><img style="width:480px" src="Communication%20Technologies%20for%20LLN/image%204.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="1bceea59-ca7a-8067-baf4-cf61428e068c" class="">Channels</h3></div><div style="display:contents" dir="auto"><p id="1bceea59-ca7a-80fb-b04a-ed84b88e7323" class="">We have 27 channels, with different frequencies → <mark class="highlight-pink_background">they provide different </mark><mark class="highlight-teal"><mark class="highlight-pink_background">throughput</mark></mark></p></div><div style="display:contents" dir="auto"><div id="205eea59-ca7a-807f-8142-cdd25cfbe2f4" class="column-list"><div style="display:contents" dir="auto"><div id="205eea59-ca7a-8068-aa7c-cc75f9067b25" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-802c-82c3-d98cc752d4e7" class="bulleted-list"><li style="list-style-type:disc">The 11-26 can be used everywhere (no geografic limitation) and provide higher bitrates → they are the most used channels</li></ul></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-8099-8a97-d6e3378c6bdd" class="bulleted-list"><li style="list-style-type:disc">Channels help avoid collisions, but the standard typically operates on only <mark class="highlight-orange">one channel at a time</mark></li></ul></div></div></div><div style="display:contents" dir="auto"><div id="205eea59-ca7a-80e1-bd39-eaef74f792f0" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1bceea59-ca7a-80af-ab8d-db234b0f505d" class="image"><a href="Communication%20Technologies%20for%20LLN/image%205.png"><img style="width:480px" src="Communication%20Technologies%20for%20LLN/image%205.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="1bceea59-ca7a-8043-ae01-f0801e28f8a8" class="">Adresses</h3></div><div style="display:contents" dir="auto"><p id="1bceea59-ca7a-80c4-80e5-f39f9e9168de" class=""><mark class="highlight-orange">PAN Address</mark> → Identifies the PAN within a certain geographic area</p></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-8091-8f62-ea87a7aa9b94" class="bulleted-list"><li style="list-style-type:disc">Allows the communication between different PANs</li></ul></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-8097-a858-d1f8d9520510" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal"><mark class="highlight-pink_background">16 bits</mark></mark> (Broadcast PAN Address: 0xFFFF)</li></ul></div><div style="display:contents" dir="auto"><p id="1bceea59-ca7a-8055-9998-f82c06de98ce" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1bceea59-ca7a-8070-b330-f585727bb488" class=""><mark class="highlight-orange">Device Address </mark>→<mark class="highlight-orange"> </mark>Identifies the device within a PAN</p></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-8028-8819-ffff686910f4" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Extended Address</mark>: 64 bits MAC address → not sustainable for IoT (just 20B for adressing: receiver, sender, PAN receiver, PAN sender adresses)<div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-8065-a41b-ddd60b4a519f" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-pink_background">Most significant 24 bits assigned by IEEE (OUI),  least significant 40 bits assigned by manufacturer</mark></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-809b-b4d4-c41709399b6b" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Reduced Address</mark>: <mark class="highlight-teal">16 bits</mark><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-80a3-9f83-e167e8fabc8c" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal"><mark class="highlight-pink_background">Negotiated with the PAN coordinator</mark></mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-805e-9a76-c9d1a651e56d" class="bulleted-list"><li style="list-style-type:circle">Can replace the extended address in all communications</li></ul></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-806b-a2fd-ca2d9e4e3b8c" class="bulleted-list"><li style="list-style-type:circle">Broadcast address: 0xFFFF</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1bceea59-ca7a-805d-a65f-e5b3eeb97451" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1bceea59-ca7a-80fc-a44e-ec72e1d93850" class="">Frame Format (PHY)</h3></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1bceea59-ca7a-805f-8c14-d7880299322f"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1bceea59-ca7a-804d-8e53-e658959637a8" class="">The MAC layer, short for Media Access Control layer, is a sublayer of the data link layer.</p></div><div style="display:contents" dir="auto"><ol type="1" id="1bceea59-ca7a-803a-a8d4-e71ff553d98c" class="numbered-list" start="1"><li>Controls access to the physical medium (collision management)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1bceea59-ca7a-8086-a894-e4ec78d03865" class="numbered-list" start="2"><li>Manages communication between devices (MAC adresses)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1bceea59-ca7a-80ad-b990-cb3955bab559" class="numbered-list" start="3"><li>Defines protocols for transmitting data frames</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1bceea59-ca7a-809e-a7b9-cce0cf22f48e" class="numbered-list" start="4"><li>Ensures fair and efficient sharing of network resources</li></ol></div></div></figure></div><div style="display:contents" dir="ltr"><figure id="1bceea59-ca7a-8096-8372-f9ef2763a201" class="image"><a href="Communication%20Technologies%20for%20LLN/image%206.png"><img style="width:576px" src="Communication%20Technologies%20for%20LLN/image%206.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1bceea59-ca7a-80fb-96eb-d7ee0b64aa2b" class="">102 bytes maximum MAC payload, but with reduce adress I can use <mark class="highlight-blue"><mark class="highlight-pink_background">114 bytes</mark></mark></p></div><div style="display:contents" dir="auto"><ol type="1" id="1bceea59-ca7a-804e-afc1-dfb868caab9c" class="numbered-list" start="1"><li><strong>Frame Control (2 bytes)</strong>: Contains information about the frame type, addressing mode, security settings, and other control information.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1bceea59-ca7a-80c4-8eae-f77265dad8f1" class="numbered-list" start="2"><li><strong>Sequence Number (1 byte)</strong>: Helps in tracking frames and managing duplicate frames in communication.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1bceea59-ca7a-8049-8028-dfac03a43dcf" class="numbered-list" start="3"><li><strong>Frame Check Sequence (FCS) (2 bytes)</strong>: Used for error detection, ensuring data integrity → called MAC footer</li></ol></div><div style="display:contents" dir="auto"><p id="1bceea59-ca7a-80f6-99e2-f0f8e829816b" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="1bceea59-ca7a-800a-afef-dc185e3c8cf2" class="numbered-list" start="1"><li><strong>Synchronization Header </strong>in phy layer: Helps synchronize the receiver with the incoming data transmission.</li></ol></div><div style="display:contents" dir="auto"><p id="1bceea59-ca7a-80b3-807a-d3d6145205bc" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1bceea59-ca7a-80e7-9c22-d36ad2139342" class="">There are two different modes for IEEE 802.15.4</p></div><div style="display:contents" dir="auto"><ol type="1" id="1bceea59-ca7a-8009-9f9c-cb69aa1a91e3" class="numbered-list" start="1"><li><mark class="highlight-blue">Beacon mode </mark>→ periodical broadcasted msg (beacon) that coordinate and syncronize the network (sent from PAN coordinator)<div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-809f-b9be-d2a5c7e193c5" class="bulleted-list"><li style="list-style-type:disc">The time between two consecutive beacon is called <mark class="highlight-teal">beacon interval</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-808c-8643-d8ec62d0cd4c" class="bulleted-list"><li style="list-style-type:disc">The <mark class="highlight-teal"><mark class="highlight-pink_background"><strong>Superframe</strong></mark></mark><mark class="highlight-teal"><strong> </strong></mark>structure is defined within the Beacon Interval and consists of an active period (for data transmission) and an optional inactive period (for power saving).</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1bceea59-ca7a-80aa-9afe-f188c7c0bb43" class="numbered-list" start="2"><li><mark class="highlight-blue">Non Beacon mode</mark> → no beacon trasmitted<div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-8064-a11e-e2343a0dc10a" class="bulleted-list"><li style="list-style-type:disc">The protocol used is <mark class="highlight-orange">unslotted CSMA-CA </mark>(random access protocol)</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><h2 id="1bceea59-ca7a-80cf-8326-e80e126edee2" class="">1. Beacon-Enabled (BE) Mode</h2></div><div style="display:contents" dir="auto"><p id="1beeea59-ca7a-80df-a06a-f6a8a914d4a9" class="">We refer to the <mark class="highlight-orange"><mark class="highlight-pink_background"><strong><span style="border-bottom:0.05em solid">star </span></strong></mark></mark><mark class="highlight-orange"><strong><span style="border-bottom:0.05em solid">topology</span></strong></mark>: the PAN coordinator is responsible to send periodic Beacon (the period is a parameter that can be changed).</p></div><div style="display:contents" dir="auto"><p id="1bceea59-ca7a-8037-8a7a-fee0e72e84d8" class=""> The time is divided into <mark class="highlight-teal"><mark class="highlight-pink_background">Backoff slots</mark></mark><mark class="highlight-teal"> </mark>(or periods), which represent the smallest unit of time, they are aggregated under <mark class="highlight-teal">communications slots</mark></p></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-80be-a196-f260916a75b6" class="bulleted-list"><li style="list-style-type:disc">All node activities, such as starting the transmission of a frame, can only begin at the <mark class="highlight-pink_background">beginning</mark> of a Backoff slot</li></ul></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-8046-8ad6-f6f09db136a7" class="bulleted-list"><li style="list-style-type:disc">If a node successfully sends its request to transmit in a GTS, it can only transmit in the next<br/>Beacon Interval. This is because the response from the coordinator node will arrive within the next Beacon.</li></ul></div><div style="display:contents" dir="ltr"><figure id="1bceea59-ca7a-8050-b640-d2311a374406" class="image"><a href="Communication%20Technologies%20for%20LLN/image%207.png"><img style="width:528px" src="Communication%20Technologies%20for%20LLN/image%207.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1bceea59-ca7a-806c-af52-dbbd05998330" class="">Space between two beacons is called <mark class="highlight-blue"><mark class="highlight-pink_background">super frame</mark></mark> → there is an active part where nodes are active (communication is possible) and an inactive part (no communication possible)</p></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-806b-b4a8-e5db35b642cf" class="bulleted-list"><li style="list-style-type:disc">Sleep and wake up scheme → Devices use these beacons to wake up and communicate efficiently</li></ul></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-8044-b853-de22f53f5a66" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Syncronization at beacon trasmission</mark></li></ul></div><div style="display:contents" dir="auto"><p id="21eeea59-ca7a-80c3-bc05-e759185fa462" class="">
+</p></div><div style="display:contents" dir="auto"><p id="21eeea59-ca7a-80c1-bc93-dd8b52e1c2ca" class=""><mark class="highlight-orange">Active period </mark>is divided into:</p></div><div style="display:contents" dir="auto"><ol type="1" id="21eeea59-ca7a-80b5-8920-e1c995cbe5f1" class="numbered-list" start="1"><li><mark class="highlight-blue">Contention access period</mark> (CAP), during the CAP a slotted CSMA/CA algorithm is used for channel access<div style="display:contents" dir="auto"><ul id="21eeea59-ca7a-8067-8a3e-e570078bbbd1" class="bulleted-list"><li style="list-style-type:disc">During this interval, nodes can <mark class="highlight-default"><mark class="highlight-pink_background">request to be assigned a GTS</mark></mark></li></ul></div><div style="display:contents" dir="auto"><ul id="21eeea59-ca7a-8050-b42d-ee103bad0915" class="bulleted-list"><li style="list-style-type:disc">If a node sends the request, it can only transmit in the next Beacon Interval. This is because the response from the coordinator node will arrive within the next Beacon.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="21eeea59-ca7a-80dc-b2d6-ed50ae4effd2" class="numbered-list" start="2"><li><mark class="highlight-blue">Contention free period</mark> (CFP), communication occurs in a TDMA style by using a number of <mark class="highlight-teal">Guaranteed Time Slots</mark> (GTS), pre-assigned to individual nodes (for the current superframe)<div style="display:contents" dir="auto"><ul id="21eeea59-ca7a-806b-8f65-e428b84f7b3a" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">16 communication slots of fixed length, at most 7 given to CFP</mark></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="21eeea59-ca7a-80a8-a56d-fd1b30dc9e90" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1bceea59-ca7a-8073-8616-cfe8ea5046ff" class="">CSMA-CA Algorithm</h3></div><div style="display:contents" dir="auto"><div id="1bceea59-ca7a-805f-9d0d-f889f5076a3f" class="column-list"><div style="display:contents" dir="auto"><div id="1bceea59-ca7a-80b4-bfa8-deaa6643236e" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-808f-806e-d75cb253de65" class="bulleted-list"><li style="list-style-type:disc"><strong>CW</strong>: <mark class="highlight-blue">Contention Window</mark> → counter that tracks the number of backoff periods that need to be clear of channel activity before transmission can begin → two consecutive <mark class="highlight-teal">CCA </mark>(clear channel assesment)<div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-804f-b185-dae582ffa849" class="bulleted-list"><li style="list-style-type:circle">Otherwise I could have two that sense the medium free and start communicating</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-80ee-9ae6-ccbb1e43125c" class="bulleted-list"><li style="list-style-type:disc"><strong>BE</strong>: <mark class="highlight-blue">Backoff Exponent </mark>- Determines the range of the random backoff period. The initial value is typically set to 3<div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-807e-980a-da5d1d686097" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-blue"><strong>aMaxBE</strong></mark>: The maximum value that BE can reach</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-8075-9aef-e877c41cd571" class="bulleted-list"><li style="list-style-type:disc"><strong>NB</strong>: <mark class="highlight-blue">Number of Backoffs</mark> - Tracks how many times the device has backed off due to a busy channel<div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-8025-9d9b-d9d61be5d109" class="bulleted-list"><li style="list-style-type:circle"><strong>macMaxCSMABackoffs</strong>: <mark class="highlight-blue">Maximum number of allowed backoff attempts</mark> before declaring failure.</li></ul></div></li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1bceea59-ca7a-80aa-95ef-c7d1be08b6f4" style="width:43.74999999999999%" class="column"><div style="display:contents" dir="ltr"><figure id="1bceea59-ca7a-80ec-a14e-e256a86c8015" class="image"><a href="Communication%20Technologies%20for%20LLN/image%208.png"><img style="width:384.7749938964844px" src="Communication%20Technologies%20for%20LLN/image%208.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-8085-8368-c811b0eecdf5" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue"><strong>Backoff period</strong></mark>: time during which a device waits before attempting to access the communication channel<div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-80fd-948a-d226ce88399a" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-pink_background">double at each attempt the maximum possible interval</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-80bb-95f3-e6ead6d0bd5b" class="bulleted-list"><li style="list-style-type:circle">randomization is foundamental because it avoid multiple devices to start trasmission together → <mark class="highlight-teal">uniform sampled</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-8023-812c-dce5a28d0028" class="bulleted-list"><li style="list-style-type:circle"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mi>P</mi><mo>∈</mo><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>320</mn><mo separator="true">⋅</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mrow><mi>B</mi><mi>E</mi></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mtext> µ</mtext><mi>s</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">BP \in [0, 320·(2^{BE}-1)\space µs]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">BP</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0913em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">320</span><span class="mpunct">⋅</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">BE</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace"> </span><span class="mord">µ</span><span class="mord mathnormal">s</span><span class="mclose">]</span></span></span></span></span><span>﻿</span></span></li></ul></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-8073-bae7-e4480edf9241" class="bulleted-list"><li style="list-style-type:circle">The starting time of the backoff timer is <mark class="highlight-teal"><mark class="highlight-pink_background">aligned </mark></mark><mark class="highlight-pink_background">with the beginning of the next backoff slot</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-806a-ae21-c8d6bb785a8e" class="bulleted-list"><li style="list-style-type:circle">If the backoff time is larger than the residual CAP duration, the backoff timer is <mark class="highlight-teal">stopped </mark>at the end of the CAP and <mark class="highlight-pink_background">resumed at the beginning of the next superframe</mark></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1bceea59-ca7a-8071-81d9-d62c0de46dd1" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1bceea59-ca7a-8016-9199-fa684d763086" class="">At success I can trasmit my msg → may not be delivered correctly</p></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-8074-abeb-eb6c719bd004" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">ACK is optional</mark>, can be enabled or disable depending on application <mark class="highlight-teal">reliability </mark>requirements</li></ul></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-8098-9957-dc6ea7b104df" class="bulleted-list"><li style="list-style-type:disc">Retransmission if ACK not correctly received within the timeout → re-initialize the parameters of the algorithm from scratch</li></ul></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-8074-b148-ceb1fa40b722" class="bulleted-list"><li style="list-style-type:disc">Only a maximum number of retransmissions allowed</li></ul></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-805e-9c66-fe1fc648f536" class="bulleted-list"><li style="list-style-type:disc">Higher energy consuption</li></ul></div><div style="display:contents" dir="auto"><p id="1bceea59-ca7a-80bc-be22-e3ce47c72021" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1bceea59-ca7a-8000-a14f-cdf11531577f" class="">The packet may be discarded for two reasons:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1bceea59-ca7a-8004-8342-d17b4bee5039" class="numbered-list" start="1"><li>max number of attempts of communication medium (the data may become useless after some time)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1bceea59-ca7a-808c-bbbd-c04bbd61cc2c" class="numbered-list" start="2"><li>max number of retrasmission without ack (eg. 3) → may or may not be enabled the retrasmission</li></ol></div><div style="display:contents" dir="auto"><p id="1bceea59-ca7a-80c3-bc25-de0fa70045f0" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="1bceea59-ca7a-8047-b0ae-cfc5f3340b80" class="image"><a href="Communication%20Technologies%20for%20LLN/image%209.png"><img style="width:709.9750366210938px" src="Communication%20Technologies%20for%20LLN/image%209.png"/></a><figcaption>3 nodes on the network</figcaption></figure></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-80d5-ab53-ff726d1e2ab3" class="bulleted-list"><li style="list-style-type:disc">The first CCA of B fails (because it last a small amount of time and A start trasmitting) → The superframe interval finished before a new CCA → timer is frozen</li></ul></div><div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-8025-987e-d50f788c2515" class="bulleted-list"><li style="list-style-type:disc">Then B perform the two CCA and trasmits<div style="display:contents" dir="auto"><ul id="1bceea59-ca7a-80ca-b300-eda4e1c7d53f" class="bulleted-list"><li style="list-style-type:circle">Note that every operation must start at precise time, not immediatly</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1bceea59-ca7a-80ae-a129-c47586539124" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1bceea59-ca7a-8001-a997-f454ffd43f1c" class="">Security</h3></div><div style="display:contents" dir="auto"><ol type="1" id="1bceea59-ca7a-80c2-8baf-fdd9c3c40879" class="numbered-list" start="1"><li><mark class="highlight-blue">Unsecured mode</mark></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1bceea59-ca7a-80ef-91ea-f4173ea0a56c" class="numbered-list" start="2"><li><mark class="highlight-blue">ACL Mode</mark> (access control list) → any node has an ACL specifying nodes that are authorized to perform specific actions</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1bceea59-ca7a-8011-bdb2-f18d41106146" class="numbered-list" start="3"><li><mark class="highlight-blue">Secured Mode</mark> → based on <mark class="highlight-teal">AES </mark>with 128-bit key. Consist of <mark class="highlight-teal">ACL </mark>and:<div style="display:contents" dir="auto"><ol type="a" id="1bceea59-ca7a-80a0-a2dc-dae4acf6cbc7" class="numbered-list" start="1"><li><mark class="highlight-teal">Replay attack protection</mark> → when an attacker intercepts and resends a valid message to trick the system into performing an unintended action (eg. authentication)</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1bceea59-ca7a-80ac-801a-fdca2925ec2e" class="numbered-list" start="2"><li><mark class="highlight-teal">Message integrity</mark> → ensures that a message has not been altered in transit, either accidentally or maliciously</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1bceea59-ca7a-8097-a74a-da561c0e0c6c" class="numbered-list" start="3"><li><mark class="highlight-teal">Confidentiality</mark> → ensures that only authorized entities can read the message, preventing unauthorized access</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><p id="1beeea59-ca7a-8040-821b-c73ed2d0e41b" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1bdeea59-ca7a-8020-800d-e50dbccc470d" class="">Problems with the Beacon Mode</h3></div><div style="display:contents" dir="auto"><ol type="1" id="1bdeea59-ca7a-80e9-a40d-fe1c2e194888" class="numbered-list" start="1"><li><mark class="highlight-blue">Power Management disabled </mark>→ meaning that there is no inactive part<div style="display:contents" dir="auto"><ul id="1bdeea59-ca7a-8090-aca3-fe2c2f754017" class="bulleted-list"><li style="list-style-type:disc">Not much collisions since they are spreaded over all the superframe</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1beeea59-ca7a-8023-950e-e678912cf1d6" class="numbered-list" start="2"><li><mark class="highlight-blue">Power Management enabled </mark>+<mark class="highlight-blue"> Poisson Traffic </mark>→ the packets generated during the sleeping time are deferred to the beginning of the next Active Period<div style="display:contents" dir="auto"><ul id="1beeea59-ca7a-80ee-84a3-d1d604f88ed2" class="bulleted-list"><li style="list-style-type:disc">Therefore, channel access attempts tend to become <mark class="highlight-teal">synchronized</mark></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1beeea59-ca7a-8060-b405-f7923acd2092" class="numbered-list" start="3"><li><mark class="highlight-blue">Power Management enabled </mark>+<mark class="highlight-blue"> Periodic Traffic</mark> → the msgs are generated just before the beacon<div style="display:contents" dir="auto"><ul id="1beeea59-ca7a-8081-9b29-eed69491d9d1" class="bulleted-list"><li style="list-style-type:disc">maximum competitions since every node has something to trasmit</li></ul></div></li></ol></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1bdeea59-ca7a-80dd-bfeb-e5a7bc22f368"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1bdeea59-ca7a-8099-8b19-efa8c43b926c" class="">The performance degrades with increased competition (medium contemption)</p></div></div></figure></div><div style="display:contents" dir="auto"><p id="1beeea59-ca7a-803c-9c54-e69ac11a43ab" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1beeea59-ca7a-801b-9d6a-e481cbf8be9d" class="column-list"><div style="display:contents" dir="auto"><div id="1beeea59-ca7a-80c6-80cb-c90a0c8cc8c3" style="width:37.5%" class="column"><div style="display:contents" dir="auto"><p id="1bdeea59-ca7a-8082-b20a-ddb39bdcca57" class="">Drammatic decrease of the delivery ratio → many packets are not received correctly by the destination</p></div><div style="display:contents" dir="auto"><ul id="1bdeea59-ca7a-803a-a95f-f26f655c3dc4" class="bulleted-list"><li style="list-style-type:disc">even with ACK since we cannot continously send them (two max threshold)</li></ul></div><div style="display:contents" dir="auto"><p id="1beeea59-ca7a-8047-a790-de0aaedf5853" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1beeea59-ca7a-80c7-b6ca-d4c40b37fe39" style="width:62.5%" class="column"><div style="display:contents" dir="ltr"><figure id="1bdeea59-ca7a-8059-9b37-c157ba37110b" class="image"><a href="Communication%20Technologies%20for%20LLN/image%2010.png"><img style="width:480px" src="Communication%20Technologies%20for%20LLN/image%2010.png"/></a><figcaption>Start topology, Posson Process → time of msg send is random</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><div id="1beeea59-ca7a-805e-af0d-f9349882ee13" class="column-list"><div style="display:contents" dir="auto"><div id="1beeea59-ca7a-80fb-9c18-ee19e22a5efa" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1bdeea59-ca7a-8011-837a-d4c1425f7ef9" class="">It’s not a problem of the algorithm per se. In fact in WIFI we got perfect delivery ratios</p></div><div style="display:contents" dir="auto"><p id="1beeea59-ca7a-80a3-b090-e37d5bb87806" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1beeea59-ca7a-805c-8989-d8e218d2581b" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1bdeea59-ca7a-808a-9e36-f5817c18cb1e" class="image"><a href="Communication%20Technologies%20for%20LLN/image%2011.png"><img style="width:432px" src="Communication%20Technologies%20for%20LLN/image%2011.png"/></a><figcaption>S-MAC is the CSMA-CA algorithm used in WIFI</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="1beeea59-ca7a-80b1-b73f-e0654d49b805" class="">Simulation on Parameters</h3></div><div style="display:contents" dir="auto"><p id="1bdeea59-ca7a-80ca-8293-d5ce769bbf38" class="">Simulation on worst conditions (in 15 sensor nodes):</p></div><div style="display:contents" dir="auto"><ol type="1" id="1bdeea59-ca7a-8028-81ce-d82b91afbe5a" class="numbered-list" start="1"><li>Periodic Traffic</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1bdeea59-ca7a-8050-84f2-db813cfcb7a9" class="numbered-list" start="2"><li>Power Management ON</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1bdeea59-ca7a-80ad-a27c-e4c23ad87371" class="numbered-list" start="3"><li>ACK ON</li></ol></div><div style="display:contents" dir="ltr"><figure id="1bdeea59-ca7a-80ef-bc2e-ef8eb0717640" class="image"><a href="Communication%20Technologies%20for%20LLN/image%2012.png"><img style="width:432px" src="Communication%20Technologies%20for%20LLN/image%2012.png"/></a><figcaption>default is 3. Increasing, the packets are discarded before trasmission</figcaption></figure></div><div style="display:contents" dir="auto"><div id="1bdeea59-ca7a-806e-ae52-c14f628d1b72" class="column-list"><div style="display:contents" dir="auto"><div id="1bdeea59-ca7a-8018-a293-faa181f0849e" style="width:62.5%" class="column"><div style="display:contents" dir="ltr"><figure id="1bdeea59-ca7a-801c-ad67-eca91f5452ae" class="image"><a href="Communication%20Technologies%20for%20LLN/image%2013.png"><img style="width:432px" src="Communication%20Technologies%20for%20LLN/image%2013.png"/></a><figcaption>default is 4</figcaption></figure></div><div style="display:contents" dir="auto"><p id="1beeea59-ca7a-8012-b24b-cc2100bcf49a" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1bdeea59-ca7a-8009-a8d9-c44c5acfcd0f" style="width:37.5%" class="column"><div style="display:contents" dir="ltr"><figure id="1bdeea59-ca7a-8015-a952-dda0e02a6cd6" class="image"><a href="Communication%20Technologies%20for%20LLN/image%2014.png"><img style="width:316.375px" src="Communication%20Technologies%20for%20LLN/image%2014.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1bdeea59-ca7a-8013-90be-cefad364ce7d" class="bulleted-list"><li style="list-style-type:disc">The total energy increase because more messages are sent</li></ul></div><div style="display:contents" dir="auto"><ul id="1bdeea59-ca7a-804d-ac17-ed997457c163" class="bulleted-list"><li style="list-style-type:disc">But the energy per packet decreases → because if a packet is not received, then the energy is wasted</li></ul></div><div style="display:contents" dir="auto"><ul id="1beeea59-ca7a-8005-973a-ce345fbc7f0e" class="bulleted-list"><li style="list-style-type:disc">Even if we increase the number of backoff stages to very high values (like 10) the delivery ratio is under 80%</li></ul></div><div style="display:contents" dir="auto"><div id="1bdeea59-ca7a-800b-a39a-d42db4967fb2" class="column-list"><div style="display:contents" dir="auto"><div id="1bdeea59-ca7a-80a4-9bf0-f6bb0eb1ef16" style="width:62.5%" class="column"><div style="display:contents" dir="ltr"><figure id="1bdeea59-ca7a-80e9-b0c4-e263212c4aa7" class="image"><a href="Communication%20Technologies%20for%20LLN/image%2015.png"><img style="width:384px" src="Communication%20Technologies%20for%20LLN/image%2015.png"/></a><figcaption>default 5</figcaption></figure></div><div style="display:contents" dir="auto"><p id="22aeea59-ca7a-803e-94f9-f5e5ab6285ca" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1bdeea59-ca7a-8016-a88c-ed0cf9db6a26" style="width:37.5%" class="column"><div style="display:contents" dir="ltr"><figure id="1bdeea59-ca7a-8083-a4b1-ce289764f0f6" class="image"><a href="Communication%20Technologies%20for%20LLN/image%2016.png"><img style="width:294.375px" src="Communication%20Technologies%20for%20LLN/image%2016.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><div id="1bdeea59-ca7a-80f6-9e7b-fed5240ae142" class="column-list"><div style="display:contents" dir="auto"><div id="1bdeea59-ca7a-808c-b808-e5201a0af31a" style="width:62.5%" class="column"><div style="display:contents" dir="ltr"><figure id="1bdeea59-ca7a-80c9-9030-faef850b1eb3" class="image"><a href="Communication%20Technologies%20for%20LLN/image%2017.png"><img style="width:432px" src="Communication%20Technologies%20for%20LLN/image%2017.png"/></a><figcaption>default 3</figcaption></figure></div><div style="display:contents" dir="auto"><ul id="1bdeea59-ca7a-80d0-a7e6-e972a2b643d0" class="bulleted-list"><li style="list-style-type:disc">Initial backoff periods are larger → less collisions</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1bdeea59-ca7a-80be-83e9-d5446484a954" style="width:37.5%" class="column"><div style="display:contents" dir="ltr"><figure id="1bdeea59-ca7a-8077-8b4b-d319f49b704e" class="image"><a href="Communication%20Technologies%20for%20LLN/image%2018.png"><img style="width:294.375px" src="Communication%20Technologies%20for%20LLN/image%2018.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1beeea59-ca7a-80dc-b96d-f8f9cf108444" class=""><strong>Result of the analysis</strong></p></div><div style="display:contents" dir="auto"><ol type="1" id="1bdeea59-ca7a-80f2-a402-e0b8c1f73821" class="numbered-list" start="1"><li>The MAC unreliability problem is mainly due to the CSMA/CA algorithm (contemption) </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c0eea59-ca7a-80c4-8d74-fdefe7bd4b0e" class="numbered-list" start="2"><li>The periodic <mark class="highlight-teal">beacon </mark>synchronizes channel accesses thus maximizing contention</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1bdeea59-ca7a-8057-8df2-f2fd3c22666d" class="numbered-list" start="3"><li>The problem is exacerbated by the<mark class="highlight-teal"> default MAC parameter values</mark><div style="display:contents" dir="auto"><ul id="1bdeea59-ca7a-803e-ad93-ef59e9162ede" class="bulleted-list"><li style="list-style-type:disc">Not appropriate for  Wireless Sensor Networks (WSNs) operating in BE mode</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1bdeea59-ca7a-801c-ace1-e5b39a12b838" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1bdeea59-ca7a-804e-b30c-ca9a4a6513c2" class="column-list"><div style="display:contents" dir="auto"><div id="1bdeea59-ca7a-8005-a58a-c701780c2ce5" style="width:50%" class="column"><div style="display:contents" dir="auto"><ol type="1" id="1bdeea59-ca7a-8024-85b9-e7c8ff1aef37" class="numbered-list" start="1"><li>DSP (Default Parameter Set) → suggested values by the standard</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1bdeea59-ca7a-806d-99b6-c05aca468c41" class="numbered-list" start="2"><li>SPS (Standard Parameter Set) → standard compliant max values</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1bdeea59-ca7a-80ca-8f4c-f9920f0b6bd7" class="numbered-list" start="3"><li>NPS (Non-Standard Parameter Set) → larger values</li></ol></div><div style="display:contents" dir="auto"><p id="1bdeea59-ca7a-8090-b68d-c9febc91db64" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1bdeea59-ca7a-80ae-86f1-e22545aeb1a9" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1bdeea59-ca7a-8084-a953-f6e161a9aed0" class="image"><a href="Communication%20Technologies%20for%20LLN/image%2019.png"><img style="width:294.3625183105469px" src="Communication%20Technologies%20for%20LLN/image%2019.png"/></a><figcaption>PER = Packed Error Rate</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure id="1bdeea59-ca7a-805d-94fa-d9f9db8e1be3" class="image"><a href="Communication%20Technologies%20for%20LLN/image%2020.png"><img style="width:636.75px" src="Communication%20Technologies%20for%20LLN/image%2020.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="1bdeea59-ca7a-8047-a066-d664b1e4f25c" class="bulleted-list"><li style="list-style-type:disc">The cost to pay is the <mark class="highlight-teal">higher latency</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1bdeea59-ca7a-80f7-b2c1-cac027609c90" class="bulleted-list"><li style="list-style-type:disc">Third Graph → percentage of packets that can be delivered given a deadline<div style="display:contents" dir="auto"><ul id="1beeea59-ca7a-8062-ad98-d35916a775b5" class="bulleted-list"><li style="list-style-type:circle">when the deadline is less than or equal to 100 ms, the fraction of packets delivered on time is below 20%, irrespective of the parameter set.</li></ul></div></li></ul></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1bdeea59-ca7a-8088-b969-ece19686999e"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1beeea59-ca7a-8078-9426-c6f1f370e3fb" class="">This MAC protocol is not suitable for applications with strict delay constraints. It is not possible to achieve both high reliability and low latency (RT) simultaneously </p></div><div style="display:contents" dir="auto"><ul id="1beeea59-ca7a-8054-955f-c4f75f0f7e6d" class="bulleted-list"><li style="list-style-type:disc">high reliability comes at the expense of increased latency</li></ul></div><div style="display:contents" dir="auto"><ul id="1beeea59-ca7a-8061-ab08-c716d205e0cd" class="bulleted-list"><li style="list-style-type:disc">So this protocol is good for <mark class="highlight-teal">non critical applications</mark></li></ul></div></div></figure></div><div style="display:contents" dir="auto"><p id="1bdeea59-ca7a-80ed-b9aa-c2096690b845" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1bdeea59-ca7a-8065-ab5b-d66e9e6f777d" class="">2. Non Beacon Enabled Mode</h2></div><div style="display:contents" dir="auto"><div id="1bdeea59-ca7a-80ba-b5f2-cd06ca5dc562" class="column-list"><div style="display:contents" dir="auto"><div id="1bdeea59-ca7a-80a3-bbbb-ce2fd23a7eda" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1bdeea59-ca7a-8081-9844-ecbed3cfb68d" class="">Differences:</p></div><div style="display:contents" dir="auto"><ol type="1" id="21eeea59-ca7a-8012-b54f-cdd531011ea0" class="numbered-list" start="1"><li>No beacon </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1bdeea59-ca7a-808f-9255-fc40e0a87470" class="numbered-list" start="2"><li>Single CCA performed</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1bdeea59-ca7a-802a-a4cd-c25a4b4d1c4d" class="numbered-list" start="3"><li>No need for waiting the beginning of a new time slot to start communication</li></ol></div><div style="display:contents" dir="auto"><p id="1beeea59-ca7a-807c-8b48-f962a0cea691" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1beeea59-ca7a-80ca-952b-e7a3f18b7a61" class=""><mark class="highlight-pink_background">There isn’t any sleep period</mark> → nodes wake up when they need to communicate or to receive a msg</p></div><div style="display:contents" dir="auto"><p id="1beeea59-ca7a-80a5-9aad-f39d04f426b0" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1bdeea59-ca7a-8056-a254-de3ec0154808" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1bdeea59-ca7a-8050-805e-ed163e732e5b" class="image"><a href="Communication%20Technologies%20for%20LLN/image%2021.png"><img style="width:316.375px" src="Communication%20Technologies%20for%20LLN/image%2021.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="1bdeea59-ca7a-809a-8786-c8cca14c23f3" class="">Performance in NBE (non beacon enabled)</h3></div><div style="display:contents" dir="auto"><p id="1bdeea59-ca7a-80b5-9a4a-c94a449a439b" class="">Not fair because BE mode there is syncronization (msg generated before beacon), while for NBE the msg are generated randomly</p></div><div style="display:contents" dir="ltr"><figure id="1bdeea59-ca7a-80c1-ae88-d6c73e32c923" class="image"><a href="Communication%20Technologies%20for%20LLN/image%2022.png"><img style="width:384px" src="Communication%20Technologies%20for%20LLN/image%2022.png"/></a><figcaption>Packet generation is random, otherwise the two has almost idential results (introduce a syncronization point)</figcaption></figure></div><div style="display:contents" dir="ltr"><figure id="1bdeea59-ca7a-80ab-aeb1-ea35c8a634b7" class="image"><a href="Communication%20Technologies%20for%20LLN/image%2023.png"><img style="width:624px" src="Communication%20Technologies%20for%20LLN/image%2023.png"/></a><figcaption>NBE → sensing and all the algorithm, instead TDMA instant if mine time slot</figcaption></figure></div><div style="display:contents" dir="auto"><p id="1bdeea59-ca7a-80bb-bd85-c7acfb030c50" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1bdeea59-ca7a-807a-9936-d9d0c474bf38" class="">TDMA degrades for high number of nodes → really small windows</p></div><div style="display:contents" dir="auto"><p id="1bdeea59-ca7a-80a8-9d3d-e093e9a1f9d3" class="">NBE → <mark class="highlight-pink_background">can support </mark><mark class="highlight-teal"><mark class="highlight-pink_background">critical applications </mark></mark><mark class="highlight-pink_background">(RT and high delivery ratio) only for a small number of nodes in the network</mark></p></div><div style="display:contents" dir="auto"><ul id="226eea59-ca7a-804f-a30e-db6c48d1c475" class="bulleted-list"><li style="list-style-type:disc">less unused slots, simpler then the slotted one</li></ul></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1beeea59-ca7a-80d1-876d-f27feefc4c22"><div style="font-size:1.5em"><span class="icon">📢</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1beeea59-ca7a-8011-bbf5-d71e0fb20bda" class="">We conclude that using the non-beacon enabled approach is better than using the beacon enabled approach. </p></div><div style="display:contents" dir="auto"><ul id="1beeea59-ca7a-8032-90c3-fa9bc0eea08f" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default"><mark class="highlight-pink_background">Beacon enabled mode have the advantage of power saving</mark></mark>, but actually it can be performed also in non-beacon mode, since the <mark class="highlight-teal">PAN coordinator(s)</mark> must be always active, while regular nodes don’t need it.</li></ul></div><div style="display:contents" dir="auto"><ul id="1beeea59-ca7a-8080-bf30-e1de98aa5349" class="bulleted-list"><li style="list-style-type:disc">Since nodes generally they only have to transmit packets, they can go to sleep and then wake up when they have to transmit something</li></ul></div><div style="display:contents" dir="auto"><ul id="1beeea59-ca7a-80ee-999e-f59759c8e4f9" class="bulleted-list"><li style="list-style-type:disc">In addition, the Beacon enabled mode requires <mark class="highlight-pink_background">synchronization </mark>among the nodes, which is a costly process.</li></ul></div></div></figure></div><div style="display:contents" dir="auto"><p id="226eea59-ca7a-807a-b630-e806eb583ed4" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="1c0eea59-ca7a-8056-aaea-fe0720d30ad0" class="">Bluetooth</h1></div><div style="display:contents" dir="auto"><div id="1c0eea59-ca7a-8091-b794-d77b3ec01d95" class="column-list"><div style="display:contents" dir="auto"><div id="1c0eea59-ca7a-80a5-a368-d7cd91e012bd" style="width:62.5%" class="column"><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-801e-9bee-de08b9fd7aea" class=""><code>802.15.1</code> → they belongs to the same standard family of Personal Area Network</p></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-80c7-ae02-e16a80cd8da0" class="bulleted-list"><li style="list-style-type:disc">High speed PAN, instead the 802.15.4 for low speed PAN</li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-8049-ad26-f78bf7c6569b" class="bulleted-list"><li style="list-style-type:disc">Short range, but power angry so it wasn’t suitable for IoT → <mark class="highlight-orange">BLE </mark>(bluetooth low energy)</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1c0eea59-ca7a-80da-866c-c92bf9de5da4" style="width:37.50000000000001%" class="column"><div style="display:contents" dir="ltr"><figure id="1c0eea59-ca7a-80d4-bac8-d0ef6c9f5f53" class="image"><a href="Communication%20Technologies%20for%20LLN/image%2024.png"><img style="width:648.7875366210938px" src="Communication%20Technologies%20for%20LLN/image%2024.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-8095-9978-e314766db43b" class="">Bluetooth 4.0, introduced in 2010, prioritized low energy consumption over raw speed (1Mbps). </p></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-809a-8315-f83ab9a57785" class="bulleted-list"><li style="list-style-type:disc">Bluetooth 4.0 also introduced <mark class="highlight-blue"><mark class="highlight-pink_background">dual-mode capabilities</mark></mark>, allowing devices to support both the energy-efficient BLE protocol and the traditional Bluetooth protocol</li></ul></div><div style="display:contents" dir="ltr"><figure id="1c0eea59-ca7a-805a-9da5-f282538a3b3c" class="image"><a href="Communication%20Technologies%20for%20LLN/image%2025.png"><img style="width:648.7875366210938px" src="Communication%20Technologies%20for%20LLN/image%2025.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-807f-a38a-df8376552281" class="">In BLE there are 40 channels available, but three of them cannot be used for data exchange, but only for beaconing</p></div><div style="display:contents" dir="auto"><p id="21eeea59-ca7a-80fb-954d-c77b9630f4c5" class="">
+</p></div><div style="display:contents" dir="auto"><p id="21eeea59-ca7a-80a3-9a55-d5afb1f164cc" class="">It allows two modes of communication: </p></div><div style="display:contents" dir="auto"><ol type="1" id="21eeea59-ca7a-8062-b321-c92b7773bd1a" class="numbered-list" start="1"><li><mark class="highlight-blue">Communication Mode</mark>: designed to enable communication between nodes (<mark class="highlight-orange">point-to-point</mark>), it uses a <mark class="highlight-pink_background">master-slave approach</mark>, a device will connect to the master</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="21eeea59-ca7a-809f-bc7b-c12a992fb352" class="numbered-list" start="2"><li><mark class="highlight-blue">Advertise Mode</mark>: involves <mark class="highlight-orange">broadcast </mark>communication where we have two types of nodes.<div style="display:contents" dir="auto"><ul id="21eeea59-ca7a-8027-b27d-ea52662b4010" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Advertisers </mark>are Beacon devices that send messages</li></ul></div><div style="display:contents" dir="auto"><ul id="21eeea59-ca7a-805b-bbc2-c373dbc78b9b" class="bulleted-list"><li style="list-style-type:disc">Then we have <mark class="highlight-teal">observer </mark>nodes that wait to receive the messages</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><h3 id="1c0eea59-ca7a-80d9-b924-ce97ecdd2409" class="">Topologies</h3></div><div style="display:contents" dir="auto"><div id="1c0eea59-ca7a-80b2-9240-f713252684af" class="column-list"><div style="display:contents" dir="auto"><div id="1c0eea59-ca7a-80c0-b7b3-d39c86a55e68" style="width:50%" class="column"><div style="display:contents" dir="auto"><ol type="1" id="1c0eea59-ca7a-8030-ab99-f0aab76c8bb2" class="numbered-list" start="1"><li><mark class="highlight-blue">Hub and Spoke</mark> → devices connects to a central hub<div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-80c6-92a6-dc726523a81e" class="bulleted-list"><li style="list-style-type:disc">communication is not possible if the central hub is out of coverage</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="21eeea59-ca7a-8073-9881-ef2a97a0dd73" class="numbered-list" start="2"><li><mark class="highlight-blue">Mesh Tolopogy</mark> → devices are connected directly without using the Internet to form a local network</li></ol></div></div></div><div style="display:contents" dir="auto"><div id="1c0eea59-ca7a-80d2-9347-df1ee7e8b7c0" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1c0eea59-ca7a-8023-9522-db80cece2b85" class="image"><a href="Communication%20Technologies%20for%20LLN/image%2026.png"><img style="width:432px" src="Communication%20Technologies%20for%20LLN/image%2026.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure id="21eeea59-ca7a-80e3-9c77-f557d9331a52" class="image"><a href="Communication%20Technologies%20for%20LLN/image%2027.png"><img style="width:709.977294921875px" src="Communication%20Technologies%20for%20LLN/image%2027.png"/></a></figure></div><div style="display:contents" dir="auto"><h1 id="1c0eea59-ca7a-8040-bb72-d2a9526ea7e2" class="">Low-Power WiFi</h1></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-8057-bca4-d3486b33a694" class="">Sometimes I need longer distance communication </p></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-8008-8dc4-d2634718de4b" class="bulleted-list"><li style="list-style-type:disc">low power, low speed, long range</li></ul></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-8021-9855-dab7bc0a4c55" class="">Lower frequencies (less then 1 Ghz) → <mark class="highlight-orange">802.11.ah</mark></p></div><div style="display:contents" dir="auto"><h1 id="1c0eea59-ca7a-80a5-8173-f9a2ed66f6e7" class="">Low Power Wide Area (LPWA)</h1></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-80ff-8cca-fb8ef20581ba" class="">Low-Power Wide-Area (<mark class="highlight-blue">LPWA</mark>) Networks</p></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-80cf-a62f-ff49e1f24cf6" class="bulleted-list"><li style="list-style-type:disc">very high sensitivity of the receiver to decode the low power msg</li></ul></div><div style="display:contents" dir="auto"><h2 id="1c0eea59-ca7a-80ad-9fe5-f2f7e616b9e6" class="">LoRaWAN</h2></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-807c-b8b5-c6d69b32309a" class="">LoRaWAN end devices are optimized to operate in low power mode and can last up to 10 years on a single coin cell battery.</p></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-80a5-80b4-c97d69f1f7c0" class="bulleted-list"><li style="list-style-type:disc">LoRaWAN gateways can transmit and receive signals over a distance of over 10 kilometers in rural areas and up to 3 kilometers in dense urban areas</li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-805c-8000-ded09f116a7a" class="bulleted-list"><li style="list-style-type:disc">A LoRa end device can be located if at least three gateways pick up its signal, without GPS</li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-80ed-9df8-f30a4f60f6f7" class="bulleted-list"><li style="list-style-type:disc">Operates on the unlincesed bandwidth</li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-80d2-a35e-f3cc22892fa1" class="bulleted-list"><li style="list-style-type:disc">It can handle millions of devices</li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-8017-aa9c-d0dfd2b4f5d6" class="bulleted-list"><li style="list-style-type:disc">Ensure AES-128 bit encyption</li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-80f4-bf38-d37973c619fa" class="bulleted-list"><li style="list-style-type:disc">Firmware updates over the air</li></ul></div><div style="display:contents" dir="ltr"><figure id="1c0eea59-ca7a-807a-a40f-da09608a3829" class="image"><a href="Communication%20Technologies%20for%20LLN/image%2028.png"><img style="width:648.7750244140625px" src="Communication%20Technologies%20for%20LLN/image%2028.png"/></a><figcaption>First hop uses LoRa, the concentrators uses Mobile protocols</figcaption></figure></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-80da-a766-c152fd6779f4" class="">It can trasmit to more <mark class="highlight-blue">Concentrators </mark>(if they are in range), then more probable to arrive correctly to the server</p></div><div style="display:contents" dir="ltr"><figure id="1c0eea59-ca7a-80d0-a9fe-dcaadd3a43fc" class="image"><a href="Communication%20Technologies%20for%20LLN/image%2029.png"><img style="width:648.7875366210938px" src="Communication%20Technologies%20for%20LLN/image%2029.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-8006-91d2-df32caa8dbb1" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Higher bitrate → lower maximum distance</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-808f-a93e-e9de20f364d7" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1c0eea59-ca7a-802b-b17f-d5678e5ac7e8" class="">Class A devices</h3></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-80cb-abc0-e2f291b74b5c" class="">Must be implemented on all the devices using LoRa, other classes are just <mark class="highlight-orange">extensions</mark>.</p></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-80cd-8563-e3d7dd0fdd74" class="bulleted-list"><li style="list-style-type:disc">Devices in this class have really a low power consuption → can operate with <mark class="highlight-pink_background">battery</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-806a-bdc2-fc2a3ff28283" class="bulleted-list"><li style="list-style-type:disc">Class A devices have high <mark class="highlight-teal">downlink </mark>latency<div style="display:contents" dir="auto"><ul id="21eeea59-ca7a-80f4-9cae-eada10a808bf" class="bulleted-list"><li style="list-style-type:circle">They require sending an <mark class="highlight-teal">uplink </mark>(message)<mark class="highlight-teal"> </mark>to receive a downlink (response)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="21eeea59-ca7a-8037-b6b2-edd5131005a1" class="">
+</p></div><div style="display:contents" dir="auto"><p id="21eeea59-ca7a-804b-9c38-fe4067d68600" class=""><mark class="highlight-pink_background">A Class A device can send an uplink message at any time</mark>. Once the uplink transmission is completed, the device opens two short receive windows for receiving downlink messages from the network</p></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-80dd-96e0-c0920fb1a441" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-80a2-9ba4-d7da3780ae0b" class="">After sending the message, switch the radio from send to receive mode (in order to achive the ack) </p></div><div style="display:contents" dir="auto"><ul id="21eeea59-ca7a-80c5-a493-f2f363772474" class="bulleted-list"><li style="list-style-type:disc">If not received in the first attempt, try a second, then sleep.</li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-8004-a671-f182eaafc81c" class="bulleted-list"><li style="list-style-type:disc">one direction communication</li></ul></div><div style="display:contents" dir="ltr"><figure id="1c0eea59-ca7a-80bf-9cd3-cc65c544960d" class="image"><a href="Communication%20Technologies%20for%20LLN/image%2030.png"><img style="width:576px" src="Communication%20Technologies%20for%20LLN/image%2030.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="1c0eea59-ca7a-804d-980a-d381e1c99bff" class="">Class B devices</h3></div><div style="display:contents" dir="auto"><p id="21eeea59-ca7a-80fe-9c2d-d2fd97b63b3b" class="">Class B devices extend Class A capabilities (<mark class="highlight-orange">lower latency for downlinks</mark>)<mark class="highlight-orange"> </mark>by periodically opening receive windows called<mark class="highlight-orange"> </mark><mark class="highlight-orange"><strong>ping slots</strong></mark> to receive downlink messages. The network broadcasts a beacon periodically for syncronization</p></div><div style="display:contents" dir="auto"><p id="21eeea59-ca7a-80df-94ff-cf07e514624c" class="">
+</p></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-806f-9fee-c1c3abfa2cd0" class="bulleted-list"><li style="list-style-type:disc">often battery powered → maybe with harvesting systems</li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-8021-bd77-c5984e50fb3c" class="bulleted-list"><li style="list-style-type:disc">Class B mode can be used in devices that require medium-level critical actuation, such as utility meters (water meters, electrical meters)</li></ul></div><div style="display:contents" dir="ltr"><figure id="1c0eea59-ca7a-8050-802b-e2344643276e" class="image"><a href="Communication%20Technologies%20for%20LLN/image%2031.png"><img style="width:648.7875366210938px" src="Communication%20Technologies%20for%20LLN/image%2031.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-80c0-adf5-ccfd789b7780" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">beacon </mark>synch clock of the devices</li></ul></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-80b2-b6f4-e951f03c1669" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1c0eea59-ca7a-80cb-8eb7-fd043a7b6d8e" class="">Class C devices</h3></div><div style="display:contents" dir="auto"><p id="21eeea59-ca7a-80d5-a2fd-e9ab678aa8ce" class="">Class C devices extend Class A capabilities by keeping the receive windows open unless transmitting an uplink</p></div><div style="display:contents" dir="ltr"><figure id="1c0eea59-ca7a-800e-a602-db7674ece6ec" class="image"><a href="Communication%20Technologies%20for%20LLN/image%2032.png"><img style="width:648.7875366210938px" src="Communication%20Technologies%20for%20LLN/image%2032.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-8084-860b-d282463f376a" class="">In this case<mark class="highlight-orange"> two different frequencies are used</mark> → dedicated channel to reception, then ack</p></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-80ae-9f54-d65212679f4b" class="bulleted-list"><li style="list-style-type:disc">They consume more power, due to the need for opening continuous receive slots</li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-80bf-b13a-e50d04173820" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Not powered by batteries, but from electrical grids</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-8080-a455-f347c612ea42" class="bulleted-list"><li style="list-style-type:disc">Lowest latency because it could receive almost immediatly</li></ul></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-8066-bf34-e3382f8ce090" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="1c0eea59-ca7a-800e-b5f7-de641a89e757" class="">Cellular Communication</h1></div><div style="display:contents" dir="auto"><h2 id="1c0eea59-ca7a-8095-9568-d7113235eb59" class="">4G</h2></div><div style="display:contents" dir="auto"><ol type="1" id="1c0eea59-ca7a-8065-8431-d75ae745f4fb" class="numbered-list" start="1"><li><mark class="highlight-blue">eMTC</mark>: enhanced Machine Type Communications<div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-80f9-a1a3-df3c07e3b027" class="bulleted-list"><li style="list-style-type:disc">Bit rate up to 1 Mbps</li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-802e-9d78-d6d8a4d6213a" class="bulleted-list"><li style="list-style-type:disc">Full mobility support for many IoT use cases, such as asset trackers and wearables</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c0eea59-ca7a-8089-aa04-e3a39c76fa58" class="numbered-list" start="2"><li><mark class="highlight-blue">NB-IoT</mark>: Narrow Band IoT<div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-8018-9547-ec4a3a9e3dac" class="bulleted-list"><li style="list-style-type:disc">Data rate of just 10’s of kbps; can provide even deeper coverage</li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-804f-89e4-e0226e2f9415" class="bulleted-list"><li style="list-style-type:disc">Low-throughput, delay-tolerant applications, such as meters and sensors</li></ul></div></li></ol></div><div style="display:contents" dir="ltr"><figure id="1c0eea59-ca7a-80e7-86f8-d9099481e1e3" class="image"><a href="Communication%20Technologies%20for%20LLN/image%2033.png"><img style="width:384px" src="Communication%20Technologies%20for%20LLN/image%2033.png"/></a><figcaption>Two 4G usages</figcaption></figure></div><div style="display:contents" dir="auto"><h3 id="1c0eea59-ca7a-8032-b1e7-e5ad04b5e004" class="">5G</h3></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-80cc-be5b-fc223bab9396" class="">Two frequency bands: FR1 (450 MHz–6 GHz) and FR2 (24 GHz–52 GHz): millimeter wave<br/>frequencies</p></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-80f6-acc9-ce5827843ab5" class="bulleted-list"><li style="list-style-type:disc">not backwards-compatible with 4G</li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-80ca-90b0-e0a207dd0edb" class="bulleted-list"><li style="list-style-type:disc">MIMO: multiple directional antennae</li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-807e-8f06-f780bfd1d83e" class="bulleted-list"><li style="list-style-type:disc">much higher data rates, but over shorter distances (higer frequencies)</li></ul></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-807b-8104-ffa347de68a4" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-8021-a66e-d613f31acf86" class="">DIfferent communications types:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c0eea59-ca7a-8048-9fea-f77aa59b65e1" class="numbered-list" start="1"><li>Enhanced Mobile Broadband → wrt 4G (better bandwidth and lower latency)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c0eea59-ca7a-80bd-b384-f5c999bcc3c1" class="numbered-list" start="2"><li>Ultra-reliable Low Latency Communications (autonomous driving, health care) → latency &lt; 1 ms</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c0eea59-ca7a-8060-8163-f19b0b9e1f09" class="numbered-list" start="3"><li>Massive Machine Type Communications (sensing and metering) </li></ol></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-8096-91ec-d7a948608a83" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="1c0eea59-ca7a-8032-a944-fbdca63871eb" class="image"><a href="Communication%20Technologies%20for%20LLN/image%2034.png"><img style="width:528px" src="Communication%20Technologies%20for%20LLN/image%2034.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8058-bb3f-c1b5f07af388" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

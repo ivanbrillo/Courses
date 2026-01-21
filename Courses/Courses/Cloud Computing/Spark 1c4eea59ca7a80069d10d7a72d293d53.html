@@ -1,0 +1,815 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Spark</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1c4eea59-ca7a-8006-9d10-d7a72d293d53" class="page sans"><header><h1 class="page-title" dir="auto">Spark</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="ltr"><figure id="1c4eea59-ca7a-803a-9b28-edfb95041414" class="image"><a href="Spark/image.png"><img style="width:480px" src="Spark/image.png"/></a><figcaption>Hadoop vs Spark</figcaption></figure></div><div style="display:contents" dir="auto"><h3 id="1c4eea59-ca7a-80f6-aa0d-c99ff1682d68" class="">Data Flow Models</h3></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8071-9758-d2f4534f9506" class="numbered-list" start="1"><li><mark class="highlight-teal">Restrict </mark>the programming interface → eg in Hadoop only map and reduce must be implemented</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-807e-8d4d-ce6765db5fe3" class="numbered-list" start="2"><li>Express complex computations as graphs of high-level operators</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-80d9-b2ea-cac3c47d00f3" class="numbered-list" start="3"><li>System chooses how to split each operator into tasks and where to run each task</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8023-afc3-caf8b6ccdb7f" class="numbered-list" start="4"><li>Runparts multiple times for fault recovery</li></ol></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-808f-8bfe-d2a94d33ebed" class="">Biggest example: MapReduce</p></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-802a-84ec-e2c10628f42d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-804f-b0a6-db4d6f46dd87" class=""><strong><span style="border-bottom:0.05em solid">Limitation of Map Reduce</span></strong></p></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80da-9cc4-d95e6b83e781" class="bulleted-list"><li style="list-style-type:disc">MapReduce is great at one-pass computation<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80c4-ad23-f28bdf9d9162" class="bulleted-list"><li style="list-style-type:circle">Inefficient for <mark class="highlight-teal">multi-pass algorithms</mark></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80b7-a744-f44c3dad7a9b" class="bulleted-list"><li style="list-style-type:disc">No efficient primitives for data sharing<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80b5-b262-c5411b259698" class="bulleted-list"><li style="list-style-type:circle">State between steps goes to distributed file system </li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80d9-8380-e94c7f9f4ee3" class="bulleted-list"><li style="list-style-type:circle">State during shuffle and sort goes through local disk storage</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80e9-bbd5-e2e99f85a63d" class="bulleted-list"><li style="list-style-type:disc">Communication and I/O in MapReduce is the real <mark class="highlight-teal">bottleneck</mark></li></ul></div><div style="display:contents" dir="auto"><h1 id="1c4eea59-ca7a-80c6-81c7-f770b70b2372" class="">Spark Stack</h1></div><div style="display:contents" dir="auto"><div id="1c4eea59-ca7a-80db-9b73-cf434a2f4723" class="column-list"><div style="display:contents" dir="auto"><div id="1c4eea59-ca7a-8073-be15-c29e1d7874cc" style="width:37.5%" class="column"><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8091-808e-cf6bad56fc16" class="">It still uses HDFS ad YARN</p></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8058-adb9-cafa6bae2faf" class="bulleted-list"><li style="list-style-type:disc">MESOS is another resource manager that we will not use</li></ul></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8077-9265-f49c8aeaa87a" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1c4eea59-ca7a-80fa-8cc3-f13e673515f5" style="width:62.5%" class="column"><div style="display:contents" dir="ltr"><figure id="1c4eea59-ca7a-80f0-84b0-cd8587110510" class="image"><a href="Spark/image%201.png"><img style="width:384px" src="Spark/image%201.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h2 id="1c4eea59-ca7a-80ae-9cc7-f823102242c4" class="">Spark Core</h2></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80f8-8b97-e84d4ed9f25f" class="">Written in <mark class="highlight-blue"><mark class="highlight-pink_background">Scala</mark></mark><mark class="highlight-blue"> </mark>but APIs for Java, Python and R</p></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80a1-b715-f910bbe6f417" class="">Provides basic functionalities, including:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-80a6-acba-ec9bf37c78d1" class="numbered-list" start="1"><li><mark class="highlight-orange">DAG scheduler</mark> (manages the execution plan by DAG graph)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8095-896e-d85c1acea2e3" class="numbered-list" start="2"><li>interaction with HDFS and resource managers (e.g., YARN)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8083-8d63-ea8af8991883" class="numbered-list" start="3"><li><mark class="highlight-teal">memory management </mark>(access, caching and shuffling - performed in memory in spark)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8011-8fe7-d125d4b95276" class="numbered-list" start="4"><li><mark class="highlight-teal">Resilient distributed dataset</mark> (RDD) is a collection of items distributed across many <mark class="highlight-blue">compute nodes</mark> that can be manipulated in parallel and are resilient<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8067-88db-dda24feab0ca" class="bulleted-list"><li style="list-style-type:disc">Resilient → if I loose part of the datastructure I can reconstruct it, NOT by replication (there isn’t)<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80c7-af07-c6a2b2665222" class="bulleted-list"><li style="list-style-type:circle">The output doesn’t overwrite the input RDD</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-806f-b96b-c8edee0f326c" class="bulleted-list"><li style="list-style-type:disc">Distributed → because RDD is built on partitions, each managed independent, saved in different <mark class="highlight-pink_background">main memory</mark> of various nodes</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-804f-8cb4-e9497001a81b" class="bulleted-list"><li style="list-style-type:disc">Spark Core provides many APIs for building and manipulating these collections</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8098-8c35-f1d9c4f75e0c" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1c4eea59-ca7a-802f-8af8-e27ea2297f62" class="">RDD</h3></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8058-a49d-e3c84f4d5a78" class="">A resilient distributed dataset (RDD) is a distributed memory abstraction</p></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80e8-9c4d-fa69f676fc5a" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange"><mark class="highlight-pink_background">Immutable collection</mark></mark><mark class="highlight-orange"> </mark>of objects spread across the cluster</li></ul></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8001-883d-d702aba9a6e8" class="">An RDD is divided into a number of <mark class="highlight-blue">partitions</mark>, which are <mark class="highlight-blue">atomic </mark>pieces of information</p></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80b1-8ac2-cb8d67e47c17" class="bulleted-list"><li style="list-style-type:disc">Partitions of an RDD can be stored on different nodes of a cluster</li></ul></div><div style="display:contents" dir="ltr"><figure id="1c4eea59-ca7a-8025-953d-d83bf6d42c5f" class="image"><a href="Spark/image%202.png"><img style="width:605.7750244140625px" src="Spark/image%202.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-803b-abed-d12f4f52d6a9" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1c4eea59-ca7a-80fe-9c35-d26d59a8510f" class="">Lineage</h3></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-807e-bd78-c4d1fda35a6b" class="">After compiling in Spark the code is executed by JVM.</p></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8089-b2cc-d9480e133d90" class="">It provides different APIs, we are using python</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1c4eea59-ca7a-80bd-b13e-c6bb2a4f87ca" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all"> file.map(lambda rec: (rec.type, 1))
+		 .reduceByKey(lambda x, y: x + y)
+		 .filter( lambda (type, count): count &gt; 10)</code></pre></div><div style="display:contents" dir="auto"><div id="1c4eea59-ca7a-8084-99a3-ef25ad0bb8c2" class="column-list"><div style="display:contents" dir="auto"><div id="1c4eea59-ca7a-8067-ae5d-da1d99c9c855" style="width:31.25%" class="column"><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8015-b607-cfad9e13c364" class="bulleted-list"><li style="list-style-type:disc">each vertical shape is an RDD → the output of the previous operation</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-805c-9e10-db6aca5d5d15" class="bulleted-list"><li style="list-style-type:disc">The blue circles are partitions</li></ul></div><div style="display:contents" dir="auto"><p id="208eea59-ca7a-80a7-a1b2-c5578b2f668b" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1c4eea59-ca7a-8060-932d-c8bca54f6bb3" style="width:68.75%" class="column"><div style="display:contents" dir="ltr"><figure id="1c4eea59-ca7a-80be-be25-c8d8646ff921" class="image"><a href="Spark/image%203.png"><img style="width:480px" src="Spark/image%203.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80ed-8f59-e1d7bf76599a" class="">Spark allows to implement many other type of operations beyond map and reduce</p></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-805a-8174-e3211e9e0c4a" class="bulleted-list"><li style="list-style-type:disc">Under the hood they are probably implemented as a composition of map and reduce</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-805f-be05-f7bf1e4f7751" class="bulleted-list"><li style="list-style-type:disc">much more expressive and flexible → less code</li></ul></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80d6-bf94-fca83c670f64" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8075-9edc-d42a120102ad" class="">Instead of replicate everything we use the graph of computation</p></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-805e-bbf6-e39580b14ab8" class=""><mark class="highlight-pink_background"><strong>Lineage in Spark</strong></mark><mark class="highlight-pink_background"> refers to the </mark><mark class="highlight-pink_background"><strong>record of transformations</strong></mark><mark class="highlight-pink_background"> applied to a dataset (RDD) from its origin to its current state</mark></p></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-808a-b290-dbfc3362feae" class="bulleted-list"><li style="list-style-type:disc">uses recomputation instead of replication</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80a1-b6e1-fe91496acf6f" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Immutability</mark> is foundamental for lineage otherwise the output will not be the same</li></ul></div><div style="display:contents" dir="ltr"><figure id="1c4eea59-ca7a-8075-9af9-f9da30c7c022" class="image"><a href="Spark/image%204.png"><img style="width:432px" src="Spark/image%204.png"/></a><figcaption>If I loose one output partition, I go backward until I found available RDD and recompute</figcaption></figure></div><div style="display:contents" dir="auto"><h2 id="1c4eea59-ca7a-80ad-ac73-dd1a65c6112c" class="">Architecture</h2></div><div style="display:contents" dir="ltr"><figure id="1c4eea59-ca7a-8036-a169-e0bc8b18ad5f" class="image"><a href="Spark/image%205.png"><img style="width:605.7875366210938px" src="Spark/image%205.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8038-a5cb-e2d33b8c5218" class="bulleted-list"><li style="list-style-type:disc">each spark application has a spark driver → user code + spark context <div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80da-b090-fe6895e52050" class="bulleted-list"><li style="list-style-type:circle">Main logic of the application</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80d2-8cfb-d152de35b404" class="bulleted-list"><li style="list-style-type:disc">Cluster manager system (resource manager of YARN)</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80d5-a34c-f0082e1208d5" class="bulleted-list"><li style="list-style-type:disc">Cluster worker Node (node manager)</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80ab-962c-d9f9170f13ea" class="bulleted-list"><li style="list-style-type:disc">Each of them can execute Spark Executor (<mark class="highlight-pink_background">JVM dentro a container YARN</mark>) inside a YARN container</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8048-bad0-f3ce3e2d14ff" class="bulleted-list"><li style="list-style-type:disc">Inside an Executor I can perform <mark class="highlight-pink_background">several Spark Task</mark> (different from Hadoop)</li></ul></div><div style="display:contents" dir="auto"><p id="1f5eea59-ca7a-80c7-89b5-d9e85e148fd0" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1c4eea59-ca7a-8073-af82-d20dc1bbb849" class="">Spark Driver</h3></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8009-bb0e-fd23d93e5a6f" class="bulleted-list"><li style="list-style-type:disc">runs in a node of the cluster → <code>main()</code> function</li></ul></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-807a-b9aa-c032994c1f07" class="">The <mark class="highlight-orange">Spark context</mark> is provided by core code and provides all the intelligence of the code:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8070-9c1f-f8c4878cd674" class="numbered-list" start="1"><li>Maintaining information about the Spark application → keeps track of the DAG of the application in order to schedule the task</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-80de-96c3-e81c9dabcb98" class="numbered-list" start="2"><li>Analyzing, distributing and scheduling work across the executors</li></ol></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80d0-bc3a-d6d4744f1a91" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-802a-a61e-cd715caaf07e" class="">Provide the same task of applications master of Hadoop</p></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80f5-8fba-f0124a9361d2" class="bulleted-list"><li style="list-style-type:disc">acutally there is an application master since we are using YARN</li></ul></div><div style="display:contents" dir="ltr"><figure id="1c4eea59-ca7a-8055-9d82-c09eaf921fbc" class="image"><a href="Spark/image%206.png"><img style="width:384px" src="Spark/image%206.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80b4-ba48-dcb6e6cb8a8b" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-80fe-be5e-dc003a8d1545" class="numbered-list" start="1"><li>In the <mark class="highlight-orange">pyspark</mark> shell a <mark class="highlight-teal">SparkContext</mark> is created automatically on start (sc) → just for small testing (few lines, like python shell)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-80c4-97b8-f06d154d32a7" class="numbered-list" start="2"><li>In a Python script including a Spark application you need to create it as soon as necessary:<div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1c4eea59-ca7a-80cb-ac1a-c1248042d208" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all"> frompyspark import SparkConf, SparkContext
+ conf = SparkConf()  # initialize SparkConf
+ conf.setAppName(&quot;My Spark App&quot;)
+ # initialize a new  SparkContext with Spark configuration
+ sc = SparkContext(conf=conf)</code></pre></div></li></ol></div><div style="display:contents" dir="auto"><h3 id="1c4eea59-ca7a-80a2-b257-dc4cc0fc3584" class="">Executors</h3></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8060-8293-d9a828d2ad2b" class="">Responsible for two things:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-80f4-81ef-d1154b3017a1" class="numbered-list" start="1"><li>Executing code assigned to it by the driver</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8079-a304-dfa89420943c" class="numbered-list" start="2"><li><mark class="highlight-teal">Reporting </mark>the state of the computation on that executor back to the driver</li></ol></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-806e-b1ec-e7b970d7ca49" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1c4eea59-ca7a-8024-8f37-dd21208c4e9c" class="">Programming</h2></div><div style="display:contents" dir="auto"><h3 id="1c4eea59-ca7a-8084-97d4-f303731ce53e" class="">Spark Submit and Flags</h3></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80e8-82d2-ebaf38055c59" class="">You submit Spark jobs using <mark class="highlight-orange">spark-submit</mark></p></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8092-a0e6-d5d3ca98c5c6" class="bulleted-list"><li style="list-style-type:disc">Use the<mark class="highlight-blue"> --master </mark>flag to specify the execution mode for the Spark application (<mark class="highlight-pink_background">driver + executors</mark>)<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80b8-8d2b-ca88c5900f44" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">local</mark>: run in local mode as a single JVM process, using a single core</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8042-8b11-c8da56788f72" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">local[N]</mark>: run in local mode with Ncores</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8040-a423-ec78affad951" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">local[*]</mark>: run in local mode and use as many cores as the machine has (this is conceptually similar to “uber” mode in Hadoop)</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8062-9e3d-c7a7f333a851" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">yarn</mark>: use the whole cluster through YARN (not local)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80d6-bd87-d4bd76a06a72" class="bulleted-list"><li style="list-style-type:disc">Use the <mark class="highlight-blue">--deploy-mode</mark> flag to the spark-submit command to specify how the Spark Driver should run<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8031-abdb-cb23fa584458" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">client</mark>: the Spark Driver runs as part of the spark submit process. The default and mainly used for testing. If the user terminates (Ctrl+C) the spark-submit command or the machine fails, the Driver and the whole Spark application fails.</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80a0-92d4-c6c688bbe8b1" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">cluster</mark>: <mark class="highlight-pink_background">the Spark Driver runs as a separate process, within the Application Master container if YARN is used.</mark> After Ctrl+C the application will be still alive</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8053-866d-fcb5c9e94261" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1c4eea59-ca7a-8032-9265-f135398723a1" class="">Creating an RDD</h3></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80cd-906a-efd4aa71bbeb" class="">Two way to create an RDD:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-80f6-a126-ed58f6867f12" class="numbered-list" start="1"><li>Use the <code>parallelize</code> method on a SparkContext<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-809a-aeec-cabd449943ba" class="bulleted-list"><li style="list-style-type:disc">turns a single node collection into a parallel collection</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80ef-b4b1-ccb93bd370be" class="bulleted-list"><li style="list-style-type:disc">you can explicitly suggest the number of partitions</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1c4eea59-ca7a-80b7-bd0c-fa019d400830" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">numbers = [1,2,3,4,5]
+rdd_numbers = sc.parallelize(numbers)  
+print(rdd_numbers)
+
+words = &quot;I love Spark&quot;.split(&quot; &quot;) 
+rdd_words = sc.parallelize(words, 2)  # Suggested two partitions 
+print(rdd_words)</code></pre></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-80db-adce-c200d66cead4" class="numbered-list" start="2"><li>Created from external storage → file taken from HDFS<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-803d-bdaa-e0e3addfccde" class="bulleted-list"><li style="list-style-type:disc">Usually, if the file is taken from HDFS, Sparks creates as many partitions as the number of blocks in HDFS</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1c4eea59-ca7a-80f0-bf49-c64d5e0e4fd4" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all"> rdd =   sc.textFile(&quot;file.txt&quot;, 2)   # local path, suggested partions</code></pre></div></li></ol></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-809f-ad9f-eb3750bccae2" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1c4eea59-ca7a-80a0-9b8b-ccb4be295001" class="">Spark Programming Model</h3></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-801e-aadb-fd5097bc5c91" class="">Each circle is an operation implemented by <mark class="highlight-orange"><mark class="highlight-pink_background">higher order function</mark></mark><mark class="highlight-orange"> </mark>(argument a function or output a function)</p></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8032-987f-ce2726ef4181" class="bulleted-list"><li style="list-style-type:disc">Based on parallelizable operators, functions that execute user-defined functions in parallel</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80b8-9d27-f09beef1ede3" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Data flow is composed of any number of data sources, operators, and data sinks by connecting their inputs and outputs</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-800c-b391-e669e615c34d" class="bulleted-list"><li style="list-style-type:disc">Job description based on directed acyclic graph (DAG)</li></ul></div><div style="display:contents" dir="ltr"><figure id="1c4eea59-ca7a-80ac-9329-e3c377a5744e" class="image"><a href="Spark/image%207.png"><img style="width:605.7625122070312px" src="Spark/image%207.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80f8-8c61-f81b9cdd25e5" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8068-a87c-e3c0213a2f2a" class="">Two types of operations</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-80cb-8a89-eaeaf28db6bf" class="numbered-list" start="1"><li><mark class="highlight-orange">Transformation</mark>: takes RDD as input and create a new RDD as output<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80fe-904b-ece760ae54ec" class="bulleted-list"><li style="list-style-type:disc">set to be <mark class="highlight-teal">lazy</mark>: only computed when an <mark class="highlight-teal">action </mark>requires a result to be returned to the driver program</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-803b-877c-c0a0745ee707" class="numbered-list" start="2"><li><mark class="highlight-orange">Actions</mark>: takes an RDD as input (<mark class="highlight-pink_background">leaf of the DAG</mark>), but do not output RDD<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8050-89f0-c7234fa32428" class="bulleted-list"><li style="list-style-type:disc">Produce a single value to print in the console, a data structure (native data-structure) or a file that will be written on HDFS or local file system</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80f7-ad43-d23fc7ca50ec" class="bulleted-list"><li style="list-style-type:disc">triggers the computation</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8013-9fb6-e625cb0b1bd6" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80b3-a15b-fe4a2a9b6f10" class=""><mark class="highlight-orange"><strong><span style="border-bottom:0.05em solid">Actions</span></strong></mark>:</p></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8011-b702-c7ce1ccc6af8" class="bulleted-list"><li style="list-style-type:disc"><code>collect</code> returns all the elements of the RDD as an array at the driver</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8028-8d1a-e0c36c3033f6" class="bulleted-list"><li style="list-style-type:disc"><code>first</code> returns the first value in the RDD</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8051-8f04-d14ffb6d72f2" class="bulleted-list"><li style="list-style-type:disc"><code>take</code> returns an array with the first n elements of the RDD<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8012-b4a4-c9a8cf676998" class="bulleted-list"><li style="list-style-type:circle">Variations on this function: <code>takeOrdered</code> and <code>takeSample</code></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80ad-b76c-c083d0fb7300" class="bulleted-list"><li style="list-style-type:disc"><code>count</code> returns the number of elements in the dataset</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80cc-96ae-ca9c560ea321" class="bulleted-list"><li style="list-style-type:disc"><code>max</code> and <code>min</code> return the maximum and minimum values, respectively.</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8052-95ee-c8b436c6dbd3" class="bulleted-list"><li style="list-style-type:disc"><code>reduce</code> aggregates the elements of the dataset using a given function.<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-807b-83b4-e8af2e711e7c" class="bulleted-list"><li style="list-style-type:circle">The given function should be <mark class="highlight-teal">commutative </mark>and <mark class="highlight-teal">associative </mark>so that it can be computed correctly in parallel.</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8001-8b51-f57266813b29" class="bulleted-list"><li style="list-style-type:circle">Not to confuse with the one of hadoop (not distinguish among keys) → they are equivalent if I have a single key</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8033-8e55-edb8212f8fb9" class="bulleted-list"><li style="list-style-type:disc"><code>saveAsTextFile</code> writes the elements of an RDD as one or more part-xxxxx text files (one for each partition). It wants a <mark class="highlight-teal">directory path </mark>as argument.<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8023-842e-dda1ffc3c6f0" class="bulleted-list"><li style="list-style-type:circle">Local filesystem, HDFS or any other Hadoop-supported file system</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80ec-b3c7-e16bbc57f3ca" class="">
+</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1c4eea59-ca7a-8058-a956-f5607c5d938b" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">numbers = sc.parallelize([1, 2, 2, 2, 1, 1, 4, 3, 3, 5, 5]) 
+numbers.collect()   # triggers execution on ALL elements, takes time  
+										# list [1, 2, 2, 2, 1, 1, 4, 3, 3, 5, 5]
+numbers.first()   # int 1
+numbers.take(4)   # triggers execution on 4 elements, good for debug  
+								  # list [1, 2, 2, 2]
+numbers.takeOrdered(4)    # list [1, 1, 1, 2]
+
+withReplacement = True,  numberToTake = 4,  randomSeed = 123456
+numbers.takeSample(withReplacement, numberToTake, randomSeed)  
+# list [1, 5, 2, 5]
+
+numbers.count()  # int 11 
+numbers.countByValue()  # dict {1: 3, 2: 3, 4: 1, 3: 2, 5: 2}
+numbers.max()  # int 5 
+numbers.min()  # int 1
+numbers.reduce(lambda x, y: x + y)   # int 29
+numbers.saveAsTextFile(&quot;numbers&quot;)
+# then, you may check contents of files &#x27;numbers/part-xxxxx&#x27;</code></pre></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80d0-8059-f2db70682ae2" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1c4eea59-ca7a-80de-95b2-c8d1ca55bbbc" class="">Generic RDD Transformation</h3></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80a6-91bf-fd9636f6be1b" class="">In generic transformation there is <mark class="highlight-pink_background">not any key relations</mark></p></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-80f8-a4f3-e8c556645e3d" class="numbered-list" start="1"><li><code>distinct</code> → removes duplicates from the RDD</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8096-aa2c-c542e0db4a19" class="numbered-list" start="2"><li><code>filter</code> → returns the RDD records that match some predicate (returning true or false)<div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1c4eea59-ca7a-8032-9b84-e3d230701e4d" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">numbers = sc.parallelize([1,2,2,2,3,3,4,5,5,5,5]) 
+distinct_numbers = numbers.distinct() 
+print(distinct_numbers.collect()) # this is an action  [2, 4, 1, 3, 5]
+even_numbers = distinct_numbers.filter(lambda x: x % 2 == 0)  
+print(even_numbers.collect()) # this is an action [2, 4]</code></pre></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-80f6-a493-fdc681349ad7" class="numbered-list" start="3"><li><code>map</code> and <code>flatMap</code> apply a given function to each RDD element independently<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-809b-a418-c8708ae2b2be" class="bulleted-list"><li style="list-style-type:disc">map transforms an RDD of length n into another RDD of length n.</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80f5-b973-c460d3945dd4" class="bulleted-list"><li style="list-style-type:disc">flatMap allows returning 0, 1 or more elements from map function → flat the output</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1c4eea59-ca7a-80ad-a705-cf8e1bd4bb61" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">data = sc.parallelize(range(10)) 
+squared_data = data.map(lambda x: x * x)
+print(squared_data.collect()) # this is an action [ 0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+squared_cubed_data_1 = data.map(lambda x: (x * x, x * x * x))  
+print(squared_cubed_data_1.collect()) # this is an action [ ( 0, 0), (1, 1), (4, 8), (9, 27), (16, 64), (25, 125), (36, 216), (49, 343), (64, 512), (81, 729)]
+
+squared_cubed_data_2 = data.flatMap(lambda x: (x * x, x * x * x))  
+print(squared_cubed_data_2.collect()) # this is an action [ 0, 0, 1, 1, 4, 8, 9, 27, 16, 64, 25, 125, 36, 216, 49, 343, 64, 512, 81, 729]</code></pre></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8014-8820-f97f83f98ca2" class="numbered-list" start="4"><li><code>sortBy</code> </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-80cf-ab9d-f6d3d7e25607" class="numbered-list" start="5"><li><code>union</code></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8090-ad09-e7ff3b558de6" class="numbered-list" start="6"><li><code>intersection</code></li></ol></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1c4eea59-ca7a-806e-9d61-eab10d6a4f16" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">words = sc.parallelize(&quot;nel mezzo del cammin di nostra vita&quot;.split(&quot; &quot;))  
+sorted_words = words.sortBy(lambda w: len(w)) 
+print(sorted_words.collect()) # [&#x27; di&#x27; , &#x27;nel&#x27;, &#x27;del&#x27;, &#x27;vita&#x27;, &#x27;mezzo&#x27;, &#x27;cammin&#x27;, &#x27;nostra&#x27;]
+
+data1 = sc.parallelize(range(0,7)), data2 = sc.parallelize(range(3,10))  
+union = data1.union(data2)
+print(union.collect())  # [0, 1, 2, 3, 4, 5, 6, 3, 4, 5, 6, 7, 8, 9]
+
+intersection = data1.intersection(data2) 
+print(intersection.collect()) # [3, 4, 5, 6]</code></pre></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8082-a5b9-fd8902371a57" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1c4eea59-ca7a-8066-989a-ff247a8edd67" class="">Key-Value RDD Transformation</h3></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8040-8b08-fc62d6084072" class="">To create a key-value RDD, we have tree ways:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8091-b593-d871ee22483c" class="numbered-list" start="1"><li><code>map</code> over your current RDD to a basic key-value structure</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-80e8-a7c1-d1bb364ddb8d" class="numbered-list" start="2"><li>Use the <code>keyBy</code> to create a key from the current value</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8009-9276-f73d3d477e90" class="numbered-list" start="3"><li>Use the <code>zip</code> to zip together two RDDs of the <mark class="highlight-teal">same length</mark></li></ol></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1c4eea59-ca7a-80b7-8e40-f4e637eb0968" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">words = sc.parallelize(&quot;nel mezzo del cammin di nostra vita&quot;.split(&quot; &quot;))  
+
+# FIRST WAY
+keywords1 = words.map(lambda w: (w, 1)) print(keywords1.collect()) # [(‘nel’, 1), (&#x27;mezzo’, 1), (&#x27;del’, 1), (&#x27;cammin’, 1), (‘di’, 1), (&#x27;nostra’, 1), (&#x27;vita’, 1)]
+
+# SECOND WAY
+keywords2 = words.keyBy(lambda w: w[0].upper())  
+print(keywords2.collect()) # [(‘N’, ‘nel&#x27;), (&#x27;M&#x27;, &#x27;mezzo&#x27;), (&#x27;D&#x27;, &#x27;del&#x27;), (&#x27;C&#x27;, &#x27;cammin&#x27;), (&#x27;D&#x27;, &#x27;di&#x27;), (&#x27;N&#x27;, &#x27;nostra&#x27;), ( &#x27; V&#x27;, &#x27;vita&#x27;)]
+
+# THIRD WAY
+numbers = sc.parallelize(range(7))  
+keywords3 = words.zip(numbers)
+print(keywords3.collect()) # [(‘Nel&#x27;, 0), (&#x27;mezzo&#x27;, 1), (&#x27;del&#x27;, 2), (&#x27;cammin&#x27;, 3), (&#x27;di&#x27;, 4), (&#x27;nostra&#x27;, 5), (&#x27;vita&#x27;, 6)]</code></pre></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8017-b559-dd1e8a1d7b69" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-80ec-a990-e1b4e0d2c094" class="numbered-list" start="1"><li><code>keys</code> and <code>values</code> extract keys and values from the RDD</li></ol></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1c4eea59-ca7a-80d8-b2a4-f76d4c1384b3" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">words = sc.parallelize(&quot;nel mezzo del cammin di nostra vita&quot;.split(&quot; &quot;))  
+keywords =words.keyBy(lambda w: w[0])
+
+k = keywords.keys() # [&#x27;n&#x27;, &#x27;m&#x27;, &#x27;d&#x27;, &#x27;c&#x27;, &#x27;d&#x27;, &#x27;n&#x27;, &#x27;v&#x27;]  
+v = keywords.values() # [&#x27;nel&#x27;, &#x27;mezzo&#x27;, &#x27;del&#x27;, &#x27;cammin&#x27;, &#x27;di&#x27;, &#x27;nostra&#x27;, &#x27;vita&#x27;]</code></pre></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-808f-884e-d8c7a4dc9baf" class="numbered-list" start="2"><li><code>reduceByKey</code> combines values with the same key<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8082-8882-d7196ef04e69" class="bulleted-list"><li style="list-style-type:disc">takes a function as input and uses it to combine values of the same key</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-801f-9a77-f9aa27834f6c" class="bulleted-list"><li style="list-style-type:disc">is the reduce of hadoop</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8057-bb15-d3f248cd38b1" class="numbered-list" start="3"><li><code>sortByKey</code> returns an RDD sorted by the key</li></ol></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1c4eea59-ca7a-8053-961d-ff3f6f376bd7" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">words = sc.parallelize(&quot;fare o non fare non esiste provare&quot;.split(&quot; &quot;))
+
+wordcount = words.map(lambdaw: (w, 1)).reduceByKey(lambda x, y: x + y)
+print(wordcount.collect()) # [(&#x27;provare&#x27;, 1), (&#x27;fare&#x27;, 2), (&#x27;non&#x27;, 2), (&#x27;esiste&#x27;, 1), (&#x27;o&#x27;, 1)]
+# ???   shuffle and sort in between  ???
+
+sorted_wordcount = wordcount.sortByKey() 
+print(sorted_wordcount.collect()) # [(&#x27;esiste&#x27;, 1), (&#x27;fare&#x27;, 2), (&#x27;non&#x27;, 2), (&#x27;o&#x27;, 1), (&#x27;provare&#x27;, 1)]</code></pre></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8088-9372-f1fefb6538b2" class="numbered-list" start="4"><li><code>join</code> performs an inner-join on the key<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80da-9f77-e80ff8b16d24" class="bulleted-list"><li style="list-style-type:disc"><code>fullOuterJoin</code>, <code>leftOuterJoin</code>, <code>rightOuterJoin</code>, <code>cartesian</code></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-807a-ac48-f7aebe8aabca" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1c4eea59-ca7a-802d-b32a-d04d5b34f90e" class="">Anatomy of a Spark Job</h3></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80e1-9a0d-e51e880b0f30" class="">A Spark application doesn’t “do anything” until the driver program calls an action (lazy evaluation)</p></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8032-a5e9-cd929368fca1" class="bulleted-list"><li style="list-style-type:disc">Each action is called by the driver program of a Spark application</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80f3-b8de-c4a70966a98d" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Each Spark Job corresponds to </mark><mark class="highlight-teal"><mark class="highlight-pink_background">one action</mark></mark></li></ul></div><div style="display:contents" dir="ltr"><figure id="1c4eea59-ca7a-80fd-b549-c8ee165c3938" class="image"><a href="Spark/image%208.png"><img style="width:432px" src="Spark/image%208.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80b4-bdd6-f93261378c2c" class=""><mark class="highlight-orange">Spark Job </mark>→ any set of transformations triggered by an action</p></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80fb-8b29-c011ed474642" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80cf-b87a-db96ba031d4b" class="">Two way of dividing the transformations:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8077-8525-d22d925b0841" class="numbered-list" start="1"><li><mark class="highlight-blue">Narrow transformation </mark>→ need only one partitions to be executed<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80c1-b2e8-d97c8c7ae7ab" class="bulleted-list"><li style="list-style-type:disc">map operation</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8085-b610-ec7735d18015" class="numbered-list" start="2"><li><mark class="highlight-blue">Wide transformation </mark>→ requires several partitions to be executed<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80aa-aae7-d3095cc737e6" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background"><strong><span style="border-bottom:0.05em solid">requires a shuffle and sort phase before</span></strong></mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-804f-ab59-fdf1743ef050" class="bulleted-list"><li style="list-style-type:disc">reduceByKey</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8030-baf4-c26fab672d5e" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-801d-b2bc-d0b66662ceb8" class="">A Job is formed of more <mark class="highlight-orange">stages</mark></p></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80da-866c-e5583a7840d5" class="bulleted-list"><li style="list-style-type:disc">the beginning of a stage is marked by a wide transformation</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8025-94f4-c41d0f38624c" class="bulleted-list"><li style="list-style-type:disc">formed of a first wide transform and then all narrows until another wide</li></ul></div><div style="display:contents" dir="auto"><ul id="1f5eea59-ca7a-80c0-a8a4-e12201a5cf8e" class="bulleted-list"><li style="list-style-type:disc">they need more input partitions RDD</li></ul></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-80d6-b812-c3b122f8894b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-80ea-9334-d48612bb6af1" class="">A stage consists of <mark class="highlight-orange">tasks</mark>, which are the smallest execution unit</p></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-8083-8d3e-f16a31bbc064" class="bulleted-list"><li style="list-style-type:disc">Each task represents one local computation → passed to one executor, no need to communicate with other</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8029-a036-efea7976aa81" class="bulleted-list"><li style="list-style-type:disc">All of the tasks in one stage execute the same code but on different partitions of the data</li></ul></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8018-b5a8-d141a14514f8" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80ba-acd8-ed7f0615c94e" class="">In spark each Task works on a parition of the RDD</p></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-807f-8ecf-fee5302bfb61" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">as many task as the number of partitions inside the RDD</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80a6-a430-c60b8d11995f" class="bulleted-list"><li style="list-style-type:disc">execute inside Executors (JVM) with resources in Container</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8099-96c7-c7187371d38e" class="bulleted-list"><li style="list-style-type:disc">Two tasks can be executed inside the same Executors</li></ul></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-80ff-8583-ce5b7e549a82" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8085-a1c5-c870eeb9c7bc" class=""><mark class="highlight-orange"><mark class="highlight-pink_background">N.B.</mark></mark></p></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8008-b790-c0120e234fdf" class="">An action will be the last thing of the last task of the last stage of one job</p></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-802d-9609-fdeb4ed30c7f" class="">The first operation of the first task of a stage will be a wide transformation, all the others narrows</p></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8006-b0c0-e81d685b62b3" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1c4eea59-ca7a-80e8-b0a1-e355657a4cdd" class="">RDD Persistence (caching)</h3></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80c1-92a5-fdd1c729b573" class="">By default, each transformed RDD may be <mark class="highlight-teal">recomputed </mark>each time an action is run on it</p></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80e5-9771-e783061137bc" class="bulleted-list"><li style="list-style-type:disc">Spark also supports the persistence (or caching) of RDDs in memory across operations for <mark class="highlight-teal">rapid reuse</mark><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8009-be85-f5b5337a608c" class="bulleted-list"><li style="list-style-type:circle">When RDD is persisted, each node stores any partitions that it computes in memory and reuses them in other actions on that dataset (or datasets derived from it)</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80f6-b642-d3a204a9ab1e" class="bulleted-list"><li style="list-style-type:circle">This allows future actions to be much faster (even 100x)</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80b6-87a9-c9c51871d282" class="bulleted-list"><li style="list-style-type:circle">To persist RDD, use <code>persist()</code> or <code>cache()</code> methods<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80e9-a436-d28b03406fc7" class="bulleted-list"><li style="list-style-type:square">Using persist() we can specify the level of persistence: MEMORY_ONLY, MEMORY_AND_DISK, DISK_ONLY</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-803e-9510-d3005d9f77d5" class="bulleted-list"><li style="list-style-type:square">cache() instead is equivalent to persist() in memory only</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80e0-b000-cdd27ee91ee4" class="bulleted-list"><li style="list-style-type:circle">Spark’s cache is fault-tolerant: a lost RDD partition is automatically recomputed using the transformations that originally created it</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8096-80da-d895ba212835" class="bulleted-list"><li style="list-style-type:disc">Key tool for iterative algorithms</li></ul></div><div style="display:contents" dir="auto"><p id="1f5eea59-ca7a-8093-a04b-f7eec1f1be40" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80e7-96a9-fbaa8248336c" class="">History Server</p></div><div style="display:contents" dir="auto"><p id="1f5eea59-ca7a-80a5-8d31-c16ca8859b84" class="">or application UI that will be destroyed after the app terminates</p></div><div style="display:contents" dir="auto"><p id="1f5eea59-ca7a-8014-bce6-db2254d8b0a5" class="">The number of file saveText… will depends on the number of partitions of the RDD</p></div><div style="display:contents" dir="auto"><p id="1f5eea59-ca7a-8013-aac3-c08aa4cc159d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1f5eea59-ca7a-80fb-bc13-f78763adf391" class=""><code>repartition(num)</code> produces an output RDD having the number of partitions specified as<br/>argument</p></div><div style="display:contents" dir="auto"><p id="1f5eea59-ca7a-805a-b6d6-c05559e1827c" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

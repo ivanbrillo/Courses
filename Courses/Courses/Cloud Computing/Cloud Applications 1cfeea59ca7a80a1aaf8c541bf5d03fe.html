@@ -1,0 +1,731 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Cloud Applications</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1cfeea59-ca7a-80a1-aaf8-c541bf5d03fe" class="page sans"><header><h1 class="page-title" dir="auto">Cloud Applications</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8099-8eb0-d70de9d43693" class="">Cloud applications are distributed systems, made of different components interacting each other to eventually offer an application to users</p></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8021-8d39-d5a433a0cb11" class="bulleted-list"><li style="list-style-type:disc">The implementation and integration of different software components for the cloud environment is a complex task that can result to be time consuming and expensive</li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-806a-9e65-c707a9b0f37f" class="bulleted-list"><li style="list-style-type:disc">want short time to market → <mark class="highlight-teal">rigourous methodologies</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80f7-b4be-f32977bc805b" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1cfeea59-ca7a-802b-b258-ca41f44045bb" class="">Requirements</h3></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8056-94cc-d9ae69237190" class="">In order to have mantainable code and short time to market:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-80ed-a22d-f0b18b9c4070" class="numbered-list" start="1"><li><mark class="highlight-orange">Interoperability </mark>→ easy interaction with other components <div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-807f-bb33-fcf38a1d8e27" class="bulleted-list"><li style="list-style-type:disc">expose a standard interface that can be easly invoked by other</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-80fd-a2fa-c64852390ade" class="numbered-list" start="2"><li><mark class="highlight-orange">Scalability </mark>→ horizontal scalability, the application should be designed to scale dynamically and effortlessly</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-8092-90ee-f2f48de5ad0b" class="numbered-list" start="3"><li><mark class="highlight-orange">Composability </mark>→ should be designed in order to allow its usage with different components without changes  (failure of components or creation/destruction of VMs)</li></ol></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80d1-aa93-d0a2ac3ec2c6" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="1cfeea59-ca7a-80db-acda-ef30979b3e19" class="">SOA - Service Oriented Architecture</h1></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-806b-8b1c-fed104b2bbce" class="">Most suited style for software design for cloud applications</p></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1cfeea59-ca7a-8075-ae75-c413330c5304"><div style="font-size:1.5em"><span class="icon">📢</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80d5-8253-f4d31ce54911" class="">SOA is not a tool or a framework, it is instead a modular approach for designing software objects</p></div></div></figure></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80e2-9fb2-f879251bf442" class="bulleted-list"><li style="list-style-type:disc">Software components in SOA are referred as <mark class="highlight-blue">services</mark>, which is a self contained component that implements specific functionalities</li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80a2-a0fc-e2f7f127053d" class="bulleted-list"><li style="list-style-type:disc">In SOA <mark class="highlight-blue">applications </mark>are built as a collection of services (or microservices) from existing software components <div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-808f-b512-c891e0146150" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">highly modular</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8002-a691-ce454aff0222" class="bulleted-list"><li style="list-style-type:circle">different programming language</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8032-95ef-c1dbe2e7625b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8034-81e3-d9b4482c6b72" class="">Services communicates via <mark class="highlight-blue">messages</mark></p></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8027-9138-d5f2703f6b07" class="bulleted-list"><li style="list-style-type:disc">Each msg has a specific <mark class="highlight-teal">schema</mark><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-802a-b028-e7f6efa65d31" class="bulleted-list"><li style="list-style-type:circle">Does not only define the service (what it does and what information provides) but it also describes the message exchange patterns to interact with the service to invoke a certain functionality or to get certain data</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8006-a807-c4edf73806d4" class="bulleted-list"><li style="list-style-type:disc">Internal implementation is hidden</li></ul></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80cd-9e1d-ddfa7e4efe38" class=""><br/>In SOA, components communicate through <strong>message passing</strong>, typically over standardized, agnostic protocols (e.g., HTTP with XML or JSON).</p></div><div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-80c9-bd3f-cdd23c9f267b" class="bulleted-list"><li style="list-style-type:disc">This contrasts with technologies like<mark class="highlight-teal"> Java RMI </mark>-<mark class="highlight-teal"> </mark>which require both caller and callee to share the same programming-language stubs, libraries, and runtime environment - thereby creating a tight coupling and technology dependency.</li></ul></div><div style="display:contents" dir="auto"><h3 id="1cfeea59-ca7a-8079-bdce-e5a49c7a9903" class="">Roles</h3></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80f5-adc2-fcae1be667be" class="">Two roles: consumer and provider</p></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80c7-b09a-db669e7d3f9e" class="">A <mark class="highlight-teal">consumer </mark>is a component that requires data to a <mark class="highlight-teal">provider </mark>and consume the data returned</p></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8070-a5c1-d4537a412681" class="bulleted-list"><li style="list-style-type:disc">a service could be one or both</li></ul></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8093-be16-ee88bb7cea5e" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-809c-9d04-dd5b50de1f82" class="">In general service consumer and provider doesn’t interact directly because they do not know each other</p></div><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-80e2-8e76-e56517402aa3" class="column-list"><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-8052-bd16-d108d2369c3e" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80e4-a755-c4bf76c84a8e" class="bulleted-list"><li style="list-style-type:disc">A third party is intrduced and is called <mark class="highlight-teal">broker</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-800a-b18f-c5e3bb62282a" class="bulleted-list"><li style="list-style-type:disc">once the identity and description is retrived then the two services will communicate directly</li></ul></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-8020-b966-ca37d416fb75" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-8051-8328-cba2bcfaab7d" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1cfeea59-ca7a-80a4-bc3b-e3a39cad0f98" class="image"><a href="Cloud%20Applications/image.png"><img style="width:432px" src="Cloud%20Applications/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80fe-8279-f19bdd46e3ff" class="bulleted-list"><li style="list-style-type:disc">The broker is responsible for creating a <mark class="highlight-blue">service catalog </mark>(or registry) available services are enlisted → <span style="border-bottom:0.05em solid">identity</span> (IP) and <span style="border-bottom:0.05em solid">interface</span></li></ul></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8055-835b-ee8c2a8ac89e" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1cfeea59-ca7a-80b7-bb63-fb21ec291dd4" class="">Advantages</h3></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-8042-ba14-d0de446363a2" class="numbered-list" start="1"><li><mark class="highlight-blue">Loosly coupling approach</mark> → makes the system flexible to changes (since internal implementation is hidden) and expandable</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-8081-b02e-c46ca2f148a9" class="numbered-list" start="2"><li><mark class="highlight-blue">Composability </mark>→ application created by the composition of existing services (reusability)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-806e-bbdc-eff00ec50fc0" class="numbered-list" start="3"><li><mark class="highlight-blue">Stateless</mark></li></ol></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8015-b7c8-c24f910dcb7a" class=""><mark class="highlight-pink_background">SOA services that are stateless and loosely coupled are perfect to adapt to the </mark><mark class="highlight-teal"><mark class="highlight-pink_background">scalability </mark></mark><mark class="highlight-pink_background">of the cloud infrastructure</mark></p></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8013-ac69-c50b3077bae6" class="bulleted-list"><li style="list-style-type:disc">As a new instance of a service is created (e.g. because the number of requests increased and novel VMs are created with a specific service) they are registered to the broker and made available to consumer</li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8057-8a94-d50fc8d8e334" class="bulleted-list"><li style="list-style-type:disc">Viceversa when destroyed are removed in a trasparent manner</li></ul></div><div style="display:contents" dir="auto"><h1 id="1cfeea59-ca7a-80c0-b326-d468efee1bdf" class="">Web Services (WS)</h1></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-803b-8b4c-f42f51c9941c" class="">The Web has become a medium for connecting remote clients with applications</p></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80e7-b623-ee6994e77b96" class="bulleted-list"><li style="list-style-type:disc">The term Web Service (WS) is often referred to a self-contained, self-describing modular application designed to be used and accessible by other software applications across the web</li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80d4-aa1c-d1a977365769" class="bulleted-list"><li style="list-style-type:disc">A web service is a software system designed to provide interoperable machine-to-machine interaction over a network</li></ul></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1cfeea59-ca7a-8093-8545-dcf6fbb9f9ed"><div style="font-size:1.5em"><span class="icon">📢</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-805f-837b-efafd0b28e14" class="">Web Services are one of the most common instances of SOA implementations</p></div></div></figure></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-802e-bf84-c6c78f451bd4" class="">3 pillars of Web</p></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-802c-bb7e-c273a33a486b" class="numbered-list" start="1"><li>URI</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-8054-aa17-cf880cca2ee3" class="numbered-list" start="2"><li>Communication Protocol (HTTP)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-800d-b3f9-e9c732586fcb" class="numbered-list" start="3"><li>Data Encoding (HTML) →  it is not suited to encode application data<div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8054-b603-d2ced83035a7" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">XML </mark>is introduced for this porpouse (hyerarchical structure)</li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8042-93ec-f29f45f26dcb" class="bulleted-list"><li style="list-style-type:disc">Grammar specifications, i.e. what kind of information can be written on document, are also available but not mandatory</li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8055-b955-ceb3fd6f218c" class="bulleted-list"><li style="list-style-type:disc">Extensible, since the set of tags is not predefined</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-806c-926b-d981572f9abe" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80f6-8782-dce3fae16b4d" class="">XML is composed of (hyerarchical structure):</p></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-8039-bb5d-f7f7edcd8272" class="numbered-list" start="1"><li>elements → begin with a start tag and ends at the end tag</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-8036-87a5-eb04170c2a85" class="numbered-list" start="2"><li>document usually begins with a root declaration, describing the metadata of the doument itself</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-80c0-b134-e6ec79f7f29f" class="numbered-list" start="3"><li>Attributes are name-value pair that can be specified within a start-tag</li></ol></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8008-b55c-c2c9e3b9f05b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80c6-9393-d7a6c158b6be" class="">XML document may have an associated <mark class="highlight-teal">schema </mark>(grammar of the document)</p></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-802c-87ac-e355f37d607f" class="bulleted-list"><li style="list-style-type:disc">In the validation it is marked as valid/non valid</li></ul></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8011-b4e2-d9cd9bb76e88" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1cfeea59-ca7a-80f8-9e34-eb017ed4c0b6" class="">SOAP</h2></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1feeea59-ca7a-80c0-992b-c476dc24a092"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1feeea59-ca7a-805f-b173-c4dbc9116bb9" class=""><strong>SOAP (Simple Object Access Protocol)</strong> is a specific protocol for implementing web services.</p></div></div></figure></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-802b-b040-fe8ca3279162" class="">2 Protocols for the interaction of the three components.</p></div><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-805f-bc17-f09b8804239a" class="column-list"><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-8053-a882-ef275531f120" style="width:62.5%" class="column"><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8008-b9ce-c1a4623c611f" class="">A WS has an interface described in a machine executable format, the <mark class="highlight-orange">Web Services Description Language</mark> (WSDL)</p></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8057-b627-d164616e2ecd" class="bulleted-list"><li style="list-style-type:disc">WSDL is used to interact with the broker, a module that provides a global registry for advertising and discovering web services.</li></ul></div><div style="display:contents" dir="auto"><p id="1feeea59-ca7a-8057-a4a5-e76e9b359006" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-8096-b36a-e20f87e83d65" style="width:37.5%" class="column"><div style="display:contents" dir="ltr"><figure id="1cfeea59-ca7a-8032-8aec-ceadd8af5ea5" class="image"><a href="Cloud%20Applications/image%201.png"><img style="width:288px" src="Cloud%20Applications/image%201.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80ad-8399-f5964df38130" class="bulleted-list"><li style="list-style-type:disc">Via WSDL each service provider register itself to the broker, while the service consumer uses WSDL to look up for a specific service</li></ul></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-800d-a5d3-ed9a4ff3e378" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-808b-9457-eb7b2447e840" class="column-list"><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-80a1-acc3-c00e780b9723" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-804b-a307-c2bf6ad36b9b" class="">Service consumer and provider interact using the <mark class="highlight-orange">Simple Object Access Protocol </mark>(SOAP) that provides a standard messaging format</p></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8075-9baf-fcf545677c1d" class="">It consist of a root element called envelope that contains a <mark class="highlight-teal">header </mark>and a <mark class="highlight-teal">body</mark></p></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80ae-a79e-cba22b5bd118" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">typically trasmitted over HTTP</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1feeea59-ca7a-80bd-ac30-d8150f09cc20" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-808c-a7fb-ce046efd2c90" style="width:43.75%" class="column"><div style="display:contents" dir="ltr"><figure id="1cfeea59-ca7a-80ec-93cb-f591f3a084d7" class="image"><a href="Cloud%20Applications/image%202.png"><img style="width:213px" src="Cloud%20Applications/image%202.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-809a-8427-eb898c1dfe18" class="bulleted-list"><li style="list-style-type:disc">With GET the response is a SOAP message, the request optionally</li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8030-83f6-e65a8e448398" class="bulleted-list"><li style="list-style-type:disc">With POST both request and response are SOAP messages</li></ul></div><div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-8013-a829-fee9debbe0a8" class="image"><a href="Cloud%20Applications/image%203.png"><img style="width:709.984375px" src="Cloud%20Applications/image%203.png"/></a><figcaption>SOAP request</figcaption></figure></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-802e-b9a4-ea36ce90fc35" class="">Via WSDL, clients can automatically understand:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-80af-9de8-c14effb1d584" class="numbered-list" start="1"><li>What a service can do</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-80e8-9b61-dbf452816f23" class="numbered-list" start="2"><li>Where the service is located</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-80d4-9cc4-caa6164584f5" class="numbered-list" start="3"><li>How it can be invoked</li></ol></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80ce-993b-eff71608cdb8" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-802a-8838-d37d1e807966" class="column-list"><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-8088-b012-f5bd54eeea1f" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80a3-a044-c21151f62a3e" class="">A WDSL message is an XML document and it comprises of two sections:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-804f-b65a-d75ec49d5065" class="numbered-list" start="1"><li><mark class="highlight-teal">The Service Interface Definition</mark>, which defines, in an abstract manner the service. It comprises: <div style="display:contents" dir="auto"><ol type="a" id="1cfeea59-ca7a-8072-a881-fec07c72e519" class="numbered-list" start="1"><li>the type of data (types)</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1cfeea59-ca7a-805f-8317-e32f6ecd24e8" class="numbered-list" start="2"><li>the messages exchanged between requestor and provider (messages) </li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1cfeea59-ca7a-80a7-a3f7-f5c4ad464b39" class="numbered-list" start="3"><li>the operations that can be performed (portType)</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-8055-a16c-f28fc2a740e1" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-80e1-9b56-ea60fa6cbe3c" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1cfeea59-ca7a-8085-b155-f758a983fb56" class="image"><a href="Cloud%20Applications/image%204.png"><img style="width:384px" src="Cloud%20Applications/image%204.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-800c-ab83-fe0078635c5b" class="numbered-list" start="2"><li><mark class="highlight-teal">The Service Implementation Definition</mark>, which defines in a specific manner how the service is invoked. It comprises:<div style="display:contents" dir="auto"><ol type="a" id="1d0eea59-ca7a-80c2-a051-e69fa6cbc6b3" class="numbered-list" start="1"><li>how to transfer the messages (binding) and </li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1d0eea59-ca7a-8001-813f-c5ad4e75c7bf" class="numbered-list" start="2"><li>how to invoke the service (service)</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8000-ae65-fd0321933998" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-8059-ad02-d45f7518441f" class="image"><a href="Cloud%20Applications/image%205.png"><img style="width:710px" src="Cloud%20Applications/image%205.png"/></a><figcaption>Used to define complex data types</figcaption></figure></div><div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-80ce-9e90-e0c35af18e2c" class="image"><a href="Cloud%20Applications/image%206.png"><img style="width:709.96875px" src="Cloud%20Applications/image%206.png"/></a><figcaption>List the messages that can be exchanged</figcaption></figure></div><div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-8029-8485-e23ae93b8275" class="image"><a href="Cloud%20Applications/image%207.png"><img style="width:709.984375px" src="Cloud%20Applications/image%207.png"/></a><figcaption>Link together request and responses</figcaption></figure></div><div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-8001-b0f4-e408e303d71c" class="image"><a href="Cloud%20Applications/image%208.png"><img style="width:710px" src="Cloud%20Applications/image%208.png"/></a><figcaption>Implementation Part: how port type operations are exchanged (HTTP)</figcaption></figure></div><div style="display:contents" dir="ltr"><figure id="1efeea59-ca7a-80e8-97cd-d0341d13bfb5" class="image"><a href="Cloud%20Applications/image%209.png"><img style="width:710px" src="Cloud%20Applications/image%209.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-80e7-b629-fef88b1943ba" class="bulleted-list"><li style="list-style-type:disc"><code><strong>binding</strong></code> provide the <strong>communication protocol</strong>, <strong>data format</strong>, and <strong>message encoding style</strong>.<br/></li></ul></div><div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-80ee-ac16-ca657e9a29eb" class="image"><a href="Cloud%20Applications/image%2010.png"><img style="width:709.953125px" src="Cloud%20Applications/image%2010.png"/></a><figcaption>How to operation is invoke → URI of the service</figcaption></figure></div><div style="display:contents" dir="auto"><h2 id="1cfeea59-ca7a-80af-8140-cf30c518d192" class="">Rest</h2></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80b2-9901-c7593dae440a" class="">SOAP is too complex and introduces overheads → <mark class="highlight-blue">The Representational State Transfer </mark>(REST) has been introduced as valid lightweight alternative for WS</p></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-807b-ac24-f2476c874fad" class="bulleted-list"><li style="list-style-type:disc">client server architecture, using <mark class="highlight-teal">HTTP </mark>as transfer protocol</li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-801e-ac13-e5e51c6a9e83" class="bulleted-list"><li style="list-style-type:disc">data still trasmitted using <mark class="highlight-teal">XML</mark>, but the overhead of SOAP is removed<div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80a3-afe1-dc35f7f83277" class="bulleted-list"><li style="list-style-type:circle">Also JSON and plain text is available in Rest (just change the <code>Content-Type</code>  header)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80bc-a75e-db4c65ebf741" class="bulleted-list"><li style="list-style-type:disc"> <mark class="highlight-teal">Parameters </mark>can be included in the request (embeddded in the URI), or as payload to be sent to the service </li></ul></div><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-80da-a759-d8f71af498cd" class="column-list"><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-8094-974c-c4732b225266" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1cfeea59-ca7a-80aa-8699-e1b3188230c8" class="image"><a href="Cloud%20Applications/image%2011.png"><img style="width:336px" src="Cloud%20Applications/image%2011.png"/></a><figcaption>parameters in the request</figcaption></figure></div></div></div><div style="display:contents" dir="auto"><div id="1cfeea59-ca7a-808d-8601-f29ac58809cd" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1cfeea59-ca7a-80c6-bd5f-efa60435d23e" class="image"><a href="Cloud%20Applications/image%2012.png"><img style="width:432px" src="Cloud%20Applications/image%2012.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1cfeea59-ca7a-8036-831a-f89307adeca3"><div style="font-size:1.5em"><span class="icon">📢</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-808b-9fa8-e8d627230076" class="">Rest is used as an interface (API) to expose the functionalities of a cloud application</p></div></div></figure></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8033-9d06-e8bcec2928cf" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8051-afad-f54537063c1a" class="">JSON is based on a subset of JS, text format and language independent</p></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-80a5-addc-caaf6fdaf55b" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Lightweight </mark>data encoding, based only on two structures:<div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-80e4-8b58-db027bc0ad79" class="numbered-list" start="1"><li>Collection of name, value pairs</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cfeea59-ca7a-802a-80ae-e1236e744f3c" class="numbered-list" start="2"><li>Ordered list of values (array)</li></ol></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="1cfeea59-ca7a-8021-8315-f146ce640cfc" class="">Crud</h3></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-800c-9ce2-cf1e4cb634c5" class="">There are no strict rules of mapping functionalities to methods and URI</p></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8003-b0fb-d5a15ed22b65" class="bulleted-list"><li style="list-style-type:disc">unwritten rules in order to make it more uderstandable</li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-8035-8fe9-f99fca66f2d1" class="bulleted-list"><li style="list-style-type:disc">No mechanism to force the mapping</li></ul></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-80af-afb4-d99fc52aea3d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-8060-a751-f3434b548cbf" class="">CRUD → major functionalities (create, read, update, delete), typically associated with databases</p></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-809c-bcb3-dea2af6ba804" class="bulleted-list"><li style="list-style-type:disc">can be mapped in the four method of HTTP</li></ul></div><div style="display:contents" dir="auto"><ul id="1cfeea59-ca7a-801e-a335-ea0952b3fb45" class="bulleted-list"><li style="list-style-type:disc">PUT update and POST to create</li></ul></div><div style="display:contents" dir="auto"><p id="1cfeea59-ca7a-805c-90b3-ee71e9cedae3" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

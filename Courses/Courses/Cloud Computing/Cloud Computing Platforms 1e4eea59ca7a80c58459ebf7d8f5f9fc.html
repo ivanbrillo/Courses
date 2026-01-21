@@ -1,0 +1,763 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Cloud Computing Platforms</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1e4eea59-ca7a-80c5-8459-ebf7d8f5f9fc" class="page sans"><header><h1 class="page-title" dir="auto">Cloud Computing Platforms</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="1e4eea59-ca7a-8052-b8a2-e417cdbf186e" class="">Cloud Infrastructure</h1></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-8081-b4b7-dd3214f12c8f" class="">The cloud infrastructure exploits regular (unmodified) hardware to support the creation of VMs, it does not require any specific modified hardware</p></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-803b-9398-e68f9b8ace4b" class="bulleted-list"><li style="list-style-type:disc">A group of servers is interconnected via a high speed LAN comprises the cloud infrastructure</li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-8076-bf52-e60f70f28c16" class="bulleted-list"><li style="list-style-type:disc">Eventually the group of servers is connected to the Internet via a router, so each VM can communicate with the users and viceversa</li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-80ba-875f-d5390fe86b71" class="bulleted-list"><li style="list-style-type:disc">On each server a OS and a hypervisor is installed</li></ul></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-80f7-87d8-fc2d57221cef" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-804c-97cd-db9686528636" class="">A pool of servers, each one running a hypervisor, are federated to create a<mark class="highlight-orange"> cloud platform</mark></p></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-80ec-a2ea-e583c90b614b" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">The cloud platform is a</mark><mark class="highlight-teal"><mark class="highlight-pink_background"> distributed system</mark></mark><mark class="highlight-pink_background"> (it can be considered a special type of cloud application) that controls the hypervisors of all the servers in the infrastructure</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-8004-ab52-d439e7b88326" class="bulleted-list"><li style="list-style-type:disc">It manages the instantiation/destruction of VMs on the infrastructure</li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-80c0-912a-f336c156faed" class="bulleted-list"><li style="list-style-type:disc">In order to allow the management of VMs, the platform exposes a <mark class="highlight-pink_background">management interface</mark> → can be used by <mark class="highlight-teal">User </mark>or by a <mark class="highlight-teal">Software </mark>(to automate the control of cloud indrastructure, eg based on latecy)</li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-8033-befd-ca3718ff63f8" class="bulleted-list"><li style="list-style-type:disc">The cloud platform allows to implement the <mark class="highlight-teal">IaaS </mark>cloud model as it enables the creation/destruction of VMs<div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-8077-ae06-cf26fd1a62e6" class="bulleted-list"><li style="list-style-type:circle">On top of such infrastructure more complex models (<mark class="highlight-teal">PaaS </mark>and <mark class="highlight-teal">SaaS</mark>) can be deployed</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-80a4-97d9-f44421cb7c87" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-804c-8e35-dd67d6624ec5" class="">In addition to the hypervisor a <mark class="highlight-teal">cloud platform software</mark> is installed to control the local resources virtualized by the hypervisor. This software is often referred as the<mark class="highlight-blue"> agent of the cloud platform</mark></p></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-808e-aa61-e8b8925ad0b0" class="">In order to implement system wide management, in one or more servers (resiliency) is installed a <mark class="highlight-blue"><mark class="highlight-pink_background">cloud platform controller</mark></mark></p></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-80d7-a0f5-c642d0272f9e" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-805d-a771-cf5dff907166" class="">Currently, we do not have a standard for the architecture of cloud platforms, however, their architecture is very similar</p></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-8064-83a1-c8d4cb0b427a" class="bulleted-list"><li style="list-style-type:disc">Google Cloud, Azure, AWS have hidden cloud platforms</li></ul></div><div style="display:contents" dir="auto"><h1 id="1e4eea59-ca7a-80f4-a996-ca6125f8e36c" class="">OpenStack</h1></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-803d-b806-e33f0b61a292" class="">It is a free and open-source software for <mark class="highlight-orange">IaaS cloud computing</mark></p></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-8077-a9dd-e2ce4cdc462b" class="bulleted-list"><li style="list-style-type:disc">supported and managed by more than 500 companies (VMWare, Oracle, CISCO, IBM, …)</li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-80ca-8ca5-c1abc0af1a5f" class="bulleted-list"><li style="list-style-type:disc">It’s the main solution adopeted for private cloud computing (eg. CERN)</li></ul></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-8045-97f1-c0f4615efd01" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-8052-b83b-d2c5f74682ab" class="">OpenStack runs on top of a commodity server (no particular hardware is required)</p></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-808f-81ea-cb3e64d3e585" class="bulleted-list"><li style="list-style-type:disc">the software platform is installed on each server (called <mark class="highlight-blue">OpenStack Node</mark>), and runs <mark class="highlight-pink_background">on top of the host OS</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-808b-b2cb-d45763bb4d0e" class="bulleted-list"><li style="list-style-type:disc">Through each hypervisor, OpenStack creates/destroys the VMs</li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-8000-878c-c3b334f573a8" class="bulleted-list"><li style="list-style-type:disc">The platform handle the connection of VMs to <mark class="highlight-blue">Virtual Networks</mark>, which can be used to communicate among VMs or external networks</li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-80c0-8f54-d70cf54db002" class="bulleted-list"><li style="list-style-type:disc">In addition to Virtual Machines and Virtual Networks, the platform manages the <mark class="highlight-blue">Storage</mark>. This enable the creation of virtual hard drives that can be connected to virtual machines</li></ul></div><div style="display:contents" dir="auto"><div id="1e4eea59-ca7a-80a8-91ca-f9f3e79b236d" class="column-list"><div style="display:contents" dir="auto"><div id="1e4eea59-ca7a-8067-a46d-f63d195bc7ab" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-80e1-82e4-ed265605a12c" class="">Nodes running the OpenStack software are configured to form a <mark class="highlight-blue">single OpenStack instance</mark> combining together computing, memory and storage capabilities to create VMs</p></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-80b8-8f7a-cf36bfb9e3c9" class="bulleted-list"><li style="list-style-type:disc">In an instance, at least one node is configured as <mark class="highlight-teal">controller</mark></li></ul></div><div style="display:contents" dir="auto"><p id="201eea59-ca7a-80c6-a786-c8f820eecbc3" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1e4eea59-ca7a-80ef-a388-daf52363d24c" style="width:43.75%" class="column"><div style="display:contents" dir="ltr"><figure id="1e4eea59-ca7a-8009-8c4c-ff17cf17a1d2" class="image"><a href="Cloud%20Computing%20Platforms/image.png"><img style="width:384px" src="Cloud%20Computing%20Platforms/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-80b4-9106-d577cb106317" class="bulleted-list"><li style="list-style-type:disc">The other nodes are configured as <mark class="highlight-teal">compute </mark>nodes that offer computation and storage resources to run VMs</li></ul></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-8077-9043-e7d2f66c74d3" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-8017-93c0-f1ad220b7fb4" class="">The platform exposes a web dashboard to allow users and administrators to manage virtual resources (networks, VMs, VHD)</p></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-80d8-8dab-d8fd63625f49" class="bulleted-list"><li style="list-style-type:disc">based on REST API</li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-800b-b743-d1e00b61377b" class="bulleted-list"><li style="list-style-type:disc">also a command line is present</li></ul></div><div style="display:contents" dir="auto"><h2 id="1e4eea59-ca7a-8026-a1cb-cceb97fe2ee1" class="">OpenStack Architecture</h2></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-808c-ac40-cfe0afa4c888" class="">It is highly modular</p></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-806d-9fa7-e60c5bca963d" class="bulleted-list"><li style="list-style-type:disc">The functionalities of the platform are grouped into services (eg. compute, netowrking, …)</li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-8045-b84d-dcd04b2e868f" class="bulleted-list"><li style="list-style-type:disc">Each module could work separately from the platform and it is developed and maintained as a <mark class="highlight-teal">separate project</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-80a2-9709-c52bfcba8967" class="bulleted-list"><li style="list-style-type:disc">Each service exposes a set of REST APIs, through this interface it can receive requests from platforms users</li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-8017-b8b6-f65fadae7e22" class="bulleted-list"><li style="list-style-type:disc">Coordination operations and status information among services, instead, are exchange using a <mark class="highlight-teal">message queue system</mark></li></ul></div><div style="display:contents" dir="ltr"><figure id="1e4eea59-ca7a-8089-b9d7-f6c87ec9c2bb" class="image"><a href="Cloud%20Computing%20Platforms/image%201.png"><img style="width:528px" src="Cloud%20Computing%20Platforms/image%201.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="1e4eea59-ca7a-8094-af62-ce33929ec9eb" class="image"><a href="Cloud%20Computing%20Platforms/image%202.png"><img style="width:605.7875366210938px" src="Cloud%20Computing%20Platforms/image%202.png"/></a></figure></div><div style="display:contents" dir="auto"><div id="1e4eea59-ca7a-8032-8ff9-e232a040fbcd" class="column-list"><div style="display:contents" dir="auto"><div id="1e4eea59-ca7a-8041-b180-d57b74322e23" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><p id="1f0eea59-ca7a-80e0-a8fe-c8cec43046c5" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-807b-bef2-f4e8832319de" class="">Services are installed on the controller node or in the compute nodes according to their functionalities</p></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-80f3-af37-ee6fba269dc1" class="bulleted-list"><li style="list-style-type:disc">maybe in both with different configurations</li></ul></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-80f4-bff3-dcfc2a3d2279" class="">All the services in the controller node leverage some <mark class="highlight-teal">supporting services</mark>, one Database (e.g. MySQL) for status and configuration storage and one Message Broker (e.g. Rabbit MQ) for message exchange across different modules</p></div><div style="display:contents" dir="auto"><p id="201eea59-ca7a-80cc-973e-f8336ff00639" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1e4eea59-ca7a-80e7-9a74-d641408ceee2" style="width:43.74999999999999%" class="column"><div style="display:contents" dir="ltr"><figure id="1e4eea59-ca7a-805d-a090-d513145572a6" class="image"><a href="Cloud%20Computing%20Platforms/image%203.png"><img style="width:605.7875366210938px" src="Cloud%20Computing%20Platforms/image%203.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="1e4eea59-ca7a-8032-94f0-d8a960aa5079" class="">Information Exchange</h3></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-808b-8708-f913a70d1f5d" class="">Services interacts in three ways</p></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-8011-ad42-e95a9937a91c" class="numbered-list" start="1"><li>via an msg broker</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-8082-b4a9-c6211cec338a" class="numbered-list" start="2"><li>REST API</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-80e4-a325-fe943b970d4d" class="numbered-list" start="3"><li>via the database (indirect communication mean)</li></ol></div><div style="display:contents" dir="auto"><h2 id="1e4eea59-ca7a-802e-99b3-c26dfc9faa80" class="">Important Modules</h2></div><div style="display:contents" dir="auto"><h3 id="1e4eea59-ca7a-8021-9344-d02257e6f5f0" class="">Keystone</h3></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-8072-80df-cce978700755" class="">It is the identity management component</p></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-80a2-a492-f78db434317f" class="bulleted-list"><li style="list-style-type:disc">manages <mark class="highlight-teal">authentication </mark>and <mark class="highlight-teal">authorization</mark><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-8013-a54a-c29df0e0872b" class="bulleted-list"><li style="list-style-type:circle">authentication is the process of verifying who a user is, while authorization is the process of verifying what they have access to</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-802f-a1cb-e0ce11222396" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-808a-ad6f-cf258efe2bea" class="">It ensures security by granting/denying access to <mark class="highlight-blue">objects </mark>(VM, Virtual HD or Virtual Network) to Users</p></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-807a-a1d8-fa0006a96db4" class="bulleted-list"><li style="list-style-type:disc">objects are grouped into <mark class="highlight-blue">projects</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-80f6-aac1-ec09eeeba273" class="bulleted-list"><li style="list-style-type:disc">Projects are associated with one or more users → lookup to understand if grant the access</li></ul></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-80d9-af9c-d573988e2ea1" class="">Keystone implements a <mark class="highlight-teal">token-based authorization</mark></p></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-8095-8f13-c9762eebc81f" class="bulleted-list"><li style="list-style-type:disc">A user first interacts with keystone using an user/pass based authentication</li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-801a-a391-ef4fb0107b60" class="bulleted-list"><li style="list-style-type:disc">If successful a token is received. It is used to access all OpenStack services</li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-8090-9882-f516fdfb74e8" class="bulleted-list"><li style="list-style-type:disc">Each service takes care of validating the token</li></ul></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-80a6-b73f-fbea10a2ee96" class="">If I have more than one controller (for redundancy), I will have more Keystone instance</p></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-8090-b591-f043fc739e68" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1e4eea59-ca7a-8074-92d2-c4193c2db8ce" class="">Nova</h3></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-8049-afe5-ccdcdedeedd2" class="">Nova is the VM management component</p></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-80dc-8a66-c3ac78644142" class="bulleted-list"><li style="list-style-type:disc">It is responsible for the instantiation and management of Machines Virtual</li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-8023-b288-eb489fe5e9ae" class="bulleted-list"><li style="list-style-type:disc">Virtualization technologies are left out of scope from openstack and Nova → external hypervisors is accessed by Nova via different plug-ins</li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-80d5-ad88-e15d022190f0" class="bulleted-list"><li style="list-style-type:disc">It includes two different modules, the <mark class="highlight-teal">nova controller </mark>installed on the controller node and the <mark class="highlight-teal">nova agent</mark> installed on the compute nodes</li></ul></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-80f4-94bd-d9ca2a99bf8d" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-8090-a353-d48c0a551641" class="numbered-list" start="1"><li>On the controller node the nova component is responsible for handling the requests from the users and managing the resources available on the compute nodes<div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-8019-9845-e45e6f47ca4b" class="bulleted-list"><li style="list-style-type:disc">Specifically, it collects the requests of VM creation/destruction from the interface, it evaluates the corresponding actions to be performed and sends the commands to the compute node</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-8049-adbc-fc33e917153e" class="numbered-list" start="2"><li>On the compute node, the component is responsible for receiving instructions from the controller module and to translate it to the corresponding commands for the <mark class="highlight-teal">hypervisor </mark>(initiate and terminate VMs instances)<div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-8086-b0c7-c17e6770faa4" class="bulleted-list"><li style="list-style-type:disc">interface via the hypervisor via different plugins (different hypervisors → different <mark class="highlight-pink_background">plugins</mark>)</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-805a-94c5-eba2acd9694a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-80ec-ab33-f0cd8a04c2b3" class=""><mark class="highlight-blue">Nova controller</mark> is implemented by different sub-components:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-80c1-b950-f2860ed5b9e9" class="numbered-list" start="1"><li>Nova-API exposes external REST entry point to request operations to Nova</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-80f5-a2b7-f67240e717ef" class="numbered-list" start="2"><li>Nova-Conductor → manages all the requests from the API</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-808a-9d8e-e398479f22b9" class="numbered-list" start="3"><li><mark class="highlight-pink_background">Nova-Scheduler</mark> → evaluate the proper placement (physical computer) for the creation of a new VM<div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-80c5-b27f-fd1f7a504270" class="bulleted-list"><li style="list-style-type:disc">Host needs to have sufficient resources</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-80c1-a9a3-fa111cbb6df2" class="numbered-list" start="4"><li>Nova-Network → implements the basic network services for VMs</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-8097-9a85-fbc9da88c4ef" class="numbered-list" start="5"><li>Nova-ConsolAuth → implements a console to connect to the VM</li></ol></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-802c-b814-ec7c9ac6f0f9" class="">All the components interact through the <mark class="highlight-blue">messaging queue</mark></p></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-80ae-8273-e6fc968d9ec4" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-8007-b46f-f9ff99c8fa39" class="">The compute node is composed only by the <mark class="highlight-blue">Nova Compute Service</mark></p></div><div style="display:contents" dir="ltr"><figure id="1e4eea59-ca7a-80a1-aba3-d5258d39b0c8" class="image"><a href="Cloud%20Computing%20Platforms/image%204.png"><img style="width:528px" src="Cloud%20Computing%20Platforms/image%204.png"/></a><figcaption>VM Creation Workflow</figcaption></figure></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-802e-8b61-ed10aab2a791" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1e4eea59-ca7a-8078-a37c-c2630d7f3e6e" class="column-list"><div style="display:contents" dir="auto"><div id="1e4eea59-ca7a-8057-b731-cc9030823209" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-806b-8619-eed39af3b9e9" class="">Scheduling policy:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-80a5-af86-da141f16d093" class="numbered-list" start="1"><li>The scheduler performs an initial filtering phase in which not suitable hosts are removed (eg. out of resources or the one that needs a GPU available - passedthrough device)</li></ol></div><div style="display:contents" dir="auto"><p id="201eea59-ca7a-80ae-ae2d-c4938636ac86" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1e4eea59-ca7a-80d9-b8a3-cb69b4895e15" style="width:43.75%" class="column"><div style="display:contents" dir="ltr"><figure id="1e4eea59-ca7a-80e4-a19c-dee448224b27" class="image"><a href="Cloud%20Computing%20Platforms/image%205.png"><img style="width:605.7750244140625px" src="Cloud%20Computing%20Platforms/image%205.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-8075-b918-c5f9546d30fa" class="numbered-list" start="2"><li>Order the remaining hosts</li></ol></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-80e4-90d5-eca798221b0c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-8078-aa27-e3d3f2ac0709" class=""><mark class="highlight-orange">Overcommit factors</mark> → factor that multiply the physical resources that I have to calculate the virtual resource I have</p></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-803c-8671-fbc72aa790e8" class="bulleted-list"><li style="list-style-type:disc">One for the CPU (will have lower clock if full usage) and another one for the RAM (swap in case of full usage)</li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-8080-a340-d5e987a7f221" class="bulleted-list"><li style="list-style-type:disc">For the ram I will probably not use Overcommit factor &gt; 1 since the pages system are really slow</li></ul></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-80c7-9672-e1c0f16b7c8c" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1e4eea59-ca7a-801f-9738-dcf78da7fd06" class="">Glance</h3></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-8032-b8c2-f742ca9f6d13" class="">It provide <mark class="highlight-blue">image </mark>management service</p></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-8054-bfb2-f36fbf3fd1f5" class="bulleted-list"><li style="list-style-type:disc">An image is a template for the creation of a VM</li></ul></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-8086-9f19-f2081ec6b49d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-8096-a21b-dccccb0bc489" class="">Two components:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-80ab-835e-c9b5c312cbb8" class="numbered-list" start="1"><li>Glance for image management</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-8047-912b-e49878adc81b" class="numbered-list" start="2"><li>Glance Storage </li></ol></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-8081-9317-c5d70bbf76ec" class="">Glance is responsible for exposing a REST API for managing the images (e.g. uploading an image, delete an image, etc) and store the <mark class="highlight-teal">list </mark>of the images available and its features on the DB</p></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-80ef-8be0-e519fbf10de1" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1e7eea59-ca7a-8013-8a89-dcb74015dbaf" class="">Neutron</h3></div><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-809d-831a-dbdf24d86b21" class="column-list"><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-80ff-86a2-cdc75306409c" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-80da-855a-d7449a5430c1" class="">Neutron is the network management components</p></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-8092-87f6-db9716f85718" class="bulleted-list"><li style="list-style-type:disc">It allows the creation of Virtual Networks among VMs that can run on different Openstack compute nodes </li></ul></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-8028-9b25-f211b4ca2f49" class="bulleted-list"><li style="list-style-type:disc">The<mark class="highlight-teal"> Local Physical Network</mark> is exploited to enable the virtual networks</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-8001-abc6-e851f2431ebc" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1e7eea59-ca7a-8037-b003-d31a27ca80d6" class="image"><a href="Cloud%20Computing%20Platforms/image%206.png"><img style="width:384px" src="Cloud%20Computing%20Platforms/image%206.png"/></a><figcaption>2 virtual networks (not real networks)</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-8044-92f0-ebb7276b7a2f" class="">Different Virtual Networks are instantiated for different VMs in order to ensure <mark class="highlight-teal">isolation </mark>among them → VMs created by different tenants cannot communicate</p></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-8014-a8b9-e829e7778d48" class="bulleted-list"><li style="list-style-type:disc">eg. two different customers in a cloud platform</li></ul></div><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-80c5-bdd9-eb9b96dba25e" class="column-list"><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-803b-8d3d-ca7e39338e82" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-80f1-be8a-f0f758e70410" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-8085-b8d3-f796c2ee1fb7" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-8078-ba9b-c3b1938c91d3" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-8015-a529-f7f54c6ab310" class="">Neutron subcomponents are:</p></div></div></div><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-805f-940f-ee83e6827e91" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1e7eea59-ca7a-801f-83a6-d4024eb43720" class="image"><a href="Cloud%20Computing%20Platforms/image%207.png"><img style="width:336px" src="Cloud%20Computing%20Platforms/image%207.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ol type="1" id="1e7eea59-ca7a-801f-9525-f1c5757d23e6" class="numbered-list" start="1"><li><mark class="highlight-blue">Neutron-Server</mark>: it is installed on the <mark class="highlight-teal">controller </mark>and it is responsible for: <div style="display:contents" dir="auto"><ol type="a" id="1e7eea59-ca7a-80b0-a29e-d3b7b0ff31e2" class="numbered-list" start="1"><li>managing the Virtual Networks by coordinating the neutron-agents running on the computing nodes. </li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1e7eea59-ca7a-80a4-8c09-dd7400dc959d" class="numbered-list" start="2"><li>It is also responsible for exposing the <mark class="highlight-teal">REST APIs</mark> for the management of Virtual Networks to users</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e7eea59-ca7a-8012-8de3-fa6fa50363e3" class="numbered-list" start="2"><li><mark class="highlight-blue">Neutron-Agent</mark>: it is responsible for managing the traffic to/from VMs running on the compute node on which it is installed. <div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-8040-a3c8-e9ca10664065" class="bulleted-list"><li style="list-style-type:disc">It <mark class="highlight-teal">dispatches </mark>the traffic directed to/generated from the local VMs in order to emulates different virtual networks that span across different compute nodes, by <mark class="highlight-teal">tagging </mark>the packets from a VM with it’s virtual network specifier if outgoing, or removing it if incoming</li></ul></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-8026-a169-dd95e583c0e5" class="bulleted-list"><li style="list-style-type:disc">The agent must enforce isolation between different Virtual Networks</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-80c0-8eef-dcc627dc13c2" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-806d-9470-d17dbcce790d" class="column-list"><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-805c-9d52-c56e720f0f72" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-804b-a456-e107776a7b6d" class="">Virtual Networks are usually private networks → Neutron allows VMs to be connected to external networks, so VMs can connect to the Internet</p></div><div style="display:contents" dir="auto"><p id="1ffeea59-ca7a-8095-ab7f-e9a0ce2e347b" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-80da-b356-df036ccae243" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1e7eea59-ca7a-8055-b353-d83835518949" class="image"><a href="Cloud%20Computing%20Platforms/image%208.png"><img style="width:384px" src="Cloud%20Computing%20Platforms/image%208.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-8094-973f-fec3fb1e674d" class="">In order to connect Virtual Networks to the Internet, a <mark class="highlight-orange">Network Node</mark> (typically the controller) must be instantiated<div class="indented"><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-8003-b876-eea4bbd00bfc" class="bulleted-list"><li style="list-style-type:disc">It is connected to an external network (towards the Internet) and to the local network that connects the OpenStack nodes</li></ul></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-8032-b347-c3602097e3d6" class="bulleted-list"><li style="list-style-type:disc">This node runs a <mark class="highlight-blue">Neutron-L3-Agent</mark> that is responsible for rerouting traffic from/to the private Virtual Networks to/from the public networks<div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-802d-a645-c0261431dd46" class="bulleted-list"><li style="list-style-type:circle">This functionality is performed by instantiating <mark class="highlight-teal">Virtual Routers</mark>, which are responsible for implementing <span style="border-bottom:0.05em solid">traffic routing</span> and <span style="border-bottom:0.05em solid">NAT functionalities</span> (network adress traslation) → one public IP adress</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-8024-b076-f513541c07ad" class="bulleted-list"><li style="list-style-type:disc">In addition to this, the Network Node also hosts a module named <mark class="highlight-blue">Neutron-DHCP-Agent</mark>, which is responsible for managing the network configuration assignment to VMs</li></ul></div></div></p></div><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-80c5-b709-e378e03252a2" class="column-list"><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-80b9-a2f1-f29318b81dfc" style="width:25%" class="column"><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-8034-8224-ce0212a0834b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-80e1-ace7-ea481bcf3532" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-801e-94e9-e8a893cf74ea" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-802d-a625-d1b4435236ff" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-8018-9500-ca840ee4cd03" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-808c-bbdc-f7c045548b19" class="">The external network is usually configured with<mark class="highlight-orange"> three different physical networks</mark>:</p></div><div style="display:contents" dir="auto"><p id="1f0eea59-ca7a-806d-b860-dd65ddbc37cf" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-8083-ba81-cf6c60e1e68c" style="width:75%" class="column"><div style="display:contents" dir="ltr"><figure id="1e7eea59-ca7a-8009-bcd9-e62a781996f8" class="image"><a href="Cloud%20Computing%20Platforms/image%209.png"><img style="width:605.7875366210938px" src="Cloud%20Computing%20Platforms/image%209.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-80c4-9eab-d310f36eb8e8" class="bulleted-list"><li style="list-style-type:disc">A management network, exploited for OpenStack services communication</li></ul></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-80db-b63a-cd63cb8de40b" class="bulleted-list"><li style="list-style-type:disc">A VM internal network, exploited to dispatch the internal communication among different VMs</li></ul></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-80bc-afce-e08f4451abc1" class="bulleted-list"><li style="list-style-type:disc">An external network for Internet access</li></ul></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-8024-aac5-d54f1e717020" class="">The management network and the VM internal network can be implemented on the same physical LAN</p></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-80af-b3fb-ce079082335b" class="bulleted-list"><li style="list-style-type:disc">Only one node, the Network Node, must be connected on the external network</li></ul></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-8007-8794-f10314efc07e" class="bulleted-list"><li style="list-style-type:disc">The controller node can be connected only to the management network</li></ul></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-801d-88d9-de3a12343df1" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-8022-a10c-df815b8bd240" class="">The newest neutron agent uses <mark class="highlight-orange">OpenVSwitch (OVS) </mark>→ is an open-source implementation of a distributed network virtual switch</p></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-808c-8458-fad20f583270" class="bulleted-list"><li style="list-style-type:disc">The hardware forwarding was working but really expensive and difficult to perform changes</li></ul></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-808c-af0d-d2859009f56e" class="bulleted-list"><li style="list-style-type:disc">OpenVSwitch allows to <mark class="highlight-teal">rapidly reconfigure </mark>the behavior of each agent following the directives from the <mark class="highlight-pink_background">nova server</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-80db-8093-d4c3aefecd06" class="bulleted-list"><li style="list-style-type:disc">It can run directly within (or jointly with) the <mark class="highlight-teal">hypervisor </mark>to manage the traffic to/from VMs</li></ul></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-80bf-b0d9-e3596934f9ed" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-8015-b136-c85ee60381ca" class=""><mark class="highlight-pink_background">OVS adopts a centralized approach, where every node has its own OVS instance, which is controlled by a controller</mark></p></div><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-802a-a218-efc46508f379" class="column-list"><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-8058-baf7-c6c410addf65" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-8025-b82a-c0a11a347cae" class="bulleted-list"><li style="list-style-type:disc">Following the directives of the controller, all the OVS instances implements a <mark class="highlight-teal">distributed virtual switch</mark></li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-8027-8927-f5f9e905e0b4" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1e7eea59-ca7a-80b4-a3b9-ea8ca6edf912" class="image"><a href="Cloud%20Computing%20Platforms/image%2010.png"><img style="width:336px" src="Cloud%20Computing%20Platforms/image%2010.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-80fc-b59d-f59ee21acab0" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-800a-8cb1-ffe404bc8ff4" class="column-list"><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-8078-82d3-c5dd785f5454" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-80a1-9fc2-e488416efebb" class="">OVS adopt the <mark class="highlight-blue">Software Defined Networking </mark>(SDN) <mark class="highlight-blue">paradigm</mark>: network rules are configured dynamically on each instance based on the directives coming from a centralized controller</p></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-8037-a17e-fc90e32e7636" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-8000-ae3d-e4706c8baaf7" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1e7eea59-ca7a-8078-9ba1-db175a0ee207" class="image"><a href="Cloud%20Computing%20Platforms/image%2011.png"><img style="width:336px" src="Cloud%20Computing%20Platforms/image%2011.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-80f3-9b77-fb685376524b" class="">Each OVS node has a <mark class="highlight-pink_background">table</mark> (the<mark class="highlight-teal"> flow table</mark>) that describes:<div class="indented"><div style="display:contents" dir="auto"><ol type="1" id="1e7eea59-ca7a-8051-80b6-e412a03d63fc" class="numbered-list" start="1"><li>the features of any incoming packet (e.g. IP=x ) (e.g. the source IP, the destination MAC address, etc.) </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e7eea59-ca7a-8057-a85e-e8f661ace703" class="numbered-list" start="2"><li>the corresponding action to be executed (e.g. forward the packet, modify the<br/>packet, etc.)</li></ol></div></div></p></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-80bc-bcb8-e5b723552f72" class="bulleted-list"><li style="list-style-type:disc">Whenever a packet is received, the table is accessed, if the packet has a match with one of the entry in the table the corresponding action is executed<div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-8093-8188-ee4e0165377f" class="bulleted-list"><li style="list-style-type:circle">If <mark class="highlight-teal">no match</mark> is found, OVS sends a query message to the controller, which replies with a new rule to be added in the local table or a specific action to be performed once</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-80fb-ad89-fffab92c27ab" class="bulleted-list"><li style="list-style-type:disc">The protocol that implements the communication between OVS instances and the controller is named <mark class="highlight-orange">OpenFlow</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-8088-a0f6-d1fd2a6dcdd9" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-8090-9349-c0659ab93881" class="column-list"><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-8021-a2c9-ed432ecb3afd" style="width:62.5%" class="column"><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-80d4-a5d0-ef405407cc10" class="">Each VM has a Virtual NIC (network interface card), whose hardware is emulated by the hypervisor</p></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-80d7-953d-cb01e9ec25e9" class="bulleted-list"><li style="list-style-type:disc">In order to connect with the OVS instance of the computing node, the vNIC is linked to another virtual NIC created in the host operating system, e.g. <code>tap0</code><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-80e8-9bbd-c8fbb1201bf2" class="bulleted-list"><li style="list-style-type:circle">Pair of vNIC is created for each VM</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-8051-be8a-c1ffb21f0a7d" class="bulleted-list"><li style="list-style-type:disc">A tap is a virtual network interface that can be linked with a software, the hypervisor in this case, to receive/send network traffic (<mark class="highlight-teal">layer 2 data frames</mark>) to from the software</li></ul></div><div style="display:contents" dir="auto"><p id="201eea59-ca7a-8096-bcb7-c9553f494bdf" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-8077-b2f5-e3a8e6e2d841" style="width:37.49999999999999%" class="column"><div style="display:contents" dir="ltr"><figure id="1e7eea59-ca7a-8040-ab0a-dd3d08e7c680" class="image"><a href="Cloud%20Computing%20Platforms/image%2012.png"><img style="width:278.875px" src="Cloud%20Computing%20Platforms/image%2012.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-8035-96ae-d0b8ae3dc2d2" class="bulleted-list"><li style="list-style-type:disc">Traffic from tap interfaces or from the physical interfaces is managed by OVS to implement routing and forwarding functionalities</li></ul></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-80e6-b336-e10ae5e0ada0" class="bulleted-list"><li style="list-style-type:disc">When the data is directed towards an external network, instead, it is dispatched to the network node (that has an OVS instance running)</li></ul></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-80e1-88a6-f1661f3c284a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-8079-a413-fd859b33aef6" class="">Network Virtualization is the process through which Virtual Networks (VNs) for VMs are created on top of the same physical infrastructure.</p></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-80b6-84cc-d5b12dda6351" class="">The implementation of a Virtual Network requires the following:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1e7eea59-ca7a-80ec-844d-cf998ddd5603" class="numbered-list" start="1"><li>Layer 2 data forwarding between VMs belonging to the same VN</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e7eea59-ca7a-8009-aabb-fb0a511e8390" class="numbered-list" start="2"><li>Isolation between VNs</li></ol></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-8071-a460-fea4371e7323" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-80fb-9550-d9d49674b051" class="">Different existing network technologies are adopted: packet tagging or tunneling</p></div><div style="display:contents" dir="auto"><ol type="1" id="1e7eea59-ca7a-808b-892d-d3a1f8d4ca5b" class="numbered-list" start="1"><li><mark class="highlight-orange">Virtual LAN</mark></li></ol></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-801d-b628-d13295a72b04" class="">To this aim, the standard adds a new field on the Ethernet header, the <mark class="highlight-teal">VLAN ID </mark>(VID), that specifies the ID of the Virtual LAN to which it belongs</p></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-807c-a3b9-cb00b5daf728" class="bulleted-list"><li style="list-style-type:disc">VID specified by Nova-Server</li></ul></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-806e-b9ce-eea29f8dc167" class="">A switch (virtual or physical) that supports IEEE 802.1Q is responsible for adding the VID field when a packet is injected in the network (from extern or from a VM), for removing it when it reaches destination (when received by a compute node) and for delivering it according to the VID</p></div><div style="display:contents" dir="ltr"><figure id="1e7eea59-ca7a-80a3-bf7e-cf4c35010d46" class="image"><a href="Cloud%20Computing%20Platforms/image%2013.png"><img style="width:384px" src="Cloud%20Computing%20Platforms/image%2013.png"/></a></figure></div><div style="display:contents" dir="auto"><ol type="1" id="1e7eea59-ca7a-8013-b39c-e02a646a2868" class="numbered-list" start="2"><li><mark class="highlight-orange">GRE Tunneling </mark>→ like global load balancer<br/>It is a tunneling protocol that allows to encapsulate network IP packets inside another IP packet<div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-8013-a832-d75a47a0d205" class="bulleted-list"><li style="list-style-type:disc">Layer 3 encapsulation</li></ul></div><div style="display:contents" dir="ltr"><figure id="1e7eea59-ca7a-802a-90b5-cc7bffa6f89a" class="image" style="text-align:center"><a href="Cloud%20Computing%20Platforms/image%2014.png"><img style="width:384px" src="Cloud%20Computing%20Platforms/image%2014.png"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-800a-ba67-d37e40d9a551" class="column-list"><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-805e-a9d7-eec25c9cd0c0" style="width:25%" class="column"><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-8056-8795-f92df2365561" class="">The protocol is used to <mark class="highlight-pink_background">create a tunnel between two internet hosts</mark></p></div></div></div><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-8087-ac0c-c65adb5359c9" style="width:75%" class="column"><div style="display:contents" dir="ltr"><figure id="1e7eea59-ca7a-80df-be07-c8ee3307a914" class="image"><a href="Cloud%20Computing%20Platforms/image%2015.png"><img style="width:480px" src="Cloud%20Computing%20Platforms/image%2015.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-8005-bee3-d87ff6343a80" class="bulleted-list"><li style="list-style-type:disc">GRE can be used as mechanism to create Virtual Networks: a GRE tunnel is created for each pair of compute nodes (and between the compute node and the network node) that runs VMs belonging to a specific virtual network (at least one)<div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-80fb-aace-ec7a3e49d10b" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-pink_background">Different GRE tunnel IDs are used for each Virtual Network</mark> → given by the Nova-Server</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-809d-b8af-d4aaecb32e34" class="column-list"><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-803c-b6df-f50cea1af1a7" style="width:25%" class="column"><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-80d4-aefd-e8ac9cf7e6ab" class="">OVS instances create a<mark class="highlight-teal"> virtual network adapter</mark> (<code>gre-1</code>) on top of the physical interface</p></div><div style="display:contents" dir="auto"><p id="201eea59-ca7a-80b4-8e81-ee62fec7974d" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1e7eea59-ca7a-80e2-88e0-c7670669a196" style="width:75%" class="column"><div style="display:contents" dir="ltr"><figure id="1e7eea59-ca7a-80bd-bc53-de4d5bda976f" class="image"><a href="Cloud%20Computing%20Platforms/image%2016.png"><img style="width:432px" src="Cloud%20Computing%20Platforms/image%2016.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ol type="1" id="1e7eea59-ca7a-80be-b76d-cfadc07699e7" class="numbered-list" start="3"><li><mark class="highlight-orange">VXLAN</mark></li></ol></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-803f-8759-da3b948294d8" class="">VLAN has a limit, VLAN identifiers are 12 bits long, consequently the maximum number of VLANs is set to 4094</p></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-8005-853a-d7cf853dbc9a" class="bulleted-list"><li style="list-style-type:disc">In large cloud implementations can be an issue</li></ul></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-802f-a0cc-f17fa47767b2" class="bulleted-list"><li style="list-style-type:disc">closer to GRE than VLAN</li></ul></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-8035-a546-d0ab02963e97" class="">Virtual Extensible LAN (VXLAN) is a network virtualization technology that attempts to address the <mark class="highlight-teal">scalability </mark>problems associated with LAN</p></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-80a0-b431-cfe7e87a2112" class="bulleted-list"><li style="list-style-type:disc">With VXLAN you can have up to 16 millions of different VNs (<mark class="highlight-teal">24-bit </mark>VXLAN Network Identifier)</li></ul></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-80fb-94a5-c1459dffce38" class="bulleted-list"><li style="list-style-type:disc">VXLAN is still a packet encapsulation methodology between two endpoints, called <mark class="highlight-blue">virtual tunnel endpoints</mark> (VTE)</li></ul></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-804c-8c00-eb9a583e83fb" class="">Frames are encapsulated within <mark class="highlight-orange">UDP </mark>packets, while at the IP level the source and destination of the VTEs are specified → trasmitted over UDP connections</p></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-80b7-a2fc-c1f9046b18ea" class="bulleted-list"><li style="list-style-type:disc">A VXLAN header is included to report the ID of the virtual LAN as two VTEs can support multiple VLANs at the same time</li></ul></div><div style="display:contents" dir="auto"><p id="1e7eea59-ca7a-80a3-b6b6-d362fed64796" class="">VXLAN tunnels are exploited by neutron in the same manner GRE tunnels are exploited</p></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-8046-b942-fbf40034e282" class="bulleted-list"><li style="list-style-type:disc">For each VN a new VXLAN ID is instantiated by the Nova Server</li></ul></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-80f5-a613-eb68f10bd137" class="bulleted-list"><li style="list-style-type:disc">Encapsulate a L2 frame in a L3</li></ul></div><div style="display:contents" dir="ltr"><figure id="1e7eea59-ca7a-8052-b6a0-facd7e01107e" class="image"><a href="Cloud%20Computing%20Platforms/image%2017.png"><img style="width:528px" src="Cloud%20Computing%20Platforms/image%2017.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="1e7eea59-ca7a-8042-8098-dbddbb49c948" class="bulleted-list"><li style="list-style-type:disc">Source and destination IPs are the <strong>VTEPs (VXLAN Tunnel Endpoints)</strong>.</li></ul></div><div style="display:contents" dir="auto"><h3 id="1eaeea59-ca7a-80df-9e78-c4cf841ad9f7" class="">Cinder</h3></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-805b-a3b2-e486b8fdc96e" class="">Cinder is the component responsible for managing <mark class="highlight-blue">volumes </mark>(virtual hard drives)</p></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-80b4-8375-d93693f481f2" class="bulleted-list"><li style="list-style-type:disc">every VM needs to have at least one hard drive, which stores the OS</li></ul></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-80b2-b51e-e6c56aa4cf2b" class="bulleted-list"><li style="list-style-type:disc">If a VM requires extra storage additional volumes can be <mark class="highlight-teal">dynamically </mark>created and attached to an instance</li></ul></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-80d7-9951-fe716fdb38eb" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Cinder stores the volume images in the local file system of the node on which the service is installed or in a </mark><mark class="highlight-teal"><mark class="highlight-pink_background">cloud file system</mark></mark></li></ul></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-8092-92d2-ee221b64fd81" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-80c8-9777-f959d257fd65" class="">Cinder compontens:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1eaeea59-ca7a-80ac-896c-dc03b62b0183" class="numbered-list" start="1"><li><mark class="highlight-blue">Cinder-Volume</mark>, which is responsible for handling directly the requests from the the rest interface</li></ol></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-80c9-b18b-f0748a0a2f7a" class="bulleted-list"><li style="list-style-type:disc">Cinder-Api, which exposes a rest interface to clients to control cinder operations (e.g. Nova or directly the final user)</li></ul></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-805d-abb6-e69ae161289e" class="bulleted-list"><li style="list-style-type:disc">Cinder-Scheduler, which is responsible for selecting the proper storage to store new drives (if multiple storages are configured on the system)</li></ul></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-80f0-9567-e3a62ec7a774" class="bulleted-list"><li style="list-style-type:disc">Cinder-Backup, which is responsible for creating backup of existing volumes when requested by the users</li></ul></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-802e-8c39-f69808cebdb2" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1eaeea59-ca7a-80ea-b92b-dc77ff96d6b9" class="">Ceilometer</h3></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-8075-9e1c-eb56bcc5f979" class="">Ceilometer is the telemetry component</p></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-8041-b51e-e00eda443c15" class="bulleted-list"><li style="list-style-type:disc">It monitors all the component of the instance, measuring the resource being used by each User → cloud resources are by definition measurable</li></ul></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-80ae-85bc-d376edfdb6a3" class="bulleted-list"><li style="list-style-type:disc">Data collected by Ceilometer can be used for <mark class="highlight-teal">billing purposes</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-8070-9461-d313ca2bd511" class="bulleted-list"><li style="list-style-type:disc">Ceilometer also collects telemetry statistics which can be used to check the status of the system </li></ul></div><div style="display:contents" dir="ltr"><figure id="1eaeea59-ca7a-8099-829e-edc96e70177e" class="image"><a href="Cloud%20Computing%20Platforms/image%2018.png"><img style="width:480px" src="Cloud%20Computing%20Platforms/image%2018.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-80f2-b96e-e70ff2704cfa" class="bulleted-list"><li style="list-style-type:disc">Ceilometer has a centralized Ceilometer-Collector that is responsible for receiving all the data from all the OpenStack components and store them into a <mark class="highlight-teal">DB </mark>(usually a NoSQL DB like Mongo DB)</li></ul></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-8002-9afd-eeb13b2b5fce" class="bulleted-list"><li style="list-style-type:disc">In order to collect data from all the compute node, a Ceilometer-Agent is installed on each node. The agent is responsible for collecting all the notifications from all the local components and forward them to the collector</li></ul></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-80f5-a982-e073cae752f8" class="bulleted-list"><li style="list-style-type:disc">Eventually the collector exposes a set of REST APIs to retrieve the data from the database</li></ul></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-8006-9c97-d2e1190a97d6" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1eaeea59-ca7a-804c-a9bd-dc9efce8ea23" class="">Horizon</h3></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-80c1-8e92-d45f8e2eb95c" class="">OpenStack functionalities are exposed to Users though a web interface</p></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-80fd-b33a-cd4cecd7d526" class="bulleted-list"><li style="list-style-type:disc">The dashboard is usually exposed by the controller</li></ul></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-803b-a1d9-e9304e8997a6" class="bulleted-list"><li style="list-style-type:disc">It allows management of all the instances aspects</li></ul></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-8015-9706-da125986712b" class="bulleted-list"><li style="list-style-type:disc">A set of command line tools are also included for backend management</li></ul></div><div style="display:contents" dir="ltr"><figure id="1eaeea59-ca7a-80ef-851f-c73fe81418a7" class="image"><a href="Cloud%20Computing%20Platforms/image%2019.png"><img style="width:605.7875366210938px" src="Cloud%20Computing%20Platforms/image%2019.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-80b9-8e36-c5084a0bfa5b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-809e-a876-d301908c154b" class="">Every OpenStack service exposes a set of APIs</p></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-80a1-8e48-eafa9e8f4db7" class="bulleted-list"><li style="list-style-type:disc">All APIs communication is REST</li></ul></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-8080-b3ec-ed3e5d5c2a28" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1eaeea59-ca7a-8062-88f2-c4e5d7417f2f" class="">Swift</h3></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-8083-9674-e31675774bee" class="">Swift is the object storage service available in OpenStack</p></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-80a1-ba0e-c028d364f13a" class="bulleted-list"><li style="list-style-type:disc">It allows users and other OpenStack modules to store data (represented as objects) in the cloud platform</li></ul></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-80ec-b133-da1443ab2a7b" class="bulleted-list"><li style="list-style-type:disc">Other services, like for instance Cinder or Glance, can use Swift to store Volumes backups or images, respectively</li></ul></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-80fc-981c-e112f724b810" class="bulleted-list"><li style="list-style-type:disc">The component is responsible for handling all the aspect of data storage, from receiving and storing the data to retrieving it</li></ul></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-8068-828e-ff2cf36347ae" class="bulleted-list"><li style="list-style-type:disc">Data is usually eventually stored in a <mark class="highlight-teal">cloud storage</mark>, to guarantee scalability (even though local storage in the server where the service is installed is allowed)<br/></li></ul></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-80af-8607-c2969419e2e8" class="">Swift is composed of two components:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1eaeea59-ca7a-8086-a08f-f3fd3b449f72" class="numbered-list" start="1"><li><mark class="highlight-teal">Swift-Proxy</mark>, which is responsible to expose the REST interface and handle request (to store a new object or to retrieve an object)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1eaeea59-ca7a-80ab-9780-d93479033982" class="numbered-list" start="2"><li><mark class="highlight-teal">Swift-Storage-Node</mark>, which is installed on each Storage Node (a node that hosts some of the data) to actually store the data on a physical drive</li></ol></div><div style="display:contents" dir="ltr"><figure id="1eaeea59-ca7a-80c3-abb5-ffc88f8df68f" class="image"><a href="Cloud%20Computing%20Platforms/image%2020.png"><img style="width:605.7750244140625px" src="Cloud%20Computing%20Platforms/image%2020.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-8067-bf44-da3c8f193fef" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1eaeea59-ca7a-8053-8d97-f7a5cf46892e" class="">Heat</h3></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-80c3-989e-efefd1394acc" class="">Heat is the<mark class="highlight-pink_background"> OpenStack orchestrator</mark></p></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-809e-8362-d99ea92b879b" class="bulleted-list"><li style="list-style-type:disc">It can manage VMs creation/destruction or their settings automatically</li></ul></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-8044-b749-e764b5527fa3" class="bulleted-list"><li style="list-style-type:disc">This automation is based on a set of rules that specify when certain conditions to trigger actions on the VM</li></ul></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-80ff-81b4-ce910bf5f6d0" class="bulleted-list"><li style="list-style-type:disc">Through heat, for instance, an <mark class="highlight-teal">autoscaling </mark>service can be created that exploit the status data from <mark class="highlight-pink_background">ceilometer </mark>to create/destroy VMs according to the status of the system</li></ul></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-80e6-95b1-d2f529951c4a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-8020-9706-f2a4659ca00a" class="">The component is composed of the following modules:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1eaeea59-ca7a-809e-ac42-fa1ad20ec1f0" class="numbered-list" start="1"><li>Heat-API that exposes the interface for the users to configure the orchestrator</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1eaeea59-ca7a-8034-b27e-e3b69efda620" class="numbered-list" start="2"><li>Heat-Engine that is responsible for handling user request and implementing them</li></ol></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-8007-9138-c1d476ac7ad7" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1eaeea59-ca7a-8064-88b2-e819528a24d9" class="">High Availability (HA)</h2></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-80c8-b499-df3c3487a891" class="">The current architecture includes only one instance of the managing components</p></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-80b8-8ec9-f8d4370f3c2a" class="bulleted-list"><li style="list-style-type:disc">OpenStack can be installed in the so-called high availability configuration, i.e. multiple instances of each service can be deployed in order to ensure high availability and resiliency<div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-806d-86fd-d7e1de6a42aa" class="bulleted-list"><li style="list-style-type:circle">At least two controllers</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-80c4-8935-c9a89c2f4238" class="bulleted-list"><li style="list-style-type:disc">This can be performed in a similar manner cloud applications are deployed in a redundant manner to ensure high availability</li></ul></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-8053-b6fa-c74b1dc92a1a" class="bulleted-list"><li style="list-style-type:disc">In the high availability configuration, multiple instances of controller nodes are deployed with all the corresponding services to control the same set of computing nodes</li></ul></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-804e-8668-c238d00ad9a6" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1eaeea59-ca7a-8037-b8f1-d46fed89a6fa" class="">HA with dedicated node</h3></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-802d-9bfe-d88188b52779" class="">Overall OpenStack APIs are exposed not directly by the controller node but through a<mark class="highlight-pink_background"> HA proxy</mark></p></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-80db-a719-cf20a8b71a9b" class="bulleted-list"><li style="list-style-type:disc">The <mark class="highlight-orange">HA proxy</mark> is responsible for receiving the requests and dispatch them to one of the controller nodes</li></ul></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-801f-b792-e92e777079a7" class="bulleted-list"><li style="list-style-type:disc">The proxy must implement functionalities to detect when Controller node failures occur to remove failing controller node to the list of active nodes</li></ul></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-803d-ae28-d58da2153e3b" class="bulleted-list"><li style="list-style-type:disc">The State <mark class="highlight-teal">storage </mark>must be replicated across the controller nodes</li></ul></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-80e2-87e1-cb7a49a0fc23" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1eaeea59-ca7a-808d-941a-e30361d95fe7" class="">HA with simple redundancy</h3></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-8082-9207-ff5ba7ec834c" class="">Overall OpenStack APIs are exposed directly by one controller, selected as master controller</p></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-80e3-a3b3-d96c6094cc2b" class="bulleted-list"><li style="list-style-type:disc">The functionalities of the HA proxy are implemented on all the controller, one of them is marked as <mark class="highlight-teal">active </mark>and serves requests, while the others are marked as inactive</li></ul></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-8067-aa46-ca042a8dcb55" class="bulleted-list"><li style="list-style-type:disc">The HA proxy instances must coordinate to detect failures and trigger reconfiguration when needed</li></ul></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-80a1-957d-c09a4e960755" class="bulleted-list"><li style="list-style-type:disc">Again, the State <mark class="highlight-teal">storage </mark>must be replicated across the controller nodes</li></ul></div><div style="display:contents" dir="ltr"><figure id="1f0eea59-ca7a-80c5-81e5-dccb317c868a" class="image"><a href="Cloud%20Computing%20Platforms/1746976795453.jpg"><img style="width:816px" src="Cloud%20Computing%20Platforms/1746976795453.jpg"/></a></figure></div><div style="display:contents" dir="auto"><p id="1ffeea59-ca7a-8048-a32f-e8dc74456ad0" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

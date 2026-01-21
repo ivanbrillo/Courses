@@ -1,0 +1,761 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Java Threads and Synchronizers</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="126eea59-ca7a-8006-8c0e-c7562939acc9" class="page sans"><header><h1 class="page-title" dir="auto">Java Threads and Synchronizers</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-8047-a017-efff20391b5e" class="bulleted-list"><li style="list-style-type:disc">It’s up to Java take advantages to the system to map language thread to so thread</li></ul></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-801c-8664-c6a7c97a13af" class="">Defining a Thread means:</p></div><div style="display:contents" dir="auto"><ol type="1" id="126eea59-ca7a-80b3-8921-f67ba8ab59d7" class="numbered-list" start="1"><li>Construct all the supporting data structures</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="126eea59-ca7a-805f-bd29-e1cee2b85109" class="numbered-list" start="2"><li>providing the relative menagement actions</li></ol></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-8015-a947-dc14fd80b186" class="">In java this is done making use of the class Thread</p></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-8038-9ba3-e0ac9ec75e15" class="bulleted-list"><li style="list-style-type:disc">Thread Body as a method</li></ul></div><div style="display:contents" dir="auto"><h1 id="126eea59-ca7a-80e7-a2ce-d0ecd8b30c03" class="">JVM Runtime Data Area</h1></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-8067-9ac3-d883767bded2" class="bulleted-list"><li style="list-style-type:disc">Distrinct parts to host Bytecode, Objects and Stacks for Threads</li></ul></div><div style="display:contents" dir="ltr"><figure id="126eea59-ca7a-8097-9d9d-f562b442a37c" class="image"><a href="Java%20Threads%20and%20Synchronizers/image.png"><img style="width:676.9459838867188px" src="Java%20Threads%20and%20Synchronizers/image.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="126eea59-ca7a-808c-bd95-f45518e60e69" class="">Class Area</h3></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-8037-bd8c-fb46fac4d5dd" class="bulleted-list"><li style="list-style-type:disc">shared among all threads → holds class-level data of each .class files</li></ul></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-800e-9ac4-ceef4fbc3c0f" class="bulleted-list"><li style="list-style-type:disc">Runtime Constant Pool (similar to a symbol table)</li></ul></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-80c3-88c9-cde95abb0214" class="bulleted-list"><li style="list-style-type:disc">code for methods and constructors</li></ul></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-8078-a505-d8e9fea0728b" class="bulleted-list"><li style="list-style-type:disc">field and method data (just references) + static variables</li></ul></div><div style="display:contents" dir="auto"><h3 id="126eea59-ca7a-80c5-bde5-db706261a0a6" class="">Heap</h3></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-8089-9ac7-cdfba806766a" class="">Shared among all threads </p></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-803f-8220-d464fe833f9d" class="bulleted-list"><li style="list-style-type:disc">contains the representations of all the instances of all the classes handled in the program as well as arrays</li></ul></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-805f-b694-c0607905d0d5" class="bulleted-list"><li style="list-style-type:disc">It is subject to garbage collection</li></ul></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-80ec-8336-c93514de3cad" class="bulleted-list"><li style="list-style-type:disc">also<mark class="highlight-orange"> String Constant Pool </mark>(string with same literal will refer to that pool) and string interning (force a string to be a literal)</li></ul></div><div style="display:contents" dir="auto"><h3 id="126eea59-ca7a-8098-835e-d31a4ba13056" class="">Stack Area</h3></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-8053-aed7-f2bddd3e7835" class="">Each thread has its own stack</p></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-8093-b6ce-caac2d5ba72b" class="bulleted-list"><li style="list-style-type:disc">any function call is menaged using a Frame in the pertinent <mark class="highlight-orange">stack</mark><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-8001-b539-fa341c702be8" class="bulleted-list"><li style="list-style-type:circle">array of local variables</li></ul></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-809c-9dbd-e8bb502931dd" class="bulleted-list"><li style="list-style-type:circle">a ref to runtime const pool</li></ul></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-80f7-928c-d59e688947b0" class="bulleted-list"><li style="list-style-type:circle">its operand stack (JVM is a stack machine)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h1 id="126eea59-ca7a-8039-974b-df39d0970a23" class="">Thread Handling</h1></div><div style="display:contents" dir="auto"><ol type="1" id="126eea59-ca7a-808c-9c85-f621214d74d7" class="numbered-list" start="1"><li>Extend class Thread “<mark class="highlight-orange">threading by subclassing</mark>” → I cannot extend any other class because there isn’t multiple inheritance</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="126eea59-ca7a-803a-888d-e7a136efa8b0" class="numbered-list" start="2"><li><mark class="highlight-orange">Runnable</mark> instance (“<span style="border-bottom:0.05em solid">functional</span>” interface → just one abstract method, potential target for lambda)</li></ol></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="126eea59-ca7a-80c0-b197-faa92cec606b" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">mythread.start();</code></pre></div><div style="display:contents" dir="auto"><ul id="12deea59-ca7a-80e7-a412-f98e63bc5ad6" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Deamon</mark> thread are terminated once JVM stops</li></ul></div><div style="display:contents" dir="auto"><h2 id="126eea59-ca7a-80b7-bf93-c9814d67eaf7" class="">Runnable</h2></div><div style="display:contents" dir="auto"><p id="12deea59-ca7a-803e-99ff-dae3185014da" class="">Define a Task </p></div><div style="display:contents" dir="auto"><ol type="1" id="126eea59-ca7a-8023-9996-df1434305ee3" class="numbered-list" start="1"><li>Runnable object (implements Runnable)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="126eea59-ca7a-80da-a1a9-dd1e45f28b55" class="numbered-list" start="2"><li>Anonymous class</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="126eea59-ca7a-80ff-8163-cea953bd4897" class="numbered-list" start="3"><li>0-parameter lambda</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="12ceea59-ca7a-80cb-a4c6-ecd5c4db7f2c" class="numbered-list" start="4"><li>No return object</li></ol></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="126eea59-ca7a-8042-95b3-f0980761625b" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Runnable mytask = () -&gt; {
+	 String myName = Thread.currentThread().getName();
+	 System.out.println(&quot;This is &quot; + myName);
+};
+
+mytask.run(); //the run method can be either invoked or used as the body -&gt; not synch
+Thread myThread = new Thread(mytask);
+myThread.start();</code></pre></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="12deea59-ca7a-8043-936c-d5ab8dd7a8b1"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="419eed77-416d-4eaa-8f10-e9dd733b6902" class="">I could also extends threads but then I couldn’t extends any other class, while I can implements how many class I want</p></div></div></figure></div><div style="display:contents" dir="auto"><h3 id="126eea59-ca7a-80df-948e-ccc25fa195e4" class="">Thread Termination</h3></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-8000-91f0-dfc74f312af4" class="">Some early methods (<span style="border-bottom:0.05em solid">deprecated</span>):</p></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-808e-b427-da57465e5353" class="bulleted-list"><li style="list-style-type:disc">stop() → may lead inconsistencies because releases all the locked monitors</li></ul></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-803b-9c7e-cd8b21a0d27f" class="bulleted-list"><li style="list-style-type:disc">suspend/resume() → suspend a thread in the critical section and another thread that could resume it cannot reach that part → Dead-Lock Prone</li></ul></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-8082-a142-f9099b152e4a" class="">Cooperative mechanism based on the <mark class="highlight-orange">inter-thread interruption</mark></p></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-8065-a084-e72e7a6ce1a7" class="bulleted-list"><li style="list-style-type:disc">interrupt flag → can be setted by another thread invoking the <code>interrupt()</code> method</li></ul></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-800d-b805-dccfa1834638" class="bulleted-list"><li style="list-style-type:disc"><code>Thread.interrupted()</code>   → check its own interrupted flag and clear it</li></ul></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-8065-805f-dd098cf35263" class="bulleted-list"><li style="list-style-type:disc"><code>isInterrupted()</code>→ check the flag of any thread without clear it<div style="display:contents" dir="auto"><ul id="126eea59-ca7a-80b3-b874-fcc1825e7def" class="bulleted-list"><li style="list-style-type:circle">A thread that becomes aware of being interrupted is programmed to perform cleanup</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-8099-b41f-cdb5dd051b4a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-8097-8b8a-e431a1847c03" class="">What if an inter-thread interruption is performed to a blocked thread? It depends...</p></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-8095-8cde-feb2146036e2" class="bulleted-list"><li style="list-style-type:disc">If it is blocked on an explicit waiting operation, an InterruptedException awakes the target thread (and clears the flag).</li></ul></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-80af-869e-ffe6f66bbe7b" class="bulleted-list"><li style="list-style-type:disc">If it is blocked on accessing a lock/monitor, it is not awaken; with explicit locks, lockInterruptibly() can also be used.</li></ul></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-801c-877e-cace22d53686" class="">
+</p></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-80c3-b81e-f7413794c714" class=""><mark class="highlight-blue">InterruptedException</mark> should be handled in this way:</p></div><div style="display:contents" dir="auto"><ol type="1" id="126eea59-ca7a-8083-9752-d9cde254f55f" class="numbered-list" start="1"><li>re-throw the exception after a possible re-wrapping</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="126eea59-ca7a-80cd-8545-f3a0a55220fe" class="numbered-list" start="2"><li>restore interrupted flag → to keep memory of the occurence of the interruption event</li></ol></div><div style="display:contents" dir="auto"><h1 id="126eea59-ca7a-8038-8283-ded0d3703717" class="">Thread Pooling and the Executor Framework</h1></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-807c-a57f-ee2af0d4181f" class=""><mark class="highlight-orange">Thread</mark> → sequence of instruction that can be executed independently of others in the same programs, typically under the control of a scheduler</p></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-80fc-9780-d9a39705d7b1" class=""><mark class="highlight-orange">Task</mark> → actions to be carried out (don’t worry about who carry out the pomeration)</p></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-8064-bb8c-e72e6783d288" class="bulleted-list"><li style="list-style-type:disc">Server request trigger tasks that could be executed by a single thread or by more than one</li></ul></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-80f3-9d52-cff9e83d3f15" class="bulleted-list"><li style="list-style-type:disc">defined via a Runnable class</li></ul></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-801d-b18f-eaba4ac676f4" class="">
+</p></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-8011-a08b-e88690ef43e0" class="">A task can be defined via a Runnable class</p></div><div style="display:contents" dir="auto"><div id="126eea59-ca7a-8064-a8a2-e07eb84c22d7" class="column-list"><div style="display:contents" dir="auto"><div id="126eea59-ca7a-80c9-bdd1-d4cc68549b9e" style="width:50%" class="column"><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="126eea59-ca7a-8065-af80-c83fbdcc1fc8" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public interface Executor {
+		void execute(Runnable command);
+}</code></pre></div></div></div><div style="display:contents" dir="auto"><div id="126eea59-ca7a-80fd-9d99-f81fed3b6b8d" style="width:50%" class="column"><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="126eea59-ca7a-8055-8552-f320cd7a3542" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">class DirectExecutor implements Executor {
+	public void execute(Runnable mytask) {
+		mytask.run();
+	}
+}</code></pre></div></div></div></div></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-8025-912c-e440d06dd983" class=""><mark class="highlight-orange">Performance Penalties</mark>: from wasting time in menagement actions</p></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-8011-b685-cec12b9f9338" class="bulleted-list"><li style="list-style-type:disc">contet switches → determine the cache flush</li></ul></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-8093-8197-d0841d347575" class="bulleted-list"><li style="list-style-type:disc">lock contention → thread wait time </li></ul></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-8010-bda5-f714b8c36973" class="bulleted-list"><li style="list-style-type:disc">Memory Synchronization → threads may need to see last updates<div style="display:contents" dir="auto"><ul id="126eea59-ca7a-80af-9cb6-ec40f98ba07f" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-blue">lock elision</mark> from the JVM to remove unnecessary synch</li></ul></div><div style="display:contents" dir="auto"><ul id="12deea59-ca7a-800f-8edd-e2d4c45d291d" class="bulleted-list"><li style="list-style-type:circle">Can be specified also on methods → but acquire the class level lock (so every method in the class cannot execute on the same time)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="126eea59-ca7a-805f-aa8d-f9ad07779732" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">synchronized (new Object()) {  // useless because there is no mutual excl (lock elision)
+	foo();
+}</code></pre></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-80d1-af4a-ef4055595c47" class="bulleted-list"><li style="list-style-type:disc">Object act as a locker, that is hold just by one thread at the time</li></ul></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-801d-a8ba-ee934d4cb86f" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="126eea59-ca7a-80ff-bcbc-fb7e9a9a55e6" class="">Thread Pooling</h3></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-8026-9d14-e9b2a4f830c5" class="">Keep some threads ready to execute upcoming tasks and, upon completition of each exection, make the thread available again for another task</p></div><div style="display:contents" dir="ltr"><figure id="126eea59-ca7a-800b-88b4-e8f3881260e9" class="image"><a href="Java%20Threads%20and%20Synchronizers/image%201.png"><img style="width:635px" src="Java%20Threads%20and%20Synchronizers/image%201.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="126eea59-ca7a-80c4-bbaf-ca61a84f6ad5" class="image"><a href="Java%20Threads%20and%20Synchronizers/image%202.png"><img style="width:688.7750244140625px" src="Java%20Threads%20and%20Synchronizers/image%202.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-803b-8add-ce4d6d10ab43" class="">Executors can be designed to implement an execution policy</p></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-806e-8bf7-ca333d12470f" class="bulleted-list"><li style="list-style-type:disc">If I need to synch processes I need something more complex</li></ul></div><div style="display:contents" dir="auto"><ul id="12deea59-ca7a-804d-b36e-ca320fb1ee49" class="bulleted-list"><li style="list-style-type:disc">They manage thread pools</li></ul></div><div style="display:contents" dir="auto"><p id="12deea59-ca7a-80ca-bc3f-c456f9d7394b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-8018-b13d-f195f1356458" class="">Some<mark class="highlight-blue"> factory methods </mark>for Executors</p></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-806d-9746-cd3435a64811" class="bulleted-list"><li style="list-style-type:disc">newFixedThreadPool(int n) creates a pool of n threads, with fixed size</li></ul></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-803d-8551-c2a763dd7908" class="bulleted-list"><li style="list-style-type:disc">newCachedThreadPool() provides a thread pool that creates new threads as needed, but will reuse previously constructed threads when they are available</li></ul></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-802c-ba7f-d3a900b75005" class="bulleted-list"><li style="list-style-type:disc">newWorkStealingPool(int parallelism) creates a pool with dynamically managed threads, able to handle the specified level of parallelism; the task execution order does not necessarily reflect the order of submission</li></ul></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-8078-90cf-ec8c3ba3467c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-80e4-84db-e5875f3f8f6e" class="">To shout down an Executor I have some options:</p></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-80dc-8383-c727049f3cf3" class="bulleted-list"><li style="list-style-type:disc">shutdown() starts the shutdown procedure; previously submitted tasks are completed, and no new task will be accepted.</li></ul></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-808c-b45f-f887bfdd1fd2" class="bulleted-list"><li style="list-style-type:disc">shutdownNow() - only currently executing tasks are completed.</li></ul></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-808d-a513-ef9e6c699c83" class="bulleted-list"><li style="list-style-type:disc">Check state by using isShutdown(); isTerminated() checks if all tasks have been terminated.</li></ul></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-8082-8bcd-eefee2c20789" class="bulleted-list"><li style="list-style-type:disc">Methods above are not-blocking; to wait for completion of all tasks, call awaitTermination()</li></ul></div><div style="display:contents" dir="auto"><h2 id="126eea59-ca7a-80c6-a701-f025652d6287" class="">Callable</h2></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-80d3-901a-d45d2fe2ecfd" class=""><mark class="highlight-blue">Functional Interface</mark></p></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-80e0-aa95-db867730edd5" class="bulleted-list"><li style="list-style-type:disc">to be used whenever a result for a task has to be maneged</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="12ceea59-ca7a-80f8-b826-ceba697f5de4" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">// Runnable - doesn&#x27;t return result, can&#x27;t throw checked exceptions
+public interface Runnable {
+    void run();
+}
+
+// Callable - returns result, can throw exceptions
+public interface Callable&lt;V&gt; {
+    V call() throws Exception;
+}</code></pre></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-80bd-a901-d6b3d0d9a067" class="">I <code>submit()</code> the callable to the executor, that return a Future&lt;V&gt;</p></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-8017-916f-c9c28d26091c" class="bulleted-list"><li style="list-style-type:disc">Future → a Thread safe construct for a result computed asynchrously</li></ul></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-80d6-a7c2-ee1f26bb5691" class="bulleted-list"><li style="list-style-type:disc">The function in charge of setting the value for a future is called <mark class="highlight-blue">promise</mark></li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="126eea59-ca7a-80e8-9aae-e077153e52e1" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public interface Future&lt;V&gt; {
+		boolean isDone();
+		V get(); //also a timed version exists
+		boolean cancel(boolean m);
+		boolean isCancelled();
+}</code></pre></div><div style="display:contents" dir="auto"><h2 id="126eea59-ca7a-80c5-a0c9-f53f01d897dc" class="">Synchronizers</h2></div><div style="display:contents" dir="auto"><h3 id="126eea59-ca7a-808e-88fe-fd88727494a5" class="">Latches</h3></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-80bf-b8d3-c0e586dc41c5" class="">A latch is aimed at making a group of thread wait until it reaches its terminal state → the couter reach 0. </p></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-8053-841e-ee81dbf14abd" class="bulleted-list"><li style="list-style-type:disc">countDown(), getCount(), await() to wait that the latch open → when arrives to 0</li></ul></div><div style="display:contents" dir="auto"><ul id="12deea59-ca7a-808a-9872-c69d52759cd1" class="bulleted-list"><li style="list-style-type:disc">similar to join but serves to synch more threads together</li></ul></div><div style="display:contents" dir="auto"><h3 id="126eea59-ca7a-8043-b18b-ee44d5fb6fcb" class="">Barriers</h3></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-80c7-84c5-f30e23655516" class="">A thread that gets to the barrier waits for all the others to come. As the last arrive, all threads are released</p></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-804c-affa-e9b9276728e8" class="bulleted-list"><li style="list-style-type:disc">can be reused (latches no)</li></ul></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-80d4-b8b7-ea61f48748fa" class="bulleted-list"><li style="list-style-type:disc">just call await()</li></ul></div><div style="display:contents" dir="auto"><h3 id="126eea59-ca7a-8069-b7c5-f19dc5d43b22" class="">Phasers</h3></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-8068-b8be-f0e2c557c0c5" class="">Is a sophisticated version of a barrier/latch</p></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-8044-bc4c-d16007488988" class="bulleted-list"><li style="list-style-type:disc">reusable</li></ul></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-800f-9853-fe9193188803" class="bulleted-list"><li style="list-style-type:disc">Differently from barrier the number of parties can change over time</li></ul></div><div style="display:contents" dir="auto"><h3 id="126eea59-ca7a-805f-af59-dd8cc582ed53" class="">Semaphores</h3></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-8084-af1f-f35641d11509" class="">Aimed to control the number of access to a resource → can be used for mutual exclusion</p></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-80ab-98b9-f3a9456cec3d" class="bulleted-list"><li style="list-style-type:disc">max number of <mark class="highlight-blue">permit </mark>is decided at initialization time</li></ul></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-80af-a9bf-fa1c21641e24" class="bulleted-list"><li style="list-style-type:disc">acquire() is used to get a permit</li></ul></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-808a-9daa-df9f593a9626" class="bulleted-list"><li style="list-style-type:disc">release()</li></ul></div><div style="display:contents" dir="auto"><h3 id="126eea59-ca7a-8088-9933-debbd78e6c91" class="">Exchangers</h3></div><div style="display:contents" dir="auto"><p id="126eea59-ca7a-80b2-9bf1-f42eb8e3f532" class="">two threads wait for each other at a synch point, and then swap objects</p></div><div style="display:contents" dir="auto"><h1 id="126eea59-ca7a-8026-991c-c2cfa49041d0" class="">Thread Safe Data Structures</h1></div><div style="display:contents" dir="auto"><h2 id="12deea59-ca7a-8071-9b24-df37155f94ec" class="">Syncronized Collections</h2></div><div style="display:contents" dir="auto"><ul id="12deea59-ca7a-80cc-8fc9-ef476632e6df" class="bulleted-list"><li style="list-style-type:disc">make all the methods of the collection syncronized</li></ul></div><div style="display:contents" dir="auto"><ul id="12deea59-ca7a-80b2-8bf6-d22317776e71" class="bulleted-list"><li style="list-style-type:disc">It can be done in a systematic way uning the <mark class="highlight-orange">decorator pattern </mark>(wrapper object)</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="12deea59-ca7a-8032-bdad-eb03cf190221" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">// This could be dangerous in multi-threaded code:
+if (collection.isEmpty()) {
+    collection.add(item); // Another thread might have added 
+}                         // items between these two lines!</code></pre></div><div style="display:contents" dir="auto"><ul id="126eea59-ca7a-8074-b3db-cde0849287d4" class="bulleted-list"><li style="list-style-type:disc">each operation in mutual exclusion with a <mark class="highlight-blue">single lock</mark> for all the ops in the class (reduced concurrency)</li></ul></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-80d6-98cc-dd9d9ce739a4" class="bulleted-list"><li style="list-style-type:disc"> Specific <mark class="highlight-orange">static factory methods</mark> in  java.util.Collections</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="128eea59-ca7a-8060-b699-d478d60d2cf2" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Collection&lt;T&gt; c = Collections.synchronizedCollection(myCol);
+
+synchronized(c) {
+			 for (T item : c) foo(item);   // a lot of synchronization overhead 
+}</code></pre></div><div style="display:contents" dir="auto"><h2 id="128eea59-ca7a-80d6-912f-e77c9fe8993d" class="">Concurrent Collection</h2></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-8083-afcb-f237a0771f4f" class="bulleted-list"><li style="list-style-type:disc">A “synchronized” collection shows poor performance under <span style="border-bottom:0.05em solid">high contention</span>.<div style="display:contents" dir="auto"><ul id="128eea59-ca7a-8031-b5d9-ee767803def7" class="bulleted-list"><li style="list-style-type:circle">Solution: reduction of synchronization overhead, applying any possible trick (reduce the part of code to be run synchronized). “<mark class="highlight-orange">Concurrent</mark>” versions of “Synchronized” collections have been developed: e.g., ConcurrentHashMap is an improvement of SynchronizedMap</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="128eea59-ca7a-8068-a783-ddb7eacd6dd5" class="">ConcurrentHashMap</h3></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-805c-a708-cda365da3efb" class="">It implements the ConcurrentMap&lt;K,V&gt; interface, which includes also atomic read+write operations.</p></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-8079-ae18-cef06d05b741" class="bulleted-list"><li style="list-style-type:disc">boolean replace(K key, V oldValue, V newValue) - equivalent to the atomic execution of:</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="128eea59-ca7a-80f3-9859-db57903299da" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">if (map.containsKey(key) &amp;&amp; Objects.equals(map.get(key), oldValue)) { // Null safe equal
+		map.put(key, newValue);
+		return true;
+} else return false;</code></pre></div><div style="display:contents" dir="auto"><h3 id="128eea59-ca7a-809d-9b8c-c17011df36e8" class="">Iterating over concurrent collections</h3></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-8076-822d-ef9fe56b5484" class="">Iterating over a concurrent collection is risky:</p></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-806b-90f5-dc97061b0410" class="bulleted-list"><li style="list-style-type:disc">other threads may access the data structure at the same time!</li></ul></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-80d4-89fe-f107f4d1cd76" class="">The same problems arise with “for-each” loops, which are compiled to the corresponding iterator-based form. </p></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-80fa-a1e0-c165a086310a" class="bulleted-list"><li style="list-style-type:disc">It is necessary specifying new semantics for a concurrent iterator, so to fully describe its behavior in case of possible interferences.</li></ul></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-80ab-b7d9-c4c1613f1540" class="">
+</p></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-8095-a1c2-ef5033b3bb18" class=""><mark class="highlight-blue"><strong>Fail-fast Iterator</strong></mark></p></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-8065-a3ae-d18666293e17" class="bulleted-list"><li style="list-style-type:disc">Provided by most of non-concurrent collections</li></ul></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-80b9-b021-f3d98d7b6c21" class="bulleted-list"><li style="list-style-type:disc">Used to traverse the actual collection: <span style="border-bottom:0.05em solid">no modification</span> to the collection is allowed.</li></ul></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-8086-b6f3-d19a0fd7ba45" class="bulleted-list"><li style="list-style-type:disc">As soon as a modification is detected (on a best effort basis), <mark class="highlight-orange">ConcurrentModificationException</mark> is thrown.</li></ul></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-80c4-95b9-d3ca21f2e970" class="bulleted-list"><li style="list-style-type:disc">Modifications are detected by inspecting specific <span style="border-bottom:0.05em solid">counters</span>. <div style="display:contents" dir="auto"><ul id="128eea59-ca7a-80c2-85fd-ffbc21774971" class="bulleted-list"><li style="list-style-type:circle">Note: it is safe to remove an element via the remove() method of the iterator  - not the remove() of the collection!</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-802c-ba1b-fe9ae7dbcb2a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-808e-ac81-daad1a3fc6d3" class=""><mark class="highlight-blue"><strong>Weakly-consistent Iterators</strong></mark></p></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-8084-b434-d3b2de5b4dfb" class="">Called also “fail safe.” Provided by most of concurrent collections.</p></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-8057-b56b-d1821297c200" class="bulleted-list"><li style="list-style-type:disc">may proceed <span style="border-bottom:0.05em solid">concurrently</span> with other operations</li></ul></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-800d-aaf8-f49a4ad3cfb0" class="bulleted-list"><li style="list-style-type:disc">will never throw ConcurrentModificationException</li></ul></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-80b8-97ec-eacd3e9d98bf" class="bulleted-list"><li style="list-style-type:disc">are guaranteed to traverse elements as they existed upon construction exactly once, and<span style="border-bottom:0.05em solid"> may (but are not guaranteed to)</span> reflect any modifications subsequent to construction</li></ul></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-8065-98c7-d60a0e119eb7" class="">
+</p></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-80f1-92a2-fce18036a9ff" class=""><mark class="highlight-blue"><strong>Snapshot Iterators</strong></mark></p></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-805c-88a8-e0b66917520c" class="">Used with copy-on-write collections like CopyOnWriteArrayList.</p></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-809b-b3b4-ca296600a4b5" class="bulleted-list"><li style="list-style-type:disc">The iterator provides a <span style="border-bottom:0.05em solid">snapshot of the state of the collection</span> when the iterator was constructed.</li></ul></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-8085-80ad-f2d573cdedc0" class="bulleted-list"><li style="list-style-type:disc">No synchronization is needed while traversing the iterator.</li></ul></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-80af-8dfd-d9e687713618" class="bulleted-list"><li style="list-style-type:disc">The iterator does NOT support the remove() method.</li></ul></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-804d-a107-ea3aaf521918" class="bulleted-list"><li style="list-style-type:disc">In such collections, all “mutative operations” are implemented by making a fresh <span style="border-bottom:0.05em solid">copy</span> of the underlying data structure, i.e. <mark class="highlight-blue">Copy-On-Write (COW)</mark>.</li></ul></div><div style="display:contents" dir="auto"><p id="12deea59-ca7a-8078-aa6b-f820bed47257" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="128eea59-ca7a-80ce-9b85-e5dd9500f005" class="">Blocking Queues</h3></div><div style="display:contents" dir="auto"><p id="128eea59-ca7a-8003-bbb4-fb6929c2d7b1" class="">High-performance, thread-safe version of bounded buffer, designed according to the BlockingQueue&lt;E&gt; interface.</p></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-80ca-a644-f08119a4c122" class="bulleted-list"><li style="list-style-type:disc">Methods are present to support insertion, extraction, and inspection in different fashions (blocking, throwing exceptions, polled, timed)</li></ul></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-800f-a8c3-e94a9f384074" class="bulleted-list"><li style="list-style-type:disc">Blocking queues support the producers/consumers pattern. Blocking queues make resource management more reliable. Impl. of the classic bounded buffer: ArrayBlockingQueue&lt;E&gt;</li></ul></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

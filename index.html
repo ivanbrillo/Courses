@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Learning Dashboard</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: #191919;
+            color: #FFFFFF;
+            padding: 40px;
+            margin: 0;
+        }
+        h1 { font-weight: 700; margin-bottom: 20px; font-size: 32px; border-bottom: 1px solid #333; padding-bottom: 20px; }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .card {
+            background-color: #2F3437;
+            border-radius: 6px;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease, background 0.2s;
+            display: flex;
+            flex-direction: column;
+            height: 200px;
+            border: 1px solid #333;
+        }
+        .card:hover {
+            background-color: #3F4447;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+        .card-cover {
+            height: 110px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+        .card-content {
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+        }
+        .card-icon { font-size: 22px; margin-right: 10px; }
+        .card-title { font-weight: 600; font-size: 16px; line-height: 1.3; }
+        
+        /* Small tag to identify PDF vs Page if needed */
+        .type-tag {
+            font-size: 10px;
+            opacity: 0.5;
+            margin-left: auto;
+            border: 1px solid #555;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Learning Dashboard</h1>
+    <div class="grid-container">
+
+        <a href="Courses/Courses/Cloud%20Computing%201a4eea59ca7a80a0b836e90366079610.html" class="card">
+            <div class="card-cover" style="background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);"></div>
+            <div class="card-content">
+                <span class="card-icon">☁️</span>
+                <span class="card-title">Cloud Computing</span>
+                </div>
+        </a>
+        
+        <a href="Courses/Courses/Deep%20Learning%20233eea59ca7a809e8cf3e1c4668f5b73.html" class="card">
+            <div class="card-cover" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+            <div class="card-content">
+                <span class="card-icon">🔦</span>
+                <span class="card-title">Deep Learning</span>
+                </div>
+        </a>
+        
+        <a href="Courses/Courses/Distributed%20System%20d85a11ae2b604d55a8face5122a77854.html" class="card">
+            <div class="card-cover" style="background: linear-gradient(45deg, #FF9A9E 0%, #FECFEF 100%);"></div>
+            <div class="card-content">
+                <span class="card-icon">👨‍👨‍👦‍👦</span>
+                <span class="card-title">Distributed System</span>
+                </div>
+        </a>
+        
+        <a href="DL.pdf" class="card">
+            <div class="card-cover" style="background: linear-gradient(45deg, #FF9A9E 0%, #FECFEF 100%);"></div>
+            <div class="card-content">
+                <span class="card-icon">📕</span>
+                <span class="card-title">DL</span>
+                </div>
+        </a>
+        
+        <a href="Courses/Courses/Industrial%20Applications%202abeea59ca7a80f69757de2efb3c9017.html" class="card">
+            <div class="card-cover" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+            <div class="card-content">
+                <span class="card-icon">📄</span>
+                <span class="card-title">Industrial Applications</span>
+                </div>
+        </a>
+        
+        <a href="Courses/Courses/IoT%201a7eea59ca7a801d85e1c3258cff270b.html" class="card">
+            <div class="card-cover" style="background: linear-gradient(45deg, #fa709a 0%, #fee140 100%);"></div>
+            <div class="card-content">
+                <span class="card-icon">💻</span>
+                <span class="card-title">IoT</span>
+                </div>
+        </a>
+        
+        <a href="Courses/Courses/IR,%20CV%20and%20LM%20277eea59ca7a805bac3add6ac4bac854.html" class="card">
+            <div class="card-cover" style="background: linear-gradient(45deg, #fa709a 0%, #fee140 100%);"></div>
+            <div class="card-content">
+                <span class="card-icon">📸</span>
+                <span class="card-title">IR, CV and LM</span>
+                </div>
+        </a>
+        
+        <a href="Courses/Courses/Large%20scale%20database%2010ceea59ca7a801c97c7dcc3dc647ee4.html" class="card">
+            <div class="card-cover" style="background: linear-gradient(45deg, #FF9A9E 0%, #FECFEF 100%);"></div>
+            <div class="card-content">
+                <span class="card-icon">💾</span>
+                <span class="card-title">Large scale database</span>
+                </div>
+        </a>
+        
+        <a href="ML.pdf" class="card">
+            <div class="card-cover" style="background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);"></div>
+            <div class="card-content">
+                <span class="card-icon">📕</span>
+                <span class="card-title">ML</span>
+                </div>
+        </a>
+        
+        <a href="MOEA%20and%20RL.pdf" class="card">
+            <div class="card-cover" style="background: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);"></div>
+            <div class="card-content">
+                <span class="card-icon">📕</span>
+                <span class="card-title">MOEA and RL</span>
+                </div>
+        </a>
+        
+        <a href="Courses/Courses/Process%20Mining%20and%20Intelligence%20277eea59ca7a8042ac14df1eaabf885f.html" class="card">
+            <div class="card-cover" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
+            <div class="card-content">
+                <span class="card-icon">📄</span>
+                <span class="card-title">Process Mining and Intelligence</span>
+                </div>
+        </a>
+        
+        <a href="Courses/Courses/Project%20Management%201a5eea59ca7a80959c92df078a54927f.html" class="card">
+            <div class="card-cover" style="background: linear-gradient(45deg, #fa709a 0%, #fee140 100%);"></div>
+            <div class="card-content">
+                <span class="card-icon">🖊️</span>
+                <span class="card-title">Project Management</span>
+                </div>
+        </a>
+        </div></body></html>

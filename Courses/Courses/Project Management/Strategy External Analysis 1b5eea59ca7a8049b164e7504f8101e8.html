@@ -1,0 +1,750 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Strategy External Analysis</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1b5eea59-ca7a-8049-b164-e7504f8101e8" class="page sans"><header><h1 class="page-title" dir="auto">Strategy External Analysis</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="ltr"><figure id="1f5eea59-ca7a-8082-9d07-c8dbe30f93e9" class="link-to-page"><a href="Strategy%20External%20Analysis/Summary%201f5eea59ca7a80829d07c8dbe30f93e9.html">Summary</a></figure></div><div style="display:contents" dir="auto"><h3 id="1b5eea59-ca7a-8066-b6f8-cd9d18148328" class="">External Factors</h3></div><div style="display:contents" dir="auto"><ol type="1" id="1b5eea59-ca7a-800a-91e3-ca80a1d34776" class="numbered-list" start="1"><li>General Environment →  interest, exchange rates etc<div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-802d-b3f0-c162e791be51" class="bulleted-list"><li style="list-style-type:disc">managers have little control</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8010-bbb0-c3a7e491c4ef" class="bulleted-list"><li style="list-style-type:disc">macroeconomic factors are included </li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b5eea59-ca7a-80e1-8bae-eaa4780b7ca3" class="numbered-list" start="2"><li>Task environment → structure of the industry<div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8045-b579-fea214b0861f" class="bulleted-list"><li style="list-style-type:disc">managers can influence</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80bd-aa10-fde7aa745152" class="bulleted-list"><li style="list-style-type:disc">includes the composition of stategic groups, competitors, customers</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-8052-ae62-d8001644c886" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="1b5eea59-ca7a-80dd-8fef-df0a36218328" class="">PESTEL Model</h1></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-8043-8296-c8454529003a" class="">Groups environmental factors into six segments:</p></div><div style="display:contents" dir="auto"><div id="1b5eea59-ca7a-8000-840d-c33d2dcd9258" class="column-list"><div style="display:contents" dir="auto"><div id="1b5eea59-ca7a-8038-9429-c5d5c01620eb" style="width:37.5%" class="column"><div style="display:contents" dir="auto"><ol type="1" id="1b5eea59-ca7a-802d-bcbb-f7f6bc41efa5" class="numbered-list" start="1"><li>Political</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b5eea59-ca7a-80df-b496-ed8ac269bbf5" class="numbered-list" start="2"><li>Economic</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b5eea59-ca7a-80ac-8e74-fb1a99c429b4" class="numbered-list" start="3"><li>Sociocultural</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b5eea59-ca7a-80ff-b89b-d8db3702d757" class="numbered-list" start="4"><li>Technological</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b5eea59-ca7a-8051-b55a-fa63c4f2d5a0" class="numbered-list" start="5"><li>Ecological</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b5eea59-ca7a-80b6-8704-e665afbf9d33" class="numbered-list" start="6"><li>Legal</li></ol></div></div></div><div style="display:contents" dir="auto"><div id="1b5eea59-ca7a-806a-9d97-e0e03d67b028" style="width:62.5%" class="column"><div style="display:contents" dir="ltr"><figure id="1b5eea59-ca7a-800e-8eee-eb7b91a57906" class="image"><a href="Strategy%20External%20Analysis/image.png"><img style="width:242.5681915283203px" src="Strategy%20External%20Analysis/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="1b5eea59-ca7a-80fc-8034-d0b0cbbd228b" class="">Political Factors</h3></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-8041-afdc-f141fe4188a9" class="">Processes and actions of government bodies that influence the firm can be shaped through:</p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8020-9d77-d42172e980f8" class="bulleted-list"><li style="list-style-type:disc">Lobbying</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80a0-867b-e45050f62fc2" class="bulleted-list"><li style="list-style-type:disc">Public Relations</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80f0-bff9-e8f7b707b769" class="bulleted-list"><li style="list-style-type:disc">Contributions</li></ul></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-80ea-bcfc-c598a3f40b6b" class="">Political and legal forces are closely related:</p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80dc-b449-c7c5a21f3d73" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Political pressure often results in changes in legislation</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-801f-8509-c1586c097006" class="">For example, hotel chains and resort owners have challenged Airbnb in courts and lobbied local governments, some of which passed regulations to limit or prohibit short-term rentals. </p></div><div style="display:contents" dir="auto"><h3 id="1b5eea59-ca7a-80df-9f8f-cfe22af1d3df" class="">Economic Factors</h3></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-80be-a2af-eafb2cd190e9" class="">Largely macroeconomic: affect economy-wide phenomena</p></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-80e6-afb5-d3e48d87fa08" class="">Examples include:</p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-806c-a892-f7dff3fdb15d" class="bulleted-list"><li style="list-style-type:disc">Growth rates.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8004-b562-d54572a5fd43" class="bulleted-list"><li style="list-style-type:disc">Levels of employment.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80ba-92c1-fc59789ecd1a" class="bulleted-list"><li style="list-style-type:disc">Interest rates.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8086-b13f-fa296ca5c225" class="bulleted-list"><li style="list-style-type:disc">Price stability.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-801e-96a5-c22d6aac6891" class="bulleted-list"><li style="list-style-type:disc">Currency exchange rates.</li></ul></div><div style="display:contents" dir="auto"><h3 id="1b5eea59-ca7a-8047-a59e-d66fb113b6c3" class="">Sociocultural Factors</h3></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-808c-96f8-fc6c8ac5f5dd" class="">Society’s cultures, norms, and values:</p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8049-b6e8-dab6e3ce6f49" class="bulleted-list"><li style="list-style-type:disc">Are constantly in flux.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8009-a818-c6812b5bd3e4" class="bulleted-list"><li style="list-style-type:disc">Differ across groups.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8069-ad84-f9583e70fd74" class="bulleted-list"><li style="list-style-type:disc">Trends should be monitored.</li></ul></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-80e4-bbad-da4962854ac1" class="">Demographic trends:</p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8069-9cd7-f9333dceec14" class="bulleted-list"><li style="list-style-type:disc">Population characteristics.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80ab-acbd-d4c203422c50" class="bulleted-list"><li style="list-style-type:disc">Age, gender, family size, ethnicity, sexual orientation, religion, and socioeconomic class.</li></ul></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-8069-863e-dfeda2368028" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-80a4-baaf-e99f9a38cbcc" class="">Examples</p></div><div style="display:contents" dir="auto"><ol type="1" id="1b5eea59-ca7a-8067-b5a5-e0b18ab006b3" class="numbered-list" start="1"><li>A growing number of U.S. consumers have become more health conscious about what they eat → fastfood needs to provide healthier choices</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b5eea59-ca7a-80cf-bc3c-f6177f0ae37f" class="numbered-list" start="2"><li>Hispanic are the largest ethnic group in US → Spanish-language television market<div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8066-a1fc-c130d1cdd4df" class="bulleted-list"><li style="list-style-type:disc">Advertisers are pouring dollars into the Spanish-language networks to promote their products and services</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><h3 id="1b5eea59-ca7a-80ef-8f7e-e246473e3fe9" class="">Technological Factors</h3></div><div style="display:contents" dir="auto"><ol type="1" id="1b5eea59-ca7a-80d0-9e7d-e17c1850532a" class="numbered-list" start="1"><li>Application of knowledge → New processes and products.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b5eea59-ca7a-80b6-9318-fdf7fd0b54d4" class="numbered-list" start="2"><li>Innovations in process technology → Lean manufacturing, Six Sigma quality and biotechnology.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b5eea59-ca7a-806b-ac40-c965e740ed32" class="numbered-list" start="3"><li>Innovations in product technology → Smartphones, wearable devices, high-performing electric cars.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b5eea59-ca7a-8099-929b-f5556b4d55a6" class="numbered-list" start="4"><li>Advances in artificial intelligence and machine learning</li></ol></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-80ce-8e94-c68b9bae12a0" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-8038-bf91-e84fed3fcbe9" class="">Eg. AirBnB was made possible by the advancement in tech</p></div><div style="display:contents" dir="auto"><h3 id="1b5eea59-ca7a-807d-9aef-ecea21cb801d" class="">Ecological Factors</h3></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-802b-b8ad-d8550fdf193a" class="">Broad environmental issues:</p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8017-bc5a-caeaea43003f" class="bulleted-list"><li style="list-style-type:disc">Natural environment.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8011-82b3-c7831db40727" class="bulleted-list"><li style="list-style-type:disc">Global warming.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8082-a798-f6bb8da5c82e" class="bulleted-list"><li style="list-style-type:disc">Sustainable economic growth.</li></ul></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-801c-8d70-e00c5c07692f" class="">The relationship between organizations and the environment can be:</p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80f7-9585-dbeb667e1aea" class="bulleted-list"><li style="list-style-type:disc">Adversarial.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80d2-ba6f-fa32ead737a6" class="bulleted-list"><li style="list-style-type:disc">Can provide business opportunities.</li></ul></div><div style="display:contents" dir="auto"><h3 id="1b5eea59-ca7a-80f8-bd97-e17915a14a94" class="">Legal Factors</h3></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-8071-a8f5-d86c3bdf7988" class="">Official outcomes of political processes:</p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8039-a650-d780a935ac6f" class="bulleted-list"><li style="list-style-type:disc">Laws.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80e3-95fb-e995a5fae6e1" class="bulleted-list"><li style="list-style-type:disc">Mandates.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80a7-b6d1-fc24453d05e0" class="bulleted-list"><li style="list-style-type:disc">Regulations.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8088-8061-d6d82e1315ca" class="bulleted-list"><li style="list-style-type:disc">Court decisions.</li></ul></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-80d5-bf61-eede6dd1a64f" class="">Many industries have been deregulated → result from the political will</p></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-808f-96f8-c01ac4c16149" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-8045-9045-cba273e9fcd0" class="">Example: Europe’s policy makers seek to retain control over important industries ranging from transportation to the internet to ensure that profits earned in Europe by Silicon Valley firms are taxed locally</p></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-80cf-9ef4-c04a3c28f306" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1b5eea59-ca7a-8060-8049-d2f9d57dc76b" class="">Industry vs. Firm effects in Firm Performance</h2></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-803c-89f5-d5b46724f0a2" class=""><mark class="highlight-orange">Industry Effects</mark> → affects all the firms in an industry (metallurgica)</p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8040-bc19-f6d7b1a952eb" class="bulleted-list"><li style="list-style-type:disc">Describe the economic structure of the industry.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8048-9b45-e9b0a2d155f7" class="bulleted-list"><li style="list-style-type:disc">Entry and exit barriers, number and size of companies, and types of products and services offered.</li></ul></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-8040-bb31-c7b0c35e5d3a" class=""><mark class="highlight-orange">Firm Effects </mark>→  depend on <strong>a specific firm&#x27;s decisions and strategies</strong></p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80e1-9bd8-cb6dd46fea4f" class="bulleted-list"><li style="list-style-type:disc">Attribute firm performance to the manager’s actions → R&amp;D, strategy, marketing …</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80a8-8ed3-f37a85d0c619" class="bulleted-list"><li style="list-style-type:disc">More important than industry effects.</li></ul></div><div style="display:contents" dir="ltr"><figure id="1b5eea59-ca7a-8069-b596-c007e49e49c3" class="image"><a href="Strategy%20External%20Analysis/image%201.png"><img style="width:384px" src="Strategy%20External%20Analysis/image%201.png"/></a><figcaption>Firm performance affected by:</figcaption></figure></div><div style="display:contents" dir="auto"><h3 id="1b5eea59-ca7a-802b-9559-ed5cbc7a7501" class="">Industry and Industrial Analysis</h3></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-8072-90e1-d02001168d33" class=""><mark class="highlight-orange">Industry</mark>:</p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8016-89ac-e5e0f721cb42" class="bulleted-list"><li style="list-style-type:disc">Group of incumbent companies.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8001-94ee-fab6d9b8957c" class="bulleted-list"><li style="list-style-type:disc">Relatively similar suppliers and buyers.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8099-8bbe-c1c76e5d12d7" class="bulleted-list"><li style="list-style-type:disc">Similar products and services.</li></ul></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-80f0-a4f6-ec7beac12823" class=""><mark class="highlight-orange">Industry analysis</mark>, a method to:</p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8026-954e-cc5655c2f7b0" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Identify </mark>an industry’s profit potential.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80b0-b851-c8b5f0139488" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Derive implications </mark>for a firm’s strategic position.</li></ul></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-80a0-9912-c4cab8c0dd02" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1b5eea59-ca7a-80d2-96f9-dd771e8d9a4e" class="">Strategic Positioning of a Firm</h3></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-80b9-99d9-c1f26994978e" class="">A firm’s ability to:</p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8045-95bf-d0baf63b5489" class="bulleted-list"><li style="list-style-type:disc">Create value for customers (V).</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8016-b95b-dde76bccc623" class="bulleted-list"><li style="list-style-type:disc">While containing costs (C).</li></ul></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-805e-9e34-deca35f9670c" class="">Goal is to generate a <mark class="highlight-teal">large gap </mark>between <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>−</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">V-C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span></span></span><span>﻿</span></span></p></div><div style="display:contents" dir="auto"><h1 id="1b5eea59-ca7a-8049-a865-e47053aac666" class="">Five Forces Model</h1></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-8049-a892-d90dddbf3194" class="">The Five Forces Model helps strategic leaders understand:</p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80cf-af7f-de9f427ace9c" class="bulleted-list"><li style="list-style-type:disc">The profit potential of different industries.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80a8-bd3b-f11a9b890f3f" class="bulleted-list"><li style="list-style-type:disc">How they can position their firms to gain and sustain competitive advantage.</li></ul></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-80cc-8e74-fe1c74229eb8" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-80f9-a563-f48bf1dc7860" class="">Profit potential is a function of the five competitive forces.</p></div><div style="display:contents" dir="ltr"><figure id="1b5eea59-ca7a-8043-8a93-fbe362470b1c" class="image"><a href="Strategy%20External%20Analysis/image%202.png"><img style="width:480px" src="Strategy%20External%20Analysis/image%202.png"/></a></figure></div><div style="display:contents" dir="auto"><ol type="1" id="1b5eea59-ca7a-80b5-8555-e020cfd86177" class="numbered-list" start="1"><li>Rather than defining competition narrowly as the firm’s closest competitors to explain and predict a firm’s performance, competition must be viewed more <mark class="highlight-teal">broadly</mark>, to also encompass the other forces in an industry: buyers, suppliers, potential new entry of other firms, and the threat of substitutes.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b5eea59-ca7a-8071-b98a-fe50ce873a9d" class="numbered-list" start="2"><li>The profit potential of an industry is neither random nor entirely determined by industry-specific factors. Rather, it is a function of the <mark class="highlight-teal">five forces that shape competition</mark>: <em>threat of entry, power of suppliers, power of buyers, threat of substitutes,</em> and <em>rivalry among existing firms.</em></li></ol></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-80d0-acad-e5f91d367b6d" class="">As a rule of thumb, <em>the stronger the five forces, </em><em><mark class="highlight-teal">the lower the industry’s profit potential</mark></em><em> → </em>making the industry less attractive for competitors. The reverse is also true: <em>the weaker the five forces, the greater the industry’s profit potential → </em>making the industry more attractive.</p></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-8034-95b5-f8354ce90b5f" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1b5eea59-ca7a-80d8-a48d-c6514adff78b" class="">Threat of Entry</h3></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-8092-8da5-d501c6832715" class="">The risk that potential competitors will enter an industry:</p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80c9-98ca-d086cae79cac" class="bulleted-list"><li style="list-style-type:disc">Lowers industry profit potential.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8018-8089-fc2884e6402b" class="bulleted-list"><li style="list-style-type:disc">Increases spending among incumbent firms (quelle che c’erano prima)</li></ul></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-807d-9efc-e2a2096fa8b0" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-808a-a420-f435cd3308e0" class=""><strong>The threat of entry is high when the </strong><mark class="highlight-orange"><strong>entry barriers</strong></mark><mark class="highlight-teal"><strong> </strong></mark><strong>are low:</strong></p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-801a-9fe0-dce96a18d761" class="bulleted-list"><li style="list-style-type:disc">The minimum efficient scale to compete in an industry is low (small shop vs car manufacturing)</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8056-a91e-e19154f8c3b8" class="bulleted-list"><li style="list-style-type:disc">Network effects are not present <div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8001-bdd1-db6525c64293" class="bulleted-list"><li style="list-style-type:circle">Network effects happen when a product/service becomes more valuable as more people use it. If these effects <strong>don’t exist</strong>, new firms don’t struggle to attract customers</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8019-b2db-c2682c1dc9bf" class="bulleted-list"><li style="list-style-type:circle">Problem of social medias</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8062-8ae3-f5991346ad5b" class="bulleted-list"><li style="list-style-type:disc">Customer switching costs are low<div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80f5-ac06-d554db853137" class="bulleted-list"><li style="list-style-type:circle">If customers can easily switch to a new brand without cost or inconvenience, new entrants have a better chance of gaining market share</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8088-bc9b-d98778096262" class="bulleted-list"><li style="list-style-type:circle">CHange shampoo has no cost on the customer, but change banks requires a lot of papers or fees</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80dd-bbbc-cbf88386dd7c" class="bulleted-list"><li style="list-style-type:disc">Capital requirements are low.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-801f-801c-ea549750d8b2" class="bulleted-list"><li style="list-style-type:disc">Incumbents do not possess:<div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80ff-bfa7-e1eb67fbab63" class="bulleted-list"><li style="list-style-type:circle">Brand loyalty.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8003-b105-c31a0bd99884" class="bulleted-list"><li style="list-style-type:circle">Proprietary technology.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80d3-906e-eac6ae388c8f" class="bulleted-list"><li style="list-style-type:circle">Preferential access to raw materials.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-809a-bcc8-f8a5ef21607b" class="bulleted-list"><li style="list-style-type:circle">Preferential access to distribution channels.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8023-89c5-e1cb30f50f60" class="bulleted-list"><li style="list-style-type:circle">Favorable geographic locations.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80ac-b761-ec1a49e586d1" class="bulleted-list"><li style="list-style-type:circle">Cumulative learning and experience effects.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80e5-9640-e34002832377" class="bulleted-list"><li style="list-style-type:disc">Restrictive government regulations do not exist.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80a1-8e59-f33fcc205703" class="bulleted-list"><li style="list-style-type:disc">New entrants expect that incumbents will not or cannot retaliate.</li></ul></div><div style="display:contents" dir="auto"><h3 id="1b5eea59-ca7a-80ec-8877-ee71af511394" class="">Power of Suppliers</h3></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-80e3-af4b-fd5a0812f55c" class="">Pressures that industry suppliers can exert on an industry’s profit potential.</p></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-8080-9b2b-e71084406092" class="">Lowers industry profit potential if:</p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8031-b903-e877c38c0eeb" class="bulleted-list"><li style="list-style-type:disc">Suppliers demand higher prices for their inputs.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80fd-b009-da782a6c2e8b" class="bulleted-list"><li style="list-style-type:disc">Suppliers capture part of the economic value created.</li></ul></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-80b3-8cdc-faf062f125c5" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-80a9-9ad8-eaa47f702ff3" class=""><em><strong>The power of suppliers is high when:</strong></em></p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8052-bd98-d844cb9fdf1e" class="bulleted-list"><li style="list-style-type:disc">Supplier’s industry is more concentrated than the industry it sells to.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8031-9ed5-ce332772534e" class="bulleted-list"><li style="list-style-type:disc">Suppliers do not depend heavily on the industry for their revenues.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-805a-b158-c67f8c57f989" class="bulleted-list"><li style="list-style-type:disc">Incumbent firms face significant switching costs when changing suppliers.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8099-b7c1-e025dd81a6e1" class="bulleted-list"><li style="list-style-type:disc">Suppliers offer products that are differentiated.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80a1-a291-d53718aa3c69" class="bulleted-list"><li style="list-style-type:disc">There are no readily available substitutes for the products or services that the suppliers offer.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8000-bb5e-eee69d9a26f7" class="bulleted-list"><li style="list-style-type:disc">Suppliers can credibly threaten to forward-integrate into the industry.</li></ul></div><div style="display:contents" dir="auto"><h3 id="1b5eea59-ca7a-809f-b5ea-d35eed077af9" class="">Power of Buyers</h3></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-8047-b4f8-c4492bca7529" class="">Buyers are customers of an industry</p></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-808e-80db-e25f0b04dbab" class="">Lowers industry profit potential if:</p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8044-81d7-d4cf97e815e2" class="bulleted-list"><li style="list-style-type:disc">Buyers obtain price discounts, which reduces revenue.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-804c-a489-e0880505d6a3" class="bulleted-list"><li style="list-style-type:disc">Buyers demand higher quality, which raises production costs.</li></ul></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-80e9-8579-d6844becb5ee" class="">Situations when buyers are price sensitive:</p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80cf-acd1-dc076ab3e603" class="bulleted-list"><li style="list-style-type:disc">The buyer’s purchase represents a significant portion of its procurement budget.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8067-bedf-ef0e6c07fb4a" class="bulleted-list"><li style="list-style-type:disc">Buyers earn low profits or are strapped for cash.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80f2-af30-d918ace63177" class="bulleted-list"><li style="list-style-type:disc">The quality (cost) of the buyers’ products and services is not affected much by the quality (cost) of their inputs.</li></ul></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-802f-829c-e3edb68839c0" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-801e-8410-d223126801d9" class=""><em><strong>The power of buyers is high when:</strong></em></p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8051-aca9-daf27d6261a9" class="bulleted-list"><li style="list-style-type:disc">There are a few buyers and each buyer purchases large quantities relative to the size of a single seller.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80bb-b972-d3530190c978" class="bulleted-list"><li style="list-style-type:disc">The industry’s products are standardized or undifferentiated commodities.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-802b-9bbe-f38bfc2bcc58" class="bulleted-list"><li style="list-style-type:disc">Buyers face low or no switching costs.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8071-89f5-f75b9ea443f7" class="bulleted-list"><li style="list-style-type:disc">Buyers can credibly threaten to backwardly integrate into the industry.</li></ul></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-8062-b78f-d5336c262be4" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-807f-9e56-d1e06c11f215" class="">The retail giant Walmart provides perhaps the most potent example of tremendous buyer power. </p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80d9-978f-e6aeaec0be8b" class="bulleted-list"><li style="list-style-type:disc">Walmart is one of the few large big-box global retail chains and frequently purchases large quantities from its suppliers. </li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-806e-a7db-f3852d99ca0c" class="bulleted-list"><li style="list-style-type:disc">Walmart leverages its buyer power by exerting tremendous pressure on its suppliers to lower prices and to increase quality or risk losing access to shelf space at the largest retailer in the world.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80c3-bba6-c18b64c01730" class="bulleted-list"><li style="list-style-type:disc"> Walmart’s buyer power is so strong that many suppliers co-locate offices directly next to Walmart’s headquarters in Bentonville, Arkansas, because such proximity enables Walmart’s managers to test the supplier’s latest products and negotiate prices.</li></ul></div><div style="display:contents" dir="auto"><h3 id="1b5eea59-ca7a-8000-ac3e-f09b27a7f04e" class="">Threat of Substitutes</h3></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-8085-a2ea-dc8bcac41444" class="">Meet the same basic customer need:</p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8087-9e05-df8e5a4613cf" class="bulleted-list"><li style="list-style-type:disc">In a different way.</li></ul></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-8091-915e-cec234ab9451" class="">Available from outside the given industry</p></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-80d8-af57-f20f6e2b539f" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-8098-a1f4-f1990553b956" class="">Examples:</p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80f4-a043-fd63ba45c2ab" class="bulleted-list"><li style="list-style-type:disc">Software vs. professional services.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8052-9637-e0add7c903ba" class="bulleted-list"><li style="list-style-type:disc">Energy drinks vs. coffee.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-801a-bcab-fd406f1f6f1e" class="bulleted-list"><li style="list-style-type:disc">Videoconferencing vs. business travel.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-807a-b4b9-e47936259ce0" class="bulleted-list"><li style="list-style-type:disc">Wireless phone services vs. internet-based services (Skype).</li></ul></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-8026-8215-fdbff9dd8d20" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-80bd-9cb6-ec3c26ca60f7" class=""><em><strong>The threat of substitutes is high when:</strong></em></p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-800e-b5e4-ed4dadb608fb" class="bulleted-list"><li style="list-style-type:disc">The substitute offers an attractive price-performance trade-off.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80eb-a5ad-eea2d7dac159" class="bulleted-list"><li style="list-style-type:disc">The buyer’s cost of switching to the substitute is low.</li></ul></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-8091-b544-e0dffca8d308" class="">Examples: many software products are substitutes to professional services, at least at the lower end. </p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8022-b40d-fa23a3b66ae8" class="bulleted-list"><li style="list-style-type:disc">Tax preparation software such as Intuit’s TurboTax is a substitute for professional services offered by H&amp;R Block and others. </li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8099-b2a9-c472a0510263" class="bulleted-list"><li style="list-style-type:disc">LegalZoom, an online legal documentation service, is a threat to professional law firms.</li></ul></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-8020-92d1-c554f46add86" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1b5eea59-ca7a-802c-9c8b-c19057414a32" class="">Rivalry Among Competitors</h3></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-8095-b8c4-c49e1c7c3bea" class="">The intensity with which companies in the same industry jockey for market share and profitability.</p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8053-93fc-e9fa323e989e" class="bulleted-list"><li style="list-style-type:disc">Can range from genteel to cut-throat.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8069-96e5-d1de5241007b" class="bulleted-list"><li style="list-style-type:disc">The other forces in the model pressure this rivalry.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8016-9156-f022ce1585b5" class="bulleted-list"><li style="list-style-type:disc">The stronger the forces, the stronger the competitive intensity.</li></ul></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-8011-b123-da9c97f780a9" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b5eea59-ca7a-807d-95b9-efa964d8e655" class=""><em><strong>The rivalry among existing competitors is high when:</strong></em></p></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80a1-91f0-ce853d45e45f" class="bulleted-list"><li style="list-style-type:disc">There are many competitors in the industry.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8072-90ec-c32d2314d90a" class="bulleted-list"><li style="list-style-type:disc">The competitors are roughly of equal size → None can dominate</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8037-bdea-d5666883d991" class="bulleted-list"><li style="list-style-type:disc">Industry growth is slow, zero, or even negative → if growing firms could gain customers without stealing</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80ec-9dbd-e476811609aa" class="bulleted-list"><li style="list-style-type:disc">Exit barriers are high → if it’s expensive or difficult to leave an industry, struggling firms <strong>stay and compete aggressively</strong>, even if they’re losing money.<div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80c7-b3be-c4be144e8f58" class="bulleted-list"><li style="list-style-type:circle">Eg. Airlines</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8001-85c3-f1af8388b0ba" class="bulleted-list"><li style="list-style-type:disc">Incumbent firms are highly committed to the business (high invesment → fixed costs)</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80bf-b808-d6dd6525f1a0" class="bulleted-list"><li style="list-style-type:disc">Incumbent firms cannot read or understand each other’s strategies well<div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-809e-acac-d4f3163ae6ab" class="bulleted-list"><li style="list-style-type:circle">If one airline lowers ticket prices and competitors don’t know why, they might panic and start a price war</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-8079-b9bd-f91b1eab4322" class="bulleted-list"><li style="list-style-type:disc">Products and services are direct substitutes →  If products are very similar, companies must <strong>compete on price and promotions</strong>, increasing rivalry</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80cf-a127-e1a780475879" class="bulleted-list"><li style="list-style-type:disc">Fixed costs are high and marginal costs are low → firms are tempted to lower prices just to cover fixed costs, leading to price wars</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80f9-a904-d7cf093221ad" class="bulleted-list"><li style="list-style-type:disc">Excess capacity exists in the industry.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b5eea59-ca7a-80ed-96aa-efb551530f2c" class="bulleted-list"><li style="list-style-type:disc">The product or service is perishable → <strong>Perishable goods</strong> lose value quickly, forcing companies to sell them fast, sometimes at any price<br/></li></ul></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-8034-bf08-c015fcd91110" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1b6eea59-ca7a-8024-9054-e0335508e43e" class="">Competitions</h2></div><div style="display:contents" dir="ltr"><figure id="1b6eea59-ca7a-8032-97f6-ee2e51553b01" class="image"><a href="Strategy%20External%20Analysis/image%203.png"><img style="width:528px" src="Strategy%20External%20Analysis/image%203.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-8028-8309-e661dc04fb0b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-80ef-9f7e-fbe926bc074c" class=""><mark class="highlight-orange">Perfect competition</mark>: Pet supply store selling products below cost. When there are many small firms offering a commodity product in an industry that is easy to enter, no one is able to increase prices and generate profits.</p></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-80b2-9186-d5e1b085e066" class=""><mark class="highlight-orange">Examples of monopolistic competition</mark>: The computer hardware industry provides one example of monopolistic competition. Many firms compete in this industry, and even the largest of them (Apple, ASUS, Dell, HP, or Lenovo) have less than 20 percent market share. Moreover, while products between competitors tend to be similar, they are by no means identical.</p></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-8016-882f-f6611080c94f" class=""><mark class="highlight-orange">Examples of oligopoly</mark>: The express-delivery industry is an example of an oligopoly. The main competitors in this space are FedEx and UPS. Any strategic decision made by FedEx (e.g., to expand delivery services to ground delivery of larger-size packages) directly affects UPS. Other examples of oligopolies include the soft drink industry (Coca-Cola vs, Pepsi), airframe manufacturing business (Boeing vs. Airbus). When there are only two main competitors, it’s called a <em><mark class="highlight-blue">duopoly</mark></em><mark class="highlight-blue"> </mark>and is a special case of oligopoly.</p></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-80da-9099-ca6bc701168d" class=""><mark class="highlight-orange">Examples of monopoly</mark>: Georgia Power is the only supplier of electricity for some 2.5 million customers in the southeastern United States. Philadelphia Gas Works is the only supplier of natural gas in the city of Philadelphia, Pennsylvania, serving some 500,000 customers.</p></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-809d-8300-de420a2b6176" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1b6eea59-ca7a-8026-b1a6-f7ac67d8cc34" class="">Industry Growth</h3></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-8092-a9d3-de1188005473" class="">During periods of high growth:</p></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-8009-b860-cd1ee6a2cb68" class="bulleted-list"><li style="list-style-type:disc">Consumer demand rises.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-80f6-8cdf-f31578c82bdf" class="bulleted-list"><li style="list-style-type:disc">Price competition among firms decreases.</li></ul></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-8000-97f0-cfdae3d41752" class="">During periods of negative growth:</p></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-8009-80bb-e00dbc508ad7" class="bulleted-list"><li style="list-style-type:disc">Rivalry is fierce.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-8045-8d86-c85bdcc25098" class="bulleted-list"><li style="list-style-type:disc">Rivals can only gain at the expense of one another.<div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-809d-8f8d-ffd937845d7a" class="bulleted-list"><li style="list-style-type:circle">Price discounts, promotional campaigns, and retaliation abound.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-8027-8ad9-fd4bb668d490" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1b6eea59-ca7a-80bb-af64-d24698db6457" class="">Strategic Commitments</h3></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-80c1-a553-c23e9c811dd0" class="">Firm actions that are:</p></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-8028-be9c-e550fbb500ed" class="bulleted-list"><li style="list-style-type:disc">Costly, long-term oriented and difficult to reverse.</li></ul></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-8071-8352-c3f25f8f2c90" class="">Can stem from:</p></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-8050-8fe8-ffbb9640a6f1" class="bulleted-list"><li style="list-style-type:disc">Large, fixed cost requirements.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-80aa-9313-ee004f40f370" class="bulleted-list"><li style="list-style-type:disc">Non-economic considerations.</li></ul></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-8084-bb9d-e0b0e56f3ddf" class="">Affects intensity of rivalry among competitors.</p></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-80ea-8ac0-cfbc40c98f4c" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1b6eea59-ca7a-80d9-9762-e276c39e46dd" class="">Exit Barriers</h3></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-80b3-a186-d2ab2a06a9a8" class="">Obstacles that determine how easily a firm can leave that industry.</p></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-807c-b016-cde96c12bc41" class="bulleted-list"><li style="list-style-type:disc">Mainly economic and social factors. Include fixed costs that must be paid.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-80eb-abc4-e2edce5cf319" class="bulleted-list"><li style="list-style-type:disc">Examples: employee health care and retirement benefits.</li></ul></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-80c4-ab12-e6bed00238c0" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-808a-a5df-c70bee524764" class="">In Michigan, entire communities still depend on GM, Ford, and Chrysler. If any of those carmakers were to exit the industry, communities would suffer.</p></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-8099-833a-f6d9289804a5" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1b6eea59-ca7a-8035-873f-e9541568f061" class="">A Sixth Force → Complements</h3></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-809e-8441-cbc6f20fd9f5" class=""><mark class="highlight-blue">Complements</mark>: A product, service, or competency that adds value when used with the original product.</p></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-806c-90f3-e82c2a460883" class="bulleted-list"><li style="list-style-type:disc">Complements increase demand for the primary product.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-80f2-80ca-f37a0f64e81f" class="bulleted-list"><li style="list-style-type:disc">Enhances the profit potential for the industry and the firm</li></ul></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-80bb-a3ca-ec04decf9671" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-8020-a567-ec9d9b300702" class="">The primary product is the iPhone, but Apple&#x27;s ecosystem includes numerous complements that enhance its value and increase demand:</p></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-8009-8b0d-f9e310cc919a" class="bulleted-list"><li style="list-style-type:disc">Apple Watch: Extends iPhone functionality to the wrist, adding health monitoring and convenience features</li></ul></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-80a6-82ab-d23e01e5f635" class="">These complements significantly increase the iPhone&#x27;s appeal and utility, driving higher demand for the primary product. </p></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-80a2-a135-ff7a65143eed" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-8040-a746-f6cd9f9209b9" class=""><mark class="highlight-blue">Co-opetition</mark>:</p></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-8011-9ba2-f85466b8a66f" class="bulleted-list"><li style="list-style-type:disc">cooperation among competitors to achieve a strategic objective.</li></ul></div><div style="display:contents" dir="ltr"><figure id="1b6eea59-ca7a-8059-8f31-d56f44d81205" class="image"><a href="Strategy%20External%20Analysis/image%204.png"><img style="width:384px" src="Strategy%20External%20Analysis/image%204.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-80dc-8dd4-fd5a50eb1a11" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1b6eea59-ca7a-8006-a47e-f9ddb604a3e7" class="">Industry Dynamics</h2></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-8035-b494-e6b054f24a4b" class="">A weakness of other models is that they are static (point-in-time snapshot).</p></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-8049-b329-cd9aa8f2f08e" class="">Industry dynamics provides insight about:</p></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-8092-88ba-fda1ae9c3b89" class="bulleted-list"><li style="list-style-type:disc">Changing speed of an industry.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-80e2-a480-d6a9cfc874e0" class="bulleted-list"><li style="list-style-type:disc">Rate of innovation.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-8022-a2f9-d40c26cb9ca2" class="bulleted-list"><li style="list-style-type:disc">Help capture structural changes in the industry.</li></ul></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-80fa-8cea-fb3198a463a0" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-80bf-861f-f3edd94b2f1a" class="">The U.S. domestic airline industry has witnessed several large, horizontal mergers between competitors</p></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-802c-9911-c3fffc979554" class="bulleted-list"><li style="list-style-type:disc">The merger activity in the airline industry provides one example of how firms can proactively reshape industry structure in their favor. A more consolidated airline industry is likely to lead to higher ticket prices and fewer choices for customers, but also more profitable airlines.</li></ul></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-80c4-a6e3-dd1c95cdeadd" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1b6eea59-ca7a-80ed-9529-c7f6d9896a5b" class="">Industry Convergence</h3></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-80a6-b0d5-c8ddf4cd04d3" class="">When unrelated industries begin to satisfy the same customer need</p></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-804a-a203-f6121f1a5bf6" class="bulleted-list"><li style="list-style-type:disc">Caused by technological advances.</li></ul></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-807f-b3ca-cb0a4e1b6a4c" class="">Example → Media Industries: Newspapers, magazines, TV, movies, radio, music.</p></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-80f2-b152-c89156fbb0bd" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1b6eea59-ca7a-80ff-bcee-d38d0d6c9a11" class="">Strategic Groups</h3></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-80a1-96b3-c3a4660d89c4" class="">Strategic groups:</p></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-80c4-82b9-cbe9d2d3b745" class="bulleted-list"><li style="list-style-type:disc">A set of companies.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-8026-98db-e60bfbea4e39" class="bulleted-list"><li style="list-style-type:disc">Pursue a similar strategy.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-8094-872a-de5505d92f5a" class="bulleted-list"><li style="list-style-type:disc">In the same industry.</li></ul></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-80d1-88e5-ee9f50d16c32" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-806e-b73d-fc0633800c77" class="">The <mark class="highlight-orange">strategic group model (framework)</mark>:</p></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-802c-baad-ccfb5392cd46" class="bulleted-list"><li style="list-style-type:disc">Clusters different firms into groups.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-803c-9042-d99fad2a5be6" class="bulleted-list"><li style="list-style-type:disc">Is based on key strategic dimensions.</li></ul></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-809c-9380-f4c4e5b9a74d" class="">Choose two key dimensions:</p></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-8070-a0fa-dd3b354f63a8" class="bulleted-list"><li style="list-style-type:disc">For <mark class="highlight-blue">horizontal </mark>and <mark class="highlight-blue">vertical </mark>axes.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-8041-a4cd-f733f656dde2" class="bulleted-list"><li style="list-style-type:disc">Ensure they’re not highly correlated.</li></ul></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-806c-aee9-e10619e56ff1" class="">Graph the firms in the strategic group.</p></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-804a-bfe9-dba9da469bbd" class="bulleted-list"><li style="list-style-type:disc">Each firm’s market share indicated by the size of the bubble.</li></ul></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-806d-9eb1-c33cdcdea469" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-8077-be47-dcb97a205afe" class="">Examples of strategic dimensions: expenditures on research and development, technology, product differentiation, product and service offerings, pricing, market segments, distribution channels, and customer service.</p></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-8086-820b-edb85a04c5a1" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1b6eea59-ca7a-807c-80e8-cd2edf11eebe" class="column-list"><div style="display:contents" dir="auto"><div id="1b6eea59-ca7a-80ad-a7e0-c1523d277897" style="width:50%" class="column"><div style="display:contents" dir="auto"><ol type="1" id="1b6eea59-ca7a-80c5-a236-c2564626d8db" class="numbered-list" start="1"><li><strong>Cost Structure</strong> → operating costs</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b6eea59-ca7a-80be-bf6c-c54abcb2d790" class="numbered-list" start="2"><li><strong>Routes</strong> → limited routes to extensive network coverage</li></ol></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-8083-9b73-c9339232050f" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-803f-b5ee-dc05377714b6" class=""><strong>Group A: Low-cost, point-to-point carriers</strong></p></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-8038-b364-dab5a987a0cb" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1b6eea59-ca7a-8032-b083-eb9e405a263c" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1b6eea59-ca7a-8057-a45e-d876061538aa" class="image"><a href="Strategy%20External%20Analysis/image%205.png"><img style="width:432px" src="Strategy%20External%20Analysis/image%205.png"/></a><figcaption>strategic grouping airlines</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-80c9-971a-da7320a2b2e3" class=""><strong>Group B: Differentiated, hub-and-spoke carriers</strong></p></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-804d-9016-f86e38b8eb44" class="bulleted-list"><li style="list-style-type:disc">Extensive route networks with more destinations</li></ul></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-8075-9804-e711322053ea" class="bulleted-list"><li style="list-style-type:disc">More premium services and amenities</li></ul></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-8002-8c50-c95d82cb6856" class="">The mobility barrier indicates that it&#x27;s challenging for airlines to switch between these business models due to fundamental differences in operations, infrastructure, fleet composition, and target customer segments. </p></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-80fd-857d-db78c911343c" class="">This strategic grouping helps explain competitive dynamics in the airline industry and why airlines tend to compete more directly within their group rather than across the mobility barrier.</p></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-8056-a19c-e804db41acf7" class="">
+</p></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-80c8-a9b6-eb50c294ea54" class="bulleted-list"><li style="list-style-type:disc"><strong>Competitive rivalry is strongest between firms in the same strategic group.</strong><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-801e-93d8-fd64893000fb" class="bulleted-list"><li style="list-style-type:circle">Companies with similar strategies, resources, and target markets compete more directly with each other.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-8076-9a12-cc85904f1918" class="bulleted-list"><li style="list-style-type:disc"><strong>External environment affects strategic groups differently.</strong><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-8035-8024-e1e6bbc5e76d" class="bulleted-list"><li style="list-style-type:circle">Economic, regulatory, technological, and social changes impact different strategic groups in distinct ways.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-80cb-a5e8-ede1d9afb8ae" class="bulleted-list"><li style="list-style-type:circle">For instance, fuel price increases might severely impact low-cost carriers (Group A) while affecting premium carriers (Group B) less severely due to their ability to pass costs to business travelers.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-8049-9335-ce3d35f028d6" class="bulleted-list"><li style="list-style-type:disc"><strong>Five competitive forces affect strategic groups differently.</strong><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-8018-9927-c5fbff219149" class="bulleted-list"><li style="list-style-type:circle">Each strategic group experiences these forces with varying intensities based on their positioning.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-8016-8988-c323ae96b074" class="bulleted-list"><li style="list-style-type:circle">For example, low-cost carriers might face higher threat of new entrants compared to established hub-and-spoke carriers.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-808e-8462-ead777c72474" class="bulleted-list"><li style="list-style-type:disc"><strong>Some strategic groups more profitable than others.</strong></li></ul></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-8093-8456-cccafb8a3886" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1b6eea59-ca7a-80d9-b053-c4ec0a0d8363" class="">Mobility Barriers</h3></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-8014-9820-d42799152245" class="">Restrict movement between strategic groups.</p></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-8001-b377-f31ace5b9f36" class="bulleted-list"><li style="list-style-type:disc">Industry-specific factors that separate one group from another.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-80c7-b2e8-e6ec55f18a84" class="bulleted-list"><li style="list-style-type:disc">Based on hard-to-reverse investments (strategic commitments).</li></ul></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-804d-8c54-e6fa031aca41" class="">The two groups are separated by the fact that offering international routes necessitates the hub-and-spoke model</p></div><div style="display:contents" dir="auto"><ul id="1b6eea59-ca7a-80c6-8883-e07da66748c2" class="bulleted-list"><li style="list-style-type:disc">high capital investment</li></ul></div><div style="display:contents" dir="auto"><p id="1b6eea59-ca7a-80fa-b5f9-e7a834c6b3fe" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

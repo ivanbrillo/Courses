@@ -1,0 +1,827 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Lab2</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1eeeea59-ca7a-8010-84a6-e7bd7af932f9" class="page sans"><header><h1 class="page-title" dir="auto">Lab2</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="1eeeea59-ca7a-8051-8002-e1a263a1ae0d" class=""><code>make distclean</code></p></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-8094-b3bb-e5d377067fd7" class="bulleted-list"><li style="list-style-type:disc">clean also the device memory and all the builds output of make</li></ul></div><div style="display:contents" dir="auto"><p id="1eeeea59-ca7a-80b5-835a-d1514b1a047a" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1eeeea59-ca7a-8023-99b5-e10eb2d57133" class="">uIP in Contiki-NG</h2></div><div style="display:contents" dir="auto"><p id="1eeeea59-ca7a-8024-861b-d52aaafdce26" class=""><strong>uIP</strong> is a minimal TCP/IP stack designed for very constrained devices, such as those used in IoT. It&#x27;s known as <em>&quot;the world’s smallest IP stack.&quot;</em> Because of limited memory, the entire stack shares a single packet buffer.</p></div><div style="display:contents" dir="auto"><h3 id="1eeeea59-ca7a-80df-989f-d8670fed02db" class="">Data Flow: Transmission and Reception</h3></div><div style="display:contents" dir="auto"><p id="1eeeea59-ca7a-8035-bda7-f56889197b5f" class=""><strong>Sending Data</strong></p></div><div style="display:contents" dir="auto"><ol type="1" id="1eeeea59-ca7a-801c-8fd0-d7ed61d3aa4e" class="numbered-list" start="1"><li>The application or upper layer writes data to the global buffer <code>uip_buf</code>.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1eeeea59-ca7a-802d-b801-cd960f16f213" class="numbered-list" start="2"><li>uIP adds the appropriate IPv6 headers.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1eeeea59-ca7a-8025-8cfb-e8893f62f356" class="numbered-list" start="3"><li><strong>6LoWPAN</strong> compresses these headers.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1eeeea59-ca7a-80e2-b7e2-da54eaff9128" class="numbered-list" start="4"><li>The compressed packet is placed into the <strong>packetbuf</strong>, including metadata.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1eeeea59-ca7a-804d-9056-e4e2fc91c6ba" class="numbered-list" start="5"><li>The <strong>MAC layer</strong> then handles actual transmission.</li></ol></div><div style="display:contents" dir="auto"><p id="1eeeea59-ca7a-802a-9e1f-c89e16f7e930" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1eeeea59-ca7a-8010-a71e-ede116d89b49" class=""><strong>Receiving Data</strong></p></div><div style="display:contents" dir="auto"><ol type="1" id="1eeeea59-ca7a-804e-be76-eaee94a507f3" class="numbered-list" start="1"><li>The <strong>MAC layer</strong> receives the packet and writes it into <code>packetbuf</code>.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1eeeea59-ca7a-8014-9187-f729a44a271a" class="numbered-list" start="2"><li><strong>6LoWPAN</strong> reads from <code>packetbuf</code>, decompresses headers, and reassembles the datagram into <code>uip_buf</code>.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1eeeea59-ca7a-8098-b0e2-e05b1d1898f0" class="numbered-list" start="3"><li>The <strong>uIP stack</strong> then processes the data.</li></ol></div><div style="display:contents" dir="auto"><h3 id="1eeeea59-ca7a-8067-b60e-f97fbb844077" class="">✅ <code>uip_buf</code> (Global Buffer)</h3></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-802d-9e73-fbdb83057fb5" class="bulleted-list"><li style="list-style-type:disc">Shared memory area used by the uIP stack.</li></ul></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-809d-9cab-dc1f4398b5fe" class="bulleted-list"><li style="list-style-type:disc">Used to hold entire IP datagrams during send/receive.</li></ul></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-8056-8f24-f705c527e56e" class="bulleted-list"><li style="list-style-type:disc">Access restricted to: <strong>uIP, 6LoWPAN, and layers above</strong>.</li></ul></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-80c8-84f6-d0299a3808aa" class="bulleted-list"><li style="list-style-type:disc">Cannot be accessed by MAC or physical layers.</li></ul></div><div style="display:contents" dir="auto"><h3 id="1eeeea59-ca7a-807c-995d-d6a47f29565b" class="">✅ <code>packetbuf</code> (Global Buffer)</h3></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-8014-883b-e6288d703d27" class="bulleted-list"><li style="list-style-type:disc">Used by 6LoWPAN to build link-layer frames.</li></ul></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-80b7-9991-e3067e9add35" class="bulleted-list"><li style="list-style-type:disc">Includes both payload and metadata (attributes defined in <code>packetbuf.h</code>).</li></ul></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-80ff-ac70-ed2f822ca6f5" class="bulleted-list"><li style="list-style-type:disc">Used for communication between <strong>6LoWPAN and MAC layer</strong>.</li></ul></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-80b6-9021-e11d68c79f65" class="bulleted-list"><li style="list-style-type:disc">Access restricted to: <strong>6LoWPAN or lower layers</strong>.</li></ul></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-8082-803b-d79875f2ef4e" class="bulleted-list"><li style="list-style-type:disc">Only accessible <strong>outside of interrupt context</strong>.</li></ul></div><div style="display:contents" dir="auto"><h3 id="1eeeea59-ca7a-80af-9c97-dfa607408984" class="">✅ <code>queuebuf</code> (Queue Buffer Abstraction)</h3></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-80cd-9d18-f1f713b8e419" class="bulleted-list"><li style="list-style-type:disc">Allows storing multiple packet copies simultaneously (unlike <code>packetbuf</code>, which is global).</li></ul></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-800d-953a-c5ef1908b815" class="bulleted-list"><li style="list-style-type:disc">Each <code>queuebuf</code> holds the same data structure as <code>packetbuf</code>.</li></ul></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-80f7-991d-c2148394bcdb" class="bulleted-list"><li style="list-style-type:disc">No global pointer exists; each module must manage its own <code>queuebuf</code> references.</li></ul></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-8098-ac2d-ea0b8425e2b1" class="bulleted-list"><li style="list-style-type:disc">Access rules:<div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-8036-a50e-f43f283b88c0" class="bulleted-list"><li style="list-style-type:circle"><strong>Only from 6LoWPAN or below</strong>.</li></ul></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-80b4-8701-c0b24329e2cb" class="bulleted-list"><li style="list-style-type:circle"><strong>Outside of interrupt context</strong>, unless locked (as done in TSCH).</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="1eeeea59-ca7a-8002-9b27-c887898b8bcf"/></div><div style="display:contents" dir="auto"><h3 id="1eeeea59-ca7a-802e-b6ca-e00bf9e7c952" class="">⚙️ <code>queuebuf</code> Configuration</h3></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-804c-9f73-fe3a6897516f" class="bulleted-list"><li style="list-style-type:disc">Automatically initialized when enabled.</li></ul></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-80c6-bc4d-dcfe9ac23f87" class="bulleted-list"><li style="list-style-type:disc">Can be disabled by setting:<div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1eeeea59-ca7a-80cf-9e13-dccb245e6b82" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#define QUEUEBUF_CONF_ENABLED 0</code></pre></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-805e-b153-ed8101f51ede" class="bulleted-list"><li style="list-style-type:disc">Max number of buffered packets can be set via:<div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1eeeea59-ca7a-80ec-ad82-dee1c8e2ff0c" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#define QUEUEBUF_CONF_NUM &lt;value&gt;</code></pre></div></li></ul></div><div style="display:contents" dir="auto"><p id="1eeeea59-ca7a-800d-af9a-f1c79c4469c7" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1eeeea59-ca7a-800f-bbfc-ffd6bc32918b" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="1eeeea59-ca7a-8086-9915-ea6d940a0b86"/></div><div style="display:contents" dir="auto"><p id="1eeeea59-ca7a-8055-a5b0-c65398730143" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1eeeea59-ca7a-80b3-8b88-f3036b87f4c5" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1eeeea59-ca7a-80e6-805e-e55f1828951d" class=""> Contiki-NG provides <mark class="highlight-orange">NullNet</mark>, a network layer that does nothing</p></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-8019-a9db-f1458dbf1f62" class="bulleted-list"><li style="list-style-type:disc">with NullNet, network-layer packets are only created by the application, and sent as-is to the MAC layer</li></ul></div><div style="display:contents" dir="auto"><p id="1eeeea59-ca7a-8048-8e63-e268c4baf4ec" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1eeeea59-ca7a-8080-ab9e-fbcfd6548268" class="">Different <mark class="highlight-orange">PAN ID </mark>to isolate from other sensors– ifyouare in a noisy environment, where you have other sensors that make interference or the channel is not good, you can change</p></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-80f0-bfc4-ed3afdb117c2" class="bulleted-list"><li style="list-style-type:disc">IEEE802154_CONF_PANID</li></ul></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-801b-b8d8-c9f3596855d8" class="bulleted-list"><li style="list-style-type:disc">IEEE802154_CONF_DEFAULT_CHANNEL</li></ul></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-8042-955a-ca8dbebc926e" class="">
+</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1efeea59-ca7a-80d4-973b-fd6fb3d76127" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &quot;contiki.h&quot;                     // Core Contiki definitions and process APIs :contentReference[oaicite:6]{index=6}
+#include &quot;os/net/nullnet/nullnet.h&quot;     // NullNet network layer (no headers, no ports) :contentReference[oaicite:7]{index=7}
+#include &lt;string.h&gt;                     // memcpy, strlen :contentReference[oaicite:8]{index=8}
+#include &lt;stdio.h&gt;                      // sprintf :contentReference[oaicite:9]{index=9}
+#include &quot;os/sys/log.h&quot;                 // LOG_INFO macros :contentReference[oaicite:10]{index=10}
+#include &quot;os/net/netstack.h&quot;            // NETSTACK_NETWORK for sending packets :contentReference[oaicite:11]{index=11}
+#include &quot;net/linkaddr.h&quot;               // linkaddr_t and address utilities :contentReference[oaicite:12]{index=12}
+
+#define LOG_MODULE &quot;App&quot;                // Tag all log lines with “App” :contentReference[oaicite:13]{index=13}
+#define LOG_LEVEL LOG_LEVEL_INFO        // Configure log verbosity :contentReference[oaicite:14]{index=14}
+
+#define SEND_INTERVAL   (5 * CLOCK_SECOND)    // Unicast every 5 seconds :contentReference[oaicite:15]{index=15}
+#define SEND_INTERVAL_BRO (13 * CLOCK_SECOND) // Broadcast every 13 seconds :contentReference[oaicite:16]{index=16}
+
+/* Fixed destination for unicast (8-byte IEEE EUI-64 address) */
+static linkaddr_t dest_addr = {
+  {0x00f4, 0x00ce, 0x0036, 0x0043, 0x0001, 0x000c, 0x0035, 0x00cd}
+};
+
+static int uni_period = 0;  // Counts how many unicast intervals have elapsed
+static int bro_period = 0;  // Counts how many broadcast intervals have elapsed
+
+PROCESS(comm_proc, &quot;unicast broadcast example&quot;); // Define one Contiki process :contentReference[oaicite:17]{index=17}
+AUTOSTART_PROCESSES(&amp;comm_proc);                 // Automatically start it at boot :contentReference[oaicite:18]{index=18}
+
+/*---------------------------------------------------------------------------*/
+/* Callback for all incoming NullNet packets */
+static void
+input_callback(const void *data,
+               uint16_t len,
+               const linkaddr_t *src,
+               const linkaddr_t *dest)
+{
+  /* Copy payload into a local, null-terminated buffer */
+  char received_data[strlen((char *)data) + 1];
+  if(len == strlen((char *)data) + 1) {
+    memcpy(&amp;received_data, data, len);
+    /* Log timestamp, payload, and source address */
+    LOG_INFO(&quot;TIMESTAMP: %lu, Received \&quot;%s\&quot; from &quot;, clock_seconds(), received_data);  // timestamp in seconds :contentReference[oaicite:19]{index=19}
+    LOG_INFO_LLADDR(src);  // Print link-layer address :contentReference[oaicite:20]{index=20}
+    LOG_INFO_(&quot;\n&quot;);
+  }
+}
+/*---------------------------------------------------------------------------*/
+
+PROCESS_THREAD(comm_proc, ev, data)
+{
+  static struct etimer periodic_timer;            // Timer for unicast :contentReference[oaicite:21]{index=21}
+  static struct etimer broadcast_periodic_timer;  // Timer for broadcast :contentReference[oaicite:22]{index=22}
+  static char uni_msg[70];   // Buffer for unicast message text
+  static char bro_msg[70];   // Buffer for broadcast message text
+
+  PROCESS_BEGIN();
+
+  /* Register our receive callback with NullNet */
+  nullnet_set_input_callback(input_callback);  // direct payload delivery, no ports :contentReference[oaicite:23]{index=23}
+
+  /* Initialize both timers */
+  etimer_set(&amp;broadcast_periodic_timer, SEND_INTERVAL_BRO);
+  etimer_set(&amp;periodic_timer, SEND_INTERVAL);
+
+  /* Main event loop */
+  while(1) {
+    /* Prepare message strings with current counters */
+    sprintf(uni_msg, &quot;Hello, I send you my msg at time: %d&quot;, uni_period);
+    sprintf(bro_msg, &quot;Hello, I am an annoying spammer, time: %d&quot;, bro_period);
+
+    /* Wait until either timer expires */
+    PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&amp;periodic_timer)
+                           || etimer_expired(&amp;broadcast_periodic_timer));
+
+    /* --- Unicast path --- */
+    if(etimer_expired(&amp;periodic_timer)
+       &amp;&amp; !linkaddr_cmp(&amp;dest_addr, &amp;linkaddr_node_addr)) {  // avoid sending to self :contentReference[oaicite:24]{index=24}
+      LOG_INFO(&quot;TIMESTAMP: %lu, Sending UNICAST \&quot;%s\&quot; to &quot;,
+               clock_seconds(), uni_msg);
+      LOG_INFO_LLADDR(&amp;dest_addr);
+      LOG_INFO_(&quot;\n&quot;);
+
+      /* Point NullNet at our payload and send */
+      nullnet_buf = (uint8_t *)uni_msg;
+      nullnet_len = strlen(uni_msg) + 1;
+      NETSTACK_NETWORK.output(&amp;dest_addr);  // unicast send :contentReference[oaicite:25]{index=25}
+
+      uni_period += 8;              // Increment counter by 8 (arbitrary step)
+      etimer_reset(&amp;periodic_timer); // Restart unicast timer
+    }
+
+    /* --- Broadcast path --- */
+    if(etimer_expired(&amp;broadcast_periodic_timer)
+       &amp;&amp; !linkaddr_cmp(&amp;dest_addr, &amp;linkaddr_node_addr)) {
+      LOG_INFO(&quot;TIMESTAMP: %lu, Sending BROADCAST \&quot;%s\&quot; to &quot;,
+               clock_seconds(), bro_msg);
+      LOG_INFO_LLADDR(NULL);
+      LOG_INFO_(&quot;\n&quot;);
+
+      nullnet_buf = (uint8_t *)bro_msg;
+      nullnet_len = strlen(bro_msg) + 1;
+      NETSTACK_NETWORK.output(NULL);  // broadcast send :contentReference[oaicite:26]{index=26}
+
+      bro_period += 13;                  // Increment counter by 13
+      etimer_reset(&amp;broadcast_periodic_timer); // Restart broadcast timer
+    }
+  }
+  PROCESS_END();
+}</code></pre></div><div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-801f-a5ee-fd4572d746b2" class="bulleted-list"><li style="list-style-type:disc">all messages are only in packetbuf</li></ul></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-80b6-949b-f6036f03f2cd" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

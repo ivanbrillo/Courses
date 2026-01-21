@@ -1,0 +1,729 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>IPv6</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1d0eea59-ca7a-8066-a36c-e410768fe101" class="page sans"><header><h1 class="page-title" dir="auto">IPv6</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80a3-8cae-cfefdfeaa7ca" class="">IPv4 addresses are not sufficient</p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8064-b43b-f8431d360c0a" class="bulleted-list"><li style="list-style-type:disc">from 32bit to 128bit</li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8038-a5d5-dddc307fda8f" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-808e-835f-d0d212f87f64" class=""><mark class="highlight-blue">6LowPAN </mark>→ try to compress the overhead of IPv6 protocol</p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8023-8dad-dd3439d04926" class="bulleted-list"><li style="list-style-type:disc">The transport layer over IPv6 is UDP </li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80de-b30b-fbcb09c3c27e" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80cc-ad9f-f24720be0ec6" class="">Main Functionalities of IPv6:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-80cf-a56b-ee2b09f2e782" class="numbered-list" start="1"><li>Larger Adress Space</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-804f-a18e-d63c7006485f" class="numbered-list" start="2"><li>Auto-Configuration of addresses to nodes</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-8030-9b2d-eee4806960e3" class="numbered-list" start="3"><li>Header Changes<div style="display:contents" dir="auto"><ul id="21aeea59-ca7a-8044-b7aa-efe59bfa57bc" class="bulleted-list"><li style="list-style-type:disc">IPv6 simplifies packet headers by eliminating or shifting fields into extension headers.</li></ul></div><div style="display:contents" dir="auto"><ul id="21aeea59-ca7a-8062-a92a-cbb2b0bf6d7f" class="bulleted-list"><li style="list-style-type:disc">The base packet is always <mark class="highlight-teal"><mark class="highlight-pink_background">40 bytes</mark></mark><mark class="highlight-pink_background">, fixed in size</mark> → more efficient for routers</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-801a-8a90-d206a87be100" class="numbered-list" start="4"><li>Auth, Privacy and Security</li></ol></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80e4-aa77-f5ee23fefd57" class=""> </p></div><div style="display:contents" dir="auto"><h2 id="1d0eea59-ca7a-800e-b624-eadea0cfc44d" class="">Header Changes</h2></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-809e-b512-e7cb129a799c" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">No header checksum</mark>, since it’s provided also at the upper layer</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-802b-a5ac-e25cd3868848" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Fragmentation </mark>performed only by the sending host, not by routers → reduced forwarding time at routers</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80b5-8b14-c1f72f39359b" class="bulleted-list"><li style="list-style-type:disc">Optional fields removed</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-800d-83ed-fe3bf8bc96e9" class="bulleted-list"><li style="list-style-type:disc">If we want to add extra information → extended headers using <mark class="highlight-pink_background">daisy chain</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8040-9619-c81576d9733a" class="bulleted-list"><li style="list-style-type:disc">New field for <mark class="highlight-pink_background">QoS support</mark> (priority field)</li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-806a-aab0-fe12f53f0748" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-80b8-8986-dbfacc3bf222" class="image"><a href="IPv6/image.png"><img style="width:605.7875366210938px" src="IPv6/image.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8092-b0f6-f0eeaa7e01a7" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80d0-9d75-e949465442af" class="">Header of 40 bytes vs. an average of <mark class="highlight-teal">20 bytes for IPv4</mark></p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8077-8093-f827c13872c3" class="bulleted-list"><li style="list-style-type:disc">could be an issue for constrained devices</li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-807c-9e1d-f85b74ead0b7" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80eb-8704-c36857dba98c" class="">No checksum on IPv6 datagram</p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80f7-af1b-d930b13fd62c" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">checksum mandatory for TCP and UDP in IPv6 </mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-808e-ba2e-ea4d189af3d4" class="bulleted-list"><li style="list-style-type:disc">For UDP was optional over IPv4</li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8090-b823-cd97b15e6e61" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d0eea59-ca7a-8085-9efa-c9753b47f902" class="">Extended Headers </h3></div><div style="display:contents" dir="auto"><p id="21aeea59-ca7a-80a6-925c-cfee21497ab9" class="">Extended headers follow the fixed header (the standard header of IPv6) and precede the transport header.</p></div><div style="display:contents" dir="auto"><div id="226eea59-ca7a-80b6-8215-e195c0196456" class="column-list"><div style="display:contents" dir="auto"><div id="226eea59-ca7a-8000-9da6-decddad5b0ed" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-80b2-bb79-f646b4add6ee" class="image"><a href="IPv6/image%201.png"><img style="width:576px" src="IPv6/image%201.png"/></a></figure></div></div></div><div style="display:contents" dir="auto"><div id="226eea59-ca7a-80a7-8d67-f98c1434c543" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="226eea59-ca7a-8093-b2c2-cdce286093ac" class="image"><a href="IPv6/image%202.png"><img style="width:331.9886474609375px" src="IPv6/image%202.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-8066-b564-cb6b36ec7b35" class="image"><a href="IPv6/image%203.png"><img style="width:480px" src="IPv6/image%203.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-809c-9adc-f514bd45beb6" class="image"><a href="IPv6/image%204.png"><img style="width:605.7250366210938px" src="IPv6/image%204.png"/></a><figcaption>Routing header → specify the set of nodes that must be traversed by the datagram</figcaption></figure></div><div style="display:contents" dir="auto"><h3 id="1d0eea59-ca7a-8045-9943-c7c5ee39d910" class="">Fragmentation</h3></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80e4-b914-d2a80fe80c1a" class="">The <mark class="highlight-orange">Maximum trasmission unit </mark>(MTU) is 1280 byte in IPv6 → if above fragmentation</p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-807f-a1d3-c2b28f7dfbb0" class="bulleted-list"><li style="list-style-type:disc">in LLNs (IEEE 802.15.4) is <mark class="highlight-pink_background">127 bytes</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8027-93fc-e9178914b03f" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8022-83fb-f7a010c65cfb" class=""><mark class="highlight-orange">Path Maximum Trasmission Unit Discovery</mark> (PMTUD)</p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8016-8dd9-f44d0ed6d971" class="bulleted-list"><li style="list-style-type:disc">Used to discover the minimum MTU along the path (to avoid to fragment at a certain router)</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8084-8991-d717db8aa413" class="bulleted-list"><li style="list-style-type:disc">Periodic discovery based on <mark class="highlight-pink_background">ICMP messages</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8002-8127-d1b332c10b82" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Discovered MTU is cached for each destination</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80ea-a665-e90b5ce816d6" class="bulleted-list"><li style="list-style-type:disc">Implementations that do no implement PMTU have a default value of 1280 bytes</li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80cb-b026-c3a83bb160e5" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80e6-81e0-cad0304afbb5" class="">Whenever its size exceeds the minimum MTU in the path</p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80dc-bf15-c8f97bc9fb18" class="bulleted-list"><li style="list-style-type:disc">The <mark class="highlight-teal">Fragment extension header </mark>carries the information necessary to reassemble the original datagram</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80eb-890f-cf206e3a377c" class="bulleted-list"><li style="list-style-type:disc">Identification value assigned by the source node</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80b1-a916-f4ce7fbf890b" class="bulleted-list"><li style="list-style-type:disc">Frag. Offset indicates the offset wrt the start of original packet</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-805d-b76f-cd686226493d" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">M</mark>: More Fragment (1) or Last Fragment (0)</li></ul></div><div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-8049-8bd0-f11f5ef5b859" class="image"><a href="IPv6/image%205.png"><img style="width:624px" src="IPv6/image%205.png"/></a></figure></div><div style="display:contents" dir="auto"><h2 id="1d0eea59-ca7a-8023-992c-d3d70cb970db" class="">IPv6 Adressing Scheme</h2></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-804e-b2b8-c71564c00ad4" class="numbered-list" start="1"><li><mark class="highlight-blue">Unicast Adress</mark> → uniquely identify a single network interface </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-8010-a4e3-f9117a6750b8" class="numbered-list" start="2"><li><mark class="highlight-blue">Anycast Adress</mark> → indentify a group of interfaces<div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8050-8120-f82d47f9299f" class="bulleted-list"><li style="list-style-type:disc">the datagram is set to <mark class="highlight-teal">just one</mark> of the member, typically the <mark class="highlight-pink_background">nearest host</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80f5-977e-fcae85c52c3e" class="bulleted-list"><li style="list-style-type:disc">Syntatically <mark class="highlight-teal">indistinguishable </mark>from a unicast address</li></ul></div><div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-8041-9e8b-fad5b8782c67" class="image" style="text-align:center"><a href="IPv6/image%206.png"><img style="width:576px" src="IPv6/image%206.png"/></a><figcaption> Example: subnet-router anycast address, is delivered to one of the routers on that subnet link</figcaption></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-8027-ae8b-cb137025c92f" class="numbered-list" start="3"><li><mark class="highlight-blue">Multicast Adress</mark> → group of hosts (the datagram is sended to <mark class="highlight-pink_background">all the interfaces</mark>)<div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-802d-ac10-e95dbfab4bca" class="bulleted-list"><li style="list-style-type:disc">all-nodes address: <code>FF02::1</code></li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8001-ad43-e11fabfb8797" class="bulleted-list"><li style="list-style-type:disc">all-routers address: <code>FF02::2</code></li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80e3-8dac-d0cdb6418cc0" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Solicited-node adress</mark>: <code>FF02:0:0:0:0:1:FFXX:XXXX</code><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-807c-80b2-e0db9abad1bd" class="bulleted-list"><li style="list-style-type:circle">It’s calculated based on the least 24 significant bits of the node B unicast/anycast adress</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8089-af76-e55584ba5602" class="bulleted-list"><li style="list-style-type:circle">Used for MAC discovery of node B from node A, in this way just B will listend to this request</li></ul></div><div style="display:contents" dir="auto"><ul id="227eea59-ca7a-80d3-96dd-ce0ceb829ceb" class="bulleted-list"><li style="list-style-type:circle">Also used for DAD</li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><h3 id="1d0eea59-ca7a-8037-9a7f-d305f722e4c0" class="">IPv6 Notations</h3></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8051-8027-cdfc7e1c2e51" class=""><code> 2020:0db8:0000:0000:0000:ff00:0042:0826</code></p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8003-bab2-dd7f544807f4" class="bulleted-list"><li style="list-style-type:disc">one or more leading zeros, from any group, can be removed <code>2020:db8:0:0:0:ff00:42:826</code></li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-806e-bde3-d07d7ecb0aa9" class="bulleted-list"><li style="list-style-type:disc">Consecutive sections of zeros are replaced with a double colon (::) → only one on the adress can be used <code>2020:db8::ff00:42:826</code></li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-808f-b239-f48fdec509c7" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-807b-98cd-c87a95a0fae0" class="numbered-list" start="1"><li><mark class="highlight-blue">Loopback Adress</mark> <code>0000:0000:0000:0000:0000:0000:0000:0001</code> , that can be abbreviated with <code>::1</code>  following the second rule</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-803c-adf4-de8580502491" class="numbered-list" start="2"><li><mark class="highlight-blue">Unspecified Adress</mark> <code>0000:0000:0000:0000:0000:0000:0000:0000</code> , that becomes <code>::</code> <div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80c8-af40-ebca730f479c" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Used as source address by a node that has not yet learned its own unicast address</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8028-966e-cccb4cd522ab" class="bulleted-list"><li style="list-style-type:disc">Cannot be used as destination address</li></ul></div></li></ol></div><div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-8042-a1b9-eeefc3b78266" class="image"><a href="IPv6/image%207.png"><img style="width:336px" src="IPv6/image%207.png"/></a></figure></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-80d7-9faf-dd31f9ae1aab" class="numbered-list" start="1"><li>Prefix identifies the subnet the interface belongs to</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-8044-8fdd-fdc6c6d961a9" class="numbered-list" start="2"><li>Interface ID identifies the specific interface inside the subnet</li></ol></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80aa-affa-d5cf2dd67ac0" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-802c-89fe-c742584a138d" class="">Three typs of unicast addresses:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-8085-9cec-da98b1ad0ffc" class="numbered-list" start="1"><li><mark class="highlight-blue">Unique Local Adress</mark> (ULA) → intended for local communication (similar to IPv4 private adress)<div style="display:contents" dir="auto"><ul id="21aeea59-ca7a-803b-9e7f-e63137318c93" class="bulleted-list"><li style="list-style-type:disc">internally routable</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-80c5-a312-d998c2e38346" class="numbered-list" start="2"><li><mark class="highlight-blue">Link-Local Adress</mark> → uniquely identify the host within the link, it’s <mark class="highlight-teal">not routable </mark><mark class="highlight-default">(point-to-point)</mark><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80a9-87ea-e5cf39f42610" class="bulleted-list"><li style="list-style-type:disc">Used on a single link for <mark class="highlight-teal">auto-configuration</mark>, <mark class="highlight-teal">neighbor discovery</mark>, or in the <mark class="highlight-teal">absence of a router</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8050-9a00-e3400c0d89bd" class="bulleted-list"><li style="list-style-type:disc">Cannot be announced outside of the local link, or to reach outside destinations<div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-8052-b317-e4833002710a" class="image"><a href="IPv6/image%208.png"><img style="width:547.7374877929688px" src="IPv6/image%208.png"/></a><figcaption>starts with <code>FE80</code></figcaption></figure></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-809a-ab14-e0d76eb335dd" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">The Interface ID is assigned by the node itself</mark><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80fb-88df-c6b86b376162" class="bulleted-list"><li style="list-style-type:circle">Without the presence of a <mark class="highlight-teal">DHCP </mark>server, was originally <mark class="highlight-pink_background">derived from the MAC</mark> address of the NIC [network interface card] (security problems and changes when the NIC is changed)</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80a9-b540-e1b2a8e1e1de" class="bulleted-list"><li style="list-style-type:circle">Now MAC-based methods are replaced with hash-based method</li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-80b1-b57b-c4b3eac76953" class="numbered-list" start="3"><li><mark class="highlight-blue">Global Adresses </mark>→ uniquely identifies the host within the Internet<div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8010-9d39-d629ee0e056d" class="bulleted-list"><li style="list-style-type:disc">Must have the 3 left most bits set to 001</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8003-ac18-fdf5147dcdf5" class="bulleted-list"><li style="list-style-type:disc">IPv6 addresses with embedded IPv4 addresses starts with 000</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8029-8467-d7924f6f8232" class="bulleted-list"><li style="list-style-type:disc">In most cases 64-bit prefix + 64-bit Interface Identifier</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80c8-a18d-fd4a15bbbb89" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Hierarchically-structured</mark><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80c9-bb5f-e29e40012820" class="bulleted-list"><li style="list-style-type:circle">Subnet ID is an identifier of a link within the site</li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-80bc-b5b2-eb3a719bb65e" class="column-list"><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-80be-a17c-fa1f6ca0f7fc" style="width:56.25%" class="column"><div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-8038-99aa-e02619163f8a" class="image"><a href="IPv6/image%209.png"><img style="width:605.7875366210938px" src="IPv6/image%209.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="231eea59-ca7a-8085-8c87-c25d809f57e1" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-805e-ade3-db0b331021a1" style="width:43.75000000000001%" class="column"><div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-808d-a74e-fdfca668540f" class="image"><a href="IPv6/image%2010.png"><img style="width:278.8625183105469px" src="IPv6/image%2010.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h1 id="1d0eea59-ca7a-8000-9665-fca2250bb10c" class="">Neighbor Discovery Protocol (NDP)</h1></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-800d-b419-f35e4ee5f5bb" class="">Provides a set of key <mark class="highlight-teal">autoconfiguration </mark>features </p></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-804e-afb1-c41be39f3dde" class="numbered-list" start="1"><li>Presence of neighbors on a link</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-803f-aec4-f90837fe5522" class="numbered-list" start="2"><li>Discovery of a router that provides network prefix</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-800f-a29c-ec9cb1f332fb" class="numbered-list" start="3"><li>Discovery of link-layer additional addresses</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-808b-a44d-c3231c16f8c8" class="numbered-list" start="4"><li>Maintenance of reachability</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-80bc-8ca4-d4fa0409467a" class="numbered-list" start="5"><li>Find parameters along the network (MTU, hop limits, …)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-80d4-a2c7-fde7b5950b48" class="numbered-list" start="6"><li>Adress autoconfiguration (computation of the unique IP global adress), adress resolution</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-8071-8b11-cb91b16656cf" class="numbered-list" start="7"><li>Next-hop determination for packet forwarding</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-806e-bc96-d444a4d6b687" class="numbered-list" start="8"><li><mark class="highlight-teal">Neighbor Unreachability Detection</mark> (<mark class="highlight-pink_background">NUD</mark>) in the link</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-80cd-bf15-fcd299463e5a" class="numbered-list" start="9"><li><mark class="highlight-teal">Duplicate Address Detection</mark> (<mark class="highlight-pink_background">DAD</mark>)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-8092-9c34-d7dccf4ff707" class="numbered-list" start="10"><li>Packet Redirection to find a better next-hop route for a certain destination</li></ol></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80e2-8720-e8484c128d02" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80e8-acff-c3607217b0db" class="">In order to implement these services, <mark class="highlight-pink_background">5 different </mark><mark class="highlight-orange"><mark class="highlight-pink_background">ICMPv6</mark></mark><mark class="highlight-orange"> </mark>[Internet Control Message Protocol]<mark class="highlight-orange"> </mark>packet types have been introduced:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-8023-97ee-c9334062b841" class="numbered-list" start="1"><li><mark class="highlight-blue">Router Solicitation</mark>, <code>RS</code>: used to trigger the sending of a RA message upon receiving</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-8093-9f6c-c03d50bd6ba1" class="numbered-list" start="2"><li><mark class="highlight-blue">Router Advertisement</mark>, <code>RA</code>: used by router to advertise its presence (it can be send periodically or in response to RS message). It can carry also parameters like prefix, DNS, default gateway address</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-800a-9126-d659290de847" class="numbered-list" start="3"><li><mark class="highlight-blue">Neighbor Solicitation</mark>, <code>NS</code>: use in NUD and DAD and for asking address resolution (to get MAC from IP)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-80a4-b46d-e21f6a0c5b45" class="numbered-list" start="4"><li><mark class="highlight-blue">Neighbor Advertisement</mark>, <code>NA</code> → the MAC requested</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-80d1-b2bd-d671eeed857d" class="numbered-list" start="5"><li><mark class="highlight-blue">Redirect </mark>→ sent by routers to inform a host of a better first-hop router on the path to destination</li></ol></div><div style="display:contents" dir="auto"><h1 id="1d0eea59-ca7a-80b2-bd86-c0c77cee85db" class="">IPv6 Auto-Configuration</h1></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8024-82fb-cb0f3cceb1dd" class="">AutoConfiguration is extremely important in IoT environments</p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8043-a0e5-e859365bff4d" class="bulleted-list"><li style="list-style-type:disc">very large number of nodes → no need for DHCP server</li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8030-9046-d7bb2bffdf93" class="">Two type of configuration: stateless and stateful</p></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80b2-a0bc-cd3a3e728ea9" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d0eea59-ca7a-8010-b277-ce23aed0fe05" class="">Stateless Local Adress autoconfiguration</h3></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8013-8e85-c1713fa19a0e" class="">It starts with <code>FE80</code> (10 bits), followed by 54 bits equal to 0. The second part (64 bit), is generated starting from the MAC address and using a well known address <mark class="highlight-teal">hash algorithm</mark></p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8021-ab44-c705e681a6be" class="bulleted-list"><li style="list-style-type:disc">The <mark class="highlight-teal">Duplicate Address Detection</mark> (DAD) process will be invoked, to understand if my adress is unique</li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8003-998e-c8c0fe18ca65" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1d0eea59-ca7a-8009-9369-ebd9f1747930" class=""><strong>Stateless Address Auto-configuration (SLAAC)</strong></h2></div><div style="display:contents" dir="auto"><h3 id="1d0eea59-ca7a-8001-985e-c1dc47e9c2a8" class="">No DHCP</h3></div><div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-801c-b585-fb95145a8c6c" class="image"><a href="IPv6/image%2011.png"><img style="width:576.9744262695312px" src="IPv6/image%2011.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-801d-b740-c5f1d5e7bb4d" class="bulleted-list"><li style="list-style-type:disc">Note that in the DAD process, a<mark class="highlight-teal"> Solicited node multicast addresses</mark> is used.</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-804d-aad0-ef942f9ba80d" class="bulleted-list"><li style="list-style-type:disc">The IP address of the sender is set to &quot;unspecified&quot; because the node cannot use the global address it just generated. This is because it is not yet certain if the address is available or in use by another node</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80d1-af0f-f0327f873ac1" class="bulleted-list"><li style="list-style-type:disc">It could wait the periodic RA or trigger one by sending the RS message </li></ul></div><div style="display:contents" dir="auto"><h3 id="1d0eea59-ca7a-801a-8b64-c13658ef8eb5" class="">Stateless DHCPv6</h3></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8040-9bbd-de1ba0d6ea47" class="">Centralized mechanism,<mark class="highlight-pink_background"> to prefer in complex networks,</mark> that provides</p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80e6-bbac-e4ec3b51ea5c" class="bulleted-list"><li style="list-style-type:disc">Network addresses</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8049-8109-dd983ec5646a" class="bulleted-list"><li style="list-style-type:disc">Other useful information (DNS server addresses, domain names, and other settings)</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80a5-abae-ee3a11e2eb80" class="bulleted-list"><li style="list-style-type:disc">The requesting host uses the well-known link-layer address <code>FF02::1:2</code> to address all DHCP servers, instead of the broadcast address</li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80f2-9eb5-e1afa96139f9" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80ab-bade-cd02e48fe6ec" class="">Once the IPv6 global address has been obtained (through stateless autoconfiguration, via RA), provides additional information</p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-801a-8bb8-ce8672621a65" class="bulleted-list"><li style="list-style-type:disc">DNS name servers</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80ae-9d00-c38643135200" class="bulleted-list"><li style="list-style-type:disc">SIP servers</li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8059-9d4b-f3dc58ee42f5" class=""><mark class="highlight-pink_background">Does </mark><mark class="highlight-teal"><mark class="highlight-pink_background">not </mark></mark><mark class="highlight-pink_background">support address assignment</mark></p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-807f-9211-e24b44b632df" class="bulleted-list"><li style="list-style-type:disc">just provides configuration information</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8056-aa11-f61ce6fdc218" class="bulleted-list"><li style="list-style-type:disc">Simplicity is very appealing for LLNs</li></ul></div><div style="display:contents" dir="auto"><h3 id="1d0eea59-ca7a-80f4-81cc-cda689ad4725" class="">Stateful DHCPv6</h3></div><div style="display:contents" dir="auto"><ul id="21aeea59-ca7a-8080-99e1-c23db52e4af8" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">GUA = Global Unicast Address</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="21aeea59-ca7a-80b5-941b-ecc2caa060e0" class="bulleted-list"><li style="list-style-type:disc"><strong>Default gateway = router’s link-local address</strong> obtained from RA</li></ul></div><div style="display:contents" dir="auto"><p id="21aeea59-ca7a-8019-b117-e53c0803db1e" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-800e-ae11-efdd37f83b2c" class="">The host obtains from RA the default gateway and the IPv6 of the DHCPv6 server: it must contact it to obtain the GUA, DNS server address and other useful information.</p></div><div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-80b7-a1e6-fb9201499f4f" class="image"><a href="IPv6/image%2012.png"><img style="width:710px" src="IPv6/image%2012.png"/></a></figure></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

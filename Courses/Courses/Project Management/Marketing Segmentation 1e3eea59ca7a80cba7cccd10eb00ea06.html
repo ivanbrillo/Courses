@@ -1,0 +1,723 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Marketing Segmentation</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1e3eea59-ca7a-80cb-a7cc-cd10eb00ea06" class="page sans"><header><h1 class="page-title" dir="auto">Marketing Segmentation</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-80ef-83d0-d98d31a5513e" class="">Market segmentation → identification of individuals or organizations with similar characteristics that have significant implications for the determination of marketing strategy</p></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80fd-8663-d185c42f1ac0" class="bulleted-list"><li style="list-style-type:disc">Netflix has 2.000 segments with different preferences</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80e9-9936-f539fd3f3de2" class="bulleted-list"><li style="list-style-type:disc">it’s similar to clustering</li></ul></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8096-8243-f10bda79b943" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-8082-996e-e1d6ad8597df" class="column-list"><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-800c-bea9-e5a9c25bee6e" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8005-becf-e37e6215cc43" class="">Involves the division of a diverse market into a number of <mark class="highlight-orange">smaller submarkets </mark>that have common features</p></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-80d2-9e83-e3e52e395544" class="">The objective is to <mark class="highlight-teal">identify groups of potential customers </mark>with <mark class="highlight-teal">similar requirements</mark></p></div></div></div><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-80d8-b305-fd70d3b96e7c" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1e3eea59-ca7a-80f2-bdae-ff65fd332ecc" class="image"><a href="Marketing%20Segmentation/image.png"><img style="width:331.960205078125px" src="Marketing%20Segmentation/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h2 id="1e3eea59-ca7a-80e9-8b27-f8a92a3d5b11" class="">Consumer Segmentation</h2></div><div style="display:contents" dir="ltr"><figure id="1e3eea59-ca7a-8012-b4fe-d26615cdeee9" class="image"><a href="Marketing%20Segmentation/image%201.png"><img style="width:709.9431762695312px" src="Marketing%20Segmentation/image%201.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-80e3-b986-d8bf0deead81" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1e3eea59-ca7a-8006-8170-c0900c372819" class="">Organizational Markets Segmentation</h2></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-80fd-abdf-d4791af0a89a" class="">Organizational markets, in contrast to consumer markets, tend to be characterized by relatively small number of buyers</p></div><div style="display:contents" dir="ltr"><figure id="1e3eea59-ca7a-8062-957d-d4ce0924ca0e" class="image"><a href="Marketing%20Segmentation/image%202.png"><img style="width:709.9715576171875px" src="Marketing%20Segmentation/image%202.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-80e3-8017-c14488a5d189" class="">Le pubblicità di marketing per business/industry è difficile che le troviamo in televisione o in cartelloni pubblicitari in autostrada </p></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8079-a655-f75b01e16870" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1e3eea59-ca7a-80c1-862c-f99649324828" class="">Five Criteria for Successful Segmentation</h2></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8034-8c87-d89c4c028dcb" class="">For successful segmentation, a company needs to ensure their <mark class="highlight-teal">target segments</mark> satisfy all these criteria</p></div><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-80d7-a7b2-fe84f56cdd2b" class="column-list"><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-8070-a127-e815147af63f" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80e4-9336-e5258cdc3dea" class="bulleted-list"><li style="list-style-type:disc"><strong>Effective</strong>: represents segmentation that effectively meets strategic goals and addresses customer needs</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-808a-a9e0-d585fffca715" class="bulleted-list"><li style="list-style-type:disc"><strong>Measurable</strong>: indicates that segments should be quantifiable and measurable to track performance</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80aa-9ef0-ea471a0859b3" class="bulleted-list"><li style="list-style-type:disc"><strong>Accessible</strong>: refers to segments being reachable through marketing communications and distribution channels</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80e9-8f1a-f7f5057ee55e" class="bulleted-list"><li style="list-style-type:disc"><strong>Actionable</strong>: segments should be specific enough to develop actionable marketing strategies and programs</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-8091-bcfb-e7231a4ef451" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1e3eea59-ca7a-80af-b8cc-c90eeda42c6c" class="image"><a href="Marketing%20Segmentation/image%203.png"><img style="width:709.9573364257812px" src="Marketing%20Segmentation/image%203.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-805f-b10d-d8fa7d1ba138" class="bulleted-list"><li style="list-style-type:disc"><strong>Profitable</strong>: segments should be large or valuable enough to profitably serve.</li></ul></div><div style="display:contents" dir="auto"><h2 id="1e3eea59-ca7a-80bc-bd64-cbfed5b22caa" class="">Target Marketing</h2></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8055-93cc-cd44509c7101" class="">Target marketing refers to the choice of specific segments to serve, and is a key element in marketing strategy.</p></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-805d-a6be-fca5c70bdaab" class="bulleted-list"><li style="list-style-type:disc">Organizations need to evaluate the segments to decide which ones to serve<mark class="highlight-teal"> using the five criteria for successful segmentation</mark>.</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-808e-977a-c144c8e99a6c" class="bulleted-list"><li style="list-style-type:disc">For example, the Coca-Cola brand Powerade conducted research across five European countries and identified seven consumer segments whose attitudes and needs varied significantly and chose to focus on the <mark class="highlight-teal">‘true sportsman’</mark> segment</li></ul></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8071-a299-ee250c6cd603" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1e3eea59-ca7a-8091-8017-df645e9bf386" class="">Strategies</h3></div><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-806b-9506-f119cb25bf9e" class="column-list"><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-8029-a1e0-ff8f070fce4b" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-8089-b0e6-dd2627238326" class="bulleted-list"><li style="list-style-type:disc"><strong>Undifferentiated Marketing</strong><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-8054-b3b0-d5793c5e73d3" class="bulleted-list"><li style="list-style-type:circle">No segmentation is used - the company treats the whole market as having similar needs</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-800d-87b3-efc18177248f" class="bulleted-list"><li style="list-style-type:circle">Mass marketing approach that focuses on commonalities rather than differences</li></ul></div></li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-80ea-a1d4-dde24ad452e1" style="width:43.75000000000001%" class="column"><div style="display:contents" dir="ltr"><figure id="1e3eea59-ca7a-8002-ae46-e164660bdb51" class="image"><a href="Marketing%20Segmentation/image%204.png"><img style="width:602.98291015625px" src="Marketing%20Segmentation/image%204.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80a7-8e6f-fe97ceb45690" class="bulleted-list"><li style="list-style-type:disc"><strong>Differentiated Marketing</strong><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-807f-b1dd-cc265964085c" class="bulleted-list"><li style="list-style-type:circle">Multiple marketing mixes (1, 2, 3) are developed for different market segments</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80ca-87ee-eb4aa6621356" class="bulleted-list"><li style="list-style-type:circle">The company recognizes distinct customer groups (segment differences) and creates tailored approaches for each</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-804c-91d2-c9d28dea7858" class="bulleted-list"><li style="list-style-type:circle">Example: A clothing brand with separate lines for men, women, and children</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80a0-a9c6-ec57b9c5730f" class="bulleted-list"><li style="list-style-type:disc"><strong>Focused Marketing</strong><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-8005-9ecb-e69d2d5bd005" class="bulleted-list"><li style="list-style-type:circle">The company specializes in serving one specific segment very well</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80c9-b454-d435b5cbb8d8" class="bulleted-list"><li style="list-style-type:circle">Also called concentrated marketing or niche marketing</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-8002-9c7c-cb3f775ab680" class="bulleted-list"><li style="list-style-type:circle">Example: A luxury watchmaker focusing exclusively on high-net-worth individuals</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-805e-9bf3-e56dd0721763" class="bulleted-list"><li style="list-style-type:disc"><strong>Customized Marketing</strong><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80da-9b3f-fd8e0298800d" class="bulleted-list"><li style="list-style-type:circle">Individual marketing mixes are created for individual customers</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-802b-9d15-e886db082471" class="bulleted-list"><li style="list-style-type:circle">The highest level of segmentation, treating each customer as a unique segment</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-807c-a794-cb9b0741a459" class="bulleted-list"><li style="list-style-type:circle">Also known as one-to-one marketing or personalized marketing</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-807e-abb0-ec7d9144660d" class="bulleted-list"><li style="list-style-type:circle">Example: Custom tailoring services or enterprise B2B solutions designed for specific clients</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-801f-8b3e-e7f0ff2f63d2" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1e4eea59-ca7a-80a0-b25e-eea37a1ad407" class="">Process of Personalization</h3></div><div style="display:contents" dir="ltr"><figure id="1e4eea59-ca7a-80d2-b66d-d5f42d013814" class="image"><a href="Marketing%20Segmentation/image%205.png"><img style="width:432px" src="Marketing%20Segmentation/image%205.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-802f-a4e3-e7df4d1d27de" class="">In the context of market segmentation, this represents the evolution toward customized marketing:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-8021-9030-dab1528c8c0c" class="numbered-list" start="1"><li><strong>Data Collection and Interactions</strong>: The cycle begins with capturing customer interactions and external data (shown in the outer red ring), which forms the foundation of personalization.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-8087-81ee-dbaa078e5833" class="numbered-list" start="2"><li><strong>Processing Stage</strong>: Raw customer data is analyzed to create detailed customer profiles. This goes beyond traditional segmentation by focusing on individual preferences, behaviors, and characteristics.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-807e-9667-e0b470046dc8" class="numbered-list" start="3"><li><strong>Customization Stage</strong>: Using these profiles, marketing outputs are specifically tailored to individual customers rather than broader segments.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-80ca-8fd7-dd8ea77ef441" class="numbered-list" start="4"><li><strong>Delivery Stage</strong>: The personalized marketing outputs are delivered to individual customers through appropriate channels.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-80c6-bd82-c7b803dd6e8e" class="numbered-list" start="5"><li><strong>Continuous Feedback Loop</strong>: The customer&#x27;s response generates new interaction data, which feeds back into the system, creating a self-improving cycle.</li></ol></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-808b-8e3f-fd66a2020a92" class="">In modern marketing, this personalization approach has become increasingly feasible through digital technologies, data analytics, and AI, allowing companies to move beyond broad segmentation to truly individualized marketing at scale</p></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-803b-a54c-fa05c4da6d43" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1e4eea59-ca7a-8011-8c36-d36a5496b110" class="">Positioning</h3></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-8004-89b4-d9f4496cc07c" class="">Refers to the act of designing the company’s offering, so that it occupies a meaningful and distinct position in the target consumers mind</p></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-80dc-aacc-ca08db89fd4b" class="bulleted-list"><li style="list-style-type:disc">Kellogg’s has positioned its Special K offering for females and its Bran Flakes for males</li></ul></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-8065-88f9-c0df61dc8839" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-8088-ad2a-f6963cbf1c7e" class="">Deciding what position to occupy in the market requires consideration of three variables:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-80e7-bb26-c1ebc496ff1a" class="numbered-list" start="1"><li>The customers – what attributes matter to them;</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-804a-ba56-f229d2cd6bdf" class="numbered-list" start="2"><li>The competitors – a differential advantage that ideally cannot be easily matched;</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-8097-8357-ea3ea7a01edc" class="numbered-list" start="3"><li>The company – unique sustainable attributes</li></ol></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-80c9-af5b-f4dd971db9bd" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="1e4eea59-ca7a-8034-8950-c6d7ef8ec307" class="image"><a href="Marketing%20Segmentation/d6d8d125-4421-4d0d-b5e9-2a0e0b7fa95d.png"><img style="width:347.15474209650574px" src="Marketing%20Segmentation/d6d8d125-4421-4d0d-b5e9-2a0e0b7fa95d.png"/></a><figcaption>4C</figcaption></figure></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-80eb-b580-d54a845672cd" class="numbered-list" start="1"><li><strong>Clarity</strong>:<div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-8006-a924-c545983ed643" class="bulleted-list"><li style="list-style-type:disc">Positioning must be clearly defined and easily understood by the target audience</li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-801a-84d9-ed3d1c974ad7" class="bulleted-list"><li style="list-style-type:disc">The unique value proposition should be immediately apparent<div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-80aa-a6ca-debb4f31d223" class="bulleted-list"><li style="list-style-type:circle">Avoids confusion about what the brand or product stands for</li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-8041-9eed-f837a1899467" class="numbered-list" start="2"><li><strong>Consistency</strong>:<div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-80a6-b282-d24f51eaaad8" class="bulleted-list"><li style="list-style-type:disc">The positioning message must be maintained consistently across all marketing channels and touchpoints</li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-80f1-a812-d8c6376cde1f" class="bulleted-list"><li style="list-style-type:disc">Reinforces brand identity through repeated, coherent messaging</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-802d-809e-f8b57ec07683" class="numbered-list" start="3"><li><strong>Credibility</strong>:<div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-80f7-bce4-e8d5aa69af8f" class="bulleted-list"><li style="list-style-type:disc">Positioning claims must be believable and authentic to the target audience</li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-80e2-8fff-d0ef038c24bb" class="bulleted-list"><li style="list-style-type:disc">The position taken should align with company capabilities and values</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-80b5-8b2c-decf887f1cf9" class="numbered-list" start="4"><li><strong>Competitiveness</strong>:<div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-8048-8082-d92a4847a451" class="bulleted-list"><li style="list-style-type:disc">Positioning must differentiate the brand/product from competitors</li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-802e-81ca-d08a0f014aa5" class="bulleted-list"><li style="list-style-type:disc">Highlights unique benefits or attributes that competition doesn&#x27;t offer</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><h2 id="1e4eea59-ca7a-80ca-9c59-d3584d539932" class="">The Perceptual Map</h2></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-80fb-aaab-db28652efc4a" class="">The perceptual map is a useful tool for determining the position of a brand in the marketplace.</p></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-8085-acbd-f9535cbc715f" class="">The key steps in producing a perceptual map are:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-8028-a8a7-cfbf6f86a15c" class="numbered-list" start="1"><li>Identify a set of competing brands;</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-80dd-b6f1-e1d420b19e84" class="numbered-list" start="2"><li>Identify the important attributes consumers use when choosing between brands;</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-8012-bcff-c8d0a455aeb8" class="numbered-list" start="3"><li>Conduct <mark class="highlight-teal">quantitative marketing research </mark>where consumers score each brand on all key attributes;</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-8030-b856-db389f79e170" class="numbered-list" start="4"><li>Plot brands on a two-dimensional map</li></ol></div><div style="display:contents" dir="ltr"><figure id="1e4eea59-ca7a-808f-9f1e-f1c8473f5041" class="image"><a href="Marketing%20Segmentation/image%206.png"><img style="width:432px" src="Marketing%20Segmentation/image%206.png"/></a><figcaption>Perceptual map of supermarkets</figcaption></figure></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-8069-8f5d-ed179d397b4d" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1e4eea59-ca7a-8097-86a2-cdd4ba39abaf" class="">Repositioning</h2></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-80e1-8ec8-c80aa2748c61" class="">Repositioning involves changing:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-80db-b596-d504e9636f39" class="numbered-list" start="1"><li>the target markets;</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-80e4-80bc-dcc5c832f19e" class="numbered-list" start="2"><li>the differential advantage (how your product is perceived compared to competitors)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e4eea59-ca7a-8096-847b-c5e8abbfa843" class="numbered-list" start="3"><li>or both</li></ol></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-80c8-80ac-f9e6f61f49ce" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e4eea59-ca7a-8036-ba56-f82100a9f0bc" class="">Types of repostioning</p></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-8067-87cd-f5f8ff0bd768" class="bulleted-list"><li style="list-style-type:disc"><strong>Image Repositioning</strong><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-8006-9e96-f83f6aff15ef" class="bulleted-list"><li style="list-style-type:circle">Keep the product and target market the same</li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-80a6-9422-c89f68228ef1" class="bulleted-list"><li style="list-style-type:circle">Change only the image or perception of the product</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-804e-9b9c-d0f8ace08b31" class="bulleted-list"><li style="list-style-type:disc"><strong>Intangible repositioning</strong><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-8000-ad0e-ca40cb68fa76" class="bulleted-list"><li style="list-style-type:circle">Retain the same product or the same market and change the other</li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-80e8-98da-dce11152168e" class="bulleted-list"><li style="list-style-type:circle">Example: When Nintendo Wii repositioned gaming consoles to target families and casual players rather than hardcore gamers</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-80f5-96d8-e43da3b9a994" class="bulleted-list"><li style="list-style-type:disc"><strong>Tangible Repositioning</strong><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-800e-93eb-cf72bb3b4b94" class="bulleted-list"><li style="list-style-type:circle">Change both the product and the target market</li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-805c-b6a6-c4b6d1bb5b6e" class="bulleted-list"><li style="list-style-type:circle">The most comprehensive form of repositioning</li></ul></div><div style="display:contents" dir="auto"><ul id="1e4eea59-ca7a-80ed-adc2-c0b9cb3ffa88" class="bulleted-list"><li style="list-style-type:circle">Example: When IBM shifted from primarily selling hardware to offering business consulting and software services, changing both what they sold and who they sold to</li></ul></div></li></ul></div><div style="display:contents" dir="ltr"><figure id="1e4eea59-ca7a-80d8-b591-f873e7eb03c3" class="image"><a href="Marketing%20Segmentation/image%207.png"><img style="width:648px" src="Marketing%20Segmentation/image%207.png"/></a></figure></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

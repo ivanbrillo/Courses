@@ -1,0 +1,742 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Process Mining</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2b7eea59-ca7a-8054-a7a0-d380f9104428" class="page sans"><header><h1 class="page-title" dir="auto">Process Mining</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="2b7eea59-ca7a-804f-93b0-e61a0d2d20d3" class="">The focus of process mining is to discover, monitor and improve real processes by extracting knowledge from <mark class="highlight-orange">event logs</mark> readily available in today&#x27;s information systems</p></div><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-80bb-847d-ceda0bdb8bf6" class="column-list"><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-806d-ae04-c63ed52e7a57" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="2b7eea59-ca7a-801b-8fff-e8226cfb156f" class="">Process mining techniques includes:</p></div><div style="display:contents" dir="auto"><ol type="a" id="2b7eea59-ca7a-80b9-8302-df84b1e448db" class="numbered-list" start="1"><li><mark class="highlight-teal">Automated process discovery</mark> (extracting process models from an event log)</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="2b7eea59-ca7a-80ed-9cbc-f80d397c7db7" class="numbered-list" start="2"><li><mark class="highlight-teal">Conformance checking</mark> (monitoring deviations by comparing model and log)</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="2b7eea59-ca7a-80e9-88de-d177139b09c5" class="numbered-list" start="3"><li><mark class="highlight-teal">Model enhancement </mark>(model extension and repairing)</li></ol></div><div style="display:contents" dir="auto"><p id="2c3eea59-ca7a-800d-97b9-ec3bde64b399" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-800d-8871-ca0dcb7e03e0" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="2b7eea59-ca7a-80d7-b275-f4b028f7fc0f" class="image"><a href="Process%20Mining/image.png"><img style="width:528px" src="Process%20Mining/image.png"/></a><figcaption>discovery, conformance checking and enhancement</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-80dd-abb7-ed66812abafa" class="">Process models are expressed via process notation: <mark class="highlight-orange">Petri Net </mark>or BPMN</p></div><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-80ce-bbe5-e159af03a2f5" class="column-list"><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-805e-9f1c-eabe75efcc3b" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="2b7eea59-ca7a-8047-aea6-ff2c6fac65cf" class="image"><a href="Process%20Mining/image%201.png"><img style="width:336px" src="Process%20Mining/image%201.png"/></a></figure></div></div></div><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-80ee-894a-c48259c73e65" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="2b7eea59-ca7a-80d7-a23a-f1322f5bdba8" class="image"><a href="Process%20Mining/image%202.png"><img style="width:480px" src="Process%20Mining/image%202.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-8033-808e-e65cab265f01" class="column-list"><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-80eb-a730-ff03460b4cca" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-8037-aa52-f0b6c35735a7" class="">Petri net, a mathematical modeling language for describing distributed systems. </p></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-80e8-9ff7-e8ee6ac8c3b0" class="bulleted-list"><li style="list-style-type:disc">It is a <mark class="highlight-blue">bipartite graph</mark> in which nodes represents transitions and places, connected by arcs</li></ul></div><div style="display:contents" dir="auto"><ul id="2b7eea59-ca7a-80ba-8a04-d2df0fd1ddf8" class="bulleted-list"><li style="list-style-type:disc">A <mark class="highlight-orange">transition </mark>is an event that may occur, and is represented by a bar</li></ul></div><div style="display:contents" dir="auto"><ul id="2b7eea59-ca7a-80be-b8d4-e96ea173d598" class="bulleted-list"><li style="list-style-type:disc">A <mark class="highlight-orange">place </mark>is a condition and is represented by a circle</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-8061-a41a-f93b700eb0d5" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="2bbeea59-ca7a-8085-92ab-f85a75417412" class="image"><a href="Process%20Mining/image%203.png"><img style="width:331.9875183105469px" src="Process%20Mining/image%203.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="2b7eea59-ca7a-8035-8226-fca0d8d0f551" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">arcs </mark>run from a place to a transition (input place) or vice versa (output place)<div style="display:contents" dir="auto"><ul id="2b7eea59-ca7a-80ed-88c2-febf4d14f187" class="bulleted-list"><li style="list-style-type:circle">never between places or between transitions</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-80c7-b305-dfb4bfff97a0" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2b7eea59-ca7a-805c-99f2-e934b0850c18" class="">Places may contain a discrete number of marks called <mark class="highlight-orange">tokens</mark>. </p></div><div style="display:contents" dir="auto"><ul id="2b7eea59-ca7a-8038-8b83-dd6a8821e462" class="bulleted-list"><li style="list-style-type:disc">A distribution of tokens over the places represents a <mark class="highlight-orange">configuration </mark>(marking) of the net</li></ul></div><div style="display:contents" dir="auto"><ul id="2b7eea59-ca7a-80eb-8ad9-fda160b0d0c5" class="bulleted-list"><li style="list-style-type:disc">A transition is <mark class="highlight-teal">fired </mark>if it is enabled, i.e., there are sufficient tokens in all of its input places. <div style="display:contents" dir="auto"><ul id="2b7eea59-ca7a-80f3-9546-fdefc9daf77a" class="bulleted-list"><li style="list-style-type:circle">When the transition fires it consumes the required input tokens and created tokens in its output places. </li></ul></div><div style="display:contents" dir="auto"><ul id="2b7eea59-ca7a-80dd-bbad-c5e499359e8e" class="bulleted-list"><li style="list-style-type:circle">A firing is <mark class="highlight-teal">atomic </mark>(single non interruptible step).</li></ul></div><div style="display:contents" dir="auto"><ul id="2b7eea59-ca7a-80b5-9513-d5d01e254438" class="bulleted-list"><li style="list-style-type:circle">Unless otherwise specified, when multiple transitions are enabled at the same time, any one of them may fire (<mark class="highlight-teal">non determinism</mark>).</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-80f1-bbe6-cd2434fab172" class="">
+</p></div><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-8035-8eff-f93810359838" class="column-list"><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-80d5-9a85-fbef8662b32d" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-801f-84dc-f074e772b8d3" class="">In pure petri nets the behavior can be specified with arc <mark class="highlight-blue">multiplicities</mark>: a<br/>transition t is enabled at marking m if every input place p of t contains at least as<br/>many tokens as the multiplicity of the arc from p to t is.</p></div></div></div><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-809e-b167-fba79e79ee24" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="2bbeea59-ca7a-8004-ba28-edf758e12b26" class="image"><a href="Process%20Mining/image%204.png"><img style="width:709.9625244140625px" src="Process%20Mining/image%204.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-8050-9f2f-ff7d4484c583" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-80ae-8bd2-d5fad5d3747c" class=""><mark class="highlight-orange">Process algebra</mark> is a family of formal approaches used in computer science to model concurrent systems</p></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-80aa-8ce7-dfc4a5214a90" class="bulleted-list"><li style="list-style-type:disc">algebraic laws to manipulate, analyze and permit formal reasoning about processes</li></ul></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-80c3-ba68-d12882a918ef" class="bulleted-list"><li style="list-style-type:disc">PetriNets can be translated in BPMN</li></ul></div><div style="display:contents" dir="auto"><p id="2b7eea59-ca7a-80aa-986d-d82431863e56" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="2b7eea59-ca7a-8050-835b-eece140f9663" class="">Process Mining</h1></div><div style="display:contents" dir="ltr"><figure id="2b7eea59-ca7a-80a5-b5aa-fcfe4b59295e" class="image"><a href="Process%20Mining/image%205.png"><img style="width:432px" src="Process%20Mining/image%205.png"/></a></figure></div><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-80e1-add1-e5b0e4d53127" class="column-list"><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-80db-ae9e-e81934353be4" style="width:43.75%" class="column"><div style="display:contents" dir="ltr"><figure id="2bbeea59-ca7a-8070-83c9-cc35533c36c2" class="image"><a href="Process%20Mining/image%206.png"><img style="width:709.9750366210938px" src="Process%20Mining/image%206.png"/></a><figcaption>petrinet</figcaption></figure></div></div></div><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-80d3-b63b-f5f0d4af8df2" style="width:56.25%" class="column"><div style="display:contents" dir="ltr"><figure id="2bbeea59-ca7a-8058-9f8b-eb7f1271ad0e" class="image"><a href="Process%20Mining/image%207.png"><img style="width:373.5px" src="Process%20Mining/image%207.png"/></a><figcaption>BPMN</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-806f-ab94-d139969bfb22" class="">
+</p></div><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-8025-858b-fcb953c8cfa9" class="column-list"><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-8016-a9f8-e45abaf00d01" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-80ef-8746-ceb661510d01" class="">PM covers:</p></div><div style="display:contents" dir="auto"><ol type="1" id="2bbeea59-ca7a-8002-bae4-f5ad441f7b11" class="numbered-list" start="1"><li><mark class="highlight-blue">control flow</mark>: The <strong>sequence and ordering</strong> of activities in a process (all possible paths)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2bbeea59-ca7a-8095-9a82-d9c378006dc2" class="numbered-list" start="2"><li><mark class="highlight-blue"><strong>Organizational perspective</strong></mark><strong>: </strong>The <strong>resources</strong> involved: people, roles, departments, teams</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2bbeea59-ca7a-800a-892b-fb501c9260f5" class="numbered-list" start="3"><li><mark class="highlight-blue"><strong>case perspective</strong></mark><strong>: </strong>The <strong>attributes of individual cases </strong>(e.g path, actors, ..)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2bbeea59-ca7a-80e5-87f8-cc9bad194545" class="numbered-list" start="4"><li><mark class="highlight-blue">Time perspective </mark>→ bottlenecks, resource utilization, …</li></ol></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-80c8-92fe-f0d6059bb3e9" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-80f3-8d78-e24430999f3f" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="2b7eea59-ca7a-8079-b1fa-d2a63a090a23" class="image"><a href="Process%20Mining/image%208.png"><img style="width:576px" src="Process%20Mining/image%208.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-8077-a11a-fe8d87566aeb" class="">
+</p></div></div></div></div></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-8046-845a-d384ca1b07e3" class=""><mark class="highlight-orange">events log</mark>: stored in database tables, message logs, mail archives, transaction logs, and other data sources</p></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-8003-a538-c86fc157b83e" class="bulleted-list"><li style="list-style-type:disc">we can characterize by their quality</li></ul></div><div style="display:contents" dir="ltr"><table id="2bbeea59-ca7a-805d-bbe8-e8bb9c55c21a" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2bbeea59-ca7a-8043-99e1-f471b3864563"><th id="k{}Z" class="simple-table-header-color simple-table-header" style="width:143.66250610351562px">Level</th><th id="[MrX" class="simple-table-header-color simple-table-header" style="width:368.6625061035156px">Characterization</th><th id="KPPS" class="simple-table-header-color simple-table-header" style="width:235.66666666666666px">Examples</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2bbeea59-ca7a-8081-8d5b-ec7d8f100881"><td id="k{}Z" class="" style="width:143.66250610351562px">⭐⭐⭐⭐⭐</td><td id="[MrX" class="" style="width:368.6625061035156px">Excellent quality, trustworthy logs. Automatic, systematic, reliable recording. Clear semantics with ontology support.</td><td id="KPPS" class="" style="width:235.66666666666666px"><mark class="highlight-teal">Semantically annotated BPM system logs</mark></td></tr></div><div style="display:contents" dir="ltr"><tr id="2bbeea59-ca7a-80d7-8f6b-cff9df45ec88"><td id="k{}Z" class="" style="width:143.66250610351562px">⭐⭐⭐⭐</td><td id="[MrX" class="" style="width:368.6625061035156px">Automatic, systematic, reliable recording. Supports process instances and activities explicitly.</td><td id="KPPS" class="" style="width:235.66666666666666px">Traditional <mark class="highlight-teal">BPM/workflow</mark> system logs</td></tr></div><div style="display:contents" dir="ltr"><tr id="2bbeea59-ca7a-8073-b623-c003b8dac20b"><td id="k{}Z" class="" style="width:143.66250610351562px">⭐⭐⭐</td><td id="[MrX" class="" style="width:368.6625061035156px"><mark class="highlight-teal">Automatic recording but not systematic</mark>. Events trustworthy but not necessarily complete. Information can be assumed correct.</td><td id="KPPS" class="" style="width:235.66666666666666px">ERP system tables, CRM system logs, messaging transaction logs, high-tech system logs</td></tr></div><div style="display:contents" dir="ltr"><tr id="2bbeea59-ca7a-8036-b401-e6096907efd1"><td id="k{}Z" class="" style="width:143.66250610351562px">⭐⭐</td><td id="[MrX" class="" style="width:368.6625061035156px"><mark class="highlight-teal">Automatic recording as by-product</mark>. No systematic approach. Variable coverage. Events may be missing or improperly recorded.</td><td id="KPPS" class="" style="width:235.66666666666666px">Document/product management logs, embedded system error logs, service engineer worksheets</td></tr></div><div style="display:contents" dir="ltr"><tr id="2bbeea59-ca7a-8000-b512-ec943842f8a9"><td id="k{}Z" class="" style="width:143.66250610351562px">⭐</td><td id="[MrX" class="" style="width:368.6625061035156px">Poor quality logs. Events may not correspond to reality or be missing. Typically recorded by <mark class="highlight-teal">hand</mark>.</td><td id="KPPS" class="" style="width:235.66666666666666px">Paper trails, &quot;yellow notes&quot;, paper-based medical records</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-8022-9c9c-d7982ed3ae14" class="column-list"><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-80c3-9903-dd2505a3fb10" style="width:37.5%" class="column"><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-80a9-97eb-eb68466fb2be" class="">As event logs contain only sample behavior, they should not be assumed to be complete. </p></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-80b9-8c44-d9a4cc6aa475" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Open world assumption</mark>: the fact that something did not happened doesn’t mean that it cannot happen</li></ul></div><div style="display:contents" dir="auto"><ul id="2b7eea59-ca7a-8038-9718-df8a6ecb350a" class="bulleted-list"><li style="list-style-type:disc">useless to have too complex models to explain the data</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-8098-8833-cba6734cf705" style="width:62.5%" class="column"><div style="display:contents" dir="ltr"><figure id="2b7eea59-ca7a-808f-a327-cb6516511cc9" class="image"><a href="Process%20Mining/image%209.png"><img style="width:502.8299865722656px" src="Process%20Mining/image%209.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-8070-90b5-d3e08927a0fb" class="column-list"><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-8077-b455-e3a51a6f0471" style="width:31.25%" class="column"><div style="display:contents" dir="auto"><ul id="2b7eea59-ca7a-808a-98c9-d842f199bea7" class="bulleted-list"><li style="list-style-type:disc">this model is too general for the event log</li></ul></div><div style="display:contents" dir="auto"><p id="2b7eea59-ca7a-80a1-a04f-f37a996e8732" class="">Mining is an <mark class="highlight-orange">optimization </mark>task of the model</p></div></div></div><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-801c-9f4d-c33c7f914589" style="width:68.75%" class="column"><div style="display:contents" dir="ltr"><figure id="2b7eea59-ca7a-806d-8dd2-dd893e16477a" class="image"><a href="Process%20Mining/image%2010.png"><img style="width:480px" src="Process%20Mining/image%2010.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-802b-9542-d5b2fcd55188" class="">There are<mark class="highlight-blue"> four competing model quality dimensions</mark>: challenging to balance all of them</p></div><div style="display:contents" dir="auto"><ol type="1" id="2bbeea59-ca7a-80eb-b6d1-fbe1e470423b" class="numbered-list" start="1"><li>fitness: to allow for most of the behavior seen in the event log</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2bbeea59-ca7a-8093-b4cf-eaf3e770f757" class="numbered-list" start="2"><li>simplicity: to allow for the most compact representation of the log</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2bbeea59-ca7a-80db-afa4-cef7ceb60bcf" class="numbered-list" start="3"><li>precision: it does not allow for too much extra behavior w.r.t the log<div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-80be-9a48-c268d47d23ff" class="bulleted-list"><li style="list-style-type:disc">If not precise is <mark class="highlight-teal">underfitting</mark></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2bbeea59-ca7a-80db-8aed-c25b6c71ccbd" class="numbered-list" start="4"><li>generalization: it does not restrict behavior to just the log<div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-809a-bb90-f192bbb23277" class="bulleted-list"><li style="list-style-type:disc">if not generalizable is <mark class="highlight-teal">overfitting</mark></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="2b7eea59-ca7a-800f-a8a1-fb84e258d848" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2b7eea59-ca7a-8091-a993-e3ee19767c61" class="">Three important categories of mining algorithms:</p></div><div style="display:contents" dir="auto"><ol type="1" id="2b7eea59-ca7a-80fa-a54b-fb5739e36a26" class="numbered-list" start="1"><li><mark class="highlight-teal">Deterministic mining algorithm</mark>: it always delivers the same result for the same input. e.g. the alpha-algorithm (2002)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2b7eea59-ca7a-80ba-913c-ff7a801c44b0" class="numbered-list" start="2"><li><mark class="highlight-teal">Heuristic mining algorithm</mark>: it also uses deterministic algorithms but they incorporate frequencies of events and traces for reconstructing a process model, disregarding infrequent paths in order to manage complexity.<div style="display:contents" dir="auto"><ul id="2b7eea59-ca7a-800f-bd85-f4fc3ce624fd" class="bulleted-list"><li style="list-style-type:disc">like a pruning of the less occurent logs</li></ul></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-80ea-86a4-de1bd2876b1e" class="bulleted-list"><li style="list-style-type:disc">Heuristic Fuzzy Miner algorithm, which does not follow the BPMN notation but uses a dependency graph: <div style="display:contents" dir="ltr"><figure id="2b7eea59-ca7a-8097-8f55-df513cf3c86e" class="image" style="text-align:center"><a href="Process%20Mining/image%2011.png"><img style="width:384px" src="Process%20Mining/image%2011.png"/></a></figure></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2b7eea59-ca7a-804f-9fd4-da978cda7c3a" class="numbered-list" start="3"><li><mark class="highlight-teal">Genetic mining algorithm</mark>: it uses an evolutionary approach to find a satisfactory solution by iteratively selecting individuals and reproducing them by crossover and mutation over different generations.</li></ol></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-8059-9429-c6970d3626e8" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="2bbeea59-ca7a-80ed-ae72-e575c88007ab" class="">Logs</h3></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-8038-ac2c-fec0c5f47dc8" class="">Event logs contain a set of events. </p></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-80f8-8f3f-cdd1281d7b82" class="bulleted-list"><li style="list-style-type:disc">A single event has a unique event ID, it refers to one individual case, it has a timestamp, and it shows which resources executed which task. </li></ul></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-8090-a039-c277710a7d58" class="bulleted-list"><li style="list-style-type:disc">It is a minimum requirement that the events refer to (i) one case [e.g. patient ID], (ii) one task, and (iii) a point in time</li></ul></div><div style="display:contents" dir="ltr"><figure id="2bbeea59-ca7a-8000-aab5-fca7eec9cdbc" class="image"><a href="Process%20Mining/image%2012.png"><img style="width:432px" src="Process%20Mining/image%2012.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-8089-ae05-c9cb0270a888" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="2b7eea59-ca7a-8015-a506-cc962bfabeb9" class="">Alpha algorithm</h1></div><div style="display:contents" dir="auto"><p id="2b7eea59-ca7a-801d-9a74-ec00678df3ad" class="">Assumptions:</p></div><div style="display:contents" dir="auto"><ol type="1" id="2bbeea59-ca7a-80b6-8220-fd7ffdfe212a" class="numbered-list" start="1"><li>logs are chronologically ordered</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2bbeea59-ca7a-8083-be12-ce94199f1898" class="numbered-list" start="2"><li>each event refers to a single case (one caseID associated)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2bbeea59-ca7a-8095-a698-caca489d43d0" class="numbered-list" start="3"><li>each event refers to a specific activity of the process</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2bbeea59-ca7a-8089-9abf-c24abcc78f4a" class="numbered-list" start="4"><li>each activity of the process is included in the log</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2bbeea59-ca7a-800c-adca-e2942d047b4e" class="numbered-list" start="5"><li>the log is <mark class="highlight-orange">behaviorally complete</mark> in the sense that if an activity a can be directly followed by an activity b, then there is at least one case in the log where we observe ab</li></ol></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-80a1-9187-d3046ab96747" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Workflow log</mark> maps letters to activities (a = check stock availability, …) and discards repetitions</li></ul></div><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-8097-b3d8-c572905cf5f2" class="column-list"><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-80af-8019-c43329068437" style="width:50%" class="column"><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2bbeea59-ca7a-8072-94b6-faeaf2c258da" class="code code-wrap"><code class="language-Markdown" style="white-space:pre-wrap;word-break:break-all">Case 1: A → B → C → D
+Case 2: A → B → C → D
+Case 3: A → B → C → D
+Case 4: A → C → B → D
+Case 5: A → C → B → D</code></pre></div></div></div><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-80ee-a7e4-ebf5ea4c3a01" style="width:50%" class="column"><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2bbeea59-ca7a-80bb-8a64-ceacc7fcb73a" class="code code-wrap"><code class="language-Markdown" style="white-space:pre-wrap;word-break:break-all">Trace 1: A → B → C → D  
+Trace 2: A → C → B → D </code></pre></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-80f0-a666-ce7e587f68fb" class="">
+</p></div></div></div></div></div><div style="display:contents" dir="auto"><ol type="1" id="2bbeea59-ca7a-80b1-8df6-d9abbf6ccced" class="numbered-list" start="1"><li>The algorithm looks at pairs of activities in the log and classifies their relationship</li></ol></div><div style="display:contents" dir="ltr"><figure id="2bbeea59-ca7a-8047-aace-d29bdae0783f" class="image"><a href="Process%20Mining/image%2013.png"><img style="width:576px" src="Process%20Mining/image%2013.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="2bbeea59-ca7a-8081-81d7-d6b849283816" class="image"><a href="Process%20Mining/image%2014.png"><img style="width:576px" src="Process%20Mining/image%2014.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-801b-9722-c44fce50158c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-8077-b2fa-fdb468e61269" class="">The Alpha Algorithm <strong>cannot tell the difference</strong> between:</p></div><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-80a8-8b11-e8eea80931c0" class="column-list"><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-8054-a139-c0408f8c3e21" style="width:68.75%" class="column"><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-808d-878b-f622c782239e" class="bulleted-list"><li style="list-style-type:disc"><strong>True parallelism</strong> (activities happening at the same time)</li></ul></div><div style="display:contents" dir="auto"><p id="2c3eea59-ca7a-8048-924f-e54e2330b26f" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-806e-8495-c482624bf4c3" style="width:31.250000000000007%" class="column"><div style="display:contents" dir="ltr"><figure id="2bbeea59-ca7a-80cf-85d0-ccc698692c2a" class="image"><a href="Process%20Mining/image%2015.png"><img style="width:156.53750610351562px" src="Process%20Mining/image%2015.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-8041-aeba-c8c22b400e79" class="column-list"><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-804f-8dd2-efe025eeca85" style="width:68.75%" class="column"><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-802d-b68f-e4bb6d5d6f7e" class="bulleted-list"><li style="list-style-type:disc"><strong>Short loops</strong> (activities repeating in a sequence)<div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-809f-9d2c-deb2a3901563" class="bulleted-list"><li style="list-style-type:circle">a → b → d</li></ul></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-8007-8b22-d8fb3e57edac" class="bulleted-list"><li style="list-style-type:circle">b → c → b    loop</li></ul></div><div style="display:contents" dir="auto"><p id="2c3eea59-ca7a-80d4-9b8d-f3cea41118a3" class="">
+</p></div></li></ul></div></div></div><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-8029-882f-d14d0d452379" style="width:31.25%" class="column"><div style="display:contents" dir="ltr"><figure id="2bbeea59-ca7a-8073-92c0-ef20b637ce72" class="image"><a href="Process%20Mining/image%2016.png"><img style="width:250.4875030517578px" src="Process%20Mining/image%2016.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-80d8-aeee-d9c9a1c2d5ab" class="">Both models can produce workflow that yield <code>b||c</code> because both <code>bc</code> and <code>cb</code> are observed</p></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-809b-9cae-caf07d7628ec" class="bulleted-list"><li style="list-style-type:disc">the parallel can be created only if no <code>bcb</code> sequences are obseved on the logs</li></ul></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-8033-b018-c4423a5904e2" class="bulleted-list"><li style="list-style-type:disc">To determine potential parallelism in 10 concurrent tasks, the number of<br/>required different cases to observe is 10! = 3,268,800</li></ul></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-803b-b0e2-f07290a6d1b5" class="bulleted-list"><li style="list-style-type:disc">Preprocessing can be also used to collapse repetitions (like aa and bb) to a single execution</li></ul></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-80e6-af76-e567e1da4afe" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="2bbeea59-ca7a-80a7-8e79-e588a1dcd3f8" class="">Conformance Checking</h3></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-80ab-a5dc-ebc4ebb04ea4" class="">Conformance checking is concerned with the question whether or not the execution of a process (<mark class="highlight-teal">event logs</mark>) follows constraints (<mark class="highlight-teal">model</mark>)</p></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-805b-8e83-f1f676efbe79" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">replay </mark>each trace in the event log in the model</li></ul></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-8052-a313-efda6bd67e74" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-803f-9cd0-cc76d29d74aa" class="">The idea is to compare at each step the number of tokens that are required for replaying an activity with the actually available tokens.</p></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-80af-808a-ebf81b9e412c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-8081-a809-c6eaf44050f8" class="">At each step, we might observe situations of conformance and non conformance. In case of conformance, we count the following four facts:</p></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-8041-bb8d-fa72b6dc0f16" class="bulleted-list"><li style="list-style-type:disc"><code>p</code>: # of output tokens correctly produced by a model element [previous element]</li></ul></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-80c5-a1d3-ce15cf88c086" class="bulleted-list"><li style="list-style-type:disc"><code>c</code>: # of input tokens correctly consumed by a model element [next element]</li></ul></div><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-8024-aae4-c41f637d1fc3" class="column-list"><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-805f-96bc-f9209ecac255" style="width:68.75%" class="column"><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-807c-9dd3-c88ac1acf494" class="bulleted-list"><li style="list-style-type:disc"><code>m</code>: # of missing (unproduced) output tokens, e.g. because something did not occur</li></ul></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-80cf-9d23-f597f889d96e" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="2bbeea59-ca7a-801a-92f0-f21852af9566" style="width:31.25%" class="column"><div style="display:contents" dir="ltr"><figure id="2bbeea59-ca7a-809c-a9c3-e987ba04dca1" class="image"><a href="Process%20Mining/image%2017.png"><img style="width:236.22500610351562px" src="Process%20Mining/image%2017.png"/></a><figcaption>g not in the log</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-8055-bdb1-f186b3a1e99d" class="bulleted-list"><li style="list-style-type:disc"><code>r</code>: # of input tokens remaining unconsumed, e.g. because something did not occur although the model expected it to happen</li></ul></div><div style="display:contents" dir="auto"><figure id="2bbeea59-ca7a-808b-940a-c82181c08bb4" class="equation"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>p</mi><mo>+</mo><mi>m</mi><mo>=</mo><mi>c</mi><mo>+</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">p+m = c+r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">c</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span></span></span></div></figure></div><div style="display:contents" dir="ltr"><figure id="2bbeea59-ca7a-806f-82e6-e36a5119d460" class="image"><a href="Process%20Mining/image%2018.png"><img style="width:480px" src="Process%20Mining/image%2018.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="2bbeea59-ca7a-8008-a527-d02bfeed73d6" class="image"><a href="Process%20Mining/image%2019.png"><img style="width:576px" src="Process%20Mining/image%2019.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-8077-b9d7-c1d83d67a030" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-80a7-8d20-ed3caeda4aa6" class=""><mark class="highlight-orange">CAUSAL (C-) NET MINER</mark> → Discovers process models by finding causal relationships between activities.</p></div><div style="display:contents" dir="auto"><ol type="1" id="2bbeea59-ca7a-80ae-9cce-d49dece190a3" class="numbered-list" start="1"><li>Represents the process as a <mark class="highlight-pink_background">graph</mark>:</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2bbeea59-ca7a-80d3-b26f-e3a15254a8bc" class="numbered-list" start="2"><li>Finds the best model using costs:<div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-80e8-af44-e107f6c5b822" class="bulleted-list"><li style="list-style-type:disc">Uses <mark class="highlight-orange">A* algorithm </mark>(like finding shortest path on a map) [modification of dkjstra]</li></ul></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-806a-ae0f-e1044fc3d80e" class="bulleted-list"><li style="list-style-type:disc">Assigns costs to:<div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-80d1-ab1c-d568ac97d84b" class="bulleted-list"><li style="list-style-type:circle">Skipped activities (activities in model but not in log)</li></ul></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-8014-84cb-c5edb297163d" class="bulleted-list"><li style="list-style-type:circle">Inserted activities (activities in log but not in model)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-80e7-8f6c-c8266eebe87e" class="bulleted-list"><li style="list-style-type:disc">Finds the model with minimum total cost = best fit</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2bbeea59-ca7a-8038-8331-ebb44c6be013" class="numbered-list" start="3"><li>Uses <mark class="highlight-blue">projection</mark>: groups related events together and project the log on those to simplify the mining</li></ol></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-803b-8c3b-c579e444404e" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-8025-adaf-c7e84e02193c" class=""><mark class="highlight-orange">INDUCTIVE MINER  </mark>Discovers block-structured process models (clean, hierarchical processes without spaghetti)</p></div><div style="display:contents" dir="auto"><ol type="1" id="2bbeea59-ca7a-80d0-82c9-e74a0df5e28f" class="numbered-list" start="1"><li>Divides and conquers:<div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-80c4-84c8-f35b8efdf48f" class="bulleted-list"><li style="list-style-type:disc">Splits activities into groups</li></ul></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-80f1-8f22-e6838f7db960" class="bulleted-list"><li style="list-style-type:disc">Finds the most important process structure (sequence, choice, parallel, loop)</li></ul></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-8057-a07e-e2895929cfde" class="bulleted-list"><li style="list-style-type:disc">Recursively splits further until it reaches single activities (base case)</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2bbeea59-ca7a-809a-88ce-eb11fa626907" class="numbered-list" start="2"><li>Creates a process <mark class="highlight-pink_background">tree</mark>:<div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-8032-a0f2-e72027ddd589" class="bulleted-list"><li style="list-style-type:disc">Leaves = activities (a, b, c, etc.)</li></ul></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-80a0-bea4-ee522993a206" class="bulleted-list"><li style="list-style-type:disc">Nodes = operators that combine activities:<div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-8042-b3d8-cd1310ce06d0" class="bulleted-list"><li style="list-style-type:circle">× (XOR) = exclusive choice (either A or B)</li></ul></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-801f-b055-f2276d95a473" class="bulleted-list"><li style="list-style-type:circle">→ (Sequence) = sequential (A then B)</li></ul></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-8060-bed4-dafac9c6a89a" class="bulleted-list"><li style="list-style-type:circle">∧ (AND) = parallel (A and B simultaneously)</li></ul></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-80c3-b0fe-f3a3a930cebb" class="bulleted-list"><li style="list-style-type:circle">⟳ (Loop) = repetition (repeat A)</li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-808d-a743-d63f1725f557" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="2bbeea59-ca7a-80f1-a74b-f90df8a28e55" class="image"><a href="Process%20Mining/image%2020.png"><img style="width:587.9874877929688px" src="Process%20Mining/image%2020.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="2bbeea59-ca7a-80c8-bf6c-dae42909481a" class="image"><a href="Process%20Mining/image%2021.png"><img style="width:587.9874877929688px" src="Process%20Mining/image%2021.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-800a-8b4c-d4b0edb397a7" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-80f5-b546-ce4967fb7959" class=""><mark class="highlight-orange">Simplicity </mark>is measured by comparing the number of elements ( #gateways + #sequence flows + #activities) of the model M with the number of activities (cardinality of) in the log</p></div><div style="display:contents" dir="ltr"><figure id="2bbeea59-ca7a-8096-89f3-cbfc2e75a0b0" class="image"><a href="Process%20Mining/image%2022.png"><img style="width:587.9625244140625px" src="Process%20Mining/image%2022.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-8093-967a-d21d49c1dc51" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

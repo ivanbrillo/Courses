@@ -1,0 +1,740 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Intro</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="278eea59-ca7a-80e1-a54d-f65b5fa2a430" class="page sans"><header><h1 class="page-title" dir="auto">Intro</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><div id="278eea59-ca7a-80e1-8abe-fc33514b7af6" class="column-list"><div style="display:contents" dir="auto"><div id="278eea59-ca7a-80d2-8bb3-d362d40f3e2e" style="width:43.75%" class="column"><div style="display:contents" dir="auto"><p id="278eea59-ca7a-80e3-8541-f04a330f1fce" class="">We need another languange, since OOP isn’t sufficient to model the workflow of a business</p></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-80ae-8e5f-fddc1881fa42" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="278eea59-ca7a-8004-a102-daca20ece7c1" style="width:56.25%" class="column"><div style="display:contents" dir="ltr"><figure id="278eea59-ca7a-8003-ad2d-c848a60b6411" class="image"><a href="Intro/image.png"><img style="width:445.8199768066406px" src="Intro/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="278eea59-ca7a-8023-aafa-d52bc35360b8" class=""><mark class="highlight-orange">Business Process</mark>: collection of activities, triggered by an event, achiving a specific discrete result for the customer or other stakeholders</p></div><div style="display:contents" dir="auto"><ul id="278eea59-ca7a-8020-a74e-c3e4f786bb83" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">activity </mark>is a piece of work, named as a single unit, but it could involve multiple actors making contributions</li></ul></div><div style="display:contents" dir="auto"><ul id="278eea59-ca7a-8073-9cf8-dc2f3b42dbea" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">task </mark>is an actionable atomic item → decomposition of an activity</li></ul></div><div style="display:contents" dir="auto"><ul id="278eea59-ca7a-80a0-88b0-fd03e6778277" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">steps </mark>→ compose a task</li></ul></div><div style="display:contents" dir="auto"><ul id="278eea59-ca7a-8085-a5ff-c17b17af1cfa" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">customer</mark>: recipient of the beneficiary of the result</li></ul></div><div style="display:contents" dir="auto"><p id="278eea59-ca7a-801a-8b62-fcfce0aa7a3d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="278eea59-ca7a-8072-a8cd-cc492e840f3c" class="">A <mark class="highlight-orange">workflow </mark>is a (partial) automation of a business process. In a workflow resources, information, activities, follow a coordinated control flow established by a BP modeling language</p></div><div style="display:contents" dir="auto"><ul id="278eea59-ca7a-80e1-85d5-c1ef649f5df8" class="bulleted-list"><li style="list-style-type:disc">Business Process (BP) Analysis includes a broad meaning encompassing modeling, simulation, diagnosis, verification, performance of BP</li></ul></div><div style="display:contents" dir="auto"><ul id="278eea59-ca7a-808d-bb5e-f0fcdfb69c9a" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Business Process Modeling</mark> is the creative act of producing a workflow from a business process.</li></ul></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-8096-914a-d85287d42a27" class="">
+</p></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-8006-9fa8-d339602ac88d" class=""><mark class="highlight-blue">Imperative programming</mark>:<mark class="highlight-blue"> </mark>tell the computer <em>how</em>  to do things: a sequence of explicit commands that change program state</p></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-8080-b56e-d45556afdc78" class="bulleted-list"><li style="list-style-type:disc">describes the step-by-step control flow</li></ul></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-8012-be36-da40d932479b" class="bulleted-list"><li style="list-style-type:disc">not good for BPMN</li></ul></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-80e7-b304-cd36172086b7" class=""><mark class="highlight-blue">Declarative programming</mark>:<strong> </strong>tell the computer <em>what</em> you want, not how to get it</p></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-8016-9050-eb17e048cb88" class="bulleted-list"><li style="list-style-type:disc">the execution engine figures out the steps to satisfy those constraints</li></ul></div><div style="display:contents" dir="ltr"><figure id="278eea59-ca7a-80f6-a354-c1cfcfcd78e9" class="image"><a href="Intro/image%201.png"><img style="width:573.8200073242188px" src="Intro/image%201.png"/></a><figcaption>UML isn’t use anymore</figcaption></figure></div><div style="display:contents" dir="auto"><p id="278eea59-ca7a-80da-a013-e1530477c07b" class=""><mark class="highlight-orange">BPMN (Business Process Model and Notation)</mark> is based in declarative paradigm (describe the external world, not the machine) since it provides:</p></div><div style="display:contents" dir="auto"><ul id="278eea59-ca7a-8091-b7cd-d902f2f7d6c9" class="bulleted-list"><li style="list-style-type:disc">human-readable: visual notation</li></ul></div><div style="display:contents" dir="auto"><ul id="278eea59-ca7a-806e-9dd5-e5cfc2f2c1ae" class="bulleted-list"><li style="list-style-type:disc">accessible for various roles (managers and engineers)</li></ul></div><div style="display:contents" dir="auto"><ul id="278eea59-ca7a-805e-9dbf-caa33974c49d" class="bulleted-list"><li style="list-style-type:disc">machine-readable → serializable to XML for process execution</li></ul></div><div style="display:contents" dir="auto"><p id="278eea59-ca7a-8012-aba4-fd56a35f3760" class="">It is not a language for data flows → it’s more abstract</p></div><div style="display:contents" dir="auto"><p id="278eea59-ca7a-80ca-81da-f94ab203e8df" class="">It’s not a notation to represent structures, functional decompositions, data models, organization strategies, business rules → other languages for that</p></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-8091-8b9b-d44a15123cde" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-80ac-915e-e0ccbb4f6a22" class="">When condition A happens, B may occur; the process must eventually achieve outcome C</p></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-80e1-96c2-fcd032c41082" class="">They let the <strong>process engine decide</strong>: how to parellalize, which path, syncronizations, …</p></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-8052-aba1-d9756b643a81" class="">
+</p></div><div style="display:contents" dir="auto"><div id="278eea59-ca7a-8084-bcc0-f20f05e3029d" class="column-list"><div style="display:contents" dir="auto"><div id="278eea59-ca7a-804a-b79b-c91ccab48468" style="width:37.5%" class="column"><div style="display:contents" dir="auto"><p id="278eea59-ca7a-8004-b037-f7760b6ac22c" class=""><mark class="highlight-blue">Petri ners</mark> are the assabler of BPMN (mathematical formal language)</p></div><div style="display:contents" dir="auto"><ul id="278eea59-ca7a-80a5-95e9-f3c859b68474" class="bulleted-list"><li style="list-style-type:disc">I could also use UML, but it is not as readable as BPMN</li></ul></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-801c-ad33-db96e5cf16c2" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="278eea59-ca7a-80ec-bc5c-fec6f023466a" style="width:62.5%" class="column"><div style="display:contents" dir="ltr"><figure id="278eea59-ca7a-801e-9bac-f7d222703655" class="image"><a href="Intro/image%202.png"><img style="width:262.8999938964844px" src="Intro/image%202.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure id="278eea59-ca7a-80fc-baa4-f95d28391b32" class="image"><a href="Intro/image%203.png"><img style="width:573.8099975585938px" src="Intro/image%203.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="278eea59-ca7a-800c-aba0-d72a5f2f0407" class="bulleted-list"><li style="list-style-type:disc">Start event generates a <mark class="highlight-teal">token</mark>, meanwhile end event destroys it</li></ul></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-80c1-b808-c9a71c1e8888" class="">
+</p></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-803a-bb5b-dabd36072c75" class=""><mark class="highlight-blue">Levels of abstraction</mark>:</p></div><div style="display:contents" dir="auto"><div id="279eea59-ca7a-8093-ae56-de4a91086f49" class="column-list"><div style="display:contents" dir="auto"><div id="279eea59-ca7a-80d9-a339-e4674cc7e596" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-8015-b795-f65b59eea353" class="bulleted-list"><li style="list-style-type:disc">level 0: least amount of detail, where the process is expended in <mark class="highlight-teal">subprocesses</mark></li></ul></div><div style="display:contents" dir="auto"><p id="2bdeea59-ca7a-809a-832b-d50786a4d811" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="279eea59-ca7a-8007-84f6-df6386922fe6" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="279eea59-ca7a-800a-a5cb-d25915de3dad" class="image"><a href="Intro/image%204.png"><img style="width:331.9700012207031px" src="Intro/image%204.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-802a-a966-f3adaa97405c" class="">At the level 0 process is a high-level and it is not executable → serves for documentation </p></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-805d-9303-d389c30a6149" class="bulleted-list"><li style="list-style-type:disc">level 1/2/3 will expand subprocesses in activities and tasks</li></ul></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="2bdeea59-ca7a-8043-a621-f9e2d2b495c0"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="2bdeea59-ca7a-809d-9caf-d7a8220a80e9" class="">If a sub-process of a diagram is expanded in the diagram, the elements inside the sub-process cannot be connected to elements outside the sub-process</p></div><div style="display:contents" dir="auto"><ol type="1" id="2bdeea59-ca7a-80ad-aec7-fb7c81031dcd" class="numbered-list" start="1"><li>no sequence flow between processes</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2bdeea59-ca7a-80b0-9b2e-ef52809457a6" class="numbered-list" start="2"><li>A process must end with an end event</li></ol></div></div></figure></div><div style="display:contents" dir="auto"><p id="279eea59-ca7a-80fa-8d01-ecea713911d5" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="279eea59-ca7a-80eb-bc42-d931c776213c" class="image"><a href="Intro/image%205.png"><img style="width:491.8199768066406px" src="Intro/image%205.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="279eea59-ca7a-80b2-83e2-e0686757f123" class="image"><a href="Intro/image%206.png"><img style="width:446.8199768066406px" src="Intro/image%206.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="279eea59-ca7a-801a-b000-dadb3f8b1ded" class="image"><a href="Intro/image%207.png"><img style="width:507.8199768066406px" src="Intro/image%207.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="279eea59-ca7a-80f3-be8f-ccd39da24980" class="image"><a href="Intro/image%208.png"><img style="width:507.80999755859375px" src="Intro/image%208.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="279eea59-ca7a-80b5-a10c-d7250cef20cc" class="image"><a href="Intro/image%209.png"><img style="width:709.969970703125px" src="Intro/image%209.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="279eea59-ca7a-8061-a0af-cc433c6b1518" class="image"><a href="Intro/image%2010.png"><img style="width:491.8299865722656px" src="Intro/image%2010.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="279eea59-ca7a-8059-9dcd-cfeb7279f462" class="image"><a href="Intro/image%2011.png"><img style="width:446.8299865722656px" src="Intro/image%2011.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="279eea59-ca7a-8088-a1b1-c41e8e722eda" class="image"><a href="Intro/image%2012.png"><img style="width:491.8199768066406px" src="Intro/image%2012.png"/></a><figcaption>Types of tasks</figcaption></figure></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-80fc-abff-fc8c82e659c6" class="bulleted-list"><li style="list-style-type:disc"><strong>Business Rule Task</strong>: a task meant to execute a decision or rule evaluation — i.e. it invokes a business-rule engine (or decision logic) with given inputs and returns outputs (decisions, computed values, etc.). </li></ul></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-8045-89ef-f6a616f03a19" class="bulleted-list"><li style="list-style-type:disc"><strong>Script Task</strong>: a task in which a small script or piece of code is executed directly by the BPMN process engine (or runtime). It’s used for custom logic, simple computations or data manipulations.</li></ul></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-8055-b729-c8124772e3c5" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-80d3-89e8-f7aa800c7542" class=""><mark class="highlight-orange">Process</mark> delivers a specific, essential result</p></div><div style="display:contents" dir="auto"><ol type="1" id="2bbeea59-ca7a-8080-a57f-f943ebcaa86f" class="numbered-list" start="1"><li>Individual instances of the result are discrete and <mark class="highlight-blue">identifiable </mark><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-8025-a810-fd7e72f262ab" class="bulleted-list"><li style="list-style-type:disc">Inspector was assigned [Joe is assegned or …]</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2bbeea59-ca7a-8043-a526-f6f29b22c01c" class="numbered-list" start="2"><li>the result is <mark class="highlight-blue">countable </mark>in a time amount (e.g. how many I can get in an hour)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2bbeea59-ca7a-8047-b9cd-d53ee95f5c8b" class="numbered-list" start="3"><li>The result is <mark class="highlight-blue">essential </mark>for the enterprise </li></ol></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-8096-b903-fa276b7b322d" class="">
+</p></div><div style="display:contents" dir="auto"><div id="279eea59-ca7a-807d-921f-c1f0c42704f5" class="column-list"><div style="display:contents" dir="auto"><div id="279eea59-ca7a-80f1-b1b7-decfe68b5add" style="width:68.75%" class="column"><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-805f-9622-f72910d2aad2" class="">How to name a process:</p></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-80bb-9481-e2c113290b69" class="bulleted-list"><li style="list-style-type:disc">must be in the form verb-noun (Assign Inspector)<div style="display:contents" dir="auto"><ul id="279eea59-ca7a-80d2-b4d9-ecf7b004e390" class="bulleted-list"><li style="list-style-type:circle">must indicate the result of the process by making it in <mark class="highlight-teal">passive form</mark>: inspector is assigned</li></ul></div></li></ul></div></div></div><div style="display:contents" dir="auto"><div id="279eea59-ca7a-8037-86a8-e2975304dda8" style="width:31.250000000000007%" class="column"><div style="display:contents" dir="ltr"><figure id="279eea59-ca7a-8039-b780-caaae9e29448" class="image"><a href="Intro/image%2013.png"><img style="width:331.989990234375px" src="Intro/image%2013.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-8092-97b2-e4f73f950d6e" class="bulleted-list"><li style="list-style-type:disc">could be verb-qualifier-noun or verb-noun-noun (assign backup inspector, assign inspetor to route)</li></ul></div><div style="display:contents" dir="auto"><ul id="279eea59-ca7a-80c8-8c39-ebb3b118abb5" class="bulleted-list"><li style="list-style-type:disc">singlular</li></ul></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-80ec-877a-d60754c0b0b0" class="bulleted-list"><li style="list-style-type:disc">objective and not technologies used</li></ul></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-808f-880f-c4a5e71aae34" class="bulleted-list"><li style="list-style-type:disc">Avoid <mark class="highlight-teal">mushy verbs</mark> (used for everything)</li></ul></div><div style="display:contents" dir="auto"><p id="27feea59-ca7a-80af-9cc3-ee7a8c8c4542" class="">An <mark class="highlight-blue">action verb </mark>indicates a single activity happening at a particular point in time for which is easy to visualize the result (e.g. count, evaluate, print, attach, …)</p></div><div style="display:contents" dir="auto"><p id="27feea59-ca7a-80a9-922d-c7f39bc59df1" class=""><mark class="highlight-blue">Mushy verb</mark> sounds good but often say little about what was actually accomplished → DO NOT USE THEM</p></div><div style="display:contents" dir="auto"><ul id="27feea59-ca7a-8057-978a-c91452bc82bd" class="bulleted-list"><li style="list-style-type:disc">do, drive, maintain, process, improve, facilitate, track, monitor, review, handle, manage, analyze, …</li></ul></div><div style="display:contents" dir="ltr"><figure id="279eea59-ca7a-80f2-8c3b-f1f67fbc50a6" class="image"><a href="Intro/image%2014.png"><img style="width:576px" src="Intro/image%2014.png"/></a></figure></div><div style="display:contents" dir="auto"><div id="279eea59-ca7a-8084-897b-cc59190dc6d5" class="column-list"><div style="display:contents" dir="auto"><div id="279eea59-ca7a-80d0-a545-d5af836c6469" style="width:56.25%" class="column"><div style="display:contents" dir="ltr"><figure id="279eea59-ca7a-8049-a5ae-e1c0b0173f31" class="image"><a href="Intro/image%2015.png"><img style="width:446.8199768066406px" src="Intro/image%2015.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-802b-8a87-dacef5697cd4" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="279eea59-ca7a-8031-a593-db6d0738b102" style="width:43.74999999999999%" class="column"><div style="display:contents" dir="ltr"><figure id="279eea59-ca7a-80a1-a0d7-f697b985bd38" class="image"><a href="Intro/image%2016.png"><img style="width:290.489990234375px" src="Intro/image%2016.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><div id="27feea59-ca7a-8060-9488-fe520958c8d5" class="column-list"><div style="display:contents" dir="auto"><div id="27feea59-ca7a-806f-abbe-daae8ff08eb6" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><ul id="27feea59-ca7a-80ac-ace7-e02b8d9e067e" class="bulleted-list"><li style="list-style-type:disc">A <mark class="highlight-orange">Pool </mark>represents a participant in a business process. It can be a specific entity (e.g. department) or a role (e.g. assistant manager, doctor, student, vendor). </li></ul></div><div style="display:contents" dir="auto"><ul id="2bdeea59-ca7a-80da-a569-d281c014d4b5" class="bulleted-list"><li style="list-style-type:disc">A Pool is represented by a box.</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="27feea59-ca7a-80dc-87b7-da0992509f81" style="width:43.75%" class="column"><div style="display:contents" dir="ltr"><figure id="27feea59-ca7a-80be-91b1-e88b384c914f" class="image"><a href="Intro/image%2017.png"><img style="width:709.989990234375px" src="Intro/image%2017.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="27feea59-ca7a-803d-a397-f68f9e0d0861" class="bulleted-list"><li style="list-style-type:disc">A <mark class="highlight-orange">Lane </mark>is a sub-partition within a Pool. For instance, having a pool Department, you may have Department Head and General Clerk as lanes. <div style="display:contents" dir="auto"><ul id="27feea59-ca7a-8081-8cf3-c66d226bc99e" class="bulleted-list"><li style="list-style-type:circle">Same as pools, you can use lanes to represent specific entities or roles who are involved in the process.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="27feea59-ca7a-8020-b2c5-f05f83845aab" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="27feea59-ca7a-8001-8167-dfe8fd8b79ea" class="">Orchestration and Choreography</h3></div><div style="display:contents" dir="auto"><p id="27feea59-ca7a-80f7-8550-e5688cef2dbb" class="">When we need to coordiante different pools → typically by sending msgs</p></div><div style="display:contents" dir="ltr"><figure id="27feea59-ca7a-80ff-92e2-c0c8125785c2" class="image"><a href="Intro/image%2018.png"><img style="width:709.989990234375px" src="Intro/image%2018.png"/></a></figure></div><div style="display:contents" dir="auto"><div id="27feea59-ca7a-8091-b169-d0fef1bf3e68" class="column-list"><div style="display:contents" dir="auto"><div id="27feea59-ca7a-801e-a8c8-f41106610355" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="27feea59-ca7a-808a-94df-e6e95ca197e0" class=""><mark class="highlight-orange">Orchestration</mark>: a process with <mark class="highlight-teal">central control </mark>of activities (like the control of an orchestra director), modeled as a private process, and containing optionally black box pools presenting external entities (other pools)</p></div></div></div><div style="display:contents" dir="auto"><div id="27feea59-ca7a-80d0-abd1-dea50b2a7c50" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="27feea59-ca7a-808c-b053-e056f49292b6" class="image"><a href="Intro/image%2019.png"><img style="width:332px" src="Intro/image%2019.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="27feea59-ca7a-8080-9258-d7982d83b2dc" class="bulleted-list"><li style="list-style-type:disc">point of view: from <em>one participant’s perspective</em></li></ul></div><div style="display:contents" dir="auto"><div id="27feea59-ca7a-809d-a27d-ec6e0108f8d9" class="column-list"><div style="display:contents" dir="auto"><div id="27feea59-ca7a-80aa-ab67-d417e8cad38c" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="27feea59-ca7a-801c-9323-fe351d3552ad" class=""><mark class="highlight-orange">Collaboration </mark>(or orchestration) the ordered set of interactions between two or more participants as shown by pools, with their public processes and message flow between them. </p></div><div style="display:contents" dir="auto"><ul id="27feea59-ca7a-809c-90f2-f052bb3bd983" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">No central control </mark>(distributed control)</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="27feea59-ca7a-80f8-963f-e8b9374030ef" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="27feea59-ca7a-80c9-bcd3-f8e10c84033a" class="image"><a href="Intro/image%2020.png"><img style="width:528px" src="Intro/image%2020.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="27feea59-ca7a-80d6-ad67-c4e5edd70c3e" class="bulleted-list"><li style="list-style-type:disc">Each individual participant reacts to events generated by the other participants (as in a choreographed dance where dancers react to behaviors of their peers). </li></ul></div><div style="display:contents" dir="auto"><ul id="27feea59-ca7a-8093-b6d0-eb2ba633e7ee" class="bulleted-list"><li style="list-style-type:disc">It can contain optionally some orchestration or just black-box pools.</li></ul></div><div style="display:contents" dir="auto"><ul id="27feea59-ca7a-8012-86ec-e2122151d376" class="bulleted-list"><li style="list-style-type:disc">The processes within pools are abstracted to hide complexity or private information to partners</li></ul></div><div style="display:contents" dir="auto"><p id="27feea59-ca7a-80f6-b3e0-cc6a2ef23207" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="27feea59-ca7a-8090-b5b5-e39e77b64b32" class="image"><a href="Intro/image%2021.png"><img style="width:576px" src="Intro/image%2021.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="27feea59-ca7a-80ca-8cd5-f32f442cadac" class="">BPMN allows the explicit modeling of data transfer, via<mark class="highlight-orange"> data objects</mark>, <mark class="highlight-orange">messages </mark>and<mark class="highlight-orange"> data store</mark>. </p></div><div style="display:contents" dir="auto"><ul id="27feea59-ca7a-80ce-98f0-cf080bbed932" class="bulleted-list"><li style="list-style-type:disc">Data objects only exist within a process, whereas data store represent persistent data. </li></ul></div><div style="display:contents" dir="auto"><ul id="27feea59-ca7a-802e-9726-fdc6e45285ca" class="bulleted-list"><li style="list-style-type:disc">UML class diagrams or technical terms diagrams could be used to refine data objects in process models → process view is integrated with data view.</li></ul></div><div style="display:contents" dir="auto"><p id="27feea59-ca7a-804b-8902-dcab7f04f716" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="27feea59-ca7a-80c2-84c9-d0663943bc74" class="">Events</h3></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-8044-a57d-e225c0af7f2f" class="">The process is <mark class="highlight-teal">triggered</mark> by one of those</p></div><div style="display:contents" dir="auto"><ol type="1" id="27feea59-ca7a-808b-b086-ec428f0ad2d9" class="numbered-list" start="1"><li><mark class="highlight-blue">Action event</mark> → when a person or organization decides to do something → cannot be predicted in advance when</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="27feea59-ca7a-80fa-be56-c0d625d3fb81" class="numbered-list" start="2"><li><mark class="highlight-blue">Temporal event</mark> → when some predetermined date or time is reached, at which some activity must begin<div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-80b8-bd2d-c57890ca2dce" class="bulleted-list"><li style="list-style-type:disc">time to take the inventory</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="27feea59-ca7a-8039-9d7c-c387fe88311d" class="numbered-list" start="3"><li><mark class="highlight-blue">Condition </mark>or<mark class="highlight-blue"> rule event </mark>→ happens when monitoring activity detects some exception condition → cannot predict in advance<div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-809e-b07f-fba4fc3d2f53" class="bulleted-list"><li style="list-style-type:disc">eg smoke system alerm</li></ul></div></li></ol></div><div style="display:contents" dir="ltr"><figure id="2bbeea59-ca7a-80f9-847a-f4f21bf40c0a" class="image"><a href="Intro/image%2022.png"><img style="width:336px" src="Intro/image%2022.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="27feea59-ca7a-80ab-9460-fdfc7ddc1e54" class=""><mark class="highlight-orange">Subprocess </mark>→ result is an important milestone</p></div><div style="display:contents" dir="auto"><ul id="27feea59-ca7a-80b1-b5ce-e4f9bfad6fb5" class="bulleted-list"><li style="list-style-type:disc">eg in AI is data collection, model deployment</li></ul></div><div style="display:contents" dir="auto"><ul id="27feea59-ca7a-8047-bc63-f30b9c348c60" class="bulleted-list"><li style="list-style-type:disc">Individual training is not a milestone → more training must be done</li></ul></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="27feea59-ca7a-800f-81f6-f62d0ae9ef79"><div style="font-size:1.5em"><span class="icon">➡️</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="27feea59-ca7a-807e-a66a-eb8d964a2729" class="">In one subprocess, we need to work with a single “token” even thugh their state is being changed </p></div><div style="display:contents" dir="auto"><ul id="27feea59-ca7a-8019-bd12-ef41593cd9c7" class="bulleted-list"><li style="list-style-type:disc">eg. data or classifiers</li></ul></div></div></figure></div><div style="display:contents" dir="auto"><p id="27feea59-ca7a-809b-8038-de216ae00f7f" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="27feea59-ca7a-804b-b304-fcdd9b81aa56" class="numbered-list" start="1"><li>Identify all the activities</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="27feea59-ca7a-8003-af04-e75fd330694a" class="numbered-list" start="2"><li>Order activities and Analyze their linkages (add cardinalities) → skeleton <div style="display:contents" dir="ltr"><figure id="27feea59-ca7a-8031-b363-c671804e51e0" class="image"><a href="Intro/image%2023.png"><img style="width:384px" src="Intro/image%2023.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="27feea59-ca7a-80f0-9f1a-f1cab51b47b0" class="bulleted-list"><li style="list-style-type:disc">what happens in a perfect world </li></ul></div><div style="display:contents" dir="auto"><ul id="27feea59-ca7a-80dc-9af1-edd47e745493" class="bulleted-list"><li style="list-style-type:disc">Initial version of the workflow</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="27feea59-ca7a-80f5-bae2-c648c8c80f90" class="numbered-list" start="3"><li>Identify and assign business process → typically when cardinalities change<div style="display:contents" dir="ltr"><figure id="27feea59-ca7a-80f4-a198-fd9d74afa030" class="image"><a href="Intro/image%2024.png"><img style="width:576px" src="Intro/image%2024.png"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><p id="280eea59-ca7a-80b9-b49a-d90a129ba520" class="">
+</p></div><div style="display:contents" dir="auto"><div id="280eea59-ca7a-8085-8e85-eb67fc9d6fc8" class="column-list"><div style="display:contents" dir="auto"><div id="280eea59-ca7a-80fa-b46a-c968d8a6d71c" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="27feea59-ca7a-8006-954f-c1b692c496f0" class="">Responsabilities of each action is give to actors (people, AI, …)</p></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-8088-ae34-f23542997003" class="bulleted-list"><li style="list-style-type:disc">We could use a <mark class="highlight-orange">swimlane </mark>(simplified, not BPMN) <div style="display:contents" dir="auto"><ul id="280eea59-ca7a-80fd-8d1b-c54849dc00f9" class="bulleted-list"><li style="list-style-type:circle">Some order: like order of appearence, busier actor, physical position</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="2bbeea59-ca7a-80c1-b468-fa4062884920" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="280eea59-ca7a-80bd-a2d1-dc76dab395de" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="280eea59-ca7a-8074-8538-dee04e304073" class="image"><a href="Intro/image%2025.png"><img style="width:432px" src="Intro/image%2025.png"/></a><figcaption>Typical order</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><div id="280eea59-ca7a-8040-a9c1-f4f5e3adf24a" class="column-list"><div style="display:contents" dir="auto"><div id="280eea59-ca7a-8074-a41c-c96b6f1e2189" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="280eea59-ca7a-80e9-bbd1-fafa06f097d0"><div style="font-size:1.5em"><span class="icon">➡️</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="280eea59-ca7a-80bc-8308-ce7e42f9442d" class="">Do not confuse collaborative work with concurrent</p></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-8052-bbb6-cbcd3c0ddcca" class="bulleted-list"><li style="list-style-type:disc">in collaborative the actors are working together on the same step</li></ul></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-8098-8d48-cec40e215eb9" class="bulleted-list"><li style="list-style-type:disc">in concurrent they are working independently on separate tasks</li></ul></div></div></figure></div></div></div><div style="display:contents" dir="auto"><div id="280eea59-ca7a-80ae-b863-da7bf5d9dc27" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="280eea59-ca7a-804d-b4df-f3fb48992755" class="image"><a href="Intro/image%2026.png"><img style="width:336px" src="Intro/image%2026.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-804a-b3e8-d4e3d17a732a" class="bulleted-list"><li style="list-style-type:disc">Avoid software engineering notations to model process → too complex for other stake-holders</li></ul></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-802e-a2f8-eeb3397635a9" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Handoff model </mark>→ flow of work (workflow) where work is passed one actor to another</li></ul></div><div style="display:contents" dir="auto"><div id="280eea59-ca7a-8003-babe-f6b120846546" class="column-list"><div style="display:contents" dir="auto"><div id="280eea59-ca7a-808b-90a6-ed50166ec931" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="280eea59-ca7a-805c-970e-d59cef71db97" class="image"><a href="Intro/image%2027.png"><img style="width:260.3999938964844px" src="Intro/image%2027.png"/></a><figcaption>wrong → left to right</figcaption></figure></div></div></div><div style="display:contents" dir="auto"><div id="280eea59-ca7a-800b-9705-f3c7907288aa" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="280eea59-ca7a-802c-8be7-e61965ed190e" class="image"><a href="Intro/image%2028.png"><img style="width:260.3899841308594px" src="Intro/image%2028.png"/></a><figcaption>wrong → left to right</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure id="280eea59-ca7a-8003-bd45-d0df17f82fb7" class="image"><a href="Intro/image%2029.png"><img style="width:432px" src="Intro/image%2029.png"/></a><figcaption>Conditional flows</figcaption></figure></div><div style="display:contents" dir="auto"><p id="280eea59-ca7a-80e7-a02b-f38f718dad77" class="">
+</p></div><div style="display:contents" dir="auto"><p id="280eea59-ca7a-805e-b3c3-efcd3ddb8631" class="">There are three layers of workflow</p></div><div style="display:contents" dir="auto"><ol type="1" id="280eea59-ca7a-804e-84a8-dc0a573d8e19" class="numbered-list" start="1"><li><mark class="highlight-teal">level 1</mark>: hand-off diagram (e.g. flow of work) → stop modelling as soon as you understand why a process behave that way<div style="display:contents" dir="ltr"><figure id="280eea59-ca7a-80f8-86cc-fb48dc579d63" class="image" style="text-align:center"><a href="Intro/image%2030.png"><img style="width:432px" src="Intro/image%2030.png"/></a><figcaption>left to right, except loops</figcaption></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="280eea59-ca7a-80b0-a6ae-f6ff1b7080da" class="numbered-list" start="2"><li><mark class="highlight-teal">level 2</mark>: service-level diagram (SOA and BPM) <div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-80af-b0dc-e485ed9707a1" class="bulleted-list"><li style="list-style-type:disc">steps are smaller → break the ones on hand-off diagram<div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-80ca-bd5e-c2ca48c22842" class="bulleted-list"><li style="list-style-type:circle">to show the significant <mark class="highlight-orange">milestones </mark>(evento significative che avvicina all’obiettivo)</li></ul></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-8013-997a-ee73293c377b" class="bulleted-list"><li style="list-style-type:circle">and decisions affecting the <mark class="highlight-orange">flow </mark>between actors</li></ul></div></li></ul></div><div style="display:contents" dir="ltr"><figure id="280eea59-ca7a-8025-a0bc-e7f4f7995437" class="image" style="text-align:center"><a href="Intro/image%2031.png"><img style="width:432px" src="Intro/image%2031.png"/></a><figcaption>Expand each step</figcaption></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="280eea59-ca7a-802e-a107-fef36b0cc4e5" class="numbered-list" start="3"><li><mark class="highlight-teal">level 3</mark>: task-level diagram (rarely used): <div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-80e4-81e3-f60ea1468474" class="bulleted-list"><li style="list-style-type:disc">Previous level shows <mark class="highlight-orange">who</mark>, <mark class="highlight-orange">when </mark>and <mark class="highlight-orange">what</mark> something is accomplished. This one <mark class="highlight-orange">how</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-808e-a167-d9603d702f5b" class="bulleted-list"><li style="list-style-type:disc">documents like: procedure descriptions, use cases, check lists, decision trees, flowcharts, manuals, …</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="286eea59-ca7a-8085-baf8-d423b24e056d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="286eea59-ca7a-8096-baa0-ca0cc7d586be" class="">Two actor with same job titles:  clerk #1, clerk #2</p></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-8070-aa1e-e03040cd376e" class="bulleted-list"><li style="list-style-type:disc">if there is not really handoff of works or it flow seaminglessly then no need to have another role</li></ul></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-8018-b0c5-d2a8c496962f" class="bulleted-list"><li style="list-style-type:disc">model only internal roles, not external (e.g. UPS delivery men)</li></ul></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-80b7-aa18-c6407e4f7686" class="bulleted-list"><li style="list-style-type:disc">if one person more role i could have one pool and two lanes</li></ul></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-8032-b9d7-c0cba3a72923" class="bulleted-list"><li style="list-style-type:disc">Sometimes i should put also the system if he makes a lot of the work</li></ul></div><div style="display:contents" dir="auto"><ul id="2bbeea59-ca7a-80b1-97eb-d8cdf31b910b" class="bulleted-list"><li style="list-style-type:disc">Each process a different diagram → maybe lanes for interactions</li></ul></div><div style="display:contents" dir="ltr"><figure id="2bbeea59-ca7a-8090-bfe6-e93baa52b49b" class="image"><a href="Intro/image%2032.png"><img style="width:709.9625244140625px" src="Intro/image%2032.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="280eea59-ca7a-80a1-a3c0-e030610a61b2" class="">Example</h3></div><div style="display:contents" dir="ltr"><figure id="286eea59-ca7a-808b-8462-fa692fbeede6" class="image"><a href="Intro/image%2033.png"><img style="width:709.97998046875px" src="Intro/image%2033.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="2c6eea59-ca7a-8046-9a8f-d4df1c1a9ae6" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c7eea59-ca7a-8027-955a-e24d59573030" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c7eea59-ca7a-80bb-a61a-f9900ee983b0" class=""><mark class="highlight-orange"><strong>sensitivity analysis</strong></mark><mark class="highlight-orange"> </mark>studies how unitary changes in one model input (parameter) affect outputs [in our case total duration]</p></div><div style="display:contents" dir="auto"><ul id="2c7eea59-ca7a-80e7-84af-cf42c730ffba" class="bulleted-list"><li style="list-style-type:disc">improve the what-if analysis</li></ul></div><div style="display:contents" dir="auto"><ul id="2c7eea59-ca7a-809d-a042-eeb803330d27" class="bulleted-list"><li style="list-style-type:disc">model refinement</li></ul></div><div style="display:contents" dir="auto"><p id="2c7eea59-ca7a-808c-8c78-d0f157bd9457" class=""><br/><br/></p></div><div style="display:contents" dir="auto"><p id="2c7eea59-ca7a-8038-a666-e5a85f0d5ed4" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c7eea59-ca7a-80a4-b2a5-cb172c867dc8" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c7eea59-ca7a-80e8-85f5-f88c642ae18e" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c6eea59-ca7a-808b-977b-e52ce4e07dab" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="2c6eea59-ca7a-804f-8705-d61cfc15a2a6" class="">Activity Markers in BPMN</h1></div><div style="display:contents" dir="auto"><h2 id="2c6eea59-ca7a-8094-a9c7-deabe70c1e45" class=""><strong>Sub-Process Marker (+)</strong></h2></div><div style="display:contents" dir="auto"><p id="2c6eea59-ca7a-800c-9b1e-efefbb89fad4" class="">Indicates the activity contains a collapsed sub-process with its own internal workflow. Clicking or expanding it reveals the detailed process flow within.</p></div><div style="display:contents" dir="auto"><h2 id="2c6eea59-ca7a-8000-9783-fd5ec0eb4c57" class=""><strong>Loop Marker (↻)</strong></h2></div><div style="display:contents" dir="auto"><p id="2c6eea59-ca7a-8017-96bc-e2b66daa8d72" class="">Shows the activity will repeat multiple times in sequence until a condition is met. Each iteration completes before the next begins (like a &quot;while&quot; or &quot;for&quot; loop).</p></div><div style="display:contents" dir="auto"><h2 id="2c6eea59-ca7a-807c-9bac-dde479f3a166" class=""><strong>Parallel Multi-Instance Marker (|||)</strong></h2></div><div style="display:contents" dir="auto"><p id="2c6eea59-ca7a-80ad-a701-ead7894e0488" class="">The activity executes multiple instances simultaneously in parallel. For example, reviewing documents by three people at the same time - all instances run concurrently.</p></div><div style="display:contents" dir="auto"><h2 id="2c6eea59-ca7a-80cb-b20e-e96d4fc713c2" class=""><strong>Sequential Multi-Instance Marker (≡)</strong></h2></div><div style="display:contents" dir="auto"><p id="2c6eea59-ca7a-80ed-9c74-deb63d07b5e0" class="">The activity executes multiple instances, but one after another in sequence. For example, getting three approvals where each must complete before the next begins.</p></div><div style="display:contents" dir="auto"><h2 id="2c6eea59-ca7a-80da-bae2-ca92327ef49c" class=""><strong>Ad Hoc Marker (~)</strong></h2></div><div style="display:contents" dir="auto"><p id="2c6eea59-ca7a-80f5-a1a9-fc36eed1d95c" class="">Indicates activities within can be performed in any order, multiple times, or skipped entirely. The execution is flexible and non-predetermined, driven by performers&#x27; decisions rather than strict process flow.</p></div><div style="display:contents" dir="auto"><h2 id="2c6eea59-ca7a-80a1-98d1-d9aa23900a9a" class=""><strong>Compensation Marker (◄◄)</strong></h2></div><div style="display:contents" dir="auto"><p id="2c6eea59-ca7a-80bb-bc9c-d2a858e26bec" class="">Marks an activity that undoes or compensates for work already completed. Used for rollback scenarios when a process fails after partial completion (like refunding a payment if order fulfillment fails).</p></div><div style="display:contents" dir="ltr"><figure id="2c6eea59-ca7a-8097-9e1b-e320460d5fcd" class="image"><a href="Intro/image%2034.png"><img style="width:710px" src="Intro/image%2034.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="2c6eea59-ca7a-80f4-bf75-dd60cf907cc1" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

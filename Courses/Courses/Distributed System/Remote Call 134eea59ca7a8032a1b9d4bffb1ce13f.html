@@ -1,0 +1,745 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Remote Call</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="134eea59-ca7a-8032-a1b9-d4bffb1ce13f" class="page sans"><header><h1 class="page-title" dir="auto">Remote Call</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="134eea59-ca7a-8003-828f-c02c8c702eb1" class="">Direct vs Indirect Communication</h1></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-8038-811a-d4b59e6f2507" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Direct communication</mark> - each of the involved parties directly refers to the counterpart</li></ul></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-8091-a801-d7adec4e74fe" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Indirect communication</mark> - fully asynchronous relationship, by leveraging an intermediate system that delivered the message</li></ul></div><div style="display:contents" dir="auto"><h1 id="134eea59-ca7a-8071-9662-e35d016cb205" class="">Direct Communication</h1></div><div style="display:contents" dir="auto"><h2 id="134eea59-ca7a-80e0-808e-cd76834baa74" class="">Request/Replay Protocols</h2></div><div style="display:contents" dir="auto"><p id="134eea59-ca7a-8037-b252-d2639b6baed7" class="">Request/reply protocols support low-level client-server interactions. </p></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-8015-ad04-deb502a8bd8e" class="bulleted-list"><li style="list-style-type:disc">Typically synchronous: the client sends a REQ, and stops waiting for a REPLY (the reply plays also the ACK role)</li></ul></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-8083-a1fe-e641f23c4ce6" class="bulleted-list"><li style="list-style-type:disc">Usually, <mark class="highlight-orange">UDP-like models </mark>(guarantees that are offered by the UDP protocol) + no restriction on datagram length</li></ul></div><div style="display:contents" dir="auto"><h3 id="134eea59-ca7a-80e5-ac02-cdcacd2ed468" class="">General Primitives</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="134eea59-ca7a-8035-8d1e-e8e1745ad337" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">public byte[] doOp(RemoteRef s, int opId, byte[] args); // target server (ip:port) 
+public byte[] getRequest();
+public void sendReply (RemoteRef c, byte[] reply);</code></pre></div><div style="display:contents" dir="auto"><div id="134eea59-ca7a-808c-a2c3-fde104853f44" class="column-list"><div style="display:contents" dir="auto"><div id="134eea59-ca7a-80c2-88a0-dcd1afb52da7" style="width:50%" class="column"><div style="display:contents" dir="auto"><ol type="1" id="134eea59-ca7a-802e-9019-dcbf8dc67c38" class="numbered-list" start="1"><li>doOp() sends a request message to the remote server identified by s, to request the specific operation opId with arguments <mark class="highlight-orange">marshalled</mark> in args, and returns the reply.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="134eea59-ca7a-803e-a1b7-c7013782a9b1" class="numbered-list" start="2"><li>Blocking operation, gets the request message (server side)</li></ol></div></div></div><div style="display:contents" dir="auto"><div id="134eea59-ca7a-80f6-a7e1-fbda0924e480" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="134eea59-ca7a-804a-8278-db038adbd196" class="image"><a href="Remote%20Call/image.png"><img style="width:268.9772644042969px" src="Remote%20Call/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="134eea59-ca7a-804b-aed3-db853e9be89f" class="">Structure of a Message</h3></div><div style="display:contents" dir="auto"><div id="134eea59-ca7a-8033-81fc-c3d6018b35b2" class="column-list"><div style="display:contents" dir="auto"><div id="134eea59-ca7a-806a-8122-f6e5e3747a30" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="134eea59-ca7a-80c7-b14d-c36eae529156" class="">Any message is uniquely identified by a requestId</p></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-8038-b507-dd9c89f6470c" class="bulleted-list"><li style="list-style-type:disc">assigned at the <mark class="highlight-orange">middleware level</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-809e-8c47-cac86bf90450" class="bulleted-list"><li style="list-style-type:disc">plus the address of the sender (IPaddr+port) is a unique code to identify the message</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="134eea59-ca7a-8001-af38-efa9e2168abd" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="134eea59-ca7a-80f9-802c-c32fe2d2c2e9" class="image"><a href="Remote%20Call/image%201.png"><img style="width:278.8999938964844px" src="Remote%20Call/image%201.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="134eea59-ca7a-8048-854c-e816e456a173" class="">Marshalling</h3></div><div style="display:contents" dir="auto"><p id="134eea59-ca7a-80f5-a308-da9460285c36" class="">The exchanged data in the context of a REQ-REPLY communication could be highly structured (ob)</p></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-806a-b004-d050e0acb645" class="bulleted-list"><li style="list-style-type:disc">The two parties must agree on how to encode the exchanged data, so to correctly reconstruct all data items.</li></ul></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-8053-9a16-de80b16e2b18" class="bulleted-list"><li style="list-style-type:disc">The transformation of the memory representation of an object to a data format suitable for transmission is said <span style="border-bottom:0.05em solid">marshalling</span> (and un-marshalling the opposite operation).</li></ul></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-8087-a8e3-f3e25e6b76bb" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Not important if I use a single language, because all the types are equal</mark><mark class="highlight-blue"> </mark></li></ul></div><div style="display:contents" dir="auto"><p id="136eea59-ca7a-8038-9584-ea71d4dfbc67" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="134eea59-ca7a-8060-9863-fe3df59843a7" class="">Failure Model</h3></div><div style="display:contents" dir="auto"><p id="134eea59-ca7a-805f-be6a-dde2e50d99d5" class="">Regarding the transmission medium, along with UDP</p></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-80f8-bd27-c02ee0a41d93" class="bulleted-list"><li style="list-style-type:disc">possible message <mark class="highlight-blue">loss</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-80e6-a6e8-dfaefc73e0eb" class="bulleted-list"><li style="list-style-type:disc">possible message <mark class="highlight-blue">reordering</mark> (depends on the routing)</li></ul></div><div style="display:contents" dir="auto"><p id="134eea59-ca7a-80ef-a1c6-f32e06bdf1ab" class="">Regarding processes: usually, <mark class="highlight-orange">fail-stop</mark>  → unresponsive process is interpreted as not alive</p></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-805e-aa38-d51fd6d5d754" class="bulleted-list"><li style="list-style-type:disc">To check whether the server is down, a <span style="border-bottom:0.05em solid">timeout</span> is employed in the implementation of doOp</li></ul></div><div style="display:contents" dir="auto"><p id="134eea59-ca7a-80e5-90a1-f39695f33b4a" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="134eea59-ca7a-804c-b830-f0ccaac00d87" class="numbered-list" start="1"><li><mark class="highlight-blue">Timeout</mark>, to check possible server failures</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="134eea59-ca7a-80cd-88d6-d71cc791435d" class="numbered-list" start="2"><li><mark class="highlight-blue">Request retransmission</mark>, to compensate for possible loss of req messages (ask <em>n</em> times the same req)<div style="display:contents" dir="auto"><ol type="a" id="134eea59-ca7a-802e-a696-ef81ac4ecb7b" class="numbered-list" start="1"><li><mark class="highlight-blue">Duplicate filtering</mark>: 1+ copies of the same message may arrive, so duplicates must be discarded → through requestID</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><p id="134eea59-ca7a-8013-9904-cfca4850c6e2" class="">Re-execution vs caching on the server side</p></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-80d0-99dc-d4cdde66d93a" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">caching</mark> is possible only for <span style="border-bottom:0.05em solid">idempotent</span> requests (If <mark class="highlight-blue">pure function</mark> then by definition are idempotent)</li></ul></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-80e8-88fb-de52163e53ab" class="bulleted-list"><li style="list-style-type:disc">Client could help for cache flushing (saying that the op will not be executed anymore)</li></ul></div><div style="display:contents" dir="auto"><p id="134eea59-ca7a-80d9-8b00-f740450ac22c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="134eea59-ca7a-8004-89ff-d9ba2d64b978" class="">We refer to <mark class="highlight-orange">idempotency</mark> of a function f  w.r.t. sequential composition <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>:</mo><mi>f</mi><mo stretchy="false">(</mo><mo>⋅</mo><mo stretchy="false">)</mo><mo separator="true">;</mo><mi>f</mi><mo stretchy="false">(</mo><mo>⋅</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f :    f (⋅) ; f (⋅) </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord">⋅</span><span class="mclose">)</span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord">⋅</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span></p></div><div style="display:contents" dir="auto"><p id="134eea59-ca7a-80c8-a834-c5fd7ff142ea" class="">if f  is called subsequently twice with the same arguments, the <span style="border-bottom:0.05em solid">second</span> call will have no side effects and will return the same output as the first call. </p></div><div style="display:contents" dir="auto"><p id="152eea59-ca7a-80e3-adcf-e0ae6ca14db3" class=""><code>markAsRead(email)</code>  The first modify the state then, all the other call doens’t do anything</p></div><div style="display:contents" dir="auto"><h3 id="134eea59-ca7a-801e-9a43-fcc06a22a238" class="">HTTP</h3></div><div style="display:contents" dir="ltr"><figure id="134eea59-ca7a-809a-871f-d0b1aacffc04" class="image"><a href="Remote%20Call/image%202.png"><img style="width:432px" src="Remote%20Call/image%202.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-80e9-ade6-cbca19febd3d" class="bulleted-list"><li style="list-style-type:disc">Methods: types of messages, intended for semantically different classes of operations. GET, POST, etc.</li></ul></div><div style="display:contents" dir="auto"><div id="134eea59-ca7a-80a1-a662-fdb3e6b5baed" class="column-list"><div style="display:contents" dir="auto"><div id="134eea59-ca7a-804e-bad6-d575b6642560" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-803a-97e0-c81b8e7a8873" class="bulleted-list"><li style="list-style-type:disc">Idempotence: the side-effects of N &gt; 0 identical requests are the same as for a single request → caching of results is possible!</li></ul></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-80cb-95f8-f369113362c3" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Nullipotence</mark> (or “safety”): msgs determine retrieval, <span style="border-bottom:0.05em solid">no state change on the server</span></li></ul></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="134eea59-ca7a-80ca-ade1-c107ce70b2e9"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="4631ff40-3bbd-450a-ad67-ecdae75acbb5" class="">The difference between GET and POST is semantic, idempotence or not based of my needs</p></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-8031-8cff-f85280ee009e" class="bulleted-list"><li style="list-style-type:disc">the place for the parameters is just implementation details</li></ul></div></div></figure></div></div></div><div style="display:contents" dir="auto"><div id="134eea59-ca7a-8040-b5ec-e245eece2f9b" style="width:43.75%" class="column"><div style="display:contents" dir="ltr"><figure id="134eea59-ca7a-80e8-a21a-d5f491c73c9c" class="image"><a href="Remote%20Call/image%203.png"><img style="width:323.0416564941406px" src="Remote%20Call/image%203.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><div id="134eea59-ca7a-803a-a926-e6a7af746d9d" class="column-list"><div style="display:contents" dir="auto"><div id="134eea59-ca7a-8013-a19a-c262f4c40d03" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="134eea59-ca7a-80f3-b312-ecc5401a1d30" class="image"><a href="Remote%20Call/image%204.png"><img style="width:384px" src="Remote%20Call/image%204.png"/></a></figure></div></div></div><div style="display:contents" dir="auto"><div id="134eea59-ca7a-80fc-8cdd-c5bba28c3b67" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="134eea59-ca7a-800a-add5-deb6d58d23f1" class="">HTTP pipelining: sending requests one after the other without waiting for each reply before issuing the next request.</p></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-801b-a9de-ef6fba3e07f2" class="bulleted-list"><li style="list-style-type:disc">Of course, this cannot be done in case of non-idempotent requests.</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="16beea59-ca7a-804c-9bba-d58f739af1e0" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">A client that pipelines requests SHOULD retry unanswered requests if the connection closes before it receives all of the corresponding responses.</code></pre></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-80e0-a72d-dda48a35cdd4" class="bulleted-list"><li style="list-style-type:disc">No specific Marshalling is used in HTTP but specify how the object should be interpreted (<mark class="highlight-orange">MIME</mark> specification)<div style="display:contents" dir="auto"><ul id="134eea59-ca7a-8054-8a39-cded8bbc6cb7" class="bulleted-list"><li style="list-style-type:circle">MIME is a two-part identifier for file formats and format contents transmitted<br/>on the Internet:  type/subtype (text/plain  text/html)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h2 id="134eea59-ca7a-8042-866d-d58aa6c5af84" class="">RPC - Remote Procedure Call</h2></div><div style="display:contents" dir="auto"><p id="134eea59-ca7a-80f9-af2d-c79c85881061" class="">It’s a form of <mark class="highlight-orange">inter-process communication </mark>(not nodes!) between a client and a server. The requested operation is the execution of a procedure on the server, getting back results</p></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-8007-a792-c97b59dc59f1" class="bulleted-list"><li style="list-style-type:disc">In general server/client could be implemented in two different languages<div style="display:contents" dir="auto"><ul id="134eea59-ca7a-80bb-98fa-ebfa79457e2c" class="bulleted-list"><li style="list-style-type:circle">Interface-based programming → abstraction and portability</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-8069-a793-fa594102f33e" class="bulleted-list"><li style="list-style-type:disc">Diverse call semantics on how it is chosen or implemented by the middleware</li></ul></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-80b7-8e97-c1e0c34ec1e9" class="bulleted-list"><li style="list-style-type:disc"><span style="border-bottom:0.05em solid">Transparency</span> wrt access, location → I don’t want to specify all the parameters</li></ul></div><div style="display:contents" dir="auto"><h3 id="134eea59-ca7a-8090-910b-e66801775d1d" class="">Interfaces for RPC</h3></div><div style="display:contents" dir="auto"><p id="134eea59-ca7a-8057-87a1-f639e09466e2" class="">RPC interfaces are specified using an <mark class="highlight-orange">IDL</mark> (Interface Definition Language)</p></div><div style="display:contents" dir="auto"><p id="134eea59-ca7a-806e-9f0d-dcb6bded90bc" class="">Interface specifications → cross-language interoperability, because they are used to map parameters onto each specific way to use them. (eg. long type)</p></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-80a4-b774-fed5fa690e5c" class="bulleted-list"><li style="list-style-type:disc">An interface definition is usually compiled by using specific tools, so to obtain the modules (<mark class="highlight-orange">stub</mark>/<mark class="highlight-orange">skeleton</mark>) to be deployed on the different nodes to support the communication.</li></ul></div><div style="display:contents" dir="auto"><h3 id="134eea59-ca7a-804e-86fa-c30a29586a93" class="">Parameter Passing</h3></div><div style="display:contents" dir="auto"><p id="134eea59-ca7a-8082-a19f-de8e3e7ee73f" class="">The ordinary “local” way to deal with parameter passing cannot be plainly extended to the distributed setting: <mark class="highlight-orange">peers don’t share an address space</mark></p></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-8005-8344-c3eaeb5efa13" class="bulleted-list"><li style="list-style-type:disc">so the usual pass-by-reference convention does not make sense: ordinary addresses cannot be passed as params! </li></ul></div><div style="display:contents" dir="auto"><p id="134eea59-ca7a-8063-a84f-d43df410d883" class="">Instead, as in pl/SQL (procedural SQL), usually a parameter can be specified as</p></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-804b-aa2d-d7b02c5dc9d4" class="bulleted-list"><li style="list-style-type:disc">IN (input only)</li></ul></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-80c6-aac6-c284063d721c" class="bulleted-list"><li style="list-style-type:disc">OUT (output only)</li></ul></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-801a-b9c3-dd2b1194be4d" class="bulleted-list"><li style="list-style-type:disc">INOUT (input in Request, output in Response)</li></ul></div><div style="display:contents" dir="auto"><h3 id="134eea59-ca7a-801d-a525-f713f69572f3" class="">Faults</h3></div><div style="display:contents" dir="auto"><p id="134eea59-ca7a-8027-97d4-f7e81da2f4ae" class="">Local calls have the<mark class="highlight-orange"> exactly-once semantics </mark>→ ask once a result and receive one response </p></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-805e-ae87-ddd97778eea3" class="bulleted-list"><li style="list-style-type:disc">not possible in a distributed setting → may be needed to be asked multiple times</li></ul></div><div style="display:contents" dir="ltr"><figure id="134eea59-ca7a-80be-beca-df65bf7510b2" class="image"><a href="Remote%20Call/image%205.png"><img style="width:624px" src="Remote%20Call/image%205.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-804a-9971-eca2938d94d2" class="bulleted-list"><li style="list-style-type:disc">trick applied in the middleware, not by the programmer</li></ul></div><div style="display:contents" dir="auto"><h3 id="134eea59-ca7a-805d-805c-f197d4e9eaa7" class="">Implementation</h3></div><div style="display:contents" dir="ltr"><figure id="134eea59-ca7a-8077-9406-f55547241a27" class="image"><a href="Remote%20Call/image%206.png"><img style="width:624px" src="Remote%20Call/image%206.png"/></a><figcaption>Implementation RPC client and server</figcaption></figure></div><div style="display:contents" dir="auto"><p id="152eea59-ca7a-8083-8f87-c901be421568" class=""><strong>STUB</strong></p></div><div style="display:contents" dir="auto"><ul id="152eea59-ca7a-80ca-903e-c4b9894452f7" class="bulleted-list"><li style="list-style-type:disc">It provides the same interface as the remote service, allowing the client to call methods as if they were local → marshalling</li></ul></div><div style="display:contents" dir="auto"><p id="152eea59-ca7a-8026-af5c-ef9249faf496" class=""><strong>SKELETON</strong></p></div><div style="display:contents" dir="auto"><ul id="152eea59-ca7a-80a0-9417-d6bb15fe710d" class="bulleted-list"><li style="list-style-type:disc">A skeleton is the server-side counterpart to the stub.</li></ul></div><div style="display:contents" dir="auto"><ul id="152eea59-ca7a-8082-b1cd-c4deb7cddb00" class="bulleted-list"><li style="list-style-type:disc">It receives the request from the stub, unmarshals the parameters, and invokes the appropriate method on the actual server object.</li></ul></div><div style="display:contents" dir="auto"><ul id="152eea59-ca7a-80da-92f7-d9b6c1672209" class="bulleted-list"><li style="list-style-type:disc">After execution, it marshals the result and sends it back to the stub.</li></ul></div><div style="display:contents" dir="auto"><ul id="152eea59-ca7a-807c-b71b-e928abfa0852" class="bulleted-list"><li style="list-style-type:disc">There are multiple SKELETON for each service that could be called</li></ul></div><div style="display:contents" dir="auto"><p id="152eea59-ca7a-8026-9ba6-d13adbcadc44" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="134eea59-ca7a-80c4-87de-fe5f00e9e5e7" class="">gRPC (Google RPC)</h2></div><div style="display:contents" dir="auto"><p id="134eea59-ca7a-802c-b57f-e86c630eaf89" class="">It’s an open-source, high-performance implementation of a Remote Procedure Call system. </p></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-8035-adf5-ff48bebe08e1" class="bulleted-list"><li style="list-style-type:disc">efficient connection across distributed software modules (services)</li></ul></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-80a8-aa51-cfe16838b996" class="bulleted-list"><li style="list-style-type:disc">default IDL for service/APIs is <mark class="highlight-orange">Protocol Buffers</mark> - a.k.a. Protobuf (Google’s language-neutral extensible mechanism for serializing structured data)</li></ul></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-80a2-8851-ddde82472299" class="bulleted-list"><li style="list-style-type:disc">“pluggable” support for load balancing, tracing, health checking and authentication</li></ul></div><div style="display:contents" dir="auto"><p id="134eea59-ca7a-8027-bebc-e3f2f1e436c3" class="">
+</p></div><div style="display:contents" dir="auto"><p id="134eea59-ca7a-8041-a4c0-f38d0745d1d1" class="">Idea: define a service interface w/ methods, using ProtoBuf. </p></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-8036-b50a-d45a85e83492" class="bulleted-list"><li style="list-style-type:disc">ProtoBuf is used also for defining data structures/messages in a language-independent way, as well as its <mark class="highlight-orange">serialization</mark>.</li></ul></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-807c-b04a-c59a3b920bf9" class="bulleted-list"><li style="list-style-type:disc">On the server side, the server implements this interface and runs a gRPC server to handle client calls.</li></ul></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-8059-9238-fe09bd00b586" class="bulleted-list"><li style="list-style-type:disc">On the client side, a stub with the same interface provides access to the remote service methods, hiding the communication details</li></ul></div><div style="display:contents" dir="ltr"><figure id="134eea59-ca7a-80b2-a4b2-fd9faef13a96" class="image"><a href="Remote%20Call/image%207.png"><img style="width:336px" src="Remote%20Call/image%207.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="134eea59-ca7a-80dd-920b-e4444af19d07" class="">
+</p></div><div style="display:contents" dir="auto"><p id="134eea59-ca7a-80ed-9945-e59f7cfe3544" class="">Steps:</p></div><div style="display:contents" dir="auto"><ol type="1" id="134eea59-ca7a-80b3-b502-c503fdb18811" class="numbered-list" start="1"><li>define the desired structuring for your data (called “<mark class="highlight-orange">message</mark>”) in a .proto file</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="134eea59-ca7a-80d8-96b1-ee801bc1a4f8" class="numbered-list" start="2"><li>use special automatically generated source code to easily write and read such data to and from a variety of data streams (files or communication channels)</li></ol></div><div style="display:contents" dir="auto"><p id="134eea59-ca7a-80c1-a43d-ed81fdaa8e86" class="">The same approach fits the communication needs in client/server systems.</p></div><div style="display:contents" dir="auto"><p id="134eea59-ca7a-80de-a0a1-ed40b76355d1" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="134eea59-ca7a-8018-aa53-eefb1f63b2af" class="image"><a href="Remote%20Call/image%208.png"><img style="width:707.9583129882812px" src="Remote%20Call/image%208.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-80d5-acbd-f8e73b3073f9" class="bulleted-list"><li style="list-style-type:disc">automatically get the class of the message (by a software)</li></ul></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-809c-ac73-fa2116ac8baf" class="bulleted-list"><li style="list-style-type:disc">message objects are <mark class="highlight-orange">immutable</mark>, and they can be created via the relative <mark class="highlight-orange">builder</mark>; a builder has “setter” methods for the message fields, which can be concatenated</li></ul></div><div style="display:contents" dir="ltr"><figure id="134eea59-ca7a-805b-8b7a-da3b7f407f1e" class="image"><a href="Remote%20Call/image%209.png"><img style="width:707.9722290039062px" src="Remote%20Call/image%209.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="134eea59-ca7a-801b-ae09-c2c3863cb639" class="image"><a href="Remote%20Call/image%2010.png"><img style="width:707.9722290039062px" src="Remote%20Call/image%2010.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-8024-9574-e799981eb9d9" class="bulleted-list"><li style="list-style-type:disc">resemble a local call, but it is a remote call, so I need to handle some exception</li></ul></div><div style="display:contents" dir="auto"><p id="134eea59-ca7a-8078-9040-c14ce85d4404" class="">
+</p></div><div style="display:contents" dir="auto"><p id="134eea59-ca7a-8080-9ebe-d7025cf761e8" class="">A stub on the client can communicate with the gRPC server through a “channel”, which represents the connection to the server at a specific IP address and port.</p></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-8039-955b-cd9662acd864" class="bulleted-list"><li style="list-style-type:disc">In practice: a <mark class="highlight-orange">channel</mark> must be created first, and the creation of a stub by a factory method requires the specification of the relative channel.</li></ul></div><div style="display:contents" dir="auto"><ul id="134eea59-ca7a-80e7-951f-e7451c59966d" class="bulleted-list"><li style="list-style-type:disc">gRPC supports both <mark class="highlight-blue">blocking</mark>/<mark class="highlight-blue">synchronous</mark><mark class="highlight-orange"> </mark>and <mark class="highlight-blue">streaming</mark> communication  → <span style="border-bottom:0.05em solid">different</span> stubs are required for the two.</li></ul></div><div style="display:contents" dir="auto"><p id="136eea59-ca7a-80fe-8b57-ea17d1044492" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="136eea59-ca7a-80a1-bcd3-cdb89d830a4a" class="">RMI - Remote Method Invocation</h1></div><div style="display:contents" dir="auto"><ul id="136eea59-ca7a-808c-8a91-e3b4db86ff2e" class="bulleted-list"><li style="list-style-type:disc">As RPC: programming by interfaces (no need of IDL),  implements call semantics and adresses transparency issues.</li></ul></div><div style="display:contents" dir="auto"><ul id="136eea59-ca7a-8042-a85f-c114ef982303" class="bulleted-list"><li style="list-style-type:disc">Use <mark class="highlight-blue">JVM</mark> so no need to handle heterogeneity in programming languages</li></ul></div><div style="display:contents" dir="auto"><p id="136eea59-ca7a-8051-a8c5-fc053db6c15b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="136eea59-ca7a-8051-b99c-d70a1dc28f6e" class="">Additional features, not available in RPC:</p></div><div style="display:contents" dir="auto"><ul id="136eea59-ca7a-80f4-b74d-e6fef759ac35" class="bulleted-list"><li style="list-style-type:disc">Object orientation - support to <mark class="highlight-orange">remote objects</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="136eea59-ca7a-80f4-b26e-fb09e4fd9d61" class="bulleted-list"><li style="list-style-type:disc">Use of <mark class="highlight-orange">remote references </mark>- as parameters as well</li></ul></div><div style="display:contents" dir="auto"><ul id="136eea59-ca7a-8055-904e-e642ce047b54" class="bulleted-list"><li style="list-style-type:disc">Use of exceptions - also for anomalous conditions related to communication (java.rmi.RemoteException)</li></ul></div><div style="display:contents" dir="ltr"><figure id="136eea59-ca7a-8049-a966-ed3c8f9dabf9" class="image"><a href="Remote%20Call/image%2011.png"><img style="width:269px" src="Remote%20Call/image%2011.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="136eea59-ca7a-8060-a51e-cbc29c34c3dc" class="">
+</p></div><div style="display:contents" dir="auto"><p id="136eea59-ca7a-8024-8d19-cf979870774c" class="">New issues:</p></div><div style="display:contents" dir="auto"><ol type="1" id="136eea59-ca7a-8030-9feb-e698c2361b09" class="numbered-list" start="1"><li><mark class="highlight-orange">Class loading</mark> - how to implement it in a distributed setting? (because the class definition may be remote)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="136eea59-ca7a-80c8-b745-cdb842cb773e" class="numbered-list" start="2"><li><mark class="highlight-orange">Garbage collection</mark> - how to account for remote references hold by remote client objects?</li></ol></div><div style="display:contents" dir="auto"><h3 id="136eea59-ca7a-8046-95ca-dc7d2e6cad39" class="">Remote References</h3></div><div style="display:contents" dir="auto"><p id="136eea59-ca7a-80bb-a6ef-faceea61aeab" class="">RMI extends the concept of (local) reference to a (local) object: a remote reference is the means to access a remote object.</p></div><div style="display:contents" dir="auto"><ul id="136eea59-ca7a-80a6-9793-cc1191ec89b5" class="bulleted-list"><li style="list-style-type:disc">It is an ID for a particular unique remote object in the whole system;</li></ul></div><div style="display:contents" dir="auto"><ul id="136eea59-ca7a-80d0-b558-f2d7d5a4ff50" class="bulleted-list"><li style="list-style-type:disc">it is created by <mark class="highlight-orange">RRM</mark> (Remote Reference Module), a dedicated component.</li></ul></div><div style="display:contents" dir="ltr"><figure id="136eea59-ca7a-80d0-9445-f8ff9ba4d0f6" class="image"><a href="Remote%20Call/image%2012.png"><img style="width:624px" src="Remote%20Call/image%2012.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="136eea59-ca7a-80c8-b46f-ea285a44cf9c" class="bulleted-list"><li style="list-style-type:disc">creation time and object number to identify the unique object</li></ul></div><div style="display:contents" dir="auto"><ul id="136eea59-ca7a-80b9-8d0e-f1c980376b9b" class="bulleted-list"><li style="list-style-type:disc">then I can add some infos about the interface of the object → understand what methods I can call</li></ul></div><div style="display:contents" dir="auto"><h3 id="136eea59-ca7a-808c-ba44-c9d33853f00e" class="">Remote Interfaces</h3></div><div style="display:contents" dir="auto"><p id="136eea59-ca7a-807c-a3c7-e286455c759b" class="">An object is a <mark class="highlight-orange">remote object</mark> if it implements a <mark class="highlight-orange">remote interface</mark>, which is an interface that declares a set of methods that may be invoked from a remote JVM (“client”).</p></div><div style="display:contents" dir="auto"><ul id="136eea59-ca7a-8087-b119-f8041a45ea1e" class="bulleted-list"><li style="list-style-type:disc">An interface is “remote” if it at least extends (possibly indirectly) java.rmi.Remote, which is a <mark class="highlight-orange">marker interface</mark> (no method) → let the system know what type of code it will handle.</li></ul></div><div style="display:contents" dir="auto"><ul id="136eea59-ca7a-8041-b3f0-e2778cfc5611" class="bulleted-list"><li style="list-style-type:disc">Each method declaration in a remote interface (or its super-interfaces) must be a <mark class="highlight-orange">remote method declaration</mark>:<div style="display:contents" dir="auto"><ul id="136eea59-ca7a-80bf-a05d-c128f41d6937" class="bulleted-list"><li style="list-style-type:circle"><span style="border-bottom:0.05em solid">include java.rmi.RemoteException</span> (or one of its super-interfaces) in its throws clause, in addition to any application-specific exceptions → let the system know of possible communication problems</li></ul></div><div style="display:contents" dir="auto"><ul id="136eea59-ca7a-80fe-b946-ceca5a31d40e" class="bulleted-list"><li style="list-style-type:circle">In a remote method declaration, a remote object declared as a parameter or return value (even if embedded within a non-remote object in a parameter) <span style="border-bottom:0.05em solid">must be declared as the remote interface, not the implementation class of that interface</span> → as it would be with IDL</li></ul></div><div style="display:contents" dir="auto"><p id="16beea59-ca7a-804d-ae95-cebf0e8de624" class="">
+</p></div></li></ul></div><div style="display:contents" dir="auto"><p id="136eea59-ca7a-805f-950d-c4460faf22a7" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="136eea59-ca7a-8063-a6c5-d777bb3c9671" class="">Parameter Passing</h3></div><div style="display:contents" dir="auto"><p id="136eea59-ca7a-801c-8e0b-eb4958a22e6e" class="">In RMI, for remote methods of remote objects, arguments are IN, the return value is the only OUT.</p></div><div style="display:contents" dir="auto"><ul id="136eea59-ca7a-809a-abdf-c3d04745b202" class="bulleted-list"><li style="list-style-type:disc">Ordinary “by value” → must undergo marshalling, thus are required to implement <em><mark class="highlight-orange">Serializable</mark></em></li></ul></div><div style="display:contents" dir="auto"><ul id="136eea59-ca7a-80b0-84f7-f12323df3446" class="bulleted-list"><li style="list-style-type:disc">Remote references → they must be typed as <em><mark class="highlight-orange">Remote</mark></em> (interface)</li></ul></div><div style="display:contents" dir="ltr"><figure id="136eea59-ca7a-8069-82c2-ed8da94a2967" class="image"><a href="Remote%20Call/image%2013.png"><img style="width:624px" src="Remote%20Call/image%2013.png"/></a><figcaption>Proxy for B and Servant Object B are connected by the Java Remote Interface</figcaption></figure></div><div style="display:contents" dir="auto"><ul id="136eea59-ca7a-8028-a9f7-f93667137858" class="bulleted-list"><li style="list-style-type:disc">Green part automatically build up by the system. In Java &lt;5 has to be used a particular compiler</li></ul></div><div style="display:contents" dir="auto"><p id="137eea59-ca7a-80d1-87b7-c3dd4b816701" class="">
+</p></div><div style="display:contents" dir="auto"><p id="137eea59-ca7a-8098-8a7e-e53f7bbf9c8f" class=""><strong>Client</strong>:</p></div><div style="display:contents" dir="auto"><ol type="1" id="137eea59-ca7a-8089-9384-eb4b4d43d1ef" class="numbered-list" start="1"><li><mark class="highlight-orange">Proxy</mark>: local counterpart of the remote obj → in charge of marshalling/unmarshalling<div style="display:contents" dir="auto"><ol type="a" id="137eea59-ca7a-80a0-9636-d55c6c4fedc2" class="numbered-list" start="1"><li>based on the relative remote interface</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="137eea59-ca7a-8054-af15-f2add3a57848" class="numbered-list" start="2"><li><mark class="highlight-orange">RRM</mark> on both sides, creates remote references and a table (<mark class="highlight-orange">ROT</mark>) keeps the match between remote/local references</li></ol></div><div style="display:contents" dir="auto"><p id="137eea59-ca7a-800a-8ad8-d24ef709c9b9" class=""><strong>Server</strong>:</p></div><div style="display:contents" dir="auto"><ol type="1" id="137eea59-ca7a-8001-8bf8-c9662b7b5ba6" class="numbered-list" start="1"><li>The communication module ask the RRM for the local reference of the dispatcher/skeleton</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="137eea59-ca7a-8042-8761-f3d755936024" class="numbered-list" start="2"><li>The <mark class="highlight-orange">dispatcher</mark>, based on <em>opID</em>, determines the method to invoke on the skeleton</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="137eea59-ca7a-80b1-94dc-e60676e69c27" class="numbered-list" start="3"><li>The <mark class="highlight-orange">skeleton </mark>perform the unmarshalling and invokes the correct method on the object</li></ol></div><div style="display:contents" dir="auto"><p id="136eea59-ca7a-8077-a7f0-d1ca04c8272e" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="136eea59-ca7a-80ec-8469-c0821de50a9f" class="">Find Remote Objects</h3></div><div style="display:contents" dir="auto"><p id="136eea59-ca7a-8075-b5d1-ec582fb0289c" class="">A servant can be accessed once its remote reference is available. How to find it? We can exploit a registry, namely <code>rmiregistry</code>, to lookup remote refs from names (i.e. it acts as a <span style="border-bottom:0.05em solid">name service</span>).</p></div><div style="display:contents" dir="auto"><ol type="1" id="136eea59-ca7a-8088-9aa0-f8319306c958" class="numbered-list" start="1"><li>A servant binds to rmiregistry, making its remote references available on it</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="136eea59-ca7a-806a-a751-e89d536295cf" class="numbered-list" start="2"><li>Any client can lookup the relative remote reference in the rmiregistry</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="136eea59-ca7a-8069-adff-d920ec3dc51d" class="numbered-list" start="3"><li>Using the remote reference, the actual call can be executed</li></ol></div><div style="display:contents" dir="auto"><p id="16beea59-ca7a-8053-bcdc-c4fbf6e65945" class="">
+</p></div><div style="display:contents" dir="auto"><p id="16beea59-ca7a-801c-91e1-ea120ace14b9" class=""><strong>Remote Reference</strong>:<br/>The object returned from the registry lookup is a <strong>stub</strong> (proxy). This proxy implements the remote interface and handles:</p></div><div style="display:contents" dir="auto"><ul id="16beea59-ca7a-8055-bde0-c9a43bcbf85b" class="bulleted-list"><li style="list-style-type:disc">Marshalling the method parameters.</li></ul></div><div style="display:contents" dir="auto"><ul id="16beea59-ca7a-80bd-94f8-d6b9ca39275c" class="bulleted-list"><li style="list-style-type:disc">Sending the request over the network.</li></ul></div><div style="display:contents" dir="auto"><ul id="16beea59-ca7a-80bf-b535-d31d33f6dfc6" class="bulleted-list"><li style="list-style-type:disc">Receiving the response and unmarshalling it.</li></ul></div><div style="display:contents" dir="auto"><p id="136eea59-ca7a-8098-9e39-cfa5874e44b8" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="136eea59-ca7a-8003-a4b5-c1f6cb9c9526" class="">RMI Multithreading</h3></div><div style="display:contents" dir="auto"><p id="136eea59-ca7a-804d-a342-c5d73373b8a7" class="">Typical possible approaches:</p></div><div style="display:contents" dir="auto"><ol type="1" id="136eea59-ca7a-80ac-a7a7-cee6dabc5ad7" class="numbered-list" start="1"><li><mark class="highlight-blue">Thread-per-request</mark> - Each request is handled by a separate thread</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="136eea59-ca7a-803e-a782-c894fdcadb90" class="numbered-list" start="2"><li><mark class="highlight-blue">Thread-per-connection</mark> - One thread dedicated to a single connection</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="136eea59-ca7a-80fe-9dd4-e1e37bb6483d" class="numbered-list" start="3"><li><mark class="highlight-blue">Thread-per-object</mark> - Requests to a single servant objects are serialized over one dedicated thread</li></ol></div><div style="display:contents" dir="auto"><p id="152eea59-ca7a-80ca-8ae3-dce1e3f6f49f" class="">
+</p></div><div style="display:contents" dir="auto"><ul id="136eea59-ca7a-804d-a047-fc0f7307aba4" class="bulleted-list"><li style="list-style-type:disc">Calls originating from different clients Virtual Machines will execute in different threads.</li></ul></div><div style="display:contents" dir="auto"><ul id="136eea59-ca7a-80f2-8144-fb8626c35b50" class="bulleted-list"><li style="list-style-type:disc">From the same client machine it is not guaranteed that each method will run in a separate thread</li></ul></div><div style="display:contents" dir="auto"><p id="136eea59-ca7a-80c3-af06-c02b67d53579" class=""> The code related to request processing <mark class="highlight-blue"><span style="border-bottom:0.05em solid">must be thread-safe</span></mark></p></div><div style="display:contents" dir="auto"><h1 id="136eea59-ca7a-806a-8422-f189e9e92eb2" class="">Class Loading </h1></div><div style="display:contents" dir="auto"><p id="136eea59-ca7a-8033-8f34-c72026035fe7" class="">Dynamically performed when call new </p></div><div style="display:contents" dir="auto"><div id="136eea59-ca7a-80cb-bfb9-eb378e88762e" class="column-list"><div style="display:contents" dir="auto"><div id="136eea59-ca7a-80cf-acb6-fc85187b2579" style="width:62.5%" class="column"><div style="display:contents" dir="auto"><p id="136eea59-ca7a-802e-8936-ec6bf9b48f9b" class="">It is normally performed by <mark class="highlight-orange">Class Loaders</mark></p></div><div style="display:contents" dir="auto"><p id="136eea59-ca7a-803a-8396-f16ae5db1a39" class="">They are organized in a <mark class="highlight-orange">delegation hierarchy</mark></p></div><div style="display:contents" dir="auto"><ul id="136eea59-ca7a-80b9-9017-c82075784f7c" class="bulleted-list"><li style="list-style-type:disc">A classloader asks first its parent to load a class and, in case it fails, it tries to perform the task on its own.</li></ul></div><div style="display:contents" dir="auto"><p id="137eea59-ca7a-80c8-891b-fa6d044f5e65" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="136eea59-ca7a-8001-bb0c-f970b17c1d90" style="width:37.49999999999999%" class="column"><div style="display:contents" dir="ltr"><figure id="136eea59-ca7a-80b8-8f9e-ed0d84acd53f" class="image"><a href="Remote%20Call/image%2014.png"><img style="width:323.0416564941406px" src="Remote%20Call/image%2014.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="136eea59-ca7a-80d5-905e-cfecf063cfe5" class="bulleted-list"><li style="list-style-type:disc">Properties of class loading: <span style="border-bottom:0.05em solid">uniqueness</span> (loaded only once), <span style="border-bottom:0.05em solid">visibility</span> (means a class loaded by a specific loader can be accessed by other classes loaded by the same or child loaders).</li></ul></div><div style="display:contents" dir="auto"><p id="137eea59-ca7a-804f-abf6-c8459d248465" class="">
+</p></div><div style="display:contents" dir="auto"><p id="136eea59-ca7a-8018-b597-c09103044a98" class="">Class loading can be performed remotely, by <span style="border-bottom:0.05em solid">downloading</span> .class files from specific server nodes. The location can be specified in two ways:</p></div><div style="display:contents" dir="auto"><ol type="1" id="136eea59-ca7a-80a4-b8e6-f367d251d7a7" class="numbered-list" start="1"><li>The remote reference can be annotated with this information (URL) → when client connect for the first time to a remote object (otherwise how to deserialize)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="136eea59-ca7a-80f1-ad6f-da6b047c3b09" class="numbered-list" start="2"><li>The object sent as a parameter in a remote method call is annotated with the URL → when client pass the object to the server</li></ol></div><div style="display:contents" dir="auto"><p id="16beea59-ca7a-8025-b130-d6f91f5a982a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="136eea59-ca7a-8068-a7bd-c1395029800f" class="">Classloaders are informed on where to load classes by the codebase property, i.e. for RMI: java.rmi.server.codebase</p></div><div style="display:contents" dir="auto"><h1 id="136eea59-ca7a-8038-bfac-d17c1f1b6759" class="">Garbage Collection</h1></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-80f6-ae0c-d288dcfaf198" class="">Each reachable object is marked first, and then all the unmarked objects are removed (swept away).</p></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-8011-8b92-eda1b5394840" class="">The marking algorithm starts from a <mark class="highlight-blue">pool of GC root objects</mark>. In Java, the GC roots are:</p></div><div style="display:contents" dir="auto"><ol type="1" id="13beea59-ca7a-8071-b482-e211be16a762" class="numbered-list" start="1"><li>local variables in the main method</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="13beea59-ca7a-80fc-bb56-ca3f419d5201" class="numbered-list" start="2"><li>the main thread</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="13beea59-ca7a-80ed-b819-d4e96b70f6be" class="numbered-list" start="3"><li>static variables of the main class</li></ol></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-80ce-b0e3-e1e39aadba60" class="">It requires to stop the execution of the program to perform the marking</p></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-80ca-9aca-ffc923e67127" class="bulleted-list"><li style="list-style-type:disc">it may take a lot of time</li></ul></div><div style="display:contents" dir="auto"><h3 id="13beea59-ca7a-803e-bdef-f455beecc09a" class="">Tri-Color Marking</h3></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-808f-aa4e-e6eb1df50d87" class="">Does not require freezing the system. Main alg to perform GC</p></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-80ea-ba9f-ece9dd4fdb93" class="bulleted-list"><li style="list-style-type:disc">allow interleaving with the main program</li></ul></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-80a6-80fb-fd6a28c0a3f2" class="">Three sets of object</p></div><div style="display:contents" dir="auto"><ol type="1" id="13beea59-ca7a-8052-abb6-e3d87696fa2c" class="numbered-list" start="1"><li><strong>White</strong>: candidates to be swept</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="13beea59-ca7a-80eb-8cde-f753504e437f" class="numbered-list" start="2"><li><strong>Grey</strong>: objects that are reachable from roots (not scanned yet for references to white)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="13beea59-ca7a-80c3-a7eb-c8e68264c772" class="numbered-list" start="3"><li><strong>Black</strong>: not canidates for garbage collection (no references to objects in white)</li></ol></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-80dd-b2b0-f6efa6964fde" class="">
+</p></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-80d4-8664-dfc446251337" class="">At init, Black is empty, Grey contains the objs directly reachable by roots, White has all the rest</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="13beea59-ca7a-8056-b731-cf7cf2dac655" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">while !Gray.isEmpty():
+	 Pick one obj X from Grey, and move it to Black; 
+   Move into Grey all the objs in White that are referenced by X
+remove all objects in White</code></pre></div><div style="display:contents" dir="auto"><div id="13beea59-ca7a-80ae-9bde-e1ec44fcef21" class="column-list"><div style="display:contents" dir="auto"><div id="13beea59-ca7a-805c-9740-c66475fcee14" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="13beea59-ca7a-80a2-a01b-dd050cb56855" class="">Property: no obj in Black has a ref to objs in White</p></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-80d5-af8c-f3c436638245" class="bulleted-list"><li style="list-style-type:disc">Thus, when Grey becomes empty → all the objs in White can be swept.</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="13beea59-ca7a-80b5-a39c-ca06777253a1" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="13beea59-ca7a-8058-9634-ed25c437fbbb" class="image"><a href="Remote%20Call/image%2015.png"><img style="width:278.88751220703125px" src="Remote%20Call/image%2015.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="13beea59-ca7a-8021-8eff-d7faeb22e485" class="">Reference Counting</h3></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-80f3-ab82-d1a877944a8c" class="">Each object keeps a counter of (incoming) references. Object references added/removed → the counter is updated</p></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-80f1-8ae5-f97300da227b" class="bulleted-list"><li style="list-style-type:disc">The GC is allowed to remove all objects whose counter = 0</li></ul></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-80e5-95c1-f8b73042c947" class="bulleted-list"><li style="list-style-type:disc">Problem: possible <mark class="highlight-blue">cyclic references </mark>lead to memory leaks! Thus, some periodic checks for this must be done → when a cycle is disconnected from root it will not have the counter to zero</li></ul></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-8094-a005-d10654e3dbf8" class="">
+</p></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-806e-9afc-f316a51fbb00" class="">In <strong><span style="border-bottom:0.05em solid">java</span></strong> local GC is usually implemented using Mark&amp;Sweep approaches. </p></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-8088-82de-cadae3ad2cab" class="">Different objects show <mark class="highlight-blue">different utilization patterns </mark>(typically, high “infant mortality” is observed), and this affects the GC performance.</p></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-808e-b49d-e270020e17b0" class="bulleted-list"><li style="list-style-type:disc">For this reason, objects are divided into “<mark class="highlight-blue">populations</mark>” (e.g. young and old) according to their behavior, so to optimize the overall process (only younger objects are set to white).</li></ul></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-8060-a1c0-e0a51607f0f6" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="13beea59-ca7a-801a-a999-f7d48782d493" class="">Distributed Garbage Collection</h3></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-80c5-899f-d306f8b7764b" class="">Based on reference counting; Local GC &amp; DGC must collaborate!</p></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-807b-92c9-fedbf12ad17e" class="bulleted-list"><li style="list-style-type:disc">Clients should inform servers about what remote refereces they are using.</li></ul></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-8085-950f-ccb9805e9e08" class="bulleted-list"><li style="list-style-type:disc">On the server, the Remote Reference Module must keep, for each ROT entry, the list of clients that hold remote references to that object (the “servant”).</li></ul></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-8008-88fc-ea48056efe6e" class="bulleted-list"><li style="list-style-type:disc">Such a list has to be updated each time a remote reference is created/duplicated/removed.</li></ul></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-8038-8f53-c9e89c39c34b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-806f-9f4c-c15f40ad2d1e" class="">The DGC functionality is described by the java.rmi.dgc.DGC interface, used for the server-side component of the overall system.</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="13beea59-ca7a-8077-879c-db490337a123" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">dirty(&lt;list of rem refs&gt;, ...  , &lt;Client JVM_ID&gt;)
+clean(&lt;list of rem refs&gt;, ...  , &lt;Client JVM_ID&gt;)</code></pre></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-80bb-ab02-f5a837ea132f" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Dirty </mark>invocation must be done by the RMI runtime just before constructing the proxies for the corresponding remote objects.</li></ul></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-80c2-9cc9-e2be6adf492c" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Clean</mark> is used to inform the server that the client makes NO MORE use of the reported remote references → removal of JVM_ID from the relative lists of “holders”.</li></ul></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-8088-baf1-cef267256713" class="">
+</p></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-80f3-9281-dee31339d6b0" class=""><strong>Problems</strong></p></div><div style="display:contents" dir="auto"><div id="13beea59-ca7a-80ba-be7e-ebba596170a5" class="column-list"><div style="display:contents" dir="auto"><div id="13beea59-ca7a-80b7-9f4a-ec8ea9f3c000" style="width:50%" class="column"><div style="display:contents" dir="auto"><ol type="1" id="13beea59-ca7a-80cb-8c50-cd0adf4abec0" class="numbered-list" start="1"><li>Consequences of a data race between clean(X, …) and dirty(X, …) when the list of holders for X has one single element</li></ol></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-80fb-8334-e7a0206c8ea7" class=""><strong>Solution</strong>: the server must be informed that X has been given to C, and a dummy placeholder for C is placed in the list of holders for X, waiting for the corresponding dirty(X) to come.</p></div></div></div><div style="display:contents" dir="auto"><div id="13beea59-ca7a-80c2-9637-d5bd8f52cf73" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="13beea59-ca7a-80a9-b3a5-f86581448b2c" class="image"><a href="Remote%20Call/image%2016.png"><img style="width:278.88751220703125px" src="Remote%20Call/image%2016.png"/></a><figcaption>problem when concurrent and this order of messagges</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure id="13beea59-ca7a-80ce-ac59-f7a1cb01c015" class="image"><a href="Remote%20Call/image%2017.png"><img style="width:603.7750244140625px" src="Remote%20Call/image%2017.png"/></a></figure></div><div style="display:contents" dir="auto"><ol type="1" id="13beea59-ca7a-8081-b2b0-f3b4058ba075" class="numbered-list" start="2"><li>Crashes of clients may prevent a list from ever become empty, leading to a memory leak.<div style="display:contents" dir="auto"><p id="13beea59-ca7a-809f-a14c-f49a91715fa8" class="">The semantics of dirty(…) has to be changed: dirty(...&lt;Lease&gt;) corresponds to ask for a<mark class="highlight-blue"> lease time</mark>, and a Lease time will be returned.</p></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-8022-8657-e8688dc20ac7" class="bulleted-list"><li style="list-style-type:disc">It’s up to the client runtime to renew the lease by successively invoking dirty(…) . Whenever a Lease time expires without timely renewals, the client is removed from the list of holders.</li></ul></div></li></ol></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

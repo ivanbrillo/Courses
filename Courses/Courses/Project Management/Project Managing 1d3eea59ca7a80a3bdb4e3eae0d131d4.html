@@ -1,0 +1,764 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Project Managing </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1d3eea59-ca7a-80a3-bdb4-e3eae0d131d4" class="page sans"><header><h1 class="page-title" dir="auto">Project Managing </h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-803c-b152-f721e2a86929" class="bulleted-list"><li style="list-style-type:disc">everything is projectize now a day</li></ul></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-801b-8d56-edfd38fbebf1" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-80c2-8d78-c22c58c51c00" class="">A <mark class="highlight-orange">project </mark>is any series of activities that:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-80ad-9a82-c0fb00451bfa" class="numbered-list" start="1"><li>have a specific objective with focus of creating a business value</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-80c5-ac1c-d8997caf746b" class="numbered-list" start="2"><li>time bounded (start and finish)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-8014-b5cf-cd83e796c5c3" class="numbered-list" start="3"><li>have funding limits (budget)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-8058-91d0-cc8e8f235eb2" class="numbered-list" start="4"><li>consume human and nonhuman resources (people, money, assets)</li></ol></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-8009-a72c-f85c2fad4597" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-804e-a6ea-e31801ff9e3a" class=""><mark class="highlight-orange"><mark class="highlight-pink_background">Project Management</mark></mark><mark class="highlight-pink_background"> is the planning, controlling of company resources for a relativly short term objective that has been established to complete</mark></p></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-801e-aa26-d3e83f5f0b41" class="">3 main approaches:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-805b-a6ba-ef3a829cfa8b" class="numbered-list" start="1"><li>waterfall</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-8085-b31e-f0dcf0f63f5e" class="numbered-list" start="2"><li>agile way</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-8096-b0e6-fe587b639094" class="numbered-list" start="3"><li>hybrid</li></ol></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-80fb-8f32-c36c5cb06060" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d3eea59-ca7a-8088-908f-e3fe79f32391" class="">Traditional (WaterFall)</h3></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-807d-a6bf-c119f9f48e7b" class="">predict how things will unfold</p></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-80e9-b8bd-c708fc8f9943" class="bulleted-list"><li style="list-style-type:disc">heavy upfront analysis and documentation about problem and solution</li></ul></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-80f3-b42c-fef880775861" class="bulleted-list"><li style="list-style-type:disc">Plan all the steps to takes (eg. machine designing)</li></ul></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-805e-b385-e01e11f28474" class="">
+</p></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-808e-82d3-c3a4e952c151" class="bulleted-list"><li style="list-style-type:disc">too rigid</li></ul></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-8020-a1b8-f2dbdbd63d33" class="bulleted-list"><li style="list-style-type:disc">commit to the solution too early → cannot change, iterations, feedback from customers</li></ul></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-8033-b4c8-df32307466ac" class="bulleted-list"><li style="list-style-type:disc">focused more on process, rather then product</li></ul></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-80ee-a815-fd4e2fb5cc7a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-8084-93de-f94decf57551" class="">Successful projects:</p></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-80cc-b6ce-dcabfde5828c" class="bulleted-list"><li style="list-style-type:disc">LHC at CERN → detailed documentation</li></ul></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-80ac-9571-e70ad5a7128f" class="bulleted-list"><li style="list-style-type:disc">Burj Khalifa → predictability</li></ul></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-8016-97df-e87e2f7229f3" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d3eea59-ca7a-8003-bad5-de0fb1467bc8" class="">Agile</h3></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-805d-847c-ceb7249eed06" class="">focused small increment</p></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-80e2-a344-fb0b79655586" class="bulleted-list"><li style="list-style-type:disc">do not plan the whole thing, just a little, then do it and then check</li></ul></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-80ee-a716-d117f353a4a5" class="bulleted-list"><li style="list-style-type:disc">there is no need of a formal project manager</li></ul></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-803a-a289-fcca58e2a720" class="">
+</p></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-80d1-b098-ca4b63c80f21" class="bulleted-list"><li style="list-style-type:disc">easy to get distracted </li></ul></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-80b0-a773-e09966260dca" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">project doesn’t have a finite end</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-805d-a6f6-fdba8e0244f5" class="bulleted-list"><li style="list-style-type:disc">constant interaction takes more time and energy from everyone → also the customer must be involved</li></ul></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-80c3-b0f8-effe30346284" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-80a7-9f5d-dd757fdc6e49" class="">Agile manifesto</p></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-8027-969e-cf6a206b1899" class="bulleted-list"><li style="list-style-type:disc">uncovering a better ways to develop software</li></ul></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-80ed-a9c7-ef4236af952a" class="bulleted-list"><li style="list-style-type:disc">better have working software rather then comprehensive documentation</li></ul></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-801a-b0e1-d9870331db0e" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-80f1-bc95-e6310b88af71" class="">Success</p></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-80f8-909c-d817042a68a3" class="bulleted-list"><li style="list-style-type:disc">Google seach engine</li></ul></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-8089-bb35-c189a16e1b66" class="bulleted-list"><li style="list-style-type:disc">amazon </li></ul></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-80f9-8f44-e5d4a9824218" class="bulleted-list"><li style="list-style-type:disc">Spotify</li></ul></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-80dd-920c-e11e6fb29f7c" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d3eea59-ca7a-8045-aa16-e75b23aa1b89" class="">Hybrid Approach</h3></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-8062-a94b-fa349756846d" class="">Agile approach on the front to explore potential solutions and a predictive approach to build that solution</p></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-8004-a045-d08e10068336" class="bulleted-list"><li style="list-style-type:disc">Agile cannot work for big team sizes</li></ul></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-80c6-893e-f6f0c8ecd380" class="bulleted-list"><li style="list-style-type:disc">can handle complex project structures, with uncertain requirements</li></ul></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-80c0-921b-d7a3dfc8c339" class="bulleted-list"><li style="list-style-type:disc">could alternate agile with predictive phases</li></ul></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-80bf-a1ce-dcb6a0cf57d1" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-80a4-9215-cbd5fa5172d3" class="">Success:</p></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-80c3-be05-d01cbf79fbf6" class="bulleted-list"><li style="list-style-type:disc">Ubisoft</li></ul></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-8008-9909-cf472d578633" class="bulleted-list"><li style="list-style-type:disc">Tesla<div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-8002-964a-c8c793c16b59" class="bulleted-list"><li style="list-style-type:circle">gigafactory → waterfall</li></ul></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-8038-9f8a-c3d33499a5df" class="bulleted-list"><li style="list-style-type:circle">software → agile</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-80a7-9719-ec5a68152609" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d3eea59-ca7a-8040-868d-e1181b3c1b6a" class="">Project Objective</h3></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-80ec-8d95-d3f2d31c0f99" class="">Project success is achive if check the following:</p></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-806b-b3ef-cc7d421a6a64" class=""><mark class="highlight-orange">triple constraint model</mark>:</p></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-80e3-addd-d022587619a5" class="bulleted-list"><li style="list-style-type:disc">with in time</li></ul></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-80b1-a55b-da8f9c1c2e52" class="bulleted-list"><li style="list-style-type:disc">with in budget</li></ul></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-80fb-b514-f35eae0e3550" class="bulleted-list"><li style="list-style-type:disc">scope</li></ul></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-80fd-9d10-fd2606ac83fb" class="bulleted-list"><li style="list-style-type:disc">quality<div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-8010-9087-c5ac1269fa25" class="bulleted-list"><li style="list-style-type:circle">All three factors come together in the middle of the triangle to determine quality</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><div id="203eea59-ca7a-8058-80d3-fd9be1ac3ff0" class="column-list"><div style="display:contents" dir="auto"><div id="203eea59-ca7a-804f-b64f-d10c7f898b79" style="width:62.5%" class="column"><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-801a-b267-c494bcd4f667" class="bulleted-list"><li style="list-style-type:disc">Cost is a function of time and scope</li></ul></div><div style="display:contents" dir="auto"><ul id="203eea59-ca7a-8042-afbe-eab9de39d42d" class="bulleted-list"><li style="list-style-type:disc">Elements are interdependent → <mark class="highlight-teal">tradeoff</mark></li></ul></div><div style="display:contents" dir="auto"><p id="203eea59-ca7a-80d4-be22-d1d12becdc32" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="203eea59-ca7a-8072-bde1-dc9f20cb6a33" style="width:37.49999999999999%" class="column"><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-8084-b956-eef955aa5fe2" class="image"><a href="Project%20Managing/image.png"><img style="width:331.9750061035156px" src="Project%20Managing/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure id="1d3eea59-ca7a-8092-b785-c19e8eedb68a" class="image"><a href="Project%20Managing/image%201.png"><img style="width:709.96875px" src="Project%20Managing/image%201.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-8035-bf9c-e4a5f5fd0a40" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-80ee-b4a9-e489eb4a734d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-801a-a5b0-d421f8f5cb86" class=""><mark class="highlight-pink_background">New Project success definition</mark>:</p></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-8071-846a-f9cd3937d37a" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Deliver value that was worth the effort and expensive</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-8061-a84f-ce8a1b53ee20" class="bulleted-list"><li style="list-style-type:disc">Sydney operahouse ha ritardato 10 anni, costato  molto di più, ma è un successo per tutto quello che porta</li></ul></div><div style="display:contents" dir="auto"><div id="203eea59-ca7a-80c9-aebb-dc455a4e9b5f" class="column-list"><div style="display:contents" dir="auto"><div id="203eea59-ca7a-80f5-998e-f6a9af27aa1d" style="width:43.75%" class="column"><div style="display:contents" dir="ltr"><figure id="1d3eea59-ca7a-80c6-ada4-ecff49eb8a16" class="image"><a href="Project%20Managing/image%202.png"><img style="width:480px" src="Project%20Managing/image%202.png"/></a></figure></div></div></div><div style="display:contents" dir="auto"><div id="203eea59-ca7a-80ed-b7d7-f2b307c2de74" style="width:56.25%" class="column"><div style="display:contents" dir="ltr"><figure id="1d3eea59-ca7a-8051-a3d7-df82bfbe7757" class="image"><a href="Project%20Managing/image%203.png"><img style="width:709.984375px" src="Project%20Managing/image%203.png"/></a><figcaption><mark class="highlight-orange">Low of diminishing returns</mark></figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-80a3-b757-c7ab8db537fe" class="bulleted-list"><li style="list-style-type:disc">too many people, not efficient</li></ul></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-808a-8b45-d0baf235d87a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-80dd-8c68-cef6715a9e7a" class=""><mark class="highlight-teal"><mark class="highlight-pink_background">Failure</mark></mark><mark class="highlight-pink_background">: when the final results are not what were expected, even though the original expectations may or may not have been reasonable</mark></p></div><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-806e-874a-cbe74ed636d0" class="image"><a href="Project%20Managing/image%204.png"><img style="width:480px" src="Project%20Managing/image%204.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-8098-89bd-ea6cbe9289a6" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-80b6-be8e-ff0f42cc1efa" class="">We need to make sure that the expectations are clear with stakeholders and reasonable </p></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-80c5-bee0-cc29bf12a184" class="bulleted-list"><li style="list-style-type:disc">learn lessons from past projects</li></ul></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-802e-8422-c7f6d3b69db3" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-801c-8187-e0bfbacf836f" class=""><mark class="highlight-pink_background">Lesson learned</mark></p></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-80c4-98e9-c8dedd58c51d" class="bulleted-list"><li style="list-style-type:disc">Lessons can be learned from each and every project, even if the project is a failure</li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-8088-a61c-d28aeb232e02" class="bulleted-list"><li style="list-style-type:disc">Lesson learned must be <mark class="highlight-pink_background">documented</mark>!</li></ul></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-805d-936b-e2dc1dfe1c82" class=""><mark class="highlight-pink_background">Best Practice</mark></p></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-804c-849b-e126f56b3318" class="bulleted-list"><li style="list-style-type:disc">Actions or activities undertaken by the company or individuals that lead to a sustained competitive advantage in project management</li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-80c5-a3f6-f35b66f95f9c" class="bulleted-list"><li style="list-style-type:disc">Best practices can be learned from both successes and failures</li></ul></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-80bd-833e-c243c0fd08d0" class=""><mark class="highlight-pink_background">Proven Practice</mark></p></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-80f8-a886-e0665231a4d6" class="bulleted-list"><li style="list-style-type:disc">A best practice begins with an idea that there is a technique, process, method, or activity that can be more effective at delivering an outcome than any other approach and provides us with the desired outcome with fewer problems and unforeseen complication</li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-8011-9310-c264e7c6e89b" class="bulleted-list"><li style="list-style-type:disc">Once this idea has been proven to be effective, we normally integrate the best practice into our processes so that it becomes a standard way of doing business → “Proven practice”</li></ul></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-8072-b75a-ff59fa28ea4e" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d3eea59-ca7a-80ca-8a72-c0785d23d3a9" class="">Business case</h3></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-8075-9f58-d901d318955e" class="">document that says why a project should be started</p></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-807b-a6c7-ee9c8a76c730" class="numbered-list" start="1"><li>where is the business need</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-8058-8dbe-c845b50a8125" class="numbered-list" start="2"><li>benefit of realization</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-80a1-a5dc-c81343d70e68" class="numbered-list" start="3"><li>assumptions made → all of them must be challenged and verified and documented</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-8075-9928-cc2529ce3d8d" class="numbered-list" start="4"><li>high level objectives</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-80ce-90a1-dbcc337a5d4a" class="numbered-list" start="5"><li>exit strategies</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-807e-9cb2-d04f03865820" class="numbered-list" start="6"><li>project risks</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-80d2-8cb4-d8e75355b8fe" class="numbered-list" start="7"><li>project metrics for evaluation</li></ol></div><div style="display:contents" dir="ltr"><figure id="1d3eea59-ca7a-80a9-8868-d1cd55b80891" class="image"><a href="Project%20Managing/image%205.png"><img style="width:576px" src="Project%20Managing/image%205.png"/></a><figcaption>wrong assumtions, bias</figcaption></figure></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-8001-bcc0-fb93244b1012" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-8081-aa3d-e34cb299febc" class=""><mark class="highlight-pink_background">Validating assumptions</mark> → that could be impiclit (hidden)</p></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-80d9-ad74-e9d993e42f30" class="bulleted-list"><li style="list-style-type:disc">must be well documented </li></ul></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-8008-88cd-ec962af0f440" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-80fd-a407-c5ee4850982a" class=""><mark class="highlight-pink_background">Validating objectives</mark> → <mark class="highlight-orange">SMART rule</mark></p></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-808a-89ba-d26a860db519" class="bulleted-list"><li style="list-style-type:disc">objectives must be specific, measurable, attainable (raggiungibili), realistic, time bound → specific</li></ul></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-80a5-ac96-f81784527932" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-8074-a97e-c973c8cec5b3" class="">If the objective is not clear → problems, resource will be wasted</p></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-8010-9b45-e6ffc3e66b29" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d3eea59-ca7a-8099-a535-cd60dc2431e9" class="">Project Manager</h3></div><div style="display:contents" dir="auto"><div id="1ebeea59-ca7a-80c1-a2d3-e5a496ab62ee" class="column-list"><div style="display:contents" dir="auto"><div id="1ebeea59-ca7a-8041-bacf-c0359b364151" style="width:25%" class="column"><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-8071-adf0-e25530389bcb" class="">What does it take to be a Project Manager?</p></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-808a-94d4-f6faf8fae3ef" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1ebeea59-ca7a-8000-b9f4-f79243e08787" style="width:75%" class="column"><div style="display:contents" dir="ltr"><figure id="1d3eea59-ca7a-800c-8402-cb237b80dc8d" class="image"><a href="Project%20Managing/image%206.png"><img style="width:480px" src="Project%20Managing/image%206.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-8045-9620-f127864cef53" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-80aa-8dad-cb34b2158aeb" class="">Leadership</p></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-8017-a593-fdc9cbd484f9" class="numbered-list" start="1"><li>critical thinking</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-8024-b843-e9b90ca9ac90" class="numbered-list" start="2"><li>motivating</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-8040-b223-ce2d80907896" class="numbered-list" start="3"><li>emotional intelligence</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-8085-bfe2-da02aa55535c" class="numbered-list" start="4"><li>decision making</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-80cc-980a-e4d214449b7f" class="numbered-list" start="5"><li>conflict management</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-806a-aac6-cb0264ca8a27" class="numbered-list" start="6"><li>multicultural aweeness</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-80c8-a469-e5f10696ad1d" class="numbered-list" start="7"><li>multicultural awereness (eg. different colors meaning in different countries, scheduling in Swiss vs italy)</li></ol></div><div style="display:contents" dir="ltr"><figure id="1d3eea59-ca7a-8044-8956-e3e4414d3454" class="image"><a href="Project%20Managing/image%207.png"><img style="width:709.984375px" src="Project%20Managing/image%207.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="203eea59-ca7a-8080-ac2b-fcba7e141555" class="">
+</p></div><div style="display:contents" dir="auto"><p id="203eea59-ca7a-8014-b042-cca6df191914" class="">In this structure, the <strong>project resources</strong> (R&amp;D resource, Procurement resources) report to two managers simultaneously:</p></div><div style="display:contents" dir="auto"><ol type="1" id="203eea59-ca7a-808f-b0bf-c5e1cd418298" class="numbered-list" start="1"><li><strong>Functionally</strong> to their line manager (for career development, skills, standards)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="203eea59-ca7a-80b2-b2bc-f50718bdf6eb" class="numbered-list" start="2"><li><strong>Project-wise</strong> to the project manager (for project deliverables and timelines)</li></ol></div><div style="display:contents" dir="auto"><h1 id="1ebeea59-ca7a-8046-8971-fa416c88055a" class="">PM role</h1></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-8071-850e-c5ed7fe92005" class=""><mark class="highlight-pink_background">The project manager is responsible for coordinating and integrating activities across multiple functional lines. </mark></p></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-80c2-a1b4-fed46cdbaed6" class="">The integration activities performed by the project manager include</p></div><div style="display:contents" dir="auto"><ol type="1" id="1ebeea59-ca7a-804a-8237-c4aa6b7b2077" class="numbered-list" start="1"><li>Integrating the activities necessary to develop a project plan</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1ebeea59-ca7a-80a4-8bfe-d9f4840ac985" class="numbered-list" start="2"><li>Integrating the activities necessary to execute the plan</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1ebeea59-ca7a-8058-92d9-dda1c293e6ef" class="numbered-list" start="3"><li>Integrating the activities necessary to make changes to the plan </li></ol></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-8041-93da-c8a59b7a7fbb" class="">Project management is designed to have<mark class="highlight-teal"> </mark><mark class="highlight-teal"><mark class="highlight-pink_background">shared authority and responsibility</mark></mark> between the project and line managers.</p></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-808c-8b54-e01ae680a055" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-8033-bb53-ecc7a75d850f" class="">Project driven organizations → arespospace, manufacturing, …</p></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-8002-9705-c732dbad4430" class="">non-project driven organizations → low-tech manufacturing</p></div><div style="display:contents" dir="ltr"><figure id="1d3eea59-ca7a-801d-a92e-c220b403380e" class="image"><a href="Project%20Managing/image%208.png"><img style="width:709.984375px" src="Project%20Managing/image%208.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-800e-9c26-ddb724d0a8d4" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-8047-9767-e4d3562fe62e" class=""><mark class="highlight-pink_background">Is important to define responsability and accontability and authority</mark></p></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-80f6-bd09-c6d656a15d52" class="numbered-list" start="1"><li><mark class="highlight-teal">authority </mark>→ who has the power to make the final decision</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-8055-b1a1-c09cf105c4ac" class="numbered-list" start="2"><li><mark class="highlight-teal">responsability </mark>→ obligation incurred by individuals in their roles to effectivly perform their assignments</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-8029-9ad6-f4e7040b4d2f" class="numbered-list" start="3"><li><mark class="highlight-teal">accountability</mark> → answerable for the satisfactory completition of a specific assignment (PM generally)</li></ol></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-80bb-ad1a-db2d0773f554" class=""><mark class="highlight-orange">Collective ownership </mark>of the project outcomes</p></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-809a-8206-d1e3ad61e1be" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-8096-8c2e-d7262dcdf64d" class="">PM could be per project or per function (multiple PM for project, but one coordiantes multiple functions in more project)</p></div><div style="display:contents" dir="auto"><div id="1ebeea59-ca7a-80ba-bdf6-c15b5485e4f9" class="column-list"><div style="display:contents" dir="auto"><div id="1ebeea59-ca7a-8002-aa7e-d8c4cd564432" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-8004-b1a5-c74ece527216" class="image"><a href="Project%20Managing/image%209.png"><img style="width:331.984375px" src="Project%20Managing/image%209.png"/></a><figcaption>product organization</figcaption></figure></div></div></div><div style="display:contents" dir="auto"><div id="1ebeea59-ca7a-804a-9758-dbdd5a05d50b" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-8085-bcef-d9b841f911a7" class="image"><a href="Project%20Managing/image%2010.png"><img style="width:709.984375px" src="Project%20Managing/image%2010.png"/></a><figcaption>matrix organization</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure id="1d3eea59-ca7a-805a-8715-c2cb6637d0a3" class="image"><a href="Project%20Managing/image%2011.png"><img style="width:624px" src="Project%20Managing/image%2011.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="1d3eea59-ca7a-8082-bcd3-dc652d563da8" class="image"><a href="Project%20Managing/image%2012.png"><img style="width:576px" src="Project%20Managing/image%2012.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="1d3eea59-ca7a-803b-affd-f73d7773ddd3" class="image"><a href="Project%20Managing/image%2013.png"><img style="width:709.96875px" src="Project%20Managing/image%2013.png"/></a><figcaption>the simplest</figcaption></figure></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-8084-91a6-fe40ecd30547" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-8080-9cd2-dfd7e540bdda" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1d3eea59-ca7a-80d3-94cc-f6a0a0077bdb" class="column-list"><div style="display:contents" dir="auto"><div id="1d3eea59-ca7a-80b5-98d0-d7477de41d65" style="width:37.5%" class="column"><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-80e9-90f4-e58aff837f02" class="numbered-list" start="1"><li>identify stakeholder</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-8034-a682-fda885933b03" class="numbered-list" start="2"><li>understand and what they want</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-801b-beff-e4249083284a" class="numbered-list" start="3"><li>engange them and monitor them</li></ol></div></div></div><div style="display:contents" dir="auto"><div id="1d3eea59-ca7a-80c8-a0f3-d7c4fa1ccc1c" style="width:62.5%" class="column"><div style="display:contents" dir="ltr"><figure id="1d3eea59-ca7a-80e0-a079-f751806ca419" class="image"><a href="Project%20Managing/image%2014.png"><img style="width:432px" src="Project%20Managing/image%2014.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-8033-aac5-c7ce16277e18" class="bulleted-list"><li style="list-style-type:disc">it is a push and pull of information between team and stakeholders</li></ul></div><div style="display:contents" dir="auto"><hr id="1d3eea59-ca7a-80f4-ae26-cf5fcc112274"/></div><div style="display:contents" dir="auto"><h1 id="1ebeea59-ca7a-80ac-9b34-e715fe2ef06e" class="">Project Management</h1></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-8022-a8dd-d0af76a822ed" class="">The project manager should be in control of the <mark class="highlight-orange">schedule</mark>, and not vice versa</p></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-80bc-a954-cf5ceb865b90" class="bulleted-list"><li style="list-style-type:disc">The schedule is built from the ground up and rigorously managed throughout the life of the project</li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-8034-9d14-f638037d1165" class="bulleted-list"><li style="list-style-type:disc">The schedule should be as flexible as possible to accommodate the reality</li></ul></div><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-8064-9dbd-c74a4ef73c18" class="image"><a href="Project%20Managing/image%2015.png"><img style="width:709.984375px" src="Project%20Managing/image%2015.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="1ebeea59-ca7a-80ae-9a70-dd1b7f192a43" class="">2. Define Activities: WBS</h3></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-8076-88c1-dd5154c76ac2" class="">Work Breakdown Structure (WBS)</p></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-8023-9f6f-f813bff735bb" class="bulleted-list"><li style="list-style-type:disc">A <mark class="highlight-teal">hierarchical decomposition</mark> of the total scope of work to be carried out</li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-809a-adcf-e5278cb234ed" class="bulleted-list"><li style="list-style-type:disc">Complicated task → smaller tasks until they cannot be further subdivided</li></ul></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-80fb-a0b8-c6eab4731754" class=""><mark class="highlight-orange">Scope creep </mark>are additional scope or requirements that are accepted without adjusting schedule, budget, or resource needs.</p></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-800d-b16c-e1ad7e17877f" class="bulleted-list"><li style="list-style-type:disc">Use a change control system where all changes are evaluated for the potential value they<br/>bring to the project and the potential resources, time, and budget needed to realize the<br/>potential value. To be presented to the project governance body, product owner, or executive<br/>sponsor for formal approval</li></ul></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-8040-bbcc-e155a698e594" class=""><mark class="highlight-orange">Out of scope</mark>: an element that is not contained in the WBS and not a part of the project</p></div><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-80e3-ace5-cf711c1bba40" class="image"><a href="Project%20Managing/image%2016.png"><img style="width:576px" src="Project%20Managing/image%2016.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-8045-886d-f46099f61d51" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-8099-abcb-fd7baad9e6ed" class="">Needs to find a good stop for decomposition</p></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-8020-8c22-e18d3827a553" class="bulleted-list"><li style="list-style-type:disc">smaller work are more accurate to schedule and to control costs</li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-80c1-a19d-fde01d9c6b76" class="bulleted-list"><li style="list-style-type:disc">creating a really complex decomposition with 100s of entries can be so complex to analyze</li></ul></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-804f-a1f3-f849fc3f01cf" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1ebeea59-ca7a-80b5-a89a-dcb87a1b4ea9" class="">3. Sequence Activities</h3></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-8093-a16f-cd1631c35c8c" class=""> Dependencies are those things that influence which activities must be performed first</p></div><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-805b-b6e3-f125aac21317" class="image"><a href="Project%20Managing/image%2017.png"><img style="width:709.96875px" src="Project%20Managing/image%2017.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-8030-9193-ffd62aff8387" class="">(Activity B cannot + second term + before A + second term )</p></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-80c6-859b-f0f1e659007e" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-802f-b96c-f78dd693f33d" class="">Types of <mark class="highlight-orange">dependencies</mark></p></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-8023-a6a3-dcb77a924601" class="bulleted-list"><li style="list-style-type:disc">Mandatory: cannot be broken</li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-80f5-9413-eabdd380dcd6" class="bulleted-list"><li style="list-style-type:disc">Discretionary: are not always true – usually result of best practises</li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-8070-863c-cdd9fb30dcfa" class="bulleted-list"><li style="list-style-type:disc">External: are outside of the project’s control and scope</li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-806b-99b2-e90fe4cdcc14" class="bulleted-list"><li style="list-style-type:disc">Internal: those that the team can control</li></ul></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-80cc-91e9-f70dcecf1f10" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-8068-883d-ee01e37a047b" class="">Types of <mark class="highlight-orange">contraints</mark></p></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-807c-933c-e21e731cc4fb" class="bulleted-list"><li style="list-style-type:disc">Technical constraints: one task (the successor) requires output from another (the predecessor) before work can begin on it</li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-802a-b915-c9223a36b1e1" class="bulleted-list"><li style="list-style-type:disc">Management constraints</li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-8078-874d-fea81dc6fb96" class="bulleted-list"><li style="list-style-type:disc">Interproject constraints: deliverables from one project are needed by another project</li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-8044-a8a6-c3932a5e48d9" class="bulleted-list"><li style="list-style-type:disc">Date constraints</li></ul></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-800f-966b-d61aeb73c14f" class="">
+</p></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-808c-9453-f363d953fea4" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Lead</mark>: amount of time a successor acrivity can be advanced with respect to predecessor<div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-8089-b8d3-e78964e7f4dc" class="bulleted-list"><li style="list-style-type:circle">allows an acceleration</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-803b-86b2-e4dec426fcd0" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Lag</mark>: amount of time a successor activity will be delayed with respect to a predecessor activity.<div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-8003-8e35-d6a14e545d61" class="bulleted-list"><li style="list-style-type:circle">Imposes a delay of the successor activity. Introduce risk, especially in JIT (just in time) inventory management</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-807e-8044-f07061f85564" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1ebeea59-ca7a-80f8-abe0-f10cd9d0ebb6" class="column-list"><div style="display:contents" dir="auto"><div id="1ebeea59-ca7a-8080-bae8-c1fa44ae19a1" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-80a5-8a92-dcd90073f4b3" class="image"><a href="Project%20Managing/image%2018.png"><img style="width:331.96875px" src="Project%20Managing/image%2018.png"/></a></figure></div></div></div><div style="display:contents" dir="auto"><div id="1ebeea59-ca7a-8014-b414-e0eb8e61e09e" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-80c8-9efa-d158db6f498d" class="image"><a href="Project%20Managing/image%2019.png"><img style="width:331.953125px" src="Project%20Managing/image%2019.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-80aa-9920-d4d915b8b35c" class="image"><a href="Project%20Managing/image%2020.png"><img style="width:709.96875px" src="Project%20Managing/image%2020.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-800b-bbde-f2e8b54be78a" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1ebeea59-ca7a-80c4-a121-d5cfc5c5f522" class="">4. Estimating Activity Durations</h3></div><div style="display:contents" dir="auto"><ol type="1" id="1ebeea59-ca7a-8018-9251-e6d6e03ea175" class="numbered-list" start="1"><li>Analogous estimating: uses values, or attributes, of a previous project that are similar to the current project.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1ebeea59-ca7a-8044-ba02-d4dd038b6d5f" class="numbered-list" start="2"><li>Parametric estimating: uses a statistical relationship between relevant historical data and other<br/>variables</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1ebeea59-ca7a-80da-974e-e094b7a91cbf" class="numbered-list" start="3"><li>Bottom-up estimating: The work within the activity is decomposed into more detail. These estimates are then aggregated into a total quantity for each of the activity’s durations</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1ebeea59-ca7a-80f0-bb5c-c9f9092b7ed2" class="numbered-list" start="4"><li>3-point estimating → Helps define an approximate range for an activity’s duration<div style="display:contents" dir="auto"><ol type="a" id="1ebeea59-ca7a-8099-b3af-da81f0f3cf49" class="numbered-list" start="1"><li>Triangular distribution … (optimistic + most likely + pessimistic) / 3</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1ebeea59-ca7a-804a-bfb7-e69744042718" class="numbered-list" start="2"><li>Beta distribution … (optimistic + 4 * most likely + pessimistic) / 6</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-8022-8954-d8bbb3e6bca0" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-80bd-91b7-cd3dc643f82b" class="image"><a href="Project%20Managing/image%2021.png"><img style="width:709.96875px" src="Project%20Managing/image%2021.png"/></a><figcaption>Beta Distribution</figcaption></figure></div><div style="display:contents" dir="auto"><div id="203eea59-ca7a-80d4-a041-efd7a8f1bf22" class="column-list"><div style="display:contents" dir="auto"><div id="203eea59-ca7a-80ac-bcc8-c1c4cb93f0f1" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-8040-b7df-dc99a4bbe9b3" class=""><mark class="highlight-pink_background">probability of bad outcome is higher → skew</mark></p></div></div></div><div style="display:contents" dir="auto"><div id="203eea59-ca7a-801d-8d6c-cf408348102a" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="203eea59-ca7a-8096-ad98-f502b41e73ef" class="image"><a href="Project%20Managing/image%2022.png"><img style="width:336px" src="Project%20Managing/image%2022.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-80cf-b142-fc9441b33749" class="image"><a href="Project%20Managing/image%2023.png"><img style="width:709.96875px" src="Project%20Managing/image%2023.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-809c-a9b9-de28801c7a8f" class=""><mark class="highlight-pink_background">Assuming that the paths are independents of one another, the probability that the entire project will be on time can be calculated by multiplying these probabilities together</mark></p></div><div style="display:contents" dir="auto"><ul id="203eea59-ca7a-801d-a57a-f48697eca7e4" class="bulleted-list"><li style="list-style-type:disc">To complete a project by a specified time require that all the paths in the project’s network needs to be completed by the specified time</li></ul></div><div style="display:contents" dir="auto"><div id="1ebeea59-ca7a-80df-8ec9-def65ae220a4" class="column-list"><div style="display:contents" dir="auto"><div id="1ebeea59-ca7a-80fb-ae10-fed2b7251977" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-808f-8154-fab215099651" class="image"><a href="Project%20Managing/image%2024.png"><img style="width:331.96875px" src="Project%20Managing/image%2024.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="204eea59-ca7a-808a-9ad7-e1f36d89c5fa" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1ebeea59-ca7a-8035-b0f0-c8abec0beecf" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-80af-81c8-f14bd4c94441" class="image"><a href="Project%20Managing/image%2025.png"><img style="width:331.984375px" src="Project%20Managing/image%2025.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="1ebeea59-ca7a-80eb-b708-dbc206942415" class="">5. Develop Schedule</h3></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-8039-9f9d-e90da7c6fafe" class="">Process of analyzing activity sequences, durations, resource requirements, and schedule constraints to create a schedule model for project execution and monitoring and controlling</p></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-8017-a403-c34b476255f4" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Gantt Charts</mark></li></ul></div><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-808b-b9fa-d6b8aeb2f503" class="image"><a href="Project%20Managing/image%2026.png"><img style="width:694.9715576171875px" src="Project%20Managing/image%2026.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-8090-b185-f804157f2c37" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-8030-a820-ee40ee75f29b" class="">Project schedule <mark class="highlight-orange">network diagrams</mark>: two types</p></div><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-807e-b943-fb7eed97d567" class="image"><a href="Project%20Managing/image%2027.png"><img style="width:709.96875px" src="Project%20Managing/image%2027.png"/></a></figure></div><div style="display:contents" dir="auto"><div id="1ebeea59-ca7a-8056-815b-c764fa3e9bac" class="column-list"><div style="display:contents" dir="auto"><div id="1ebeea59-ca7a-8041-a8ea-faa882e0cb36" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-8093-871e-e60095bc2c96" class="image"><a href="Project%20Managing/image%2028.png"><img style="width:331.953125px" src="Project%20Managing/image%2028.png"/></a><figcaption>AON</figcaption></figure></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-8067-a0c0-c6d93539c41e" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1ebeea59-ca7a-80c0-9b4d-e2b62d6a0ee3" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-803d-8b94-f4f8ea641469" class="image"><a href="Project%20Managing/image%2029.png"><img style="width:331.96875px" src="Project%20Managing/image%2029.png"/></a><figcaption>AOA</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-8091-9d1d-c7dee441b1db" class="image"><a href="Project%20Managing/image%2030.png"><img style="width:709.96875px" src="Project%20Managing/image%2030.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-803c-8994-cbf9b779d8c4" class="image"><a href="Project%20Managing/image%2031.png"><img style="width:709.96875px" src="Project%20Managing/image%2031.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-806c-a7aa-fc1a3b43eedc" class="image"><a href="Project%20Managing/image%2032.png"><img style="width:709.953125px" src="Project%20Managing/image%2032.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-808d-8344-d98a1c31588e" class="image"><a href="Project%20Managing/image%2033.png"><img style="width:709.96875px" src="Project%20Managing/image%2033.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-80d1-a25d-c228a67d5843" class="image"><a href="Project%20Managing/image%2034.png"><img style="width:709.984375px" src="Project%20Managing/image%2034.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-802b-bded-f117344bbbd5" class="image"><a href="Project%20Managing/image%2035.png"><img style="width:709.984375px" src="Project%20Managing/image%2035.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-800c-a6e3-de03a3850b10" class="image"><a href="Project%20Managing/image%2036.png"><img style="width:709.96875px" src="Project%20Managing/image%2036.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-8049-bd9b-d77b07228da2" class=""><mark class="highlight-pink_background">Critical path is dynamic</mark></p></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-8000-b990-e86237dbf746" class="bulleted-list"><li style="list-style-type:disc">Near critical path: path close in duration to the critical path.</li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-809c-8660-e40b65a4bf38" class="bulleted-list"><li style="list-style-type:disc">The closer the near-critical and critical path are, the more risk the project has</li></ul></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-80e8-a144-e45d056684c4" class=""><mark class="highlight-pink_background">Free float ≤ total float</mark></p></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-80ac-ae3f-fdf16188fd75" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-8044-b1c9-ca90e987fa2d" class=""><mark class="highlight-orange"><mark class="highlight-pink_background">Resource optimization </mark></mark><mark class="highlight-pink_background">= adjust the start and finish dates of activities to adjust planned resource use to be equal to or less than resource availability</mark></p></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-80ec-af0f-fab4607cfdb0" class="bulleted-list"><li style="list-style-type:disc">Resource leveling: start and finish dates are adjusted based on resource constraints with the goal<br/>of balancing the demand for resources with the available supply. <div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-804a-9125-eb7d77fafd78" class="bulleted-list"><li style="list-style-type:circle">Resource leveling can often cause the original critical path to change.</li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-8096-ac7e-d61d23428c49" class="bulleted-list"><li style="list-style-type:circle">Available float is used for leveling resources.</li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-8054-9bbc-c925a41bde0f" class="bulleted-list"><li style="list-style-type:circle">Consequently, the critical path through the project schedule may change</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-8024-a0ed-fc4fe6692e16" class="bulleted-list"><li style="list-style-type:disc">Resource smoothing: adjusts the activities of a schedule model such that the requirements for<br/>resources on the project do not exceed certain predefined resource limit</li></ul></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-80cc-afb4-d517b4c6eb1b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-8088-b0f7-e05e9ac4c6f2" class="">Techniques used to shorten or accelerate the schedule duration without reducing the project scope</p></div><div style="display:contents" dir="auto"><ol type="1" id="1ebeea59-ca7a-801f-ac9e-e34f34205ad6" class="numbered-list" start="1"><li><mark class="highlight-teal">Fast tracking</mark>: activities or phases normally done in sequence are performed in parallel a portion of their duration for at least</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1ebeea59-ca7a-807b-aad1-fa74bd2a8a62" class="numbered-list" start="2"><li><mark class="highlight-teal">Crashing</mark>: shorten the schedule duration for the least incremental cost by adding resources</li></ol></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-801e-a651-e5b2c3070b53" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1ebeea59-ca7a-80bb-bfac-dc9f24acfcad" class="">6. Control Schedule</h3></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-8021-8d4d-e700316ed73a" class=""><mark class="highlight-orange">Key performance indicators </mark>(KPIs): quantifiable measures to evaluate the success of a project</p></div><div style="display:contents" dir="auto"><ol type="1" id="1ebeea59-ca7a-806e-81d3-d980c2e77384" class="numbered-list" start="1"><li><mark class="highlight-blue">Leading indicators</mark><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-8080-abaa-d2aa003c9251" class="bulleted-list"><li style="list-style-type:disc">predict changes or trends in the project</li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-8053-90c5-e501f3a3d8f7" class="bulleted-list"><li style="list-style-type:disc">can reduce performance risk by identifying potential performance variances before they cross the tolerance threshold</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1ebeea59-ca7a-80cc-a973-eb4d4edcecbf" class="numbered-list" start="2"><li><mark class="highlight-blue">Lagging indicators</mark><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-8089-ac73-c2937dfe35ec" class="bulleted-list"><li style="list-style-type:disc">measure project deliverables or events</li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-8097-a448-d21f0503885b" class="bulleted-list"><li style="list-style-type:disc">reflect past performance conditions</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-80a1-8188-c46f22f235c0" class="">
+</p></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-8054-b993-c01b33d0110d" class="bulleted-list"><li style="list-style-type:disc">Baseline schedule = version of the schedule that has been approved</li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-802f-bbce-c5783c43c513" class="bulleted-list"><li style="list-style-type:disc">Current schedule = current period version of the schedule based on actual work and forecast</li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-802b-99be-e1906de2c013" class="bulleted-list"><li style="list-style-type:disc">Variance = difference between the estimated effort in the baseline and the actual effort performed by the team</li></ul></div><div style="display:contents" dir="ltr"><figure id="203eea59-ca7a-80d6-a1f4-f939e60f92d0" class="image"><a href="Project%20Managing/image%2037.png"><img style="width:720px" src="Project%20Managing/image%2037.png"/></a><figcaption>S-Curves</figcaption></figure></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-80b3-9e5d-ced3d15bd28f" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-802e-9a52-f33359cf2e96" class="">Common pitfalls of measuring</p></div><div style="display:contents" dir="auto"><ol type="1" id="1ebeea59-ca7a-80f0-a49c-c97e10ce9a89" class="numbered-list" start="1"><li>Hawthorne effect: the act of measuring something influences behavior.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1ebeea59-ca7a-80c3-9f17-ee52312d653e" class="numbered-list" start="2"><li>Vanity metrics: measure that shows data but does not provide useful information for making decisions.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1ebeea59-ca7a-80a1-836a-d7804e261b07" class="numbered-list" start="3"><li>Confirmation bias: look for and see information that supports our preexisting point of view.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1ebeea59-ca7a-80cc-be06-ed80232a7587" class="numbered-list" start="4"><li>Correlation versus causation. confusing the correlation of two variables with the idea<br/>that one causes the other.</li></ol></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-80f3-8163-d0849251d80a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-806a-b23a-e9093ac2f343" class="">Agile utilization of the previous techniques:</p></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-8060-a22f-e1167d39d1da" class="bulleted-list"><li style="list-style-type:disc">Plan schedule management: low applicability – iterations and sprints are only planned in details for the upcoming one</li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-80a5-bc2f-ce2bcf535cba" class="bulleted-list"><li style="list-style-type:disc">Define activities: disaggreate to some level</li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-802f-b84b-d86a8533ab5d" class="bulleted-list"><li style="list-style-type:disc">Sequence activities: low applicability</li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-809b-8898-d706a7a01657" class="bulleted-list"><li style="list-style-type:disc">Estimate activity durations: applicable but different approach (e.g. planning poker)</li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-806b-97e7-f345a6b46b03" class="bulleted-list"><li style="list-style-type:disc">Develop plan: develop release plans with planned feature to release</li></ul></div><div style="display:contents" dir="auto"><ul id="1ebeea59-ca7a-8028-8707-c17eb4f0a554" class="bulleted-list"><li style="list-style-type:disc">Control schedule: done during iteration planning &amp; retrospective</li></ul></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-8066-8841-c14306916f6d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-8086-9cc2-db81df862b3c" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="1ebeea59-ca7a-803a-b0d7-fb51bc68054e" class="image"><a href="Project%20Managing/image%2038.png"><img style="width:709.953125px" src="Project%20Managing/image%2038.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1ebeea59-ca7a-80fb-b8b7-c0c552e86d0d" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

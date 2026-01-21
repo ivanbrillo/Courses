@@ -1,0 +1,739 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>CoAP</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1cdeea59-ca7a-80a1-b74a-db04f1417dec" class="page sans"><header><h1 class="page-title" dir="auto">CoAP</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="1cdeea59-ca7a-808b-8be3-c29ba8d766fc" class="">COstrained Application Protocol (2014)</p></div><div style="display:contents" dir="auto"><ul id="1cdeea59-ca7a-8006-b53b-fdba67cff9b1" class="bulleted-list"><li style="list-style-type:disc">Web protocol for constrained environments (LLNs), especially considering M2M applications</li></ul></div><div style="display:contents" dir="auto"><p id="1cdeea59-ca7a-8058-9f0e-f8dc00bf122c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1cdeea59-ca7a-8011-8e2c-c4dd518b0a73" class="">Features:</p></div><div style="display:contents" dir="auto"><ul id="1cdeea59-ca7a-807e-a0f3-e64ca1dc2c08" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">UDP</mark> transport protocol (vs TCP in HTTP)</li></ul></div><div style="display:contents" dir="auto"><ul id="1cdeea59-ca7a-80ee-83f8-cc98c5852919" class="bulleted-list"><li style="list-style-type:disc">Low <mark class="highlight-teal">header overhead </mark>and parsing complexity → <mark class="highlight-pink_background">binary version format </mark>and fixed length (can use masks)</li></ul></div><div style="display:contents" dir="auto"><ul id="1cdeea59-ca7a-8039-ba46-fa03bd3c40f5" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">proxy </mark>and <mark class="highlight-teal">caching </mark>capabilities from HTTP</li></ul></div><div style="display:contents" dir="auto"><ul id="1cdeea59-ca7a-80eb-b9a3-efe4c2a29617" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">stateless </mark>HTTP mapping from CRUD operations (StateLess)</li></ul></div><div style="display:contents" dir="auto"><ul id="1cdeea59-ca7a-8067-a263-de9b842abe92" class="bulleted-list"><li style="list-style-type:disc">support for <mark class="highlight-teal">multicast </mark>communication</li></ul></div><div style="display:contents" dir="auto"><ul id="1cdeea59-ca7a-8071-843b-dcf50070afd4" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">support for the </mark><mark class="highlight-teal"><mark class="highlight-pink_background">discovery of resources </mark></mark></li></ul></div><div style="display:contents" dir="auto"><p id="1cdeea59-ca7a-809b-b204-fe4dbb1d8afb" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1cdeea59-ca7a-801c-b418-cafddf2eaa65" class="">Goal: realize an application protocol for web services (common with HTTP) but optimized for M2M applications</p></div><div style="display:contents" dir="auto"><p id="1cdeea59-ca7a-8064-8273-e3e7e7fc35fe" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1cdeea59-ca7a-8074-b5f7-ef529063df7f" class="">Interaction Model</h3></div><div style="display:contents" dir="auto"><div id="1cdeea59-ca7a-8004-bfcb-faec04286e94" class="column-list"><div style="display:contents" dir="auto"><div id="1cdeea59-ca7a-80b8-9238-c882f330be01" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1cdeea59-ca7a-8047-b45b-ee08d2b3f2b6" class="">Interaction model optimized for contrained environments:</p></div><div style="display:contents" dir="auto"><ul id="1cdeea59-ca7a-8082-b692-ee2689f70feb" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue"><strong>Request/Response Layer</strong></mark>: Handles the exchange of requests and responses between applications and servers (packing and unpacking)</li></ul></div><div style="display:contents" dir="auto"><ul id="1cdeea59-ca7a-8076-a08a-d56ab5444aee" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue"><strong>Asynchronous Message Layer</strong></mark>: Manages message reliability over unreliable transports like UDP<div style="display:contents" dir="auto"><ul id="1cdeea59-ca7a-80e5-810a-e6ffb5cf1f99" class="bulleted-list"><li style="list-style-type:circle">Optional reliability is introduced at the application layer through <mark class="highlight-teal">retransmission </mark>and <mark class="highlight-teal">acknowledgment</mark></li></ul></div></li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1cdeea59-ca7a-807e-9459-db4b04b1e3b6" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1cdeea59-ca7a-8008-b80f-fc03e84b4705" class="image"><a href="CoAP/image.png"><img style="width:278.875px" src="CoAP/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1cdeea59-ca7a-8004-88b5-fa2ac2e4766c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1cdeea59-ca7a-80f7-83e7-fcf52f2f6452" class="">Define 4 different type of messages: </p></div><div style="display:contents" dir="auto"><ol type="1" id="1cdeea59-ca7a-8064-8f5c-cd992cc75554" class="numbered-list" start="1"><li>Confirmable (<mark class="highlight-blue">CON</mark>) → requires ack</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cdeea59-ca7a-80b2-8350-f229cbb2b50b" class="numbered-list" start="2"><li>Non-confirmable (<mark class="highlight-blue">NON</mark>) → do not requires ack (<mark class="highlight-orange">asynchronous</mark>)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cdeea59-ca7a-80a6-91a8-cdba5dc3670d" class="numbered-list" start="3"><li>Acknowledgement (<mark class="highlight-blue">ACK</mark>) </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cdeea59-ca7a-800b-91fb-ef814b86e953" class="numbered-list" start="4"><li>Reset (<mark class="highlight-blue">RST</mark>)<div style="display:contents" dir="auto"><ul id="225eea59-ca7a-8059-9050-ea251076a1d4" class="bulleted-list"><li style="list-style-type:disc">A recipient sends an RST in response to a Confirmable (CON) or Non-Confirmable (NON) message when it <strong>received the message</strong>, but <strong>lacks the necessary state or context to process it properly</strong>.</li></ul></div><div style="display:contents" dir="auto"><ul id="225eea59-ca7a-802a-a670-c05feeb9f490" class="bulleted-list"><li style="list-style-type:disc">Signal what msg has rejected since it will contain the same msg ID</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1cdeea59-ca7a-80e6-9b54-df6c2760eabd" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1cdeea59-ca7a-8011-b11d-d7d3c3c63bcf" class=""><mark class="highlight-default"><mark class="highlight-pink_background">In case optional reliability is enabled only confirmable message are transmitted</mark></mark>, meaning that request and responses are sent as confirmable messages. </p></div><div style="display:contents" dir="auto"><ul id="1cdeea59-ca7a-8033-969c-e82a0f2c095e" class="bulleted-list"><li style="list-style-type:disc">A confirmable message must be acknowledged by the receiver, <mark class="highlight-pink_background">the sender implements a </mark><mark class="highlight-teal"><mark class="highlight-pink_background">time-out </mark></mark><mark class="highlight-pink_background">mechanism to retransmission.</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1cdeea59-ca7a-80ed-a638-e6e2805e7ee8" class="bulleted-list"><li style="list-style-type:disc">If reliability is disabled, request and responses are sent as non-confirmable messages which do not require acknowledgment.</li></ul></div><div style="display:contents" dir="auto"><p id="1cdeea59-ca7a-8016-b32a-d4467aea81ce" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1cdeea59-ca7a-8040-b242-d260048d9db9" class="">It uses the same <mark class="highlight-teal">methods of HTTP </mark>for requests and responses.</p></div><div style="display:contents" dir="auto"><ol type="1" id="1cdeea59-ca7a-80c5-83a6-c04bd744a5d0" class="numbered-list" start="1"><li>Every Request is characterized (as in HTTP) by:<div style="display:contents" dir="auto"><ul id="1cdeea59-ca7a-8061-93d5-ef83d93a993a" class="bulleted-list"><li style="list-style-type:disc">Method</li></ul></div><div style="display:contents" dir="auto"><ul id="1cdeea59-ca7a-8041-8c4f-cd3a328bfa52" class="bulleted-list"><li style="list-style-type:disc">URI</li></ul></div><div style="display:contents" dir="auto"><ul id="1cdeea59-ca7a-8017-87ca-dba02a64d0e9" class="bulleted-list"><li style="list-style-type:disc">Payload and optional meta-data (CoAP options)</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1cdeea59-ca7a-8038-b560-cc04bc6551f5" class="numbered-list" start="2"><li>The Response includes:<div style="display:contents" dir="auto"><ul id="1cdeea59-ca7a-80e3-986f-c2d05232e492" class="bulleted-list"><li style="list-style-type:disc">Response Code → specify the outcome</li></ul></div><div style="display:contents" dir="auto"><ul id="1cdeea59-ca7a-802b-bd2a-dd7c7cbc35a9" class="bulleted-list"><li style="list-style-type:disc">Payload and optional meta-data</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1cdeea59-ca7a-8026-81cb-c5da7b92f5ac" class="">
+</p></div><div style="display:contents" dir="ltr"><table id="1cdeea59-ca7a-80d0-9673-f2e367177067" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="1cdeea59-ca7a-8040-8a93-fe2545526952"><td id="uFVt" class=""><mark class="highlight-orange">Method</mark></td><td id="HAjC" class="">Purpose</td><td id="SonX" class="">Description</td><td id="ONgL" class="">Properties</td></tr></div><div style="display:contents" dir="ltr"><tr id="1cdeea59-ca7a-80db-be25-db15eec45430"><td id="uFVt" class="">GET</td><td id="HAjC" class="">Retrieve</td><td id="SonX" class="">Retrieves a representation of the state of the resource</td><td id="ONgL" class="">Safe and idempotent</td></tr></div><div style="display:contents" dir="ltr"><tr id="1cdeea59-ca7a-804e-9112-ed6e1dabf53b"><td id="uFVt" class="">POST</td><td id="HAjC" class="">Process</td><td id="SonX" class="">Requests that the representation enclosed be processed. Usually results in a new resource being created or the target resource being updated</td><td id="ONgL" class="">Neither safe nor idempotent</td></tr></div><div style="display:contents" dir="ltr"><tr id="1cdeea59-ca7a-8046-a355-fd14671969d3"><td id="uFVt" class="">PUT</td><td id="HAjC" class="">Update</td><td id="SonX" class="">Requests the update of the status of an existing resource </td><td id="ONgL" class="">Not safe but idempotent</td></tr></div><div style="display:contents" dir="ltr"><tr id="1cdeea59-ca7a-8035-84ae-cf119a40414c"><td id="uFVt" class="">DELETE</td><td id="HAjC" class="">Remove</td><td id="SonX" class="">Requests the resource to be deleted</td><td id="ONgL" class="">Not safe but idempotent</td></tr></div></tbody></table></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1cdeea59-ca7a-8001-b0e7-d65f38262e20"><div style="font-size:1.5em"><span class="icon">📢</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1cdeea59-ca7a-80b1-83b1-e53b0768d985" class=""><mark class="highlight-blue">Safe</mark>: it doesn’t change the internal state of the system</p></div><div style="display:contents" dir="auto"><p id="1cdeea59-ca7a-8041-bed1-c37a096e3717" class=""><mark class="highlight-blue">Idempotent</mark>: doesn’t change the response, so if I call a function of this type multiple times I will always get the same result</p></div></div></figure></div><div style="display:contents" dir="ltr"><table id="1cdeea59-ca7a-8011-b41d-c28b3f792375" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="1cdeea59-ca7a-80e5-a7e5-ea42d8259805"><td id="Tuml" class=""><mark class="highlight-orange">Response Code </mark></td><td id="=h:I" class="">Description</td><td id="zV|g" class="">Examples</td></tr></div><div style="display:contents" dir="ltr"><tr id="1cdeea59-ca7a-806d-8657-e985d83fbda6"><td id="Tuml" class="">Success (2xx)</td><td id="=h:I" class="">The client request was successfully received, understood, and accepted</td><td id="zV|g" class="">200 OK, 201 Created, 204 No Content</td></tr></div><div style="display:contents" dir="ltr"><tr id="1cdeea59-ca7a-8017-9f97-d5e10cf957ac"><td id="Tuml" class="">Client Error (4xx)</td><td id="=h:I" class="">The client seems to have erred, request erred, or requested something not there</td><td id="zV|g" class="">400 Bad Request, 401 Unauthorized, 404 Not Found</td></tr></div><div style="display:contents" dir="ltr"><tr id="1cdeea59-ca7a-80e6-bea2-f1a90e89c958"><td id="Tuml" class="">Server Error (5xx)</td><td id="=h:I" class="">The server is aware that it has erred or is incapable of performing the request</td><td id="zV|g" class="">500 Internal Server Error, 503 Service Unavailable</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8076-944f-fa3d30bfc13d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1cdeea59-ca7a-80d3-9f4c-e5c3755138a3" class="">CoAP is bound to <mark class="highlight-blue">non reliable</mark> transport layer (<mark class="highlight-pink_background">UDP</mark>). A <mark class="highlight-teal">lightweight </mark>reliability mechanism is needed</p></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-80eb-94a5-d0c0da27c75b" class="numbered-list" start="1"><li><mark class="highlight-blue"><mark class="highlight-pink_background">Stop&amp;Wait retransmission</mark></mark><mark class="highlight-pink_background"> with exponential back-off</mark> (<mark class="highlight-orange">Reliable Trasmission</mark>)<div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80a3-bde3-f1cb5c245bb5" class="bulleted-list"><li style="list-style-type:disc">in order to implement a very simple a congestion control, the exponential back-off is used</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-807b-ab91-de5e942eff55" class="bulleted-list"><li style="list-style-type:disc">Adopts a retransmission and acknowledgement managed with a time-out</li></ul></div><div style="display:contents" dir="auto"><ol type="a" id="1d0eea59-ca7a-80ef-92ac-f528742ee5b0" class="numbered-list" start="1"><li>A reliable trasmission is started by sending a CON msg</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1d0eea59-ca7a-802d-9792-eb9fca56f2ab" class="numbered-list" start="2"><li>The client can respond with an ACK, with a RST msg (both having matched msg ID) or just ignoring it </li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1d0eea59-ca7a-802c-b396-cd629e1109a0" class="numbered-list" start="3"><li>The sender if nothing arrives can retransmits the CON message at exponentially increasing<br/>intervals (2s default), until either:<div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-801c-8875-c1b4efb7a00a" class="bulleted-list"><li style="list-style-type:disc">it receives an ACK or RST message, or</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-804e-88c0-cf561f77f581" class="bulleted-list"><li style="list-style-type:disc">runs out of attempts (4 by default)</li></ul></div></li></ol></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-80af-95b2-cae774d08eb8" class="numbered-list" start="2"><li><mark class="highlight-blue">Duplicate detection</mark>: detection and management of duplicate packets during data transmission is performed by observing the Message ID of the various messages.</li></ol></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-800a-b595-d60058afe11d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-805b-aa73-caf4d2c14cb1" class=""><mark class="highlight-orange">Unreliable Trasmission </mark></p></div><div style="display:contents" dir="auto"><ol type="a" id="1d0eea59-ca7a-803b-b877-f918a66aaa05" class="numbered-list" start="1"><li>started with a NON message (eg. regular sensors data), the msg ID is included as well to detect duplications</li></ol></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80a8-9834-cd2613e3dbdf" class="bulleted-list"><li style="list-style-type:disc">There is no way for the sender to detect if it arrives</li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80d7-84e2-d89033aef435" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80b0-9d67-dd75464c63c8" class="">Requests are carried in CON or NON messages</p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80cc-a9ae-e99a589443a7" class="bulleted-list"><li style="list-style-type:disc">A <mark class="highlight-orange">Token </mark>matches responses to requests</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80cf-9f05-c8b3413bd751" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">No relationship between Tokens and Message IDs</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80f2-97e9-f660113ec1fd" class="">
+</p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80c3-b243-fcfeca481f3b" class="bulleted-list"><li style="list-style-type:disc">If in a CON message: responses may be carried in:<div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-804f-80e4-e2bcbc713393" class="bulleted-list"><li style="list-style-type:circle">the resulting ACK messages (<mark class="highlight-teal">piggy-backed</mark>) → <mark class="highlight-orange">syncronous</mark><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80e8-a5ca-d6b877b03a44" class="bulleted-list"><li style="list-style-type:square">In this case, <mark class="highlight-pink_background">the request and response share both the same token and the same message ID</mark></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8014-b83f-c6b3576e74d1" class="bulleted-list"><li style="list-style-type:circle">in a new CON message (separate) → <mark class="highlight-orange">asyncronous</mark><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8086-854d-fc8a60a27141" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-pink_background">same token, different msg IDs</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8021-b7f2-e7fed027e6bc" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-pink_background">Should be adopted if the server use a lot of time to generate the response</mark>. Because otherwise, due to the “congestion control”, the 2s expire and after a backoff, messages are sent again and it generated useless traffic</li></ul></div></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8068-a7f0-e4e8ba48f345" class="bulleted-list"><li style="list-style-type:disc">If in a NON message: responses are sent in a new NON message<div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80de-946b-fcdf5b170a90" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-pink_background">same token, different msg IDs</mark></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80f3-a659-f6e0799608b2" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8010-99c5-e0ef7f7e1adf" class="">An <mark class="highlight-orange">empty message </mark>contains only the header. </p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8014-8461-e47f0325cf1d" class="bulleted-list"><li style="list-style-type:disc">They are usually used to send ACK without immediate response or RST (often used when receiving an unexpected or unrecognizable message, cannot process it)</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8031-b64d-e22e2805df21" class="bulleted-list"><li style="list-style-type:disc">CON empty message to implement <mark class="highlight-orange">CoAP ping</mark> used to check if a specific server is up and running. <div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80a4-8701-e96692619ed4" class="bulleted-list"><li style="list-style-type:circle">Send an empty CON message to a server and wait to see if a RST msg is returned</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8025-864c-f896d0fe220d" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d0eea59-ca7a-8032-abd4-e57108ae93a1" class="">Msg Format</h3></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8077-b34b-e8bf93197269" class="">Another significant difference between CoAP and HTTP is the format of the messages. </p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8054-bb71-df4ffbdee55c" class="bulleted-list"><li style="list-style-type:disc">CoAP adopt a<mark class="highlight-teal"> binary format</mark> to minimize the size of the messages, HTTP instead adopt a text format.</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-802c-8d49-d7ea117d3aa1" class="bulleted-list"><li style="list-style-type:disc">The header of the CoAP message is of a fixed size <mark class="highlight-teal">4 bytes</mark></li></ul></div><div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-806c-a191-cdcbead3e9a3" class="image"><a href="CoAP/image%201.png"><img style="width:709.9625244140625px" src="CoAP/image%201.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8009-8cf3-fc04654df8eb" class="bulleted-list"><li style="list-style-type:disc">Version: currently 1</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8074-aa06-ef42d7c7edd3" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Type </mark>(T): message type (0 CON, 1 NON, 2 ACK, 3 RST)</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-804d-a31c-c2a436da8667" class="bulleted-list"><li style="list-style-type:disc">Token Length: 8 bytes at most</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80f7-958a-e3a671ecc829" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Code</mark>: split into 3-bit class and 5-bit detail (c.dd) <div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80b6-a620-f4f0e2ad7778" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">Class</mark>: request (0), success response (2), client error response (4), server error response (5) </li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-805d-a559-d56e1d90b108" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">Detail</mark>: specifies the method (e.g., 0.01 is a GET) or the response code (e.g., 2.04 is &#x27;Created&#x27;)</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80f4-ab50-f03ce872223f" class="bulleted-list"><li style="list-style-type:circle">Special code 0.00 indicates an Empty message<div style="display:contents" dir="ltr"><table id="225eea59-ca7a-8001-a4b5-f6755d967a13" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="225eea59-ca7a-8040-ad69-c3993e12b410"><th id=":]yN" class="simple-table-header-color simple-table-header">Code (c.dd)</th><th id="N[gP" class="simple-table-header-color simple-table-header">Class</th><th id="vx]Q" class="simple-table-header-color simple-table-header">Detail</th><th id="Tk[B" class="simple-table-header-color simple-table-header">Meaning</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="225eea59-ca7a-8008-bb89-fed0d7fb39a8"><td id=":]yN" class="">0.01–0.04</td><td id="N[gP" class="">0 (Request)</td><td id="vx]Q" class="">1–4</td><td id="Tk[B" class="">GET, POST, PUT, DELETE</td></tr></div><div style="display:contents" dir="ltr"><tr id="225eea59-ca7a-8064-97e4-c5fbf8f5f7b5"><td id=":]yN" class="">0.00</td><td id="N[gP" class="">0 (Empty)</td><td id="vx]Q" class="">0</td><td id="Tk[B" class="">Ping / Empty ACK / RST</td></tr></div><div style="display:contents" dir="ltr"><tr id="225eea59-ca7a-8073-bab3-f95e965f5ed0"><td id=":]yN" class="">2.xx</td><td id="N[gP" class="">2 (Success Resp)</td><td id="vx]Q" class="">e.g. 01–05</td><td id="Tk[B" class="">Created, Content, etc.</td></tr></div><div style="display:contents" dir="ltr"><tr id="225eea59-ca7a-8013-b9f7-cf1294417c42"><td id=":]yN" class="">4.xx</td><td id="N[gP" class="">4 (Client Error)</td><td id="vx]Q" class="">e.g. 04, 05</td><td id="Tk[B" class="">Not Found, Method Not Allowed</td></tr></div><div style="display:contents" dir="ltr"><tr id="225eea59-ca7a-80a7-90a0-d06e6007b83b"><td id=":]yN" class="">5.xx</td><td id="N[gP" class="">5 (Server Error)</td><td id="vx]Q" class="">e.g. 00, 05</td><td id="Tk[B" class="">Internal Error, Not Supported</td></tr></div></tbody></table></div></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80e6-96f6-d3f21b6be39c" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Options </mark>(message options, the size can vary over a very wide range)<div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8052-bbd2-ce29afd64d72" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-pink_background">Request URI is split into the Uri-Host, Uri-Port, Uri-Path and Uri-Query Options</mark><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80e8-b471-c0e65b76c635" class="bulleted-list"><li style="list-style-type:square">better parsing and more data efficient (important for constrained devices)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80b1-b558-c11b3cdc2a87" class="bulleted-list"><li style="list-style-type:circle">coap-URI = <code>&quot;coap:&quot; &quot;//&quot; host [ &quot;:&quot; port ] path [ &quot;?&quot; query ]</code></li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8094-97a5-da30b5176f7c" class="bulleted-list"><li style="list-style-type:circle">Allows to specify other options like <mark class="highlight-pink_background">ETag, If-Match, Max-Age, Content-Format, …</mark></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8021-a329-f5f6a85f1bba" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="1d0eea59-ca7a-80aa-8220-dfaa1f691b65" class="">Proxying</h1></div><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-8076-8582-ed8c42a9b0ec" class="column-list"><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-807c-b1cb-f913611424c8" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-806a-97f8-e265b0b661f3" class="">CoAP allows (like HTTP) for the introduction of intermediaries.</p></div></div></div><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-80b8-a84c-c9b1e2278bff" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-804c-841c-f598563f55b6" class="image"><a href="CoAP/image%202.png"><img style="width:480px" src="CoAP/image%202.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8005-a716-ff540469609d" class="bulleted-list"><li style="list-style-type:disc">Intermediary: endpoint that can be introduced in the middle between the CoAP client and the origin server, in order to implement some additional functionalities that cannot be implemented on the server or the client. <div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8084-a4cc-f841cf361a6f" class="bulleted-list"><li style="list-style-type:circle">It behaves as client towards the origin server and as server towards the client.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80a8-a69a-efb72c51b81f" class="bulleted-list"><li style="list-style-type:disc">Endpoint: any device that implements even partly the CoAP functionalities</li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80fb-abda-e2ebfcb94b8f" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80c6-9987-cf430d2e9316" class="">One type of intermediary defined in CoAP is the <mark class="highlight-blue">proxy CoAP</mark></p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8035-8690-e77f8c56528b" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">This proxy is placed here to perform additional functionalities like </mark><mark class="highlight-teal"><mark class="highlight-pink_background">caching</mark></mark><mark class="highlight-pink_background">, </mark><mark class="highlight-teal"><mark class="highlight-pink_background">protocol translation</mark></mark><mark class="highlight-pink_background">, or </mark><mark class="highlight-teal"><mark class="highlight-pink_background">security functionalities</mark></mark><mark class="highlight-pink_background"> rejecting unwanted requests</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80e2-b424-cfd7041d3881" class="bulleted-list"><li style="list-style-type:disc">Caching is an important functionality, this allows to save bandwidth and energy.</li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8084-8627-fa640d6bd425" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8091-ad47-c2f6b52917be" class="">Two proxy types: forward and reverse</p></div><div style="display:contents" dir="auto"><h3 id="1d0eea59-ca7a-806e-99d9-ed3dba0d273e" class="">Forward Proxy</h3></div><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-8090-aac5-fa3eef6a02d9" class="column-list"><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-805d-bd5c-c509e92d1b0a" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8040-9482-f151755d1a78" class="">Performs requests on behalf of the client. </p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80a5-b218-f1f0a87268f4" class="bulleted-list"><li style="list-style-type:disc">Clients issues their request directed to the origin server, this request however is sent by the client to the proxy, this forward proxy receives the request and issues the request to the origin server. </li></ul></div><div style="display:contents" dir="auto"><p id="231eea59-ca7a-8061-a07f-fe248a218f35" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-8075-8127-eb5463adf5fc" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-8082-9f6d-ef455773d64f" class="image"><a href="CoAP/image%203.png"><img style="width:432px" src="CoAP/image%203.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8064-a51c-e2e26e264951" class="bulleted-list"><li style="list-style-type:disc">The origin server send back a response which is forwarded to the client.</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-805c-9a3d-d568ce3672cc" class="bulleted-list"><li style="list-style-type:disc">The <mark class="highlight-teal">endpoint </mark>(the server) is selected by the client since he have to specify to full URI. </li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80ff-a244-f4bef63f27d5" class=""><mark class="highlight-pink_background">In this process, the client is </mark><mark class="highlight-teal"><mark class="highlight-pink_background">fully aware</mark></mark><mark class="highlight-pink_background"> that a proxy is present on the middle → </mark><mark class="highlight-blue"><mark class="highlight-pink_background">not transparent</mark></mark></p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8067-9955-d39c864dfe5f" class="bulleted-list"><li style="list-style-type:disc">In fact, the client has the flexibility to choose whether and which proxy to use for <mark class="highlight-pink_background">communication in the </mark><mark class="highlight-pink_background"><code>Proxy-Uri</code></mark><mark class="highlight-pink_background"> option</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80c7-93ad-f271e5a1aae3" class="bulleted-list"><li style="list-style-type:disc">This configuration is usually exploited when there are some functionalities on proxy, like protocol translation</li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8042-830f-ed1f8a71dc2e" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d0eea59-ca7a-80e9-a4fe-eda02b4a42a1" class="">Reverse Proxy</h3></div><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-805d-b7e8-cf41403b504c" class="column-list"><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-80f8-ba30-e5e00375c71f" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8086-9f9c-f80d64101a97" class="">Satisfies requests on behalf of one or more other server(s). </p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-804b-8cae-c5841ed26c84" class="bulleted-list"><li style="list-style-type:disc">In this case, the proxy is completely <mark class="highlight-blue">transparent </mark>to the client.</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-80ed-b79b-fca269ca8476" style="width:43.75000000000001%" class="column"><div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-8054-9a04-f331d3dd9f29" class="image"><a href="CoAP/image%204.png"><img style="width:709.96875px" src="CoAP/image%204.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80b5-9644-cffe9e0f882e" class="bulleted-list"><li style="list-style-type:disc">It is installed to provide coverage for a network of sensors or servers, and its purpose is to handle requests on behalf of one or more servers. </li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8021-91c4-c00510fdb88c" class=""><mark class="highlight-pink_background">The server only exposes the functionalities through the proxy</mark></p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80d6-821c-e447705907ca" class="bulleted-list"><li style="list-style-type:disc">Usually adopted when the architect wants to hide completely the architecture of IoT devices.</li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-803b-bdcf-c351aa596be3" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d0eea59-ca7a-80ef-a048-eda07e4db3f1" class="">Proxy Traslation</h3></div><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-809a-8841-c4101fbd9678" class="column-list"><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-80de-8fe0-c229e42c5896" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-809c-846d-c16c069c43ea" class="">One of the functionalities that could be implemented by a proxy is a protocol translation functionality</p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8058-8c7d-ffb9e969e15e" class="bulleted-list"><li style="list-style-type:disc">The proxy can implement the Cross-protocol proxy (<mark class="highlight-orange">Cross-Proxy</mark>): a proxy that translates between different protocols.</li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8082-bfa8-d60cf4c8b00b" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-8041-8beb-cc6d687a73f2" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-80d3-9cd1-edc49d2767ec" class="image"><a href="CoAP/image%205.png"><img style="width:709.96875px" src="CoAP/image%205.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-801c-b2b6-c362e5362d52" class="">Two different cases:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-80ff-a005-f550741fa87e" class="numbered-list" start="1"><li><mark class="highlight-blue">CoAP-to-HTTP proxy</mark> → Is a proxy that is installed on a CoAP network to have the CoAP clients (sensors) interacting with HTTP servers.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-80cc-8e9a-de3ed550492b" class="numbered-list" start="2"><li><mark class="highlight-blue">HTTP-to-CoAP proxy </mark>→ Is a proxy that translates HTTP requests into CoAP request, so it can be used to have regular HTTP clients to interact with CoAP servers.<br/></li></ol></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80f3-8457-e6089a02568a" class="">Usually proxy are both of them at the same time, to allow devices that send a request and to receive a response</p></div><div style="display:contents" dir="auto"><h1 id="1d1eea59-ca7a-8073-9c65-ec955c5e08d9" class="">CoAP Resource Observing</h1></div><div style="display:contents" dir="auto"><div id="1d1eea59-ca7a-8023-be95-e6c9737c37e3" class="column-list"><div style="display:contents" dir="auto"><div id="1d1eea59-ca7a-80c5-aaed-c3ce5b67fb1a" style="width:43.75%" class="column"><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-80e9-8385-da6f75e39eab" class="">If a client is interested in being <mark class="highlight-teal">indefinetely </mark>updated about a resource</p></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-80ed-a009-f943333e5dd6" class="bulleted-list"><li style="list-style-type:disc">No continous polling since it leads to high overhead</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1d1eea59-ca7a-80b1-8ee0-cb473a32f21a" style="width:56.25%" class="column"><div style="display:contents" dir="ltr"><figure id="1d1eea59-ca7a-80fa-8857-c06f098a4746" class="image"><a href="CoAP/image%206.png"><img style="width:384px" src="CoAP/image%206.png"/></a><figcaption>notify in an unsolicited manner</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><div id="1d1eea59-ca7a-8088-ac17-cda97df1cb9b" class="column-list"><div style="display:contents" dir="auto"><div id="1d1eea59-ca7a-8081-9ca6-c9457526bf16" style="width:68.75%" class="column"><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-803a-bdcd-eaf99b7481b1" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Observation pattern</mark> (resemble publisher/subscriber)<div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-8092-bbfc-e23ed03ff282" class="">A resource can be observable or not (is optional)</p></div><div style="display:contents" dir="auto"><p id="226eea59-ca7a-80f0-8a45-d506c4c0f746" class="">
+</p></div></li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1d1eea59-ca7a-80fb-98b0-d96c3888b89c" style="width:31.250000000000007%" class="column"><div style="display:contents" dir="ltr"><figure id="1d1eea59-ca7a-80cf-84ad-c0aeea4afcaa" class="image"><a href="CoAP/image%207.png"><img style="width:174.28750610351562px" src="CoAP/image%207.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-8073-b5bb-e224bb41ce6b" class=""><mark class="highlight-pink_background">If using polling the temperature could be almost the same, meanwhile the server could send it just when there is a significant </mark><mark class="highlight-teal"><mark class="highlight-pink_background">change</mark></mark></p></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-803a-b905-ff2f3357912b" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="1d1eea59-ca7a-8094-95b0-c8625876069f" class="numbered-list" start="1"><li>The first message is a GET request to register to the observable resource</li></ol></div><div style="display:contents" dir="auto"><div id="1d1eea59-ca7a-8006-8c78-cf7b073ff6e1" class="column-list"><div style="display:contents" dir="auto"><div id="1d1eea59-ca7a-803e-984d-e9fa6cf8ec23" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><ol type="1" id="1d1eea59-ca7a-8016-8677-d66103d96db2" class="numbered-list" start="2"><li><mark class="highlight-pink_background">Registration and notifications are correlated by the same token</mark></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d1eea59-ca7a-804d-9727-c43ab4f584dd" class="numbered-list" start="3"><li>There is an <mark class="highlight-pink_background">observe field</mark> in order to reorder correctly the msgs</li></ol></div></div></div><div style="display:contents" dir="auto"><div id="1d1eea59-ca7a-8057-8f2f-f58011c64321" style="width:43.75%" class="column"><div style="display:contents" dir="ltr"><figure id="1d1eea59-ca7a-8029-8e84-f5f9be833160" class="image"><a href="CoAP/image%208.png"><img style="width:278.8625183105469px" src="CoAP/image%208.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-800f-8870-e966eaaee35e" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-80c2-9084-f6c3505f1747" class="">We can specify the pattern that needs to match, in order to receive an update:</p></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-80f2-9eb5-ec4f7367a461" class="bulleted-list"><li style="list-style-type:disc"><code>coap://server/temperature/critical?above=45</code> is a different resource wrt <code>coap://server/temperature</code></li></ul></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-8099-8e21-c89069d712b3" class="">It’s up to the server expose observable resources that updates the client in a useful way</p></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-80e0-841f-dcc1501c6896" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-8069-9e71-e078424f9704" class="">Consistency between the client view and the actual resource state (latency, msg lost, reordering). <mark class="highlight-pink_background">The </mark><mark class="highlight-orange"><mark class="highlight-pink_background">Best effort approach </mark></mark><mark class="highlight-pink_background">is used</mark>:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1d1eea59-ca7a-8079-8a3e-da6307406a69" class="numbered-list" start="1"><li><strong>Updates are sent as soon as possible</strong>, but there are <mark class="highlight-pink_background">no guarantees on strict synchronization</mark>.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d1eea59-ca7a-803e-b00e-c1bfe9639976" class="numbered-list" start="2"><li><strong>As many states as possible</strong> should be delivered to the client, but some updates may be missed.</li></ol></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-80ec-8f57-c7c2afc2ad74" class="">Bound the out-of-sync time duration with a <mark class="highlight-teal"><mark class="highlight-pink_background">maximum age</mark></mark><mark class="highlight-pink_background"> attached</mark> to notifications</p></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-80a1-982e-d09a097ac86f" class="bulleted-list"><li style="list-style-type:disc">specifies for how long a response can be used before it is considered stale</li></ul></div><div style="display:contents" dir="auto"><div id="1d1eea59-ca7a-8098-a4dd-db6d014420c0" class="column-list"><div style="display:contents" dir="auto"><div id="1d1eea59-ca7a-8028-93bd-d6b8f0474a81" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-808d-91d0-fcadaa431244" class="">There is no end-to-end observing concept → proxy could exploit this feature</p></div></div></div><div style="display:contents" dir="auto"><div id="1d1eea59-ca7a-800d-9214-c5c7888fc4f2" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1d1eea59-ca7a-80fe-9642-ddec239987ea" class="image"><a href="CoAP/image%209.png"><img style="width:336px" src="CoAP/image%209.png"/></a><figcaption>resource proxy</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h1 id="1d1eea59-ca7a-8098-b946-c281c8fd1d40" class="">Discovery</h1></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-807b-ac3c-c19e8217e6e0" class="">Capability of discovering devices in a network and the resources they expose</p></div><div style="display:contents" dir="auto"><h3 id="1d1eea59-ca7a-80f2-a0a9-ec1f98d983db" class="">Service Discovery</h3></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-800a-aa83-e8af681cd9c3" class=""><mark class="highlight-pink_background">Process to discover CoAP servers in a network</mark></p></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-80b0-b747-d5618c6963a9" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Multiast CoAP</mark> using the default multicast adress (bouded to the <mark class="highlight-teal">link-local scope</mark>)</li></ul></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-8044-91a5-dc25c201d0c3" class="bulleted-list"><li style="list-style-type:disc">If I want to access and discovery the internet, I need a different protocol</li></ul></div><div style="display:contents" dir="auto"><h3 id="1d1eea59-ca7a-804a-85c7-de2fea065629" class="">Resource Discovery</h3></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-80c0-9c2a-e51aaf783b17" class=""><mark class="highlight-pink_background">Process to discover the resources exposed by a service</mark></p></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-80ca-88a8-d55afebdbd4b" class="">There is a resource that must be exposed on all CoAP servers, that is <code>/.well-known/core</code></p></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-80e8-b4f8-f1cc60c74092" class="bulleted-list"><li style="list-style-type:disc">default entry point for requesting the list of resources hosted by the server</li></ul></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-80f5-808c-c64405f419a2" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">CoRELink Format </mark>to describe links (resources) hosted by the server<div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-80fa-8270-f1ec9911071d" class="bulleted-list"><li style="list-style-type:circle">Collection of links, each separated by a comma. </li></ul></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-8070-a057-c38867bb44eb" class="bulleted-list"><li style="list-style-type:circle">For each link I have the URI, then list of <mark class="highlight-pink_background">key-value attrubutes</mark></li></ul></div></li></ul></div><div style="display:contents" dir="ltr"><figure id="1d1eea59-ca7a-8026-8ec7-d5cb00c5c44e" class="image"><a href="CoAP/image%2010.png"><img style="width:432px" src="CoAP/image%2010.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-8046-8622-cd1f64bb4779" class=""><mark class="highlight-blue">Attributes</mark>:</p></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-80d0-bb18-fa4f3b901b29" class="bulleted-list"><li style="list-style-type:disc">Resource Type (<code>rt</code>): opaque string used to assign an application specific semantic type to a resource</li></ul></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-809c-8600-df945858b4b3" class="bulleted-list"><li style="list-style-type:disc">Interface Description (<code>if</code>): opaque string used to provide specific interface definition used to interact with the target resource<div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-801e-9a87-f7d8ac10c910" class="bulleted-list"><li style="list-style-type:circle">E.g.: the URI of a Web Application Description Language</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-806a-b5ce-ffba473ca94f" class="bulleted-list"><li style="list-style-type:disc">Maximum Size Estimate (<code>sz</code>): an indication of the maximum size of the resource representation</li></ul></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-805d-9d8a-e477baa20e62" class="bulleted-list"><li style="list-style-type:disc">Content Format (<code>ct</code>): provides a hint about the Content-Formats this resource returns</li></ul></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-80b2-8de2-cc3d762a108c" class="bulleted-list"><li style="list-style-type:disc">Observable(<code>obs</code>): a hint indicating that the destination of a link is useful for observation</li></ul></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-800c-89fc-e5f1ce70d79f" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-8052-9123-ca2d108a2f9b" class="">I could perform some <mark class="highlight-teal">filtering </mark>to the default page of well-known. Like filtering for resource names or sensor types</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="225eea59-ca7a-80ef-8bee-f8e60e81a83a" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">GET /.well-known/core?rt=temperature-c&amp;if=sensor</code></pre></div><div style="display:contents" dir="auto"><p id="225eea59-ca7a-8056-a5d1-fac5f0b71ee4" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

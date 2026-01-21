@@ -1,0 +1,735 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Cloud Integration</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1c3eea59-ca7a-8077-ac2c-cbc6f1498109" class="page sans"><header><h1 class="page-title" dir="auto">Cloud Integration</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-8071-b7b7-e8254bb7e83c" class="">Challenge to conntect constrained devices to the network</p></div><div style="display:contents" dir="auto"><h3 id="1c3eea59-ca7a-80ef-861e-dad5dcdf8abf" class="">Vertical Systems</h3></div><div style="display:contents" dir="auto"><div id="1c3eea59-ca7a-8066-bb56-ffd06c3bbf40" class="column-list"><div style="display:contents" dir="auto"><div id="1c3eea59-ca7a-809c-a772-e7db70c08bb2" style="width:81.25%" class="column"><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-8047-bca1-e8a4d170e91d" class="bulleted-list"><li style="list-style-type:disc">Designed to serve one <mark class="highlight-teal">single purpose </mark>(eg. smart termostat works only with the application of that vendor) → it’s <mark class="highlight-teal">not open</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-8040-b17d-fde387eea352" class="bulleted-list"><li style="list-style-type:disc">Inefficient: each device is dedicated to a single application</li></ul></div><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-803f-a0bd-f10a0a4c9997" class="bulleted-list"><li style="list-style-type:disc">Operating in <mark class="highlight-teal">isolation</mark>: no (or very limited) cooperation</li></ul></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-8084-b8b3-c95ad6094ab9" class="">Business Application normally runs in the Cloud</p></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-80d0-8cc5-e16a7f825542" class="">There are some integration, with devices called <mark class="highlight-blue">aggregator </mark>(like Alexa), but there is not a direct conntection between the two, because <mark class="highlight-pink_background">the aggregator doesn’t talk to the device directly but with the business application</mark> </p></div><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-80ae-887f-c35ea96a6788" class="bulleted-list"><li style="list-style-type:disc">Alexa integrate everything at Business Application</li></ul></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-8097-963c-cdfc1e98c777" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1c3eea59-ca7a-80ed-9614-fd68a5decb0e" style="width:18.75%" class="column"><div style="display:contents" dir="ltr"><figure id="1c3eea59-ca7a-80de-a158-ffeb77c39e24" class="image"><a href="Cloud%20Integration/image.png"><img style="width:72.17500305175781px" src="Cloud%20Integration/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="1c3eea59-ca7a-8030-b1bf-c5eaf9efdfe4" class="">Horizontal Approach</h3></div><div style="display:contents" dir="auto"><div id="1c3eea59-ca7a-8041-ad30-f5da4f8a77f5" class="column-list"><div style="display:contents" dir="auto"><div id="1c3eea59-ca7a-80a2-bd84-d8c143704027" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-807e-8240-cab39557c9e4" class="bulleted-list"><li style="list-style-type:disc">Converged infrastructure → unified sensing and actuating infrastructure</li></ul></div><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-806f-87c3-d6cf6cda7b9e" class="bulleted-list"><li style="list-style-type:disc">Support for <mark class="highlight-teal">multiple applications </mark>(from different vedors) → they are <mark class="highlight-teal">open</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-80cc-b15c-d2c2ec7394c3" class="bulleted-list"><li style="list-style-type:disc">Can be used by any application in an open manner</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1c3eea59-ca7a-80e8-bbf8-e662a29cd0fe" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1c3eea59-ca7a-8047-a5b2-cc509a15ca4d" class="image"><a href="Cloud%20Integration/image%201.png"><img style="width:278.875px" src="Cloud%20Integration/image%201.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-80a9-9de4-ea54bf3e5fc3" class="">Eg. Intrusion application that uses also the termostat sensors that was designed to understand if the owner is at home</p></div><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-801b-afd5-e749cdbe6530" class="bulleted-list"><li style="list-style-type:disc">Not buy the vertical from the market, but the sensors</li></ul></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-808d-87ea-f0402bd80d48" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-80df-853d-e72a60f55fd2" class="">We need a<mark class="highlight-blue"> standardization process</mark></p></div><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-803f-81a1-f8b7087dbcd3" class="bulleted-list"><li style="list-style-type:disc">The internet is an example of this (HTTP)</li></ul></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-805c-99b4-c498259c0268" class="">We have an external agency that is defining the protocols for IoT based on <mark class="highlight-orange">IPv6</mark></p></div><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-8042-86fc-c6a6ed424a8b" class="bulleted-list"><li style="list-style-type:disc">Set of IPv6-based solutions have been defined by IETF (6LowPAN, ROLL, COAP)</li></ul></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-80bb-adb0-c67d4d3450e5" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="1c3eea59-ca7a-80e9-9cc6-d52c23b4e135" class="">Direct Cloud Integration</h1></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-80da-bc9b-e2f444a82f98" class="">Almost all Cloud providers (AWS, Azure, …) provide <mark class="highlight-teal">IoT support</mark>. Service capable to:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c3eea59-ca7a-8031-8540-cb0182c98496" class="numbered-list" start="1"><li>Receive sensors information</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c3eea59-ca7a-8099-9333-f1e4f8393476" class="numbered-list" start="2"><li>Skeleton to write the UI </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c3eea59-ca7a-8000-abae-ce03a69f66e9" class="numbered-list" start="3"><li>Skeleton to be deployed on IoT devices to communicate with the cloud (the broker in MQTT)</li></ol></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-80e4-9440-e36c842b42ca" class="">They all adopt a common protocol called <mark class="highlight-orange">MQTT</mark></p></div><div style="display:contents" dir="auto"><h2 id="1c3eea59-ca7a-80c8-96a8-f45c514306d6" class="">MQTT</h2></div><div style="display:contents" dir="auto"><div id="1c3eea59-ca7a-80e5-8747-fa01f3670246" class="column-list"><div style="display:contents" dir="auto"><div id="1c3eea59-ca7a-809a-9d37-f80de7f86f87" style="width:37.5%" class="column"><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-806f-a836-ef47dd26a202" class="">MQTT (Message Queuing Telemetry Transport) is a <mark class="highlight-teal">publish/subscribe</mark> messaging protocol designed for lightweight <mark class="highlight-teal">M2M </mark>(machine to machine) communications</p></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-8094-9703-d3a9c0b07652" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1c3eea59-ca7a-800d-9fd5-dd04e687e9c0" style="width:62.5%" class="column"><div style="display:contents" dir="ltr"><figure id="1c3eea59-ca7a-8001-9816-f18bdd3d348f" class="image"><a href="Cloud%20Integration/image%202.png"><img style="width:605.7875366210938px" src="Cloud%20Integration/image%202.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-8076-ad05-e19dc9a1930a" class="bulleted-list"><li style="list-style-type:disc">MQTT has a <mark class="highlight-teal">client/server model</mark>, where every sensor is a <mark class="highlight-blue">client </mark>(that produce or consume data) and connects to a server, known as a <mark class="highlight-blue"><strong><span style="border-bottom:0.05em solid">broker</span></strong></mark>, over <mark class="highlight-teal"><mark class="highlight-pink_background">TCP</mark></mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-8096-b879-d40eb1e3e4b2" class="bulleted-list"><li style="list-style-type:disc">Borned before IoT</li></ul></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-80f7-9ae1-cedae53e767d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-80c7-a720-d7113fac5f8c" class="">Every message is published to an address, known as a <mark class="highlight-orange">topic </mark>(meta-information that specify the content of the message, usually a string “temp”)</p></div><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-80dc-8645-ecab78068e1a" class="bulleted-list"><li style="list-style-type:disc">Clients have to subscribe to topics of interest, if needed they can subscribe to multiple topics</li></ul></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-80d4-8a2c-e3a3c22d3bb2" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1c3eea59-ca7a-8078-865b-ee2fc9071c0b" class="column-list"><div style="display:contents" dir="auto"><div id="1c3eea59-ca7a-800a-93e5-c5a5d2f52de2" style="width:43.75%" class="column"><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-80bd-8a92-d96d320acf70" class="">Sensors (MQTT Clients) publish on pre-defined topics<div class="indented"><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-8035-9eff-d256f3a349dd" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Every vendors, deploy a MQTT broker</mark></li></ul></div></div></p></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-80f0-b976-ebbee9ba6908" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1c3eea59-ca7a-805a-bfcb-ebbc75b94e58" style="width:56.25%" class="column"><div style="display:contents" dir="ltr"><figure id="1c3eea59-ca7a-801f-87ab-ecbe998c6d9e" class="image"><a href="Cloud%20Integration/image%203.png"><img style="width:432px" src="Cloud%20Integration/image%203.png"/></a><figcaption>MQTT-based cloud platforms</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-8090-b6af-f493e0e2620f" class="">Other sensors or other modules (DB, UI, ML models, …) of the cloud platform subscribe to the topics</p></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-8042-90d8-e329b05db723" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-803e-a851-e61d80351314" class=""><mark class="highlight-blue">Rapid deployment </mark>is the main goal</p></div><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-809f-8fde-ebab765daffa" class="bulleted-list"><li style="list-style-type:disc">Things connect through a <mark class="highlight-teal">local WiFi network</mark>, which is usually pre-existing (no new network equipment is required) → in every home, industry and city</li></ul></div><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-8095-a75e-ca2302f6a313" class="bulleted-list"><li style="list-style-type:disc">An initial skeleton of the code to program the sensors is usually provided for a set of popular boards by any cloud provider</li></ul></div><div style="display:contents" dir="ltr"><figure id="1c3eea59-ca7a-80d2-bd11-c3096f4ae5bb" class="image"><a href="Cloud%20Integration/image%204.png"><img style="width:432px" src="Cloud%20Integration/image%204.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-80e8-86d2-e9615e4b49f2" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1c3eea59-ca7a-80d8-ab69-dc7b0688e7fd" class="">Advantages</h3></div><div style="display:contents" dir="auto"><ol type="1" id="1c3eea59-ca7a-80ad-b81b-e5765ed5e66d" class="numbered-list" start="1"><li><mark class="highlight-teal">Rapid </mark>(skeletons) and <mark class="highlight-teal">simple </mark>(everyone has wifi) deployment for IoT vendors</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c3eea59-ca7a-8066-be4c-cc596bee33ba" class="numbered-list" start="2"><li>It does not require the installation of a new infrastructure</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c3eea59-ca7a-809c-a1eb-f54b43ed74cf" class="numbered-list" start="3"><li>It <mark class="highlight-teal">scales </mark>with Cloud infrastructure (since the application is in Cloud)</li></ol></div><div style="display:contents" dir="auto"><h3 id="1c3eea59-ca7a-80b7-b2f5-f450753b4470" class="">Drawbacks</h3></div><div style="display:contents" dir="auto"><div id="1c3eea59-ca7a-809a-b705-cf1744e415b4" class="column-list"><div style="display:contents" dir="auto"><div id="1c3eea59-ca7a-8072-80ea-fa2c949fbe35" style="width:75%" class="column"><div style="display:contents" dir="auto"><ol type="1" id="1c3eea59-ca7a-8064-ba57-dc7ba10fa6b1" class="numbered-list" start="1"><li>Cloud is always involved<div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-8084-8217-ff5f0dce5f28" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Low latency </mark>applications are not supported</li></ul></div><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-8020-ab0e-c2eb2f58434c" class="bulleted-list"><li style="list-style-type:disc">Needs<mark class="highlight-teal"> persistent connectivity</mark> → in network outage the system will not work even though the two devices are just communicating between each other</li></ul></div><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-800a-9bb4-f71b22af7bc7" class="bulleted-list"><li style="list-style-type:disc">Direct <mark class="highlight-teal">M2M </mark>interactions are not possible, needs to go from could (broker) and come back</li></ul></div></li></ol></div></div></div><div style="display:contents" dir="auto"><div id="1c3eea59-ca7a-80ac-b89c-c6b39787c786" style="width:25.000000000000007%" class="column"><div style="display:contents" dir="ltr"><figure id="1c3eea59-ca7a-80cd-a350-f1ca512ffbbd" class="image"><a href="Cloud%20Integration/e3439d43-30e9-4cc5-9389-df19975ff4e2.png"><img style="width:299.6421471172962px" src="Cloud%20Integration/e3439d43-30e9-4cc5-9389-df19975ff4e2.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ol type="1" id="1c3eea59-ca7a-809a-be0b-d45f134dfceb" class="numbered-list" start="2"><li>WiFi was not designed with IoT in mind<div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-8026-bf91-f1ce7b48c621" class="bulleted-list"><li style="list-style-type:disc">Energy consuming (<mark class="highlight-teal">battery devices </mark>are not supported)</li></ul></div><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-8096-b91a-c5dfdf81db82" class="bulleted-list"><li style="list-style-type:disc">The coverage is equal to the radious of Access Point/Router</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-80d1-9143-dbcb2430a30d" class="">The protocols for power constrained devices are the one introduced in earlier lessons</p></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-8078-bc4a-c6365b3ee6c5" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1c3eea59-ca7a-80d3-96bd-d94e3193d2df" class="">Applications that are not supported</h2></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-8096-9f3b-fc4a7a43251c" class="">They are not supported since they need:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c3eea59-ca7a-80d0-bd3c-c92b92d83d46" class="numbered-list" start="1"><li><mark class="highlight-blue">low latency</mark></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c3eea59-ca7a-8076-802f-d0cb68c59761" class="numbered-list" start="2"><li><mark class="highlight-blue">reliability </mark>(when network outages they do not work)</li></ol></div><div style="display:contents" dir="auto"><h3 id="1c3eea59-ca7a-805b-bc29-dddaf189712f" class="">Manufacturing Inspection</h3></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-8098-91e7-e63c739c7880" class="">Detect defects of products by analyzing images of goods</p></div><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-80c0-8221-ccee084fa7b2" class="bulleted-list"><li style="list-style-type:disc">Cameras are installed directly on the production line</li></ul></div><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-8061-bc1b-d31f665b87b3" class="bulleted-list"><li style="list-style-type:disc">Images are analyzed through DL techniques to identify defects or issues</li></ul></div><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-807a-aa9a-fbb30a972ad6" class="bulleted-list"><li style="list-style-type:disc">If a defect is identified, the item is removed from production</li></ul></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-80ee-8938-f4d2519536a4" class="">If the delay of communication is above a treshold, the good may be gone past the production checkpoint and cannot be removed</p></div><div style="display:contents" dir="auto"><h3 id="1c3eea59-ca7a-8030-92a8-d91ec476c6e6" class="">Autonomus Robot</h3></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-80d6-8787-dcf2ea330ef2" class="">Unmanned logistics, e.g. upload and deliver cargos in the warehouse</p></div><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-807b-8e25-dae8172f8423" class="bulleted-list"><li style="list-style-type:disc">Manage and support autonomous logistic systems, e.g. drones or mobile robots</li></ul></div><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-80e7-82e7-cf57a85f9329" class="bulleted-list"><li style="list-style-type:disc">Analyze data in real-time and manage the autonomous systems, e.g. by modifying the flight plan of drones</li></ul></div><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-8036-8a9e-fa8b072508f4" class="bulleted-list"><li style="list-style-type:disc">Data is analyzed though AI and ML techniques</li></ul></div><div style="display:contents" dir="ltr"><figure id="1c3eea59-ca7a-80de-a670-cd32807d7787" class="image"><a href="Cloud%20Integration/image%205.png"><img style="width:432px" src="Cloud%20Integration/image%205.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="1c3eea59-ca7a-80fa-b0a1-c52343f79a40" class="">Augmented Reality</h3></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-807d-9c9a-f440736fafca" class="">Augmented reality to support workers, e.g. during inspection or regular production processes</p></div><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-80d3-a277-fe26a5997efa" class="bulleted-list"><li style="list-style-type:disc">Analyze the images in real time to enrich the them with supporting information</li></ul></div><div style="display:contents" dir="ltr"><figure id="1c3eea59-ca7a-8096-b738-d07082f49d25" class="image"><a href="Cloud%20Integration/image%206.png"><img style="width:432px" src="Cloud%20Integration/image%206.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-80d7-9b06-e0574739d1cd" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="1c3eea59-ca7a-8019-9d31-e568642779a6" class="">Fog Computing</h1></div><div style="display:contents" dir="auto"><p id="1c3eea59-ca7a-805f-911a-e5b64bf79b40" class="">It looks like a good idea to come back at the old <strong>pre-cloud</strong> approach, where <mark class="highlight-teal">data is collected </mark>and <mark class="highlight-teal">analyzed locally</mark></p></div><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-806c-9e6d-fee405ae2f6a" class="bulleted-list"><li style="list-style-type:disc">Low latency</li></ul></div><div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-8056-b1a9-ffa8f2712e10" class="bulleted-list"><li style="list-style-type:disc">Loss of connectivity still ensure communcication</li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80f7-bc00-c42d35f55f49" class="">We do not want to remove the cloud completly because it’s still needed for the applications that do not require high reliability and low latency</p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80bf-b7dd-dab6532f2a34" class="bulleted-list"><li style="list-style-type:disc">It brings additional advantages</li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80a4-a116-c661a926c2d5" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80f2-ae21-e31034081b1d" class="">In order to solve these issues, recently, an <mark class="highlight-pink_background">extended Cloud architecture</mark> is adopted to introduce an additional layer, the <mark class="highlight-orange">Fog Layer</mark></p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8053-9174-f48a5b60fc8b" class="bulleted-list"><li style="list-style-type:disc">It is composed of nodes installed in proximity of sensor, this layer allows the execution of a local application logic and data analysis</li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80bc-94dd-f3e924170c82" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8047-845b-c2909e65252d" class=""><mark class="highlight-pink_background">Keep the majority of computing power in the cloud (since cheaper, scalable …) but some put it inside the fog layer in order to provide high reliability and low latency</mark></p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80c9-bf9d-d262e6977e1c" class="bulleted-list"><li style="list-style-type:disc">multiple layer of computations</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80aa-ae45-cc0f8bbb5bd0" class="bulleted-list"><li style="list-style-type:disc">Fog computing is an extension of classic cloud paradigm</li></ul></div><div style="display:contents" dir="ltr"><figure id="1caeea59-ca7a-80fa-acbf-f5432976a35a" class="image"><a href="Cloud%20Integration/image%207.png"><img style="width:480px" src="Cloud%20Integration/image%207.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1cdeea59-ca7a-80e6-affa-de42693d0678" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1cdeea59-ca7a-80f1-9383-fd07cffe8486" class="">An application can be moved from the cloud to the fog or vice-versa since the environment is the same thanks to the isolation provided by <mark class="highlight-teal"><mark class="highlight-pink_background">lightweighted virtualization</mark></mark></p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8033-b8e7-f6e848cd2c18" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1caeea59-ca7a-8099-9778-cf7d073c1cdf" class="">Advantages</h3></div><div style="display:contents" dir="auto"><ol type="1" id="1caeea59-ca7a-8077-b4d2-c216eb1198f8" class="numbered-list" start="1"><li>the applications that are RT can be deployed on the fog layers<div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-805f-915c-c54527988b9a" class="bulleted-list"><li style="list-style-type:disc">low latency, reliability, <mark class="highlight-teal">resiliency </mark>to network outages, <mark class="highlight-teal">privacy </mark>(data is not sent online)</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1caeea59-ca7a-8029-a9cc-db1c01658d73" class="numbered-list" start="2"><li>Advantages of cloud computing are preserved</li></ol></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80d3-b4ab-fe8b66377f8d" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1caeea59-ca7a-8015-a8a1-eea21b568264" class="">Fog Hardware</h3></div><div style="display:contents" dir="auto"><div id="1caeea59-ca7a-8044-9ce2-ce4adb6e8b82" class="column-list"><div style="display:contents" dir="auto"><div id="1caeea59-ca7a-80a6-9c6b-f9fb0e4d38ba" style="width:81.25%" class="column"><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-803f-ab5a-e5a2eb05e3bf" class="">Enriched hardware with ad-hoc peripherals for parallel computing, graphic support and <mark class="highlight-teal">AI/ML</mark> hardware support</p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-809c-9cb2-fe7938947aa0" class="bulleted-list"><li style="list-style-type:disc">directly integrated with the cloud</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1caeea59-ca7a-80a3-8776-cdbd6e51cec5" style="width:18.750000000000004%" class="column"><div style="display:contents" dir="ltr"><figure id="1caeea59-ca7a-8057-a9ae-d3229829cad5" class="image"><a href="Cloud%20Integration/image%208.png"><img style="width:278.88751220703125px" src="Cloud%20Integration/image%208.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="1caeea59-ca7a-8019-a4c6-fdce94b8a477" class="">Virtualization Techniques</h3></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80f6-bf72-f4719a224b28" class="">Fog computing systems adopt the same technologies adopted in Cloud computing systems: <mark class="highlight-teal">Virtualization techniques</mark></p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80c6-9292-dca7570106f0" class="bulleted-list"><li style="list-style-type:disc">Virtualization allows to develop applications that abstract from specific hardware and system components, thus ensuring compatibility and rapid deployment</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8098-aa5b-c88edfcae76e" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Fog systems adopt </mark><mark class="highlight-teal"><mark class="highlight-pink_background">lightweight virtualization </mark></mark><mark class="highlight-pink_background">technologies in order to meet the reduced capabilities (from the cloud)</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-807d-bf1d-dea42cf965a0" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1caeea59-ca7a-80fc-8960-c3b8c90f35fc" class="">Gateway - Fog node</h3></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80d6-bab4-dec4a641b793" class="">It can:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1caeea59-ca7a-8002-bf19-cf3cc981364d" class="numbered-list" start="1"><li>Execute some simple local application logic and data analysis that requires low-latency</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1caeea59-ca7a-8013-a032-ed7d34c54dae" class="numbered-list" start="2"><li>Implement <mark class="highlight-orange">protocol translation functionalities</mark><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-801b-ae4a-ddc710121db3" class="bulleted-list"><li style="list-style-type:disc">It has also to implement <mark class="highlight-blue">security </mark>functionality to regulate access from outside networks</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80ae-a7b3-f2d573b7a710" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-803e-9a4a-f4a8bcfc6dca" class="">It enables the adoption of a wireless technology specifically designed for IoT:</p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80a7-b693-ed2d7a53a7b3" class="bulleted-list"><li style="list-style-type:disc">Low-power</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80e9-8e39-cfa294738f67" class="bulleted-list"><li style="list-style-type:disc">Large coverage through multi-hop</li></ul></div><div style="display:contents" dir="ltr"><figure id="1caeea59-ca7a-805a-bbdc-dff9428eaadd" class="image"><a href="Cloud%20Integration/image%209.png"><img style="width:432px" src="Cloud%20Integration/image%209.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8027-aea5-df5b30f18f3f" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-805a-927b-d44e5c98a409" class=""><mark class="highlight-blue"><mark class="highlight-pink_background">MQTT </mark></mark><mark class="highlight-pink_background">does not fit well in this architecture</mark></p></div><div style="display:contents" dir="auto"><ol type="1" id="1caeea59-ca7a-80f8-a805-d747840dce4c" class="numbered-list" start="1"><li>Where do we place the broker? One in the gateway and one in the cloud?<div style="display:contents" dir="auto"><ul id="1cdeea59-ca7a-80a0-aafd-ecc59c401cb3" class="bulleted-list"><li style="list-style-type:disc">cloud → high latency</li></ul></div><div style="display:contents" dir="auto"><ul id="1cdeea59-ca7a-80ee-84bc-f44dc9d04a2c" class="bulleted-list"><li style="list-style-type:disc">gateway → scalability issues (when high volume of data to be trasmitted to the broker)</li></ul></div><div style="display:contents" dir="auto"><ul id="1cdeea59-ca7a-80a5-9fbe-fbd914436085" class="bulleted-list"><li style="list-style-type:disc">Two broker is inefficent and present data syncronization problems<div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8060-a554-ccea32b1fafd" class="bulleted-list"><li style="list-style-type:circle">What happens if a sensor is of interest of two applications, one running in the cloud one in the gateway?</li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8068-8e26-cc7fc1cf2d50" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1caeea59-ca7a-80ac-8145-c1fc71cc0119" class="">Web Of Things Approach</h2></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-807e-8982-df170a23bcc6" class="">A Web of Things approach fits well in this architecture.</p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80b5-9173-d37774a2c206" class="bulleted-list"><li style="list-style-type:disc">Each sensor provides an <mark class="highlight-blue">interface </mark>to expose their services (e.g. an information, a function) to applications.</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-808c-9c54-dac1c54f6ad7" class="bulleted-list"><li style="list-style-type:disc">The interface exposed by the devices is invoked directly by applications when needed. <div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80a6-8a4c-f7c76582f078" class="bulleted-list"><li style="list-style-type:circle">The operations are performed in the same way, from the gateway or from the cloud.</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80e4-b880-f977ae292c54" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-blue">IPv6 </mark>with its large addressing space will allow devices to be directly reachable.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8068-bf09-fb6eeae13996" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1caeea59-ca7a-8092-baff-f6dfff1468ce" class="">Advantages</h3></div><div style="display:contents" dir="auto"><ol type="1" id="1caeea59-ca7a-80c3-b1ca-cd49dc70aaf6" class="numbered-list" start="1"><li><mark class="highlight-teal">Simple</mark>: a broker is not needed</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1caeea59-ca7a-8032-ab91-d790d569042a" class="numbered-list" start="2"><li><mark class="highlight-teal"><mark class="highlight-pink_background">Energy Efficient</mark></mark><mark class="highlight-pink_background">: data is transferred only when needed (if no application consumes the data it is not transferred)</mark><div style="display:contents" dir="auto"><ul id="1cdeea59-ca7a-802b-883d-e1c2883b5298" class="bulleted-list"><li style="list-style-type:disc">In the MQTT architecture, data was transferred from the sensor to the broker even though there was no subscriber</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1caeea59-ca7a-804c-9fbc-ca69098a659c" class="numbered-list" start="3"><li><mark class="highlight-teal">Common interface</mark>: data retrieval or function invocation are performed in the same way on different hosts<div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80a5-883c-e365793c432a" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Allows machine to machine interactions</mark></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1caeea59-ca7a-8066-8fab-d36c37b86b1b" class="numbered-list" start="4"><li>Better integration with the Web</li></ol></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8076-8426-d9c81f59ccfd" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

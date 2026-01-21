@@ -1,0 +1,739 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Key-Value DB</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="115eea59-ca7a-806d-a17d-eb2b3654f906" class="page sans"><header><h1 class="page-title" dir="auto">Key-Value DB</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="115eea59-ca7a-8022-ba17-d1fd22091b5f" class=""><mark class="highlight-blue">Arrays</mark>:</p></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-8045-babd-e196426b04b7" class="bulleted-list"><li style="list-style-type:disc">value is associated with an integer (index)</li></ul></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-8022-96e7-c3b978fea816" class="bulleted-list"><li style="list-style-type:disc">all of the same type</li></ul></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-808e-8510-c1f0ddb62dd2" class="bulleted-list"><li style="list-style-type:disc">ordered list of values</li></ul></div><div style="display:contents" dir="auto"><p id="115eea59-ca7a-80a1-adca-e345382ba652" class=""><mark class="highlight-blue">Associative Arrays</mark>:</p></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-80e3-8463-d49393180fe1" class="bulleted-list"><li style="list-style-type:disc">index can be generic identifier with different types (then they are hashed)</li></ul></div><div style="display:contents" dir="auto"><h2 id="115eea59-ca7a-800c-a75f-da9772b649ef" class="">Key-Value DB</h2></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-8051-b6f2-f74e839ae8ee" class="bulleted-list"><li style="list-style-type:disc">Keys must be <mark class="highlight-orange">unique </mark>within the namespace defined in each specific <mark class="highlight-orange">bucket</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-806a-9b59-f38dfa3cc4cb" class="bulleted-list"><li style="list-style-type:disc">There is no need for tables if we do not need groups of related attributes.</li></ul></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-80d8-9b31-e03ac50d5f00" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Simplicity </mark>(no schema or data types, easy to add new buckets), <mark class="highlight-orange">speed </mark>(ram → LRU replacement) and <mark class="highlight-orange">scalability </mark>(easy to add nodes in distributed system)  </li></ul></div><div style="display:contents" dir="auto"><p id="17feea59-ca7a-8085-8156-c8bddb573b45" class="">
+</p></div><div style="display:contents" dir="auto"><p id="17feea59-ca7a-80e7-b315-c2fe2e63163e" class="">We define a namespace, ie. a bucket, which is a collection of keys and values. In each bucket, so in each namespace, all keys are unique. Keys can repeat in different namespaces/buckets</p></div><div style="display:contents" dir="auto"><p id="17feea59-ca7a-8076-b304-cb80acef8557" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="115eea59-ca7a-80a1-90e1-d0e23cee5078" class="image"><a href="Key-Value%20DB/image.png"><img style="width:432px" src="Key-Value%20DB/image.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-809e-8700-d3067063195e" class="bulleted-list"><li style="list-style-type:disc">If we don’t need features of the relational models (eg. joining) </li></ul></div><div style="display:contents" dir="auto"><ul id="11aeea59-ca7a-8063-af48-d2eba0ebb432" class="bulleted-list"><li style="list-style-type:disc">A lot simpler to change the structure of the db rather than the relational counterpart, since I would need to destroy and recreate the table</li></ul></div><div style="display:contents" dir="auto"><h3 id="115eea59-ca7a-80d5-be7b-c2ecbc512695" class="">Master-Slave <mark class="highlight-blue">(data)</mark> <mark class="highlight-blue">replication</mark></h3></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-8056-821f-e74becb53b9a" class="bulleted-list"><li style="list-style-type:disc">The master is a server that accepts write and read requests and update the data to all the slaves that have the request shard</li></ul></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-80fb-a45a-c372c7abb2d9" class="bulleted-list"><li style="list-style-type:disc">The slaves may only respond to read requests (writes only the master)</li></ul></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-80c4-8d4b-f34322b1f18c" class="bulleted-list"><li style="list-style-type:disc">This architecture is particularly suitable for applications with a growing demand for read operations</li></ul></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-806f-90ff-d52aec65a970" class="bulleted-list"><li style="list-style-type:disc">There is no need to coordinate write operations or <mark class="highlight-orange">r</mark><mark class="highlight-teal">esolve conflicts</mark> between multiple servers accepting writes.</li></ul></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-80d6-9bf8-d912d64f0bde" class="bulleted-list"><li style="list-style-type:disc">if the master fails, the cluster cannot accept writes.</li></ul></div><div style="display:contents" dir="auto"><div id="115eea59-ca7a-80ef-8633-d50e6af6c038" class="column-list"><div style="display:contents" dir="auto"><div id="115eea59-ca7a-80e6-b0ac-c7959c60f93c" style="width:62.5%" class="column"><div style="display:contents" dir="auto"><p id="115eea59-ca7a-80d4-b72a-f536e92cc660" class="">If a number of slave servers do not receive a message from the master within some period of time, the slaves may determine the master has failed.</p></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-804d-9406-c3bf400fd23d" class="bulleted-list"><li style="list-style-type:disc">The slaves initiate a protocol to promote one of the slaves as a new master.</li></ul></div><div style="display:contents" dir="auto"><p id="136eea59-ca7a-807f-ba5f-f0bcf7170e61" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="115eea59-ca7a-804b-80cb-e1f2d3d91953" style="width:37.49999999999999%" class="column"><div style="display:contents" dir="ltr"><figure id="115eea59-ca7a-804b-9b83-d23d66828d01" class="image"><a href="Key-Value%20DB/image%201.png"><img style="width:240px" src="Key-Value%20DB/image%201.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="115eea59-ca7a-80ec-a1d9-cae59834dbc4" class="">Masterless replication</h3></div><div style="display:contents" dir="auto"><div id="115eea59-ca7a-8099-8796-d84b20007e89" class="column-list"><div style="display:contents" dir="auto"><div id="115eea59-ca7a-80b0-93e7-da89913808a9" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="115eea59-ca7a-805a-b074-d16d9fe9a567" class="">Use case: applications in which the number of writes may increase and achieve peaks! Example: the website which sells ticket of concerts.</p></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-80b2-bf47-ec30d4c65a96" class="bulleted-list"><li style="list-style-type:disc">There is not a single server that has the master copy of updated data.</li></ul></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-8022-9f4c-e362fc25e1a2" class="bulleted-list"><li style="list-style-type:disc">Each node is in charge of helping its neighbors.</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="115eea59-ca7a-8057-98ab-e9e71c3a6865" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="115eea59-ca7a-8064-a614-ef0e23046bae" class="image"><a href="Key-Value%20DB/image%202.png"><img style="width:336px" src="Key-Value%20DB/image%202.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="115eea59-ca7a-801d-90f0-e3ced5f2b7bc" class="">The ring structure is an abstraction. Usually, in a data center, all the servers are connected to a single network hub and are able to communicate with each other.</p></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-80f8-a259-dcc3cda35fab" class="bulleted-list"><li style="list-style-type:disc">Each time there is a write operation to one of the servers, it replicates that change to the three other servers holding its replica (we consider 4 data replicas).</li></ul></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-800a-8ff7-d31b464341b1" class="bulleted-list"><li style="list-style-type:disc">Each server replicates to its two neighbors and to the server two links ahead</li></ul></div><div style="display:contents" dir="auto"><p id="17deea59-ca7a-80fd-a5a5-cc4e1170f3d4" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="17deea59-ca7a-805c-9abd-ea2c14510fa5" class="">Keys</h3></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="115eea59-ca7a-80fe-924e-f5ae53f24f49"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="115eea59-ca7a-803b-b249-f13b87848551" class="">When designing relational databases, using meaningless primary keys is a good practice.</p></div><div style="display:contents" dir="auto"><p id="115eea59-ca7a-8053-827e-f14c2ffac1ad" class="">In the framework of key-value databases, adopting <mark class="highlight-orange">meaningful </mark>keys is preferable.</p></div></div></figure></div><div style="display:contents" dir="auto"><p id="17deea59-ca7a-80e2-83a5-dc7e1f21cd22" class="">
+</p></div><div style="display:contents" dir="auto"><p id="17deea59-ca7a-8012-aad8-d9e3e18be43a" class="">In relational DB:</p></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-8047-8dec-d39ad1b6b2cf" class="bulleted-list"><li style="list-style-type:disc">If we specify the entry of Katherine Smith who lives in Texas, we should use SMITH_TX as PK.<div style="display:contents" dir="auto"><ul id="115eea59-ca7a-803b-a7f8-eb8181217913" class="bulleted-list"><li style="list-style-type:circle">If Katherine moves to NY, now the PK entry should be changed, but it would violate the principle that primary keys are <span style="border-bottom:0.05em solid">immutable</span>.</li></ul></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-80dc-aa5c-ebd326a09baf" class="bulleted-list"><li style="list-style-type:circle">update all the references</li></ul></div><div style="display:contents" dir="auto"><ul id="17deea59-ca7a-8009-afaa-f3a82b74f6db" class="bulleted-list"><li style="list-style-type:circle">Thus is important to keep meaningless keys in relational DBs</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="17deea59-ca7a-80d2-a4d8-e3249b96431c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="17deea59-ca7a-8083-96b8-c7efbd1d052a" class="">In KV DB:</p></div><div style="display:contents" dir="auto"><ul id="17deea59-ca7a-80e9-af04-f4210bc0d9cf" class="bulleted-list"><li style="list-style-type:disc">If we use meaningless keys we need to define more <mark class="highlight-teal">keyspaces</mark>, moving back to relational DB<div style="display:contents" dir="auto"><ul id="17deea59-ca7a-802d-972b-ec0122ec98eb" class="bulleted-list"><li style="list-style-type:circle">Cart[12387]= “SK AK231312”    e    CustName[12387] = “Pietro Ducange”</li></ul></div></li></ul></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="17deea59-ca7a-80b5-9196-c5e8b157ce52"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="644d1ac1-7a2e-4814-ae99-ffa3bca9459a" class="">We can build keys that embed information regarding Entity Name, Entity Identifier and Entity Attributes      <mark class="highlight-blue">EntityName : Entity id: EntityAttribute</mark></p></div></div></figure></div><div style="display:contents" dir="auto"><ul id="17deea59-ca7a-8061-8dbb-cede0fdc7c59" class="bulleted-list"><li style="list-style-type:disc">UniqueNameSpace[customer:12387:name] = “Pietro Ducange”   e    UniqueNameSpace[customer:12387:shippingZip] = “SK AK231312”<div style="display:contents" dir="auto"><ul id="17deea59-ca7a-8090-a222-c3a41c60d138" class="bulleted-list"><li style="list-style-type:circle">avoid the need for secondary indexes or <mark class="highlight-teal">joins </mark>that would be required in a relational database, simple <mark class="highlight-teal">range </mark>scanning instead of a meaningless key</li></ul></div><div style="display:contents" dir="auto"><ul id="17deea59-ca7a-80f0-81be-c60415f9c881" class="bulleted-list"><li style="list-style-type:circle">dynamically add attributes → <mark class="highlight-teal">schemeless </mark>(flexibility)</li></ul></div><div style="display:contents" dir="auto"><ul id="17deea59-ca7a-80f5-94cd-e55333aa2324" class="bulleted-list"><li style="list-style-type:circle">useful only for simple db (or part of a larger system, eg. cart)</li></ul></div><div style="display:contents" dir="auto"><p id="17deea59-ca7a-8032-a9e0-f4bf3b3341e4" class="">
+</p></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="115eea59-ca7a-80b3-a0a8-c629241871e8" class="">Hash</h3></div><div style="display:contents" dir="auto"><p id="115eea59-ca7a-80fb-8b09-f2e9a093d3c1" class="">From keys to value with an hash function</p></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-8088-bf87-f2240cfd3c28" class="bulleted-list"><li style="list-style-type:disc">Must handle collision problems</li></ul></div><div style="display:contents" dir="auto"><ul id="11aeea59-ca7a-8066-a397-cfffbd9284c6" class="bulleted-list"><li style="list-style-type:disc">Not too long because will use more memory (saved along side the value), but also not too short otherwise a lot of collison (probabilistic)</li></ul></div><div style="display:contents" dir="auto"><ul id="11aeea59-ca7a-804c-9699-d216cceb6970" class="bulleted-list"><li style="list-style-type:disc">Also the size of the value (different types) could be limited</li></ul></div><div style="display:contents" dir="auto"><p id="115eea59-ca7a-80da-b99a-ec5d3305ea4c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="115eea59-ca7a-80fb-a2ab-f58e3a87b0ea" class="">We would like to <mark class="highlight-teal">balance </mark>the write loads among the servers in a masterless replication architecture.</p></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-8020-8632-ea6e79e2d9ec" class="block-color-default bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default">I take the hash for each write request and evaluate the modules with the number of nodes and than assign the operation to that node (each key is associated to one server) → </mark><mark class="highlight-teal">modulo</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-80bc-b902-f8810535176b" class="bulleted-list"><li style="list-style-type:disc">how to avoid to sell tickets to the same seat, at the same venue, in the same city, on the same<br/>night to more than one person?<div style="display:contents" dir="auto"><ul id="115eea59-ca7a-8090-a115-cae6ee0f6268" class="bulleted-list"><li style="list-style-type:circle">Anyone trying to purchase that same seat on the same day would generate the same key, that will be transformed by the hashing+modulo function in the same Server Address → There is no chance for another server to sell that seat!</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="115eea59-ca7a-80ef-931c-fab06332ee31" class="">
+</p></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-8084-be54-d6d30c56ae99" class="bulleted-list"><li style="list-style-type:disc">One key-value database might offer ACID transactions but set limit on the dimension of keys and values.</li></ul></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-80f6-8506-c01f477a5b60" class="bulleted-list"><li style="list-style-type:disc">Another key-value data store might allow for large values but limit keys to numbers or strings.</li></ul></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="115eea59-ca7a-8069-8880-c915cc1044b3"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="115eea59-ca7a-8001-a9a9-f62d87cd927e" class="">If we want to do more, such as search for all addresses in which the city is “St. Louis,” we will have to do that with an application program.</p></div><div style="display:contents" dir="auto"><ul id="115eea59-ca7a-8071-a37b-fcc4455495ad" class="bulleted-list"><li style="list-style-type:disc">some db keeps a search functionality into the db</li></ul></div></div></figure></div><div style="display:contents" dir="auto"><p id="11aeea59-ca7a-8038-ac51-ceaf18b7063e" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="11aeea59-ca7a-80d0-ac6d-f4bd771f5a2e" class="">Namespace</h3></div><div style="display:contents" dir="auto"><p id="11aeea59-ca7a-80bd-9062-e10575c5ea68" class="">Collection of key-value pairs that has no duplicate keys</p></div><div style="display:contents" dir="auto"><ul id="11aeea59-ca7a-808d-897e-f96d41014dd1" class="bulleted-list"><li style="list-style-type:disc">allowed to have duplicate value</li></ul></div><div style="display:contents" dir="auto"><ul id="17deea59-ca7a-8096-a116-fd362d70144d" class="bulleted-list"><li style="list-style-type:disc">Namespaces are helpful when multiple applications use the same key-value database, or to organize data in multiple subunits</li></ul></div><div style="display:contents" dir="auto"><h3 id="11aeea59-ca7a-8060-bff9-f18fd9065036" class="">Data Partitioning</h3></div><div style="display:contents" dir="auto"><ul id="11aeea59-ca7a-80ba-8721-e3374cd04e58" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Partition</mark>: subset of data handeled by a node of a cluster (that could contains more than one partition) → bucket divided in more chunks</li></ul></div><div style="display:contents" dir="auto"><ul id="17deea59-ca7a-8003-92be-f1afcfae788d" class="bulleted-list"><li style="list-style-type:disc">The main objective of partitioning data would be to evenly balance, both write and read loads, among servers.</li></ul></div><div style="display:contents" dir="auto"><p id="11aeea59-ca7a-80ef-894f-c903e015e949" class="">
+</p></div><div style="display:contents" dir="auto"><p id="11aeea59-ca7a-80ce-801c-e25af26ec398" class="">Several Strategies of <mark class="highlight-orange">sharding </mark>data but all needs of:</p></div><div style="display:contents" dir="auto"><ol type="1" id="11aeea59-ca7a-8000-b724-f8f8c3098da9" class="numbered-list" start="1"><li><mark class="highlight-blue">Partition Key </mark>→ that is the key itself of the db (eg. from A to L inside the first server) or I could use the hash function eg. with the modulo that ensure a good balance on the distribution of the keys<div style="display:contents" dir="auto"><ol type="a" id="11aeea59-ca7a-8061-997b-ca9ae725db86" class="numbered-list" start="1"><li>the problem that very similar keys will be in different server (eg. same customer but a small part of one attribute different)</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="11aeea59-ca7a-807e-91c4-ff4537866fbd" class="numbered-list" start="2"><li>Algorithm to partition the dataset</li></ol></div><div style="display:contents" dir="auto"><p id="11aeea59-ca7a-80b9-9341-d7f84ea9d914" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="11aeea59-ca7a-8072-af1d-cb0be5130d05" class="">Clusters</h3></div><div style="display:contents" dir="auto"><ul id="11aeea59-ca7a-8069-9835-ff0d5e11e273" class="bulleted-list"><li style="list-style-type:disc">mostly independent clusters (loosly coupled)</li></ul></div><div style="display:contents" dir="auto"><ul id="11aeea59-ca7a-80e8-bed8-ee5cf3b3b235" class="bulleted-list"><li style="list-style-type:disc">each server is responsible for its own partitions and periodically send messagges to other nodes saying that it is still working, otherwise take over its work</li></ul></div><div style="display:contents" dir="ltr"><figure id="11aeea59-ca7a-80c8-9072-d57de8b69db2" class="image"><a href="Key-Value%20DB/image%203.png"><img style="width:576px" src="Key-Value%20DB/image%203.png"/></a></figure></div><div style="display:contents" dir="auto"><div id="11aeea59-ca7a-808a-b284-cdf65f2ddcc6" class="column-list"><div style="display:contents" dir="auto"><div id="11aeea59-ca7a-80e9-8d6e-e71773b1a07f" style="width:33.33333333333333%" class="column"><div style="display:contents" dir="ltr"><figure id="11aeea59-ca7a-809a-a200-d8f614c0b4fd" class="image"><a href="Key-Value%20DB/image%204.png"><img style="width:330.9861145019531px" src="Key-Value%20DB/image%204.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="136eea59-ca7a-80e0-a743-d669f42309e2" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="11aeea59-ca7a-8053-878f-c18c4d0ff8f4" style="width:33.33333333333334%" class="column"><div style="display:contents" dir="ltr"><figure id="11aeea59-ca7a-80bf-93a2-d9f0f0d5eed9" class="image"><a href="Key-Value%20DB/image%205.png"><img style="width:330.9861145019531px" src="Key-Value%20DB/image%205.png"/></a><figcaption><mark class="highlight-blue">One-phase </mark>commit</figcaption></figure></div></div></div><div style="display:contents" dir="auto"><div id="11aeea59-ca7a-80a4-acd9-f76f46a05a4b" style="width:33.333333333333336%" class="column"><div style="display:contents" dir="ltr"><figure id="11aeea59-ca7a-801d-a24d-d5b60a513ec9" class="image"><a href="Key-Value%20DB/image%206.png"><img style="width:330.9861145019531px" src="Key-Value%20DB/image%206.png"/></a><figcaption>i can just check the latest timestamp for the modification</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="11aeea59-ca7a-8091-a770-c8d4b79ff2dd" class="">To maintain strict consistency I need <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>W</mi><mo>+</mo><mi>R</mi><mo>&gt;</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">W+R&gt;N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span></span><span>﻿</span></span></p></div><div style="display:contents" dir="auto"><ul id="11aeea59-ca7a-80e9-8148-d8d5b29ee504" class="bulleted-list"><li style="list-style-type:disc">N: number of replicas</li></ul></div><div style="display:contents" dir="auto"><ul id="11aeea59-ca7a-807f-a205-d98fae5b59fa" class="bulleted-list"><li style="list-style-type:disc">W: number of write to be performed now, the others later</li></ul></div><div style="display:contents" dir="auto"><ul id="11aeea59-ca7a-8068-aee9-c5f6ead395b5" class="bulleted-list"><li style="list-style-type:disc">R: number of read to make before finish the operation</li></ul></div><div style="display:contents" dir="auto"><p id="17deea59-ca7a-8022-b968-fe2986a7c86a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="17deea59-ca7a-803d-bc12-e04a43eec167" class="">The higher number of replicas, the less likely we will loose data, the lower the performance of the systems (in terms of response time).</p></div><div style="display:contents" dir="auto"><ul id="17deea59-ca7a-8011-8ee8-d10304eb3f35" class="bulleted-list"><li style="list-style-type:disc">A low number of replicas may be used whenever data is easily regenerated and reloaded.</li></ul></div><div style="display:contents" dir="auto"><p id="17deea59-ca7a-80c5-bc74-da820db8001d" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="11aeea59-ca7a-80c8-a859-faf411e6769b" class="">Collision Resolution</h3></div><div style="display:contents" dir="auto"><ol type="1" id="11aeea59-ca7a-80c0-b8a0-fae4f061aa64" class="numbered-list" start="1"><li><mark class="highlight-blue">Open Hashing</mark>: in each location I have a list that stores both the original key and also the value</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="11aeea59-ca7a-8085-9fa0-c9e578eecc16" class="numbered-list" start="2"><li><mark class="highlight-blue">Linear Probing</mark>: if I have a collision I loop until the first empty spot</li></ol></div><div style="display:contents" dir="auto"><p id="11aeea59-ca7a-8003-877d-ef2ff7fd3d46" class="">But good hashing function and long keys lower the probability of collision</p></div><div style="display:contents" dir="auto"><p id="11aeea59-ca7a-8005-806b-e61ca78b29c4" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="11aeea59-ca7a-80dc-b922-c5c8db3b8e32" class="">Consistency Hashing</h3></div><div style="display:contents" dir="auto"><p id="11aeea59-ca7a-807e-99bf-c9ef04db8318" class="">Server organized in a masterless architecture → need to switchoff or on some server for energy efficiency.</p></div><div style="display:contents" dir="auto"><p id="11aeea59-ca7a-803a-9773-de7773e9cea0" class="">If I use the hashing function to choose the server is a problem because I need to relocate all the keys if I change the modulo.</p></div><div style="display:contents" dir="auto"><ul id="11aeea59-ca7a-803e-ae00-de0744138378" class="bulleted-list"><li style="list-style-type:disc">but I have an alghoritm called <mark class="highlight-blue">consistent hashing </mark>that allow me to allocate the keys of a removed server to the neighbours</li></ul></div><div style="display:contents" dir="auto"><p id="11aeea59-ca7a-8000-81e4-f4f9054a7079" class="">
+</p></div><div style="display:contents" dir="auto"><p id="11aeea59-ca7a-8028-93b6-c984c84e13a3" class="">The <span style="border-bottom:0.05em solid">same</span> hash function is applied to both the keys and the adress of the server</p></div><div style="display:contents" dir="ltr"><figure id="11ceea59-ca7a-80d5-a736-c6fb7901091f" class="image"><a href="Key-Value%20DB/image%207.png"><img style="width:672px" src="Key-Value%20DB/image%207.png"/></a><figcaption>Represent the <span style="border-bottom:0.05em solid">codomain</span> of the hash function in a <span style="border-bottom:0.05em solid">circular array</span></figcaption></figure></div><div style="display:contents" dir="auto"><ul id="11ceea59-ca7a-806e-85cd-eb30c7f4f6d3" class="bulleted-list"><li style="list-style-type:disc">A node contains all the keys in anti-clockwise order before encountering another server.</li></ul></div><div style="display:contents" dir="auto"><p id="11ceea59-ca7a-8010-844b-d400cf86b7b1" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="11ceea59-ca7a-80a3-8f0f-d21a8eee9f4b" class="">Data Compression</h3></div><div style="display:contents" dir="auto"><ul id="11ceea59-ca7a-8022-a535-e0a5337e6051" class="bulleted-list"><li style="list-style-type:disc">Key-Value databases are memory intensive, so OS can exploit virtual memory menagement if the DB is large (maybe storing there the least used keys).</li></ul></div><div style="display:contents" dir="auto"><ul id="11ceea59-ca7a-8005-9247-ca8cfd32c174" class="bulleted-list"><li style="list-style-type:disc">I can optimize memory usage by compressing the data</li></ul></div><div style="display:contents" dir="auto"><ul id="11ceea59-ca7a-80b9-a270-e1fe0a65c9c0" class="bulleted-list"><li style="list-style-type:disc">There is a trade-off between speed of compression\decompression and the size of the compressed data (compression level parameter)</li></ul></div><div style="display:contents" dir="auto"><p id="11ceea59-ca7a-806d-9328-fdb17d749050" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="11ceea59-ca7a-80bd-b0ca-c40aa7a1b674" class="">Usage</h2></div><div style="display:contents" dir="auto"><ul id="11ceea59-ca7a-8033-8ec0-d40ca7c30edc" class="bulleted-list"><li style="list-style-type:disc">Only with simple models and If I need just simple queries</li></ul></div><div style="display:contents" dir="ltr"><figure id="11ceea59-ca7a-8001-aebd-e131bedfe3e6" class="image"><a href="Key-Value%20DB/image%208.png"><img style="width:528px" src="Key-Value%20DB/image%208.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="11ceea59-ca7a-804f-8283-d950e416a406" class="image"><a href="Key-Value%20DB/image%209.png"><img style="width:707.9722290039062px" src="Key-Value%20DB/image%209.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="11ceea59-ca7a-80d1-ac8c-c2d73a58d01d" class="image"><a href="Key-Value%20DB/image%2010.png"><img style="width:707.9861450195312px" src="Key-Value%20DB/image%2010.png"/></a><figcaption>One to many relation → payment:$payment_id:$employee_id:$attribute_name = $value</figcaption></figure></div><div style="display:contents" dir="auto"><p id="11ceea59-ca7a-8078-960e-ce1c97d0ddf0" class="">All the db can be stored inside the same bucket</p></div><div style="display:contents" dir="auto"><p id="120eea59-ca7a-80e2-a7f4-edb61d6f2ba4" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="120eea59-ca7a-80d2-a659-f1c78dea3a06" class="">TIPS</h3></div><div style="display:contents" dir="auto"><ul id="11ceea59-ca7a-80a2-afc2-d04e88ea0e45" class="bulleted-list"><li style="list-style-type:disc">implement error checking and handling in code.</li></ul></div><div style="display:contents" dir="auto"><ul id="120eea59-ca7a-80e6-b4e5-f4844a810c33" class="bulleted-list"><li style="list-style-type:disc">implementig high-level function in order to avoid performing every time string concatenation (getter and setters)</li></ul></div><div style="display:contents" dir="auto"><p id="120eea59-ca7a-8019-84ac-c95e43dbe915" class="">
+</p></div><div style="display:contents" dir="auto"><p id="120eea59-ca7a-8003-bacf-fe15c89e14f1" class=""><span style="border-bottom:0.05em solid">Naming convention for keys</span></p></div><div style="display:contents" dir="auto"><ul id="120eea59-ca7a-809b-b4a5-f3f70b9ab814" class="bulleted-list"><li style="list-style-type:disc">Use <mark class="highlight-teal">meaningful </mark>and unambiguous naming components, such as &#x27;cust&#x27; for customer or &#x27;inv&#x27; for inventory.</li></ul></div><div style="display:contents" dir="auto"><ul id="120eea59-ca7a-8048-a663-ed5f10481179" class="bulleted-list"><li style="list-style-type:disc">Use <mark class="highlight-teal">range-based </mark>components when you would like to retrieve ranges of values. Ranges include dates or integer counters.</li></ul></div><div style="display:contents" dir="auto"><ul id="120eea59-ca7a-808a-95f6-ef7a39af3139" class="bulleted-list"><li style="list-style-type:disc">Use a <mark class="highlight-teal">common delimiter</mark> when appending components to make a key (e.g. the ‘:’ delimiter )</li></ul></div><div style="display:contents" dir="auto"><ul id="120eea59-ca7a-8035-9e35-da1fecb36e96" class="bulleted-list"><li style="list-style-type:disc">Keep keys <mark class="highlight-teal">as short as possible</mark> without sacrificing the other characteristics mentioned in this list.</li></ul></div><div style="display:contents" dir="auto"><p id="120eea59-ca7a-8022-ab56-ecccd8b8544d" class="">
+</p></div><div style="display:contents" dir="auto"><div id="120eea59-ca7a-805d-bf02-f56506648161" class="column-list"><div style="display:contents" dir="auto"><div id="120eea59-ca7a-806f-be42-ebef56d932e9" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><p id="120eea59-ca7a-803a-abb0-f17d70133e29" class=""><span style="border-bottom:0.05em solid">Range-Based attributes:</span></p></div><div style="display:contents" dir="auto"><p id="120eea59-ca7a-806c-8842-ed9ebdba5739" class="">retrieve all customers who made a purchase on a particular date.</p></div><div style="display:contents" dir="auto"><p id="120eea59-ca7a-80a8-a98c-ced65aaad8b5" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="120eea59-ca7a-809f-807d-d6e8f97a42a1" style="width:43.75%" class="column"><div style="display:contents" dir="ltr"><figure id="120eea59-ca7a-8016-8f29-d20e7a6c971a" class="image"><a href="Key-Value%20DB/image%2011.png"><img style="width:330.9583435058594px" src="Key-Value%20DB/image%2011.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="120eea59-ca7a-80c2-a2be-eff2e6dbd6e6" class="">
+</p></div><div style="display:contents" dir="auto"><p id="120eea59-ca7a-8071-95bd-eaf7ab944c1f" class=""><span style="border-bottom:0.05em solid">Simplex or Complex Values</span></p></div><div style="display:contents" dir="auto"><p id="120eea59-ca7a-80f1-9e02-e570fd12a9d8" class="">If I access Name, Surname and address together i can just save it inside the same key. Just one access instead of 3.</p></div><div style="display:contents" dir="auto"><ul id="120eea59-ca7a-8015-9dcc-c4f067a300ee" class="bulleted-list"><li style="list-style-type:disc">They will also be in the same disk/memory block so I will reduce also the memory access</li></ul></div><div style="display:contents" dir="ltr"><figure id="120eea59-ca7a-8088-9e22-c25684a1dbb7" class="image"><a href="Key-Value%20DB/image%2012.png"><img style="width:707.9305419921875px" src="Key-Value%20DB/image%2012.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="120eea59-ca7a-80f1-817f-e5404e62e0b4" class="bulleted-list"><li style="list-style-type:disc">If I use both approaches I can be really fast but the consistency is not garanteed</li></ul></div><div style="display:contents" dir="auto"><ul id="17deea59-ca7a-80ad-9aa8-e2fd83ebc384" class="bulleted-list"><li style="list-style-type:disc">In general, if we need to use complex structure for the DB of our application, it is better to move towards different architectures, such as Document Databases.</li></ul></div><div style="display:contents" dir="auto"><p id="120eea59-ca7a-8007-84f3-c590830c625a" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="120eea59-ca7a-8021-a607-df18bcee719e" class="">Limitation</h3></div><div style="display:contents" dir="auto"><ul id="120eea59-ca7a-80a6-8679-cfb7f987e94e" class="bulleted-list"><li style="list-style-type:disc">The only way to look up values is by key. Some DBMSs for key-value DB offer APIs that support common <mark class="highlight-teal">search features</mark>, such as wildcard searches, proximity searches, range searches, and Boolean operators. Search functions return a set of keys that have associated values that satisfy the search criteria.</li></ul></div><div style="display:contents" dir="auto"><ul id="120eea59-ca7a-808b-970c-d98fcdc7b995" class="bulleted-list"><li style="list-style-type:disc">Key-value databases may not support<mark class="highlight-teal"> range querie</mark>s. Some DBMSs (ordered KV databases) keeps a sorted structure that allows for range queries and/or support secondary indexes and some text search.</li></ul></div><div style="display:contents" dir="auto"><ul id="120eea59-ca7a-8017-93f9-c772cafd7219" class="bulleted-list"><li style="list-style-type:disc">There is <mark class="highlight-teal">no standard query language</mark> comparable to SQL for relational databases</li></ul></div><div style="display:contents" dir="auto"><p id="120eea59-ca7a-801c-9bf1-fb720ab24e5c" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

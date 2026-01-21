@@ -1,0 +1,867 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Ranked Retrival and Evaluation</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="297eea59-ca7a-80da-845e-d8c7ddc9e0ce" class="page sans"><header><h1 class="page-title" dir="auto">Ranked Retrival and Evaluation</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="297eea59-ca7a-809e-9261-c438ff360a17" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">class InvertedIndex:
+
+    class PostingListIterator:
+        def __init__(self, docids, freqs, doc):
+            self.docids = docids
+            self.freqs = freqs
+            self.pos = 0
+            self.doc = doc
+            
+        def docid(self):
+            if self.is_end_list():
+                return math.inf
+            return self.docids[self.pos]
+
+        def score(self):
+            if self.is_end_list():
+                return math.inf
+            return self.freqs[self.pos]/self.doc[self.docid()][1]
+
+        def next(self, target=None):
+            if not target:
+                if not self.is_end_list():
+                    self.pos += 1
+            else:
+                if target &gt; self.docid():
+                    try:
+                        self.pos = self.docids.index(target, self.pos)
+                    except ValueError:
+                        self.pos = len(self.docids)
+
+        def is_end_list(self):
+            return self.pos == len(self.docids)
+
+
+        def len(self):
+            return len(self.docids)
+            
+            
+    def __init__(self, lex, inv, doc, stats):
+        self.lexicon = lex
+        self.inv = inv
+        self.doc = doc
+        self.stat = stats
+
+    def num_docs(self):
+        return self.stats[&#x27;num_docs&#x27;]
+
+    def get_posting(self, termid):
+        return InvertedIndex.PostingListIterator(self.inv[&#x27;docids&#x27;][termid], self.inv[&#x27;freqs&#x27;][termid], self.doc)
+
+    def get_termids(self, tokens):
+        return [self.lexicon[token][0] for token in tokens if token in self.lexicon]
+    
+    def get_postings(self, termids):
+        return [self.get_posting(termid) for termid in termids]</code></pre></div><div style="display:contents" dir="auto"><p id="297eea59-ca7a-8055-b12a-d139e326ca12" class="">
+</p></div><div style="display:contents" dir="auto"><p id="297eea59-ca7a-80fe-8756-e2b218af7326" class="">For conjunctive, iterate over only the shortest one</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="297eea59-ca7a-8054-8441-d67d4b45758f" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">def boolean_and(postings):  # query terms posting
+    results = []
+    # We sort the posting lists from the shortest to the longest
+    postings = sorted(postings, key=lambda p: p.len())
+    # We scan sequentially through the shortest posting list only
+    current_docid = postings[0].docid()
+    while current_docid != math.inf:
+        found = True
+        # We look for the current docid is all remaining posting lists
+        for posting in postings[1:]:
+            posting.next(current_docid)
+            if posting.docid() != current_docid:
+                found = False
+                break
+        # If the current docid is in all posting lists, we add it to results
+        if found:
+            results.append(current_docid)
+        # We move forward in the shortest posting list
+        postings[0].next()
+        current_docid = postings[0].docid()
+    return results   </code></pre></div><div style="display:contents" dir="auto"><p id="297eea59-ca7a-80a7-99cd-ff9ab7271f26" class="">
+</p></div><div style="display:contents" dir="auto"><p id="297eea59-ca7a-80a2-98a6-f599ef040614" class="">For conjunctive all in parallel: in this way no duplicate removing</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="297eea59-ca7a-8009-9dc6-db00504cac7c" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">def boolean_or(postings):   # query terms posting
+    results = []
+    current_docid = min_docid(postings)
+    while current_docid != math.inf:
+        results.append(current_docid)
+        for posting in postings:
+            if posting.docid() == current_docid:
+                posting.next()
+        current_docid = min_docid(postings)
+    return results    </code></pre></div><div style="display:contents" dir="auto"><p id="297eea59-ca7a-80ce-8d71-cd063b3be480" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="297eea59-ca7a-8068-8fde-fc9fefffe88d" class="">Ranked Retrival</h1></div><div style="display:contents" dir="auto"><p id="297eea59-ca7a-80d8-88f7-c1351cb6fa64" class="">Rank the documents and return only the top <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi></mrow><annotation encoding="application/x-tex">K</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span></span></span></span></span><span>﻿</span></span></p></div><div style="display:contents" dir="auto"><ul id="297eea59-ca7a-8078-852d-ceece9f708ba" class="bulleted-list"><li style="list-style-type:disc">unfeasible for an user to look at all of them</li></ul></div><div style="display:contents" dir="auto"><ul id="297eea59-ca7a-8067-9bb2-fa3154d8c4ac" class="bulleted-list"><li style="list-style-type:disc">When processing a query in <mark class="highlight-teal">conjunctive mode</mark> in ranked retrieval, no special differences arise with respect to the boolean retrieval<div style="display:contents" dir="auto"><ol type="1" id="297eea59-ca7a-80f9-9000-ed965d26a31c" class="numbered-list" start="1"><li>Find the complete intersection</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="297eea59-ca7a-809b-9118-d3e346c88041" class="numbered-list" start="2"><li>Score it</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="297eea59-ca7a-8049-939b-eeb24df68ae5" class="numbered-list" start="3"><li>Return the top-<style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span></span><span>﻿</span></span></li></ol></div></li></ul></div><div style="display:contents" dir="auto"><ul id="297eea59-ca7a-80c4-9c79-f380687b3cd7" class="bulleted-list"><li style="list-style-type:disc">When a query is to be processed in <mark class="highlight-teal">disjunctive mode</mark>, is more efficient to keep partial scores for each document</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="297eea59-ca7a-8042-b743-d5f3aa234054" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">class TopQueue:
+    def __init__(self, k=10, threshold=0.0):
+        self.queue = []
+        self.k = k
+        self.threshold = threshold
+
+    def size(self):
+        return len(self.queue)
+
+    def would_enter(self, score):
+        return score &gt; self.threshold
+
+    def clear(self, new_threshold=None):
+        self.queue = []
+        if new_threshold:
+            self.threshold = new_threshold
+
+    def __repr__(self):
+        return f&#x27;&lt;{self.size()} items, th={self.threshold} {self.queue}&#x27; 
+        
+    def insert(self, docid, score):
+        if score &gt; self.threshold:
+            if self.size() &gt;= self.k:
+                heapq.heapreplace(self.queue, (score, docid))
+            else:
+                heapq.heappush(self.queue, (score, docid))
+            if self.size() &gt;= self.k:
+                self.threshold = max(self.threshold, self.queue[0][0])
+            return True
+        return False</code></pre></div><div style="display:contents" dir="auto"><p id="297eea59-ca7a-80be-ac8c-e6ab781fe3d2" class="">
+</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="297eea59-ca7a-8024-9fff-da076044f896" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">def taat(postings, k=10):
+    A = defaultdict(float)     # accumulator per document
+    for posting in postings:
+        current_docid = posting.docid()
+        while current_docid != math.inf:
+            A[current_docid] += posting.score()
+            posting.next()
+            current_docid = posting.docid()
+    top = TopQueue(k)
+    for docid, score in A.items():
+        top.insert(docid, score)
+    return sorted(top.queue, reverse=True)
+    
+  def daat(postings, k=10):
+    top = TopQueue(k)
+    current_docid = min_docid(postings)
+    while current_docid != math.inf:
+        score = 0       # score per current doc
+        next_docid = math.inf
+        for posting in postings:
+            if posting.docid() == current_docid:
+                score += posting.score()
+                posting.next()
+            if not posting.is_end_list():
+                next_docid = min(next_docid, posting.docid())
+        top.insert(current_docid, score)
+        current_docid = next_docid
+    return sorted(top.queue, reverse=True)   </code></pre></div><div style="display:contents" dir="auto"><p id="297eea59-ca7a-8078-b579-eaa779e818fb" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="297eea59-ca7a-802b-8e22-c53ff1596d46" class="">Evaluation</h1></div><div style="display:contents" dir="auto"><ul id="297eea59-ca7a-80b9-b914-e8da60117933" class="bulleted-list"><li style="list-style-type:disc"><strong>Offline evaluation</strong>: the IR system is evaluated without any interaction with users. We assume to have assessors, that can correctly tell us what is relevant and what is not.<div style="display:contents" dir="auto"><ul id="297eea59-ca7a-803a-aad8-f59cfa7cd65f" class="bulleted-list"><li style="list-style-type:circle">based on <mark class="highlight-teal">experimental collections </mark><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">C</mi><mo>=</mo><mo stretchy="false">(</mo><mi>D</mi><mo separator="true">,</mo><mi>T</mi><mo separator="true">,</mo><mi>A</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathcal{C} = (D,T,A)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathcal" style="margin-right:0.05834em;">C</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">A</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> where:<div style="display:contents" dir="auto"><ul id="297eea59-ca7a-80dd-af40-eee74c6122d1" class="bulleted-list"><li style="list-style-type:square"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span></span><span>﻿</span></span> is a a <strong>corpus</strong> of documents in the domain of interest<div style="display:contents" dir="auto"><ul id="297eea59-ca7a-800d-b7ba-e57259b95d6a" class="bulleted-list"><li style="list-style-type:disc">docno and body</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="297eea59-ca7a-809a-9d68-f1afb8a73c24" class="bulleted-list"><li style="list-style-type:square"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span></span></span><span>﻿</span></span> is a set of <strong>topics</strong> representing (a surrogate of) the user information needs<div style="display:contents" dir="auto"><ul id="297eea59-ca7a-8024-a727-ccd73943b253" class="bulleted-list"><li style="list-style-type:disc">ID, title (search engine query), description, narrative (instruction for assessors on when to consider a doc relevant)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="297eea59-ca7a-8008-b16a-ca80e2bb2462" class="bulleted-list"><li style="list-style-type:square"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">A</span></span></span></span></span><span>﻿</span></span> is a list of human-made <strong>relevance assessments</strong> (binary or graded)<div style="display:contents" dir="auto"><ul id="297eea59-ca7a-803b-b8e1-cbe3e37289d9" class="bulleted-list"><li style="list-style-type:disc">topic id, docno, judgment, iteration (unused and equal to ‘0’)</li></ul></div></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="297eea59-ca7a-8068-981d-f47f801724bd" class="bulleted-list"><li style="list-style-type:circle">Tuple <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>t</mi><mo separator="true">,</mo><mi>d</mi><mo separator="true">,</mo><mi>p</mi><mo stretchy="false">)</mo><mo>∈</mo><mi mathvariant="script">C</mi></mrow><annotation encoding="application/x-tex">(t, d, p) \in \mathcal{C}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">d</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">p</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathcal" style="margin-right:0.05834em;">C</span></span></span></span></span><span>﻿</span></span></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="297eea59-ca7a-8066-9798-f133eec89aa0" class="bulleted-list"><li style="list-style-type:disc"><strong>Online evaluation</strong>: the IR system is evaluated while interacting with the user, telling us what is relevant and what is not.</li></ul></div><div style="display:contents" dir="auto"><p id="297eea59-ca7a-8089-aa7b-f2e306bdc474" class="">
+</p></div><div style="display:contents" dir="auto"><p id="297eea59-ca7a-806e-9fd1-d393756d3c92" class="">
+</p></div><div style="display:contents" dir="auto"><p id="297eea59-ca7a-80f9-87a5-c3460a059d94" class="">A <mark class="highlight-orange">run </mark>[ranked list from the engine] is a textual file whose fields (all mandatory) are separated by a tab or a space character. The fields of a run are the following:</p></div><div style="display:contents" dir="auto"><ul id="297eea59-ca7a-807b-9d8b-e4b2b48b0f89" class="bulleted-list"><li style="list-style-type:disc">a <em>topic id</em>, the topic id as in $T$,</li></ul></div><div style="display:contents" dir="auto"><ul id="297eea59-ca7a-8037-8b2f-fae5dcc297b9" class="bulleted-list"><li style="list-style-type:disc"><em>fixed</em>, unused and always equal to the string <code>&#x27;Q0&#x27;</code>,</li></ul></div><div style="display:contents" dir="auto"><ul id="297eea59-ca7a-8068-9025-cc71f7e453c2" class="bulleted-list"><li style="list-style-type:disc">a <em>docno</em>, the document number as in $D$,</li></ul></div><div style="display:contents" dir="auto"><ul id="297eea59-ca7a-8071-bd3a-e9f71bf93767" class="bulleted-list"><li style="list-style-type:disc">a <em>rank</em>, the position of the document in the ranked list for the topic,</li></ul></div><div style="display:contents" dir="auto"><ul id="297eea59-ca7a-80ed-8ec4-ef33a41b4bea" class="bulleted-list"><li style="list-style-type:disc">a <em>score</em>, the score given by the IR system to the document for the topic (a real number), and</li></ul></div><div style="display:contents" dir="auto"><ul id="297eea59-ca7a-801c-a654-cbaa7e8aa13d" class="bulleted-list"><li style="list-style-type:disc">a <em>run id</em>, an identifier, equal for all the lines in the run, of the IR system search.</li></ul></div><div style="display:contents" dir="auto"><p id="297eea59-ca7a-80a4-a367-d775c209c5ae" class="">
+</p></div><div style="display:contents" dir="auto"><p id="297eea59-ca7a-80b5-9f7a-c0a185e17fff" class="">The relevance assessments <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">A</span></span></span></span></span><span>﻿</span></span> are then used to judge each of the retrieved documents and to produce the <mark class="highlight-orange"><strong>assessed run</strong></mark>. </p></div><div style="display:contents" dir="auto"><ul id="297eea59-ca7a-80ee-99b0-f556d8c77d4c" class="bulleted-list"><li style="list-style-type:disc">Relevance labels in the assessed run are then mapped to numbers, called <strong>relevance weights</strong> and this originates the<mark class="highlight-orange"> </mark><mark class="highlight-orange"><strong>weighted assessed run</strong></mark>. </li></ul></div><div style="display:contents" dir="auto"><ul id="297eea59-ca7a-80db-9495-d523c5568a51" class="bulleted-list"><li style="list-style-type:disc">Typically, 0 and 1 are used in the case of binary relevance labels and integer numbers in the case of graded relevance labels.</li></ul></div><div style="display:contents" dir="auto"><p id="297eea59-ca7a-805c-ac9f-d062ac52e95d" class="">The weighted assessed run is finally <mark class="highlight-teal">scored </mark>using one of the many evaluation measures <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">M</mi></mrow><annotation encoding="application/x-tex">\mathcal{M}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathcal">M</span></span></span></span></span><span>﻿</span></span> available in IR</p></div><div style="display:contents" dir="auto"><ul id="297eea59-ca7a-808f-8e14-fb005d6dfebb" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Precision </mark>and <mark class="highlight-teal">recall</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="297eea59-ca7a-8058-bfa7-d472329189ae" class="bulleted-list"><li style="list-style-type:disc">Since an experimental collection consists of many topics, the performance of an IR system is characterized by a set of scores, one for each topic</li></ul></div><div style="display:contents" dir="auto"><p id="297eea59-ca7a-80f7-9fdb-ca85bb296fff" class="">
+</p></div><div style="display:contents" dir="auto"><p id="297eea59-ca7a-80dd-824f-f4393793ab86" class="">We didn’t account for the position</p></div><div style="display:contents" dir="auto"><ul id="297eea59-ca7a-80f9-8a76-cb7396ec3dce" class="bulleted-list"><li style="list-style-type:disc">computed with <code>trec_eval</code> </li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="297eea59-ca7a-80ca-8d36-e3dc74e9501d" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">ir_measures.calc_aggregate([P@5, P(rel=2)@5, nDCG@10, 
+					AP, AP(rel=2), Bpref, Bpref(rel=2), 
+					Judged@10], qrels, sab)
+		# qrels = ground truth
+		# sab = run
+		# AP(rel=2) Average Precision considering only docs with rel ≥ 2</code></pre></div><div style="display:contents" dir="auto"><p id="297eea59-ca7a-803b-9554-f0343dcc5564" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

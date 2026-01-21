@@ -1,0 +1,734 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Management</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1d1eea59-ca7a-8014-985b-c03be51e7d00" class="page sans"><header><h1 class="page-title" dir="auto">Management</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-80a2-b3fb-fe6588e3e639" class="bulleted-list"><li style="list-style-type:disc"><strong>Financial accounting </strong>is concerned with reporting financial information to external parties, such as stockholders, creditors, and regulators.<div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-80af-badd-f18d0cd83180" class="bulleted-list"><li style="list-style-type:circle">Is public by law</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-80d4-aa24-e376c6363198" class="bulleted-list"><li style="list-style-type:disc"><strong>Managerial accounting </strong>is concerned with providing information to managers within an organization so that they can formulate plans, control operations, and make decisions   </li></ul></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-8023-9294-f70d352029b2" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="1d1eea59-ca7a-8058-86b9-fa884a63d78a" class="">Cost Classification</h1></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-80ca-8f36-d1df9618f8f8" class="">Purposes:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1d1eea59-ca7a-804c-be23-e752b45f36dd" class="numbered-list" start="1"><li>Assigning costs to <mark class="highlight-blue">cost objects </mark>(entity to which I want to give a cost)<div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-801d-ad18-c47525ae8556" class="bulleted-list"><li style="list-style-type:disc">Direct cost and indirect cost</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d1eea59-ca7a-8092-b3c3-d747ba443f9c" class="numbered-list" start="2"><li>Preparing financial statements</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d1eea59-ca7a-80e1-81a5-ef3543efeb3b" class="numbered-list" start="3"><li>Predicting cost behavior in response to changes in activity</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d1eea59-ca7a-8080-ac38-fa7187413772" class="numbered-list" start="4"><li>Making decisions</li></ol></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-809f-ba63-e4686c4010e6" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1d1eea59-ca7a-80f6-9cdd-fc36d02b1552" class="">1. Assigning Costs to Cost Objects</h2></div><div style="display:contents" dir="auto"><h3 id="1d1eea59-ca7a-805a-8641-c587ae078a8e" class="">Manufacturing Costs</h3></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-8086-a39d-f04547e09fbe" class=""><mark class="highlight-orange">Direct costs</mark></p></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-8034-bf02-f1d3a2b85d67" class="bulleted-list"><li style="list-style-type:disc">Costs that can be easily and conveniently traced to a unit of product or other cost object</li></ul></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-80a2-9c1e-f7c540376105" class="">Example:</p></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-80c5-bed8-e1012e98966e" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Direct Material </mark>→ objects from the <mark class="highlight-teal">BOM </mark>(bill of material for the product) → will become part of the product<div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-803a-a4dc-f642190d3735" class="bulleted-list"><li style="list-style-type:circle">A radio installed in an automobile</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-8056-a398-e67dd2dd52fc" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Direct labor </mark>costs are those labor costs that can be easily traced to individual units of product   → <mark class="highlight-teal">timetables </mark>of workers (eg software company with a lot of projects)<div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-8044-a511-e36ce222a9c7" class="bulleted-list"><li style="list-style-type:circle">wages paid to automobile assembly workers (directly on the object)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-80db-8edf-c0c82b5a2b12" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-80e3-bd6e-dc46357de965" class=""><mark class="highlight-orange">Indirect costs</mark></p></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-80c5-913c-d8627692c0de" class="bulleted-list"><li style="list-style-type:disc">Manufacturing overhead includes all manufacturing costs except direct material and direct labor<div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-80ac-90d6-d8236703588e" class="bulleted-list"><li style="list-style-type:circle">These costs cannot be readily traced to finished products</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-80e4-866e-dc5cbc69bd38" class="bulleted-list"><li style="list-style-type:disc">Example: manufacturing overhead<div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-80b4-8987-f9b025b547d5" class="bulleted-list"><li style="list-style-type:circle">Lubrification of the machines, security guards, property tax, insurance</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-8001-895d-fb9f88020fcd" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-8082-b3c8-da9e7cfe2959" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="1d1eea59-ca7a-8024-b5a9-cd10303ec85b" class="image"><a href="Management/image.png"><img style="width:432px" src="Management/image.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="1d1eea59-ca7a-80b1-852c-fed1b1280e0d" class="image"><a href="Management/image%201.png"><img style="width:604.7750244140625px" src="Management/image%201.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-8070-9938-c75ab289cf07" class="bulleted-list"><li style="list-style-type:disc">Conversion cost refers to the costs incurred to convert raw materials into finished goods. </li></ul></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-8071-aabf-d0a2385d4b46" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d1eea59-ca7a-807d-9fe9-d9013bf9a717" class="">Non Manufacturing Costs - Period Cost</h3></div><div style="display:contents" dir="ltr"><figure id="1d1eea59-ca7a-808d-bdb1-d628d690de42" class="image"><a href="Management/image%202.png"><img style="width:604.7750244140625px" src="Management/image%202.png"/></a><figcaption>Non-manufacturing costs</figcaption></figure></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-801a-8931-c07d67224903" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="1d1eea59-ca7a-8016-bc99-e5a251327ea8"/></div><div style="display:contents" dir="auto"><h2 id="1d3eea59-ca7a-809c-8f97-f9572fd659e0" class="">2. Cost for financial statements (eg. Balance Sheet)</h2></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-80d5-854c-e4c751af963a" class="">Consist of </p></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-8088-adde-e9333be14a52" class="numbered-list" start="1"><li>product costs</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-8079-b7ce-c0ea31f311f9" class="numbered-list" start="2"><li>period costs</li></ol></div><div style="display:contents" dir="auto"><h3 id="1d1eea59-ca7a-8018-a79e-fb725d2d6b6f" class="">Product costs</h3></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-80ef-9b6b-c3e41d2885bd" class=""><mark class="highlight-orange">Product costs </mark>→ includes all costs that are involed in acquiring or making a product</p></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-80ab-8df3-d70a26c93978" class="bulleted-list"><li style="list-style-type:disc">until a product is in inventory</li></ul></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-8015-b34d-c6dff541e83e" class="">For manufacturing companies, product costs include:</p></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-8035-941e-e83bf6f52c10" class="bulleted-list"><li style="list-style-type:disc"><strong>Raw materials: </strong>includes any materials that go into the final product.</li></ul></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-8047-b37a-e5c25c07453a" class="bulleted-list"><li style="list-style-type:disc"><strong>Work in process: </strong>consists of units of product that are only partially complete and will require further work before they are ready for sale to the customer.</li></ul></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-802b-9b0e-c00183bab2d8" class="bulleted-list"><li style="list-style-type:disc"><strong>Finished goods costs:</strong> consists of completed units of product that have not yet been sold to customers.</li></ul></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-8074-ac8e-fefda75572f8" class=""><br/>When products move through the stages of production, the costs are transferred from <strong>raw materials</strong> to <strong>work in process</strong> to <strong>finished goods</strong>. Once a product is sold, its cost is moved from the inventory account (finished goods) to the <strong>Cost of Goods Sold </strong></p></div><div style="display:contents" dir="ltr"><figure id="1d1eea59-ca7a-80de-afbf-c53b78ee149c" class="image"><a href="Management/image%203.png"><img style="width:604.7750244140625px" src="Management/image%203.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-8022-b326-d57d2c25a7da" class="">
+</p></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1d1eea59-ca7a-80c9-a3a3-c9e4bbb5fd7f"><div style="font-size:1.5em"><span class="icon">📢</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-8072-bf72-faf96e16e9ce" class="">depreciation → indirect product costs</p></div></div></figure></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-80d8-8670-fc969b087b2f" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="1d1eea59-ca7a-80de-b9aa-c757457d1afd"/></div><div style="display:contents" dir="auto"><h2 id="1d3eea59-ca7a-80cb-b72b-c46d4cf3668f" class="">3. Cost classification for predicting cost behaviour</h2></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-8093-b1fa-eea38271db2a" class=""><mark class="highlight-orange">Variable Costs </mark>→ cost that varies with direct proportion to changes in the level of activity</p></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-80ea-9510-e9f761f60b33" class="bulleted-list"><li style="list-style-type:disc">variable cost per unit is constant</li></ul></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-807b-bb78-c1f8c0d2277c" class=""><mark class="highlight-teal">Cost driver</mark></p></div><div style="display:contents" dir="auto"><ol type="1" id="1d1eea59-ca7a-8081-b2a6-f4cee40e7b16" class="numbered-list" start="1"><li>machine hours</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d1eea59-ca7a-803e-8dc3-fdeee791869d" class="numbered-list" start="2"><li>miles driven</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d1eea59-ca7a-80f3-9a9a-d3a2f52b350f" class="numbered-list" start="3"><li>labor hours</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-8082-9b3e-fc31b0dfdb9a" class="numbered-list" start="4"><li>direct materials</li></ol></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-809b-9f99-d432a9641967" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-80a0-bf65-dd7ed5bfda3d" class=""><mark class="highlight-orange">Fixed cost</mark> → remains constat regardless of changes in the level of the activity</p></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-801f-8107-c51f56c0c14f" class="bulleted-list"><li style="list-style-type:disc">If expressed on a per unit basis, the average fixed cost per unit varies inversely with change in activity (hyperbolic function)</li></ul></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-8082-9910-e30a1766c110" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-8071-84fe-c2ff40347f2a" class="numbered-list" start="1"><li>rent</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-801e-9479-d1f54060dfd7" class="numbered-list" start="2"><li>salaries (if fixed staff)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d3eea59-ca7a-805d-afdc-fe35d401a8f0" class="numbered-list" start="3"><li>insurance</li></ol></div><div style="display:contents" dir="ltr"><figure id="1d1eea59-ca7a-80c0-9669-f3d364d5c07c" class="image"><a href="Management/image%204.png"><img style="width:528px" src="Management/image%204.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-8070-8dfc-c074f0157fda" class="bulleted-list"><li style="list-style-type:disc">discretionary eg. cut the compensation of the CEO, the consultants, the library access to journals, advertising</li></ul></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-803c-a0cb-e9482186ab0f" class="bulleted-list"><li style="list-style-type:disc">Committed → fire people in europe</li></ul></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-806e-8010-cd5a62f8621a" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="1d1eea59-ca7a-80f7-af1e-f1682e79ecbb" class="image"><a href="Management/image%205.png"><img style="width:604.7875366210938px" src="Management/image%205.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-805e-9234-eb3793aa0e19" class="bulleted-list"><li style="list-style-type:disc">curvature imply different returns rate</li></ul></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1d3eea59-ca7a-807f-86eb-dbe9cd149fc0"><div style="font-size:1.5em"><span class="icon">📢</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-80b1-a81c-fd3252e97b6f" class="">The <strong>Law of Diminishing Returns</strong> (also called <strong>Law of Variable Proportions</strong>) occurs in the <strong>short run</strong>, when <strong>at least one input is fixed</strong> (like land, machinery, or capital) and you&#x27;re adding more of a <strong>variable input</strong> (like labor).</p></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-80aa-97ed-df1dbeffd2a7" class="bulleted-list"><li style="list-style-type:disc">the fixed items becomes a bottleneck</li></ul></div></div></figure></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-80b5-a8b2-f2806aee3f75" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-80d3-a25e-d5563b807786" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="1d1eea59-ca7a-8072-bb79-c8fda9fb0086" class="image"><a href="Management/image%206.png"><img style="width:604.7750244140625px" src="Management/image%206.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-80b2-9d3b-ca4ee7f5dff1" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d3eea59-ca7a-8045-924a-db20d5eaa341" class="">Mixed costs</h3></div><div style="display:contents" dir="auto"><p id="1d3eea59-ca7a-8097-8e96-cb91eeb8d9a2" class="">A mixed cost contains both variable and fixed elements.  </p></div><div style="display:contents" dir="auto"><ul id="1d3eea59-ca7a-8078-977a-f127a4fcc07b" class="bulleted-list"><li style="list-style-type:disc">for example utilities costs (bolletta della luce)</li></ul></div><div style="display:contents" dir="ltr"><figure id="1d1eea59-ca7a-80a0-8e85-c17c13624500" class="image"><a href="Management/image%207.png"><img style="width:604.7875366210938px" src="Management/image%207.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-808e-85f2-f9cc393c1835" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="1d1eea59-ca7a-80cd-8ada-c2a58dd9ecfb"/></div><div style="display:contents" dir="auto"><h2 id="1d3eea59-ca7a-80d9-9302-de5f7993929c" class="">4. Cost classification for making decisions </h2></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-8089-b1f7-cd14dcebd520" class="">Decisions involve choosing between alternatives. The goal of making decisions is to identify those costs that are either <strong>relevant</strong> or <strong>irrelevant</strong> to the decision   </p></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-808e-91dc-e6ac7900e4a2" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d1eea59-ca7a-8013-b068-c85e4aa07e43" class="">Differential Costs</h3></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-804c-9327-d0d678a4cc49" class=""><mark class="highlight-orange">Differential costs</mark> (or incremental costs) are the difference in cost between any two alternatives.</p></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-80f0-b356-f3df6c4cb732" class="bulleted-list"><li style="list-style-type:disc">A difference in revenue between two alternatives is called differential revenue.</li></ul></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-804f-ba88-c37bd481015f" class="bulleted-list"><li style="list-style-type:disc">Can be either fixed or variable</li></ul></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-8092-9da0-e8e7a3ced4ff" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-8073-80cf-df3409f49dee" class="">Eg the payment of a consultants is not differential, since it doesnt change if you make product A or B. Meanwhile if you change the material may be differential</p></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-80fb-890d-d117a406d19c" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d1eea59-ca7a-8037-9bac-def007f5b262" class="">Sunk Costs</h3></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-80c6-950e-c0698f7643c0" class="">Sunk costs have already been incurred and cannot be changed now or in the future.<br/>These costs <mark class="highlight-teal">should be ignored</mark> when making decisions.</p></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-8074-ac52-c62c40e736df" class="bulleted-list"><li style="list-style-type:disc">already pay the consultant for deciding if to produce A or B → useless to consider when choosing for product A or B</li></ul></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-801e-a8fd-fd5573703853" class="bulleted-list"><li style="list-style-type:disc">The amount spent on the past that <strong>cannot</strong> be recovered → doesn&#x27;t affect the future<br/></li></ul></div><div style="display:contents" dir="auto"><h3 id="1d1eea59-ca7a-8006-be2b-f28bb845a89d" class="">Opportunity Cost</h3></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-80df-a5eb-dee80b8dce96" class="">The potential benefit that is given up when one alternative is selected over another.</p></div><div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-802c-ac2b-f23c6539ed9e" class="bulleted-list"><li style="list-style-type:disc">For students: What is the opportunity cost you incur by attending class?<div style="display:contents" dir="auto"><ul id="1d1eea59-ca7a-809f-9e7a-faf06a9911a6" class="bulleted-list"><li style="list-style-type:circle">Opportunity cost of not working</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-8019-9fcb-e3b04c0663b1" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d1eea59-ca7a-8009-b91a-ea8769146a60" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="1d1eea59-ca7a-807a-8001-dbd1d079fc5e" class="image"><a href="Management/image%208.png"><img style="width:604.7750244140625px" src="Management/image%208.png"/></a></figure></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

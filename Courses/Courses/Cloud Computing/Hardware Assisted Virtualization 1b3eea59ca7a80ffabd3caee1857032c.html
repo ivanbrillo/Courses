@@ -1,0 +1,741 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Hardware Assisted Virtualization</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1b3eea59-ca7a-80ff-abd3-caee1857032c" class="page sans"><header><h1 class="page-title" dir="auto">Hardware Assisted Virtualization</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-8026-bafc-e260a65ead6e" class="">Hardware virtualization techniques result in running the <mark class="highlight-teal">guest OS completely into user space</mark></p></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-808e-a8d7-f4855c6eda5e" class="">In fact, every time the guest OS switches to kernel space, we have a context switch to run the VMM, which mimics the execution of a privileged instruction or other operations (e.g. I/O)</p></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-8078-b084-e5ee06d62921" class="bulleted-list"><li style="list-style-type:disc">Although guest OS kernel operations are <span style="border-bottom:0.05em solid">limited in time</span>, they represent a significant performance penalty, due to the noticeable overhead in performing hardware emulation and instruction emulation</li></ul></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-80b0-a16e-fd12a3727081" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-8027-be65-ed1901938142" class="">AMD and Intel add new features that are explicitly designed to support efficient implementation of VMM-Hypervisor software</p></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-80fd-8529-d1b4df89152b" class="bulleted-list"><li style="list-style-type:disc">Intel and AMD extensions are equivalent; thus, we focus on the Intel extension called <mark class="highlight-blue">VMX </mark>(Virtual Machine eXtension)</li></ul></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-80be-b3d3-d0ce17af61e5" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-8001-98c1-dfbb9792ce58" class=""><mark class="highlight-pink_background">VMX technology introduces two new </mark><mark class="highlight-orange"><mark class="highlight-pink_background">operating modes</mark></mark><mark class="highlight-pink_background"> in Intel CPUs: the </mark><mark class="highlight-blue"><mark class="highlight-pink_background">root </mark></mark><mark class="highlight-pink_background">(for </mark><mark class="highlight-teal"><mark class="highlight-pink_background">VMM</mark></mark><mark class="highlight-pink_background">) and </mark><mark class="highlight-blue"><mark class="highlight-pink_background">non-root</mark></mark><mark class="highlight-pink_background"> (for </mark><mark class="highlight-teal"><mark class="highlight-pink_background">VM</mark></mark><mark class="highlight-pink_background">) modes</mark><br/>The result is four possible combinations (in order of privilege):</p></div><div style="display:contents" dir="auto"><ol type="1" id="1b3eea59-ca7a-8061-b185-d9cf02a78469" class="numbered-list" start="1"><li>root/system → kernel of Hypervisor</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b3eea59-ca7a-80e1-a31f-fad46631bebe" class="numbered-list" start="2"><li>root/user → code of Hypervisor but not core one or user applications</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b3eea59-ca7a-80c5-b3f6-f4de8a1056fe" class="numbered-list" start="3"><li>non-root/system → guest OS</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b3eea59-ca7a-8072-a7ae-d06b199f4783" class="numbered-list" start="4"><li>non-root/user → a VM application</li></ol></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-8077-862e-fdc158928d3f" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-8094-8086-eabb5fc33c39" class="">The main purpose of these new modes is to put <mark class="highlight-teal">hardware-controlled limitations</mark> to the actions performed by the guest OS</p></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-8050-bde4-c130e6a58190" class="bulleted-list"><li style="list-style-type:disc">Whenever the guest OS tries to execute an instruction that would either violate the isolation of a VM or require software emulation, the hardware can trap and switch back to VMM execution</li></ul></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-80b2-a984-efce2f290eee" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-80ad-9d37-f747c248a3e5" class=""><mark class="highlight-pink_background">Two new assembly instructions are introduced, the </mark><mark class="highlight-teal"><mark class="highlight-pink_background">VMLAUNCH </mark></mark><mark class="highlight-pink_background">and </mark><mark class="highlight-teal"><mark class="highlight-pink_background">VMRESUME</mark></mark><mark class="highlight-pink_background">, which both enable to </mark><mark class="highlight-blue"><mark class="highlight-pink_background">launch the VM</mark></mark><div class="indented"><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-80d3-802d-c91b435a4efd" class="bulleted-list"><li style="list-style-type:disc">Those instructions are only allowed in <span style="border-bottom:0.05em solid">root/system mode</span></li></ul></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-80f5-8f9f-e3d00134aa18" class="bulleted-list"><li style="list-style-type:disc">They reduce overhead, since only<mark class="highlight-pink_background"> one instruction is needed for the context switch </mark>(save or load all the data of VM in a data structure)</li></ul></div></div></p></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-807b-9d0b-df840e57e9eb" class="bulleted-list"><li style="list-style-type:disc">The VM returns to the root mode and switch back to the VMM execution for a number of reasons, named <mark class="highlight-blue">VM exits</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-8054-bc59-e16a81e00b01" class="bulleted-list"><li style="list-style-type:disc">Tunable list of operations for VM to run them autonomously → reduce overhead</li></ul></div><div style="display:contents" dir="ltr"><figure id="1b3eea59-ca7a-80e9-a9ff-e025c9fa2a0a" class="image"><a href="Hardware%20Assisted%20Virtualization/image.png"><img style="width:432px" src="Hardware%20Assisted%20Virtualization/image.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-8067-bc63-edf14311da24" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-8025-94f8-ec7396150915" class="">The <mark class="highlight-blue">non-root mode</mark>, via additional hardware support, allows the VM running in non-root mode to (we will see the details later):</p></div><div style="display:contents" dir="auto"><ol type="1" id="1b3eea59-ca7a-8020-a857-ecfa5bcf556d" class="numbered-list" start="1"><li>Execute some privileged instructions</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b3eea59-ca7a-8092-b946-ec101218a3b9" class="numbered-list" start="2"><li>Handle directly (some) interrupts</li></ol></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-80b0-b07a-ecc92fd4cb24" class="">This without requiring VMM intervention for their emulation</p></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-80af-bf11-da5480d157fc" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1b3eea59-ca7a-809b-a140-e92c4366e16b" class="">Interrupt Management</h3></div><div style="display:contents" dir="auto"><div id="1b3eea59-ca7a-80f0-83b5-daa7aa0e906b" class="column-list"><div style="display:contents" dir="auto"><div id="1b3eea59-ca7a-803f-93a3-e189469070a9" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-8027-966d-f34a8e731a67" class="">To re-route interrupts an additional table is added, the <mark class="highlight-blue"><mark class="highlight-pink_background">Interrupt Remapping Table </mark></mark><mark class="highlight-pink_background">(IRT)</mark></p></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-8046-a5c5-cae4d4530e98" class="bulleted-list"><li style="list-style-type:disc">The IRT allows to re-route every hardware interrupt directly by the VMM in a <mark class="highlight-teal">dynamic </mark>manner </li></ul></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-804c-8cb5-caf56563aa56" class="bulleted-list"><li style="list-style-type:disc">It has an entry for each possible interrupt request</li></ul></div><div style="display:contents" dir="auto"><ul id="1feeea59-ca7a-80db-a73a-c660ef0a4422" class="bulleted-list"><li style="list-style-type:disc">for IO devices (used in IOMMU)</li></ul></div><div style="display:contents" dir="auto"><p id="203eea59-ca7a-80fb-abbd-cffa6eba7a3a" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1b3eea59-ca7a-80c4-9e13-f419d8508a05" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1b3eea59-ca7a-806e-b468-da7b482e8464" class="image"><a href="Hardware%20Assisted%20Virtualization/image%201.png"><img style="width:242.5681915283203px" src="Hardware%20Assisted%20Virtualization/image%201.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="1feeea59-ca7a-80c7-b841-d14e06aba275" class="">Trap Management</h3></div><div style="display:contents" dir="auto"><div id="1b3eea59-ca7a-80b0-8044-fb92b211aba5" class="column-list"><div style="display:contents" dir="auto"><div id="1b3eea59-ca7a-808c-8440-f93ae2cd8b64" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1feeea59-ca7a-8071-a0f4-c2225ae27d2f" class="">Each entry maps the requests to the interrupt vector of a VM <strong><span style="border-bottom:0.05em solid">or</span></strong> to the interrupt vector of the VMM</p></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-8018-96f7-c23d78269261" class="bulleted-list"><li style="list-style-type:disc">Every time an interrupt is triggered, the IRT decides which Interrupt Vector handles the interrupt</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1b3eea59-ca7a-8064-8d9a-d4cf394d37f9" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1b3eea59-ca7a-806f-82f2-eb3448a02667" class="image"><a href="Hardware%20Assisted%20Virtualization/image%202.png"><img style="width:242.5681915283203px" src="Hardware%20Assisted%20Virtualization/image%202.png"/></a><figcaption>Just one context switch instead of a lot</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-80f0-9f62-f7dabb569110" class="">An example is the need to emulate via software the execution of two instructions:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1b3eea59-ca7a-8095-bec9-f6078ab63a05" class="numbered-list" start="1"><li><code>INT</code> (interrupt) is used when a program needs to request system services - moving from user mode to system mode</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b3eea59-ca7a-803c-8508-f930092010ca" class="numbered-list" start="2"><li><code>IRET</code> (interrupt return) is used to return back to user mode from system mode</li></ol></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-8070-8e2b-ec99bf605d56" class="">Without hardware support, their execution was <mark class="highlight-teal">emulated </mark>via software by VMM, which was responsible for taking care of modifying the VM status in order to mimic the execution of the instructions </p></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-8070-90a4-cf146a64e532" class="bulleted-list"><li style="list-style-type:disc">With root and non-root modes the execution of INT and IRET can be performed without the need to execute <mark class="highlight-teal">VMM code</mark>: whenever the INT is invoked the operating mode is switched from non-root/user to non root/system → <span style="border-bottom:0.05em solid">no emulation</span><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-8038-825b-f63a10ef760d" class="bulleted-list"><li style="list-style-type:circle">with IRET is the opposite</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-8021-a50b-fea1f0cfe5d4" class="">The VMM only needs to step in <strong>if</strong>:</p></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-8095-a234-d7382883a37a" class="bulleted-list"><li style="list-style-type:disc">The instruction causes a <mark class="highlight-pink_background"><strong>VM Exit</strong></mark> - like executing an instruction that is not allowed in non-root mode (e.g., accessing CR3 or I/O ports directly)</li></ul></div><div style="display:contents" dir="auto"><ul id="1feeea59-ca7a-809a-bb65-c8e827596a7d" class="bulleted-list"><li style="list-style-type:disc">VMM places a trap in the VMCS</li></ul></div><div style="display:contents" dir="ltr"><figure id="1eaeea59-ca7a-80be-98ce-fdbd558458a8" class="image"><a href="Hardware%20Assisted%20Virtualization/image%203.png"><img style="width:480px" src="Hardware%20Assisted%20Virtualization/image%203.png"/></a><figcaption>INT execution</figcaption></figure></div><div style="display:contents" dir="auto"><h3 id="1b3eea59-ca7a-80b1-b50a-ef3e78abe0d1" class="">VMCS</h3></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-80a6-9714-c8ccee1791f9" class=""><mark class="highlight-pink_background">Intel VMX introduces a new Structure (VMCS) </mark><mark class="highlight-orange"><mark class="highlight-pink_background">Virtual Machine Control Structure</mark></mark>, which is a control structure that contains all the information associated with the state of a VM (unique for each running VM)</p></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-8079-a3b7-fec6c926ea10" class="bulleted-list"><li style="list-style-type:disc">The extension includes a <mark class="highlight-teal">set of instructions</mark> to manipulate such data structure that are used when the context switches to execute the VMM or the VM is restored → carried out in <span style="border-bottom:0.05em solid">hardware</span></li></ul></div><div style="display:contents" dir="ltr"><figure id="1b3eea59-ca7a-80ad-add9-e63fc4d316a0" class="image"><a href="Hardware%20Assisted%20Virtualization/image%204.png"><img style="width:240px" src="Hardware%20Assisted%20Virtualization/image%204.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-8062-a8e1-fd7d5988eb90" class="">VMCS data structure has several fields that can be grouped as follows:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1b3eea59-ca7a-807c-9158-f7e13807a898" class="numbered-list" start="1"><li><mark class="highlight-teal">Guest state</mark>: stores the state of the (virtual) processor associated with the VM. The state is loaded from the structure to the processor during VM launch, while during a VM exit the state is stored back<div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-80e4-8e9b-f4724ea96015" class="bulleted-list"><li style="list-style-type:disc">Contains the instruction pointer, that points to the first instruction to be executed after VM launch</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b3eea59-ca7a-8032-94d8-dbfd1abb95a5" class="numbered-list" start="2"><li><mark class="highlight-teal">Host state</mark>: store the state of the physical processor before the VM launch. It can contain the state of the VMM, running before VM launch. The state is restored during a VM exit, while it is saved at VM launch<div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-8083-bc71-fcb57c4b0b0c" class="bulleted-list"><li style="list-style-type:disc">The host state contains the value to be loaded into the <mark class="highlight-orange">instruction pointer</mark> at VM exit, to recover the execution of the VMM</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b3eea59-ca7a-8081-9401-d3d67b87f4c5" class="numbered-list" start="3"><li><mark class="highlight-teal">VM execution control</mark>: this field specifies what kind of operations and the instructions that are allowed and not allowed during <span style="border-bottom:0.05em solid">non-root</span> mode. Unallowed actions cause a VM exit (<span style="border-bottom:0.05em solid">bitmap</span>)<div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-80e2-8a7d-cf92e366af0e" class="bulleted-list"><li style="list-style-type:disc">Flags to determine the behaviour of an interrupt or a I/O management, exploited in particular for <mark class="highlight-blue">peripheral passthrough</mark><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-804e-8aac-d799d2e5c74c" class="bulleted-list"><li style="list-style-type:circle">A flag determines what should happen when the CPU receives an <mark class="highlight-teal">external interrupt</mark>, while running in non-root mode. Through this flag VMM can specify if the VM can handle interruptions directly or a VM exit must occur</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-80e1-8738-e1fea1c860de" class="bulleted-list"><li style="list-style-type:disc">A flag determines whether some <mark class="highlight-teal">critical instructions</mark> should cause a VM exit or they can be executed by the VM</li></ul></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-8088-9970-fed56b39d8c9" class="bulleted-list"><li style="list-style-type:disc">Another set of flags specifies if <mark class="highlight-teal">I/O operations</mark> are allowed inside the VM or a VM exit is required</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b3eea59-ca7a-8044-9414-e4e87a2f0b4b" class="numbered-list" start="4"><li><mark class="highlight-teal">VM enter control</mark>: it contains several flags and fields that determine some optional behaviors during the transition from the root to non-root (<span style="border-bottom:0.05em solid">bitmap</span>) → hardware automatic operations<div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-80aa-8830-f8c008121a63" class="bulleted-list"><li style="list-style-type:disc">Fields that can be used by the VMM to mimic a fake external interrupt or to inject exceptions and fault</li></ul></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-8009-9d07-f138a5b10165" class="bulleted-list"><li style="list-style-type:disc">The VMM writes the vector of the desired interrupt into the VM enter control, during VM enter, the processor will perform all the actions to mimic the interrupt reception, specifically:<div style="display:contents" dir="auto"><ol type="1" id="1b5eea59-ca7a-801f-92c7-da97430d9290" class="numbered-list" start="1"><li>it saves the state on the guest stack</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b5eea59-ca7a-8091-b03d-fcb6a6b5e88e" class="numbered-list" start="2"><li>it looks up the guest interrupt descriptor table to determine the address of the interrupt<br/>handler</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b5eea59-ca7a-8084-aa47-f5114d9e0ed9" class="numbered-list" start="3"><li>it modifies the registries of the CPU to execute the handler</li></ol></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-8020-93b1-f815062a920b" class="bulleted-list"><li style="list-style-type:disc">Through this mechanism, fake interrupt can be generated into a VM by the VMM</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b3eea59-ca7a-8006-ad6c-ced27efa7709" class="numbered-list" start="5"><li><mark class="highlight-teal">VM exit control</mark>: likewise, but for the non-root to root transition</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b3eea59-ca7a-80c8-9f98-faff3ce2cd3a" class="numbered-list" start="6"><li><mark class="highlight-teal">VM exit reason</mark>: it contains information related to the reason that caused the latest VM exit event</li></ol></div><div style="display:contents" dir="auto"><h2 id="1b3eea59-ca7a-80fe-ad90-e6011087bb38" class="">RAM Management</h2></div><div style="display:contents" dir="auto"><div id="1eaeea59-ca7a-8099-b2d6-d7ece3b9329f" class="column-list"><div style="display:contents" dir="auto"><div id="1eaeea59-ca7a-8048-a1ce-d1aa6e087f98" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-8031-b956-dddeed3f5ca9" class="">Both AMD and Intel have added some extensions to their hardware support to simplify the task of virtualizing guest virtual memory → I have an overhead every time I need to trap the changes</p></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-8037-87fd-d1bfcd14f06b" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1eaeea59-ca7a-80de-bda2-dc574544b835" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1b3eea59-ca7a-805c-b103-eb4669681633" class="image"><a href="Hardware%20Assisted%20Virtualization/image%205.png"><img style="width:384px" src="Hardware%20Assisted%20Virtualization/image%205.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-802f-8b1f-f2012100bbea" class="bulleted-list"><li style="list-style-type:disc">Specifically, they introduced the <mark class="highlight-orange"><mark class="highlight-pink_background">extended page table</mark></mark>, that is available on the host but not on the hardware emulated for the VM</li></ul></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-80ed-b0de-d82bcfba06de" class="bulleted-list"><li style="list-style-type:disc">The hardware implementing the host MMU is extended to have <mark class="highlight-teal">two PTBR pointers</mark>, one to the page table of the guest VM, implementing the G mapping, another one to the page table created by the VMM to implement the H mapping</li></ul></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-8095-af7a-f7f00f0e3aae" class="bulleted-list"><li style="list-style-type:disc">The extended hardware takes care of applying the composition of G mapping and H mapping, which are applied sequentially in hardware by the MMU<div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-8031-97df-f838caaf2a86" class="bulleted-list"><li style="list-style-type:circle">No longer need the multi-level trick of brute force </li></ul></div></li></ul></div><div style="display:contents" dir="ltr"><figure id="1b3eea59-ca7a-80aa-a373-d0cb851dacb6" class="image"><a href="Hardware%20Assisted%20Virtualization/image%206.png"><img style="width:432px" src="Hardware%20Assisted%20Virtualization/image%206.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-807a-ae17-fd672ddc1a83" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-8070-bf42-ebd079adc553" class="">Through this extension, there is no longer any need for <mark class="highlight-teal">VM exits</mark>, every time the guest VM modifies the page table</p></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-8063-9c5f-ee48c2c139cc" class="bulleted-list"><li style="list-style-type:disc">This extension, however, increases the cost for address translation, which is more expensive, as more memory accesses must be performed by the hardware → two entire traslation instead of a little longer one with shadow pages (one more level)</li></ul></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-80f5-9bfb-d395d7578dba" class="bulleted-list"><li style="list-style-type:disc">In order to reduce this overhead, the latest MMUs are usually equipped with a page table <mark class="highlight-teal">cache</mark> to reduce those accesses</li></ul></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-807e-96ac-daca8b1f9910" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1b3eea59-ca7a-80dc-9adc-d2ceffc78042" class="">Hardware Passthrough</h2></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-807c-ba2c-c8f21cb5c589" class="">I/O emulation poses the <mark class="highlight-teal">biggest performance challenge</mark> in virtual machines</p></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-80ff-a775-e8a16d762f57" class="bulleted-list"><li style="list-style-type:disc">VMM has to participate in every interaction between the VM and the I/O peripherals (often emulated), thus resulting in several VM exits</li></ul></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-80ff-80dd-caf8313fdef6" class="">In order to overcome this issue, a solution is to give a VM <mark class="highlight-blue">direct </mark>and <mark class="highlight-blue">exclusive </mark>access to a peripheral</p></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-8005-9d81-fdec66a784b0" class="bulleted-list"><li style="list-style-type:disc">This approach is called <mark class="highlight-orange">passthrough </mark>and maps the device directly to the guest VM without performing any translation</li></ul></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-808f-8a43-da291d68cc02" class="bulleted-list"><li style="list-style-type:disc">This eliminates completely the need for VM exits, however, the hardware is not virtualized, and it must be dedicated to one VM and <mark class="highlight-teal">not shared</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-8077-9316-e3b6904b3127" class="bulleted-list"><li style="list-style-type:disc">No abstraction layers</li></ul></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-80fc-b445-f6c916c201bc" class="">In order to implement this approach <mark class="highlight-teal">explicit hardware support</mark> is required</p></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-80ea-8e5a-eed554acd756" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-80cc-a157-eeb3c41a613e" class="">In order to implement a passed through device to a guest OS running into a VM, we need two main functionalities:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1b3eea59-ca7a-805b-82c6-d8b909e85ff9" class="numbered-list" start="1"><li><mark class="highlight-teal">Direct mapping</mark> of the I/O (physical) memory space in the virtual physical memory of the VM, so the guest OS can write directly on the registries of the peripheral</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b3eea59-ca7a-80fe-bd16-ecd2b058f874" class="numbered-list" start="2"><li><mark class="highlight-teal">Direct assignment</mark> of the interrupts linked with the peripheral, so the VM can handle the interrupts coming from the passed-through device, while the VMM handles all the others</li></ol></div><div style="display:contents" dir="ltr"><figure id="1b3eea59-ca7a-80d7-837c-c7ebf83080b0" class="image"><a href="Hardware%20Assisted%20Virtualization/image%207.png"><img style="width:480px" src="Hardware%20Assisted%20Virtualization/image%207.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-80f0-9e91-da142aed36bb" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-8036-bc5a-f731b14ce6ec" class=""><mark class="highlight-blue">Direct Mapping</mark></p></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-807a-9748-c82828c1cf84" class="">For read/write to/from the registers of the passed-through device, we want the VM to be allowed to perform I/O read/write without VMM intervention</p></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-8048-b642-fcce2518b379" class="bulleted-list"><li style="list-style-type:disc">Intel VMX architecture includes in the <mark class="highlight-teal">VMCS </mark>an <mark class="highlight-teal"><mark class="highlight-pink_background">I/O bitmap</mark></mark>, with one bit for each possible I/O address to specifically support hardware passthrough (check adresses that can be accessed directly from VM)</li></ul></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-80c2-afb7-fdf25f72bf39" class="bulleted-list"><li style="list-style-type:disc">When a device passthrough is set for a VM, the I/O bitmap is modified in order to set all the bits corresponding to the addresses of the I/O space of the device, to grant direct access</li></ul></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-805d-95c0-c183bdbbc0a0" class="bulleted-list"><li style="list-style-type:disc">In non-root mode, the CPU first checks the bitmap when a read/write is performed in the <mark class="highlight-teal">I/O space:</mark> if the bit is set the instruction is completed, otherwise a VM exit is triggered to give back control to the VMM (e.g. to emulate hardware operations)</li></ul></div><div style="display:contents" dir="auto"><p id="1baeea59-ca7a-800b-bf32-da7c76c3619e" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1baeea59-ca7a-80da-bd31-f270c20753c8" class="">Interrupts</h3></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-8017-9dcd-fdaaa02ace60" class=""><mark class="highlight-blue">Direct Assignment</mark></p></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-80bb-a88e-e976a1a4447e" class="">Intel VMX extensions allow two options for the management of interrupts:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1b3eea59-ca7a-8082-9936-d4881e779323" class="numbered-list" start="1"><li>the interrupt causes a VM exit, so the interrupt is managed by VMM</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b3eea59-ca7a-807a-a2e9-d75db8b8c0e8" class="numbered-list" start="2"><li>the interrupt is managed directly by the VM without a VM exit</li></ol></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-80aa-a8db-c3d6a40f0074" class="">For passed-through devices, the second option is adopted: the interrupt is handled directly by the guest VM that receives the interrupt and executes the handler</p></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-80eb-b134-f0a5858b642e" class="bulleted-list"><li style="list-style-type:disc">In this case, the hardware is capable of directly looking at the Interruption Vector Table (<mark class="highlight-teal">IVT</mark>) of the guest OS and executing the corresponding handler of the guest OS</li></ul></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-8072-b062-dd759d8ddc2a" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">That is implemented via the </mark><mark class="highlight-teal"><mark class="highlight-pink_background">Interrupt Remapping Table</mark></mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-80c6-af2d-c6191407e38b" class="bulleted-list"><li style="list-style-type:disc">The VM, however, might receive an interrupt while not running, to this aim the system needs to handle the interrupts coming from the passed-through device also when the <span style="border-bottom:0.05em solid">VM is not running</span></li></ul></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-80cd-a447-dc8917476a0a" class="">VM needs to access directly <mark class="highlight-blue">GPU</mark>, since they cannot be virtualized in an efficient manner → Efficient ML training</p></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-8078-a962-e2d03051635f" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1b3eea59-ca7a-80bd-8e12-f3b71d5d57e8" class="column-list"><div style="display:contents" dir="auto"><div id="1b3eea59-ca7a-805d-a87f-e4e8b37e11da" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-80c0-a1c4-fa8d98092975" class="">Ready when the VM CPU is stopped because the host CPU is currently being used by the VMM or some other VM</p></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-8046-9479-d85593dd39e9" class="bulleted-list"><li style="list-style-type:disc">When the guest software inside the VM executes the <mark class="highlight-blue">hlt instruction</mark>, the VMM typically intercepts the instruction and puts the VM into the <mark class="highlight-orange">halted state</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1baeea59-ca7a-80f9-950f-d435b5cb823d" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1b3eea59-ca7a-8023-b87c-f1340accd004" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1b3eea59-ca7a-8036-b9f6-c9db559d5e91" class="image"><a href="Hardware%20Assisted%20Virtualization/image%208.png"><img style="width:533.1704711914062px" src="Hardware%20Assisted%20Virtualization/image%208.png"/></a><figcaption>VM States</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-8054-9ce2-d45854ace152" class="bulleted-list"><li style="list-style-type:disc">A VM might resume from the halted state only if it receives an interrupt that is received to the VM CPU (power on from the VMM or interrupt that is received from the passthrough device) <div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-80e5-bb5a-d0492785ed84" class="bulleted-list"><li style="list-style-type:circle">Some devices has this function eg remote turn on from the internet adapter</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-8051-9381-f854cb854c79" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-80f7-b3c4-f1ecb549b752" class="">When a passed-through device is involved, the interrupts should be managed according to the VM state. Specifically, we have the following three possible cases:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1b3eea59-ca7a-80f2-bfe9-fa98aba3fc47" class="numbered-list" start="1"><li><mark class="highlight-teal">VM running</mark>: the interrupt should be handled directly by the processor, jumping to the guest OS interrupt handler, without VMM intervention</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b3eea59-ca7a-8060-b271-e4feeafab73c" class="numbered-list" start="2"><li><mark class="highlight-teal">VM ready</mark>: since the host CPU is currently running something else, we want to store the interrupt request somewhere so that the VM CPU can handle it at the later time when the VM is scheduled for execution</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b3eea59-ca7a-803e-9b82-e7c016d43f89" class="numbered-list" start="3"><li><mark class="highlight-teal">VM halted</mark>: the interrupt needs to be stored and the VM state needs to be changed to ready → mimic the behaviour of a physical system that is turned off</li></ol></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-80c2-8446-e70041d8e268" class="">The <mark class="highlight-orange">posted interrupt mechanism</mark>, available in recent CPUs, allows the implementation of this mechanism</p></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-80fc-b8d3-d99bc822d1ca" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-80a4-b298-ce8160f1c855" class="">The <mark class="highlight-blue">posted interrupts</mark> mechanism allows to store interrupts signals (post) for later notification to the VM, <mark class="highlight-pink_background">without VMM intervention</mark></p></div><div style="display:contents" dir="auto"><div id="1b3eea59-ca7a-80e3-8697-cab774bc9a54" class="column-list"><div style="display:contents" dir="auto"><div id="1b3eea59-ca7a-8021-87cb-f857bb67d827" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="1b3eea59-ca7a-80f4-9e1b-c3644cd84a7b" class="bulleted-list"><li style="list-style-type:disc">The mechanism exploits an additional data structure for each VM: the <mark class="highlight-orange"><mark class="highlight-pink_background">Posted Interrupt Descriptor </mark></mark><mark class="highlight-pink_background">(PID)</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1baeea59-ca7a-8052-9061-d941b67c0370" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1b3eea59-ca7a-801e-b563-c29773cfcb76" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1b3eea59-ca7a-80bc-832f-d54ce9ba0e91" class="image"><a href="Hardware%20Assisted%20Virtualization/image%209.png"><img style="width:384px" src="Hardware%20Assisted%20Virtualization/image%209.png"/></a><figcaption>Posted Interrupt</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1b3eea59-ca7a-802b-a3b1-e969cb6884a8" class="">Each entry in the IRT maps to an <mark class="highlight-teal">Interrupt Vector</mark> (if the interrupt must be handled by VMM) or a <mark class="highlight-teal">PID</mark>, which points to the actual interrupt vector if the VM is active</p></div><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-8020-922b-e60a910aa032" class="bulleted-list"><li style="list-style-type:disc">It is the VMM that modify this table</li></ul></div><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-8051-bdd5-d8497628c4b8" class="bulleted-list"><li style="list-style-type:disc">Automatically executed the interruput from VM, <mark class="highlight-teal">without a context switch</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1baeea59-ca7a-8008-a9e0-e3591f171cc5" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1baeea59-ca7a-80ae-b4fc-feb744f6d4d1" class="">The PID contains information on the <mark class="highlight-blue">status </mark>of the VM and stores the information on the <mark class="highlight-blue">interrupt notifications</mark> for asynchronous notification. Specifically, it has the following fields:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1baeea59-ca7a-80a9-8580-dff50c8fb35b" class="numbered-list" start="1"><li>A <mark class="highlight-teal">Posted Interrupt Request </mark>(PIR) structure, in which interrupts are posted → but cannot be served immediatly</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1baeea59-ca7a-8051-8b93-fd1f48a7d8ae" class="numbered-list" start="2"><li>A <mark class="highlight-teal">Suppress Notification </mark>(SN) flag that determines whether the controller after posting the interrupt in the PIR must also notify the CPU (SN=0) or not (SN=1) → eg. when VM is in <mark class="highlight-pink_background">ready </mark>state)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1baeea59-ca7a-80c2-b021-c31a49ca3a42" class="numbered-list" start="3"><li>A <mark class="highlight-teal">Notification Vector</mark> (NV) that points to the actual interruption vector of the VM<div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-8029-ae0c-c5d5235c29b8" class="bulleted-list"><li style="list-style-type:disc">When the VM is in halted state it points to something else (wakeup notification vector)</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1baeea59-ca7a-80a5-b499-cd0cdeb135b5" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1baeea59-ca7a-8072-80de-faf2f04ca8c1" class="">The following operations are performed after receiving an interrupt:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1baeea59-ca7a-80e0-8c2c-dd07bca26b13" class="numbered-list" start="1"><li>It sets the proper bit in the PIR</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1baeea59-ca7a-80a3-8373-cedff4793917" class="numbered-list" start="2"><li>If SN is 1 (e.g. because the VM is in ready state), it does nothing else:<div style="display:contents" dir="auto"><ol type="a" id="1baeea59-ca7a-8096-9d1c-dfb6caadf243" class="numbered-list" start="1"><li>If the VM is running it interrupts the processor by using the vector NV</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1baeea59-ca7a-80fa-a7b9-c4cc1eb24ec6" class="numbered-list" start="2"><li>If the VM is halted it triggers the awakening of the VM</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><p id="1baeea59-ca7a-80dd-8e9e-f7d19d80d0e2" class="">
+</p></div><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-80ab-aac5-cae6d68d0565" class="bulleted-list"><li style="list-style-type:disc">When the VM goes into <mark class="highlight-teal">running </mark>state, VMM sets SN = 0 and NV to a vector named <mark class="highlight-blue">Active Notification Vector </mark>that points to the IDT of the VM<div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-8072-b775-d9e7d4f9e2cf" class="bulleted-list"><li style="list-style-type:circle">It must check also the PIR if some bits are set → unhandled interrupts</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-80b3-bfbe-db7338e759f4" class="bulleted-list"><li style="list-style-type:disc">When the VM goes into <mark class="highlight-teal">ready </mark>state, VMM sets SN = 1</li></ul></div><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-8091-8a05-cab111ab79c3" class="bulleted-list"><li style="list-style-type:disc">When the VM goes into halted state, VMM sets SN = 0 and NV to a special vector named <mark class="highlight-blue">Wakeup Notification Vector</mark> that triggers VM awakening<br/></li></ul></div><div style="display:contents" dir="auto"><h3 id="1baeea59-ca7a-8000-861b-d5d64eefe37c" class="">DMA devices</h3></div><div style="display:contents" dir="auto"><p id="1baeea59-ca7a-80a3-9bf9-db67497b63a8" class="">DMA devices are I/O devices that reads data directly from RAM</p></div><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-8005-b703-e6b089e3bf67" class="bulleted-list"><li style="list-style-type:disc">The CPU instructs the device by writing/reading on a small subset of registers, then it directly fetch the data from RAM</li></ul></div><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-800e-a859-db5065d3accd" class="bulleted-list"><li style="list-style-type:disc">DMA devices access directly the physical memory</li></ul></div><div style="display:contents" dir="ltr"><figure id="1baeea59-ca7a-80be-a2b2-cf1e9023a73f" class="image"><a href="Hardware%20Assisted%20Virtualization/image%2010.png"><img style="width:384px" src="Hardware%20Assisted%20Virtualization/image%2010.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1baeea59-ca7a-8083-a760-d580d9352a4a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1baeea59-ca7a-80b0-8344-df3f0dc0a56e" class="">In order to translate virtual addresses into physical addresses, DMA devices exploits a specific MMU circuit for I/O (hardware peripheral)</p></div><div style="display:contents" dir="auto"><div id="1baeea59-ca7a-80d7-9ff7-ec3f5b40b60a" class="column-list"><div style="display:contents" dir="auto"><div id="1baeea59-ca7a-80d1-99ab-ce4e8c664f33" style="width:62.5%" class="column"><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-80a7-aa2e-c59938485ad3" class="bulleted-list"><li style="list-style-type:disc">This <mark class="highlight-orange">IOMMU </mark>is responsible for translating virtual addresses into physical addresses for the I/O device to read/write from/to RAM</li></ul></div><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-80f4-84ed-e7678646108b" class="bulleted-list"><li style="list-style-type:disc">The IOMMU is a general device that it was introduced into multiprogrammed systems that adopted virtual memory</li></ul></div><div style="display:contents" dir="auto"><p id="1f0eea59-ca7a-8000-9cf8-f6e24f8878ad" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1baeea59-ca7a-8098-a2ae-d062ebcbd59c" style="width:37.5%" class="column"><div style="display:contents" dir="ltr"><figure id="1baeea59-ca7a-80e1-b9bd-e20ba9d76ebf" class="image"><a href="Hardware%20Assisted%20Virtualization/image%2011.png"><img style="width:242.5681915283203px" src="Hardware%20Assisted%20Virtualization/image%2011.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1feeea59-ca7a-80ba-94a1-d168feb00939"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1feeea59-ca7a-804a-9d65-cb36d8b30f50" class="">It translates addresses from the I/O Virtual Address space, which is used by devices, to the system&#x27;s physical memory addresses.</p></div><div style="display:contents" dir="auto"><ul id="1feeea59-ca7a-805b-a83a-facd170a4f53" class="bulleted-list"><li style="list-style-type:disc">ensuring that a device can only access the memory allocated to its assigned VM (via passthrough)</li></ul></div></div></figure></div><div style="display:contents" dir="auto"><p id="1baeea59-ca7a-8022-93c8-ea8adf132977" class="">IOMMUs are also capable of triggering <mark class="highlight-teal">page faults interrupts</mark>, if they found pages that are not stored in ram</p></div><div style="display:contents" dir="auto"><p id="1baeea59-ca7a-802b-811a-f97517d099d4" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="1baeea59-ca7a-80ab-9e15-e6fd270f4518" class="numbered-list" start="1"><li><strong>CPU Writes to DMA Controller Registers</strong><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-8045-bbcc-fd6f8c0d5e14" class="bulleted-list"><li style="list-style-type:disc"><strong>Source address</strong> (e.g., the location of data in RAM or an I/O device)</li></ul></div><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-80a3-b927-cc6b67d9d400" class="bulleted-list"><li style="list-style-type:disc"><strong>Destination address</strong> (where the data should be transferred)</li></ul></div><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-8019-9939-c120b4abe29d" class="bulleted-list"><li style="list-style-type:disc"><strong>Transfer size</strong> (how much data to move)</li></ul></div><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-808a-a077-f354c2fd5543" class="bulleted-list"><li style="list-style-type:disc"><strong>Control information</strong> (e.g., transfer mode)</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1baeea59-ca7a-8007-a83c-d751de12f4ee" class="numbered-list" start="2"><li><strong>DMA Controller Takes Over the Transfer</strong><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-80f6-a389-de36f614bc2b" class="bulleted-list"><li style="list-style-type:disc">Once the CPU sets these registers, it <strong>sends a request</strong> to the DMA controller and then <strong>continues executing other tasks</strong>.</li></ul></div><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-80ec-9082-c86546277183" class="bulleted-list"><li style="list-style-type:disc">The <strong>DMA controller</strong> reads these register values and begins transferring data <strong>directly between RAM and the I/O device</strong>.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1baeea59-ca7a-8013-ae64-e50c6fbdf136" class="numbered-list" start="3"><li><strong>CPU Gets an Interrupt When Done</strong><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-80c1-8525-d7e17825f5be" class="bulleted-list"><li style="list-style-type:disc">After completing the transfer, the DMA controller <strong>signals an interrupt to the CPU</strong>, letting it know the transfer is finished</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1baeea59-ca7a-80e0-b370-d2ea3603cca5" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1baeea59-ca7a-803f-ba8b-fff65bc5a724" class="">Nested Virtualization</h3></div><div style="display:contents" dir="auto"><p id="1baeea59-ca7a-80b3-8be0-c0f17a2f6a85" class="">Nested virtualization describes a system in which the hypervisor runs inside a VM, which in turn is running inside a host hypervisor</p></div><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-80aa-a7ec-d13cd4b51af3" class="bulleted-list"><li style="list-style-type:disc">Nested virtualization is useful mainly for testing, although today is used also in solutions for production (it reduces the effort for upgrading the infrastructure)</li></ul></div><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-8036-a61e-d5ede30fdd25" class="bulleted-list"><li style="list-style-type:disc">It allows cloud consumers to setup their own <mark class="highlight-teal">IaaS </mark>infrastructure on top of a set of VMs running on a IaaS infrastructure</li></ul></div><div style="display:contents" dir="ltr"><figure id="1baeea59-ca7a-80d5-9e19-e0ae9c7843b3" class="image"><a href="Hardware%20Assisted%20Virtualization/image%2012.png"><img style="width:384px" src="Hardware%20Assisted%20Virtualization/image%2012.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1baeea59-ca7a-80b7-8331-e857f5fd6554" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1baeea59-ca7a-8023-acf1-c9712bc61483" class="">Multi-level nested virtualization requires specific hardware support</p></div><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-80f1-8c85-f9d4542cd10e" class="bulleted-list"><li style="list-style-type:disc">Intel and AMD only supports a <mark class="highlight-teal">single virtualization level</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-8007-9f59-e71b2b251884" class="bulleted-list"><li style="list-style-type:disc">Guest Hypervisor doesn’t have hardware support → slower</li></ul></div><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-80fc-83c9-d6143ef155f1" class="bulleted-list"><li style="list-style-type:disc">Multiple virtualization levels can be multiplexed into a single virtualization level, when the two hypervisor are the same<div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-8097-84a5-d6710f886137" class="bulleted-list"><li style="list-style-type:circle">Coordination between the two hypervisor → the inner one ask the second to do the action</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><div id="1baeea59-ca7a-807c-86e4-c44f4a084d61" class="column-list"><div style="display:contents" dir="auto"><div id="1baeea59-ca7a-8062-90a8-ca5f89d74e62" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="1baeea59-ca7a-8090-a58f-d02a3cc1ad9b" class="bulleted-list"><li style="list-style-type:disc">Guest hypervisor access to hardware extensions for virtualization are <mark class="highlight-teal">emulated </mark>by the Host hypervisor</li></ul></div><div style="display:contents" dir="auto"><p id="1baeea59-ca7a-80e8-87fc-fd5e17db47ba" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1baeea59-ca7a-8025-b73d-e84431e1fda2" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1baeea59-ca7a-8093-983c-cdaf6a950145" class="image"><a href="Hardware%20Assisted%20Virtualization/image%2013.png"><img style="width:240px" src="Hardware%20Assisted%20Virtualization/image%2013.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1f0eea59-ca7a-80fb-8e81-cac1b8c504a3" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

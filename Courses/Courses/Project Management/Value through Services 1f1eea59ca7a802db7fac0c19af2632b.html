@@ -1,0 +1,721 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Value through Services</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1f1eea59-ca7a-802d-b7fa-c0c19af2632b" class="page sans"><header><h1 class="page-title" dir="auto">Value through Services</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="1f1eea59-ca7a-80d6-bac2-f7d347e0fdb5" class="">Services are different form products</p></div><div style="display:contents" dir="auto"><p id="1f1eea59-ca7a-80ca-8858-cbfb391f6ddf" class="">
+</p></div><div style="display:contents" dir="auto"><ul id="1f1eea59-ca7a-8015-9d49-efb667f76ac8" class="bulleted-list"><li style="list-style-type:disc">Service-Dominant Logic (<mark class="highlight-orange">S-D Logic</mark>) views <strong>service</strong>—the application of skills and knowledge for the benefit of others—as the <strong>core of all economic exchange</strong>, not goods or money.</li></ul></div><div style="display:contents" dir="auto"><ul id="1f1eea59-ca7a-804d-aa37-e1f900a920ff" class="bulleted-list"><li style="list-style-type:disc">Although services are central, this reality is often hidden behind <strong>tangible goods, money, or institutional structures</strong>. In fact, <strong>goods are just vehicles for delivering services</strong>—their true value lies in the service they enable.</li></ul></div><div style="display:contents" dir="auto"><ul id="1f1eea59-ca7a-806f-bd7e-ffa540991c32" class="bulleted-list"><li style="list-style-type:disc">Competitive advantage comes from <strong>intangible resources</strong>, particularly <strong>knowledge and skills</strong>, rather than physical assets.</li></ul></div><div style="display:contents" dir="auto"><ul id="1f1eea59-ca7a-80e4-b63d-da76ab69c3e2" class="bulleted-list"><li style="list-style-type:disc">As a result, <strong>every economy is fundamentally a service economy</strong>, even when it appears to be product- or manufacturing-based.</li></ul></div><div style="display:contents" dir="auto"><ul id="1f1eea59-ca7a-802b-94da-d2fd297114c7" class="bulleted-list"><li style="list-style-type:disc">Crucially, <strong>customers play an active role in creating value</strong> through how they use and interpret the service. Companies can only provide <strong>value propositions</strong>, not guarantee value itself.</li></ul></div><div style="display:contents" dir="auto"><ul id="1f1eea59-ca7a-8075-9742-f92f14600959" class="bulleted-list"><li style="list-style-type:disc">This approach is <strong>inherently customer-focused and relational</strong>, emphasizing interaction and responsiveness to individual needs. <strong>Value is subjective and context-specific</strong>, determined uniquely by the <strong>beneficiary</strong>, not by the producer.</li></ul></div><div style="display:contents" dir="auto"><p id="1f1eea59-ca7a-80f2-9df4-cbc20ed250ab" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="1f1eea59-ca7a-80dc-8642-e189ab00cf27" class="">Service Characteristics</h1></div><div style="display:contents" dir="auto"><h2 id="1f1eea59-ca7a-806b-8760-cc3f853735e7" class="">Intangibility</h2></div><div style="display:contents" dir="auto"><p id="1f1eea59-ca7a-8020-9d45-f06573cf3ff8" class=""><strong>Services cannot be seen, touched, or stored</strong> like physical products</p></div><div style="display:contents" dir="auto"><ul id="1f1eea59-ca7a-80ea-b0b5-dbb20bdbc937" class="bulleted-list"><li style="list-style-type:disc">A service is an action or activity performed by someone (e.g., a haircut, a legal consultation), not a physical object. It&#x27;s something you <em>experience</em>, not something you <em>own</em>.<br/><br/></li></ul></div><div style="display:contents" dir="auto"><ul id="1f1eea59-ca7a-8036-9d27-c15814e68a9b" class="bulleted-list"><li style="list-style-type:disc">difficulty in evaluation → no physical inspection</li></ul></div><div style="display:contents" dir="auto"><ul id="1f1eea59-ca7a-80bb-8afb-c6e213f96f6a" class="bulleted-list"><li style="list-style-type:disc">To overcome intangibility, service providers often use <strong>physical symbols</strong> (like uniforms, clean facilities, certificates) to reassure customers and convey professionalism or quality</li></ul></div><div style="display:contents" dir="auto"><ul id="1f1eea59-ca7a-8061-b57b-eabd09af4648" class="bulleted-list"><li style="list-style-type:disc">Value comes from use, not possession → benefits of <mark class="highlight-blue">non-ownership</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1f1eea59-ca7a-8013-a74d-d485d96a54a2" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1f1eea59-ca7a-80aa-b325-eeb6fcf9249d" class="">Inseparability</h2></div><div style="display:contents" dir="auto"><p id="1f1eea59-ca7a-80a2-9371-e0012f09d560" class="">services are produced and consumed at the same time</p></div><div style="display:contents" dir="auto"><ul id="1f1eea59-ca7a-80e2-9770-ec676b7f96fb" class="bulleted-list"><li style="list-style-type:disc">Since the provider is often directly involved in delivering the service, their behavior, attitude, and skill have a direct impact on the customer&#x27;s experience</li></ul></div><div style="display:contents" dir="auto"><ul id="1f1eea59-ca7a-8096-a277-ea07d58193a8" class="bulleted-list"><li style="list-style-type:disc">Because staff are key to the service delivery, <strong>careful hiring</strong>, <strong>continuous training</strong>, and <strong>performance-based rewards</strong> are crucial to maintaining service quality and customer satisfaction</li></ul></div><div style="display:contents" dir="auto"><ul id="1f1eea59-ca7a-8057-8382-f718f2f5c37b" class="bulleted-list"><li style="list-style-type:disc">In many services (like restaurants, flights, or gyms), customers share the service environment. Ensuring a pleasant shared experience requires managing interactions and minimizing conflict between customers</li></ul></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1f2eea59-ca7a-80a7-ad11-e14493357c28"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1f2eea59-ca7a-8023-863d-d5c855a1788e" class="">holidays are an example between the inseparability between products and services</p></div></div></figure></div><div style="display:contents" dir="auto"><h2 id="1f1eea59-ca7a-805c-a103-d8c309621d41" class="">Perishability</h2></div><div style="display:contents" dir="auto"><p id="1f1eea59-ca7a-803c-960d-e6ec2983cd26" class=""><strong>Perishability</strong> refers to the idea that <strong>services cannot be stored, saved, or inventoried for future use</strong></p></div><div style="display:contents" dir="auto"><ul id="1f1eea59-ca7a-8022-82c4-d9036cbf7c48" class="bulleted-list"><li style="list-style-type:disc">A service (like an empty airline seat or an unbooked hotel room for the night) is lost forever if not used when available. It can&#x27;t be &quot;stocked&quot; for future use.</li></ul></div><div style="display:contents" dir="auto"><ul id="1f1eea59-ca7a-8032-979d-ceccc35e088d" class="bulleted-list"><li style="list-style-type:disc">Hiring flexible or part-time employees helps service providers scale their workforce up or down based on demand, avoiding overstaffing during slow periods.</li></ul></div><div style="display:contents" dir="auto"><ul id="1f1eea59-ca7a-8077-b84f-c3f50f6fa407" class="bulleted-list"><li style="list-style-type:disc">Training staff to perform multiple roles helps manage unexpected demand surges and makes better use of human resources during quiet times.</li></ul></div><div style="display:contents" dir="auto"><ul id="1f1eea59-ca7a-80fd-9faa-cc72926e8f18" class="bulleted-list"><li style="list-style-type:disc">Encouraging customers to engage in self-service (e.g. self-check-in kiosks or online bookings) helps improve efficiency and manage peak demand periods.</li></ul></div><div style="display:contents" dir="auto"><ul id="1f1eea59-ca7a-80da-a357-e57fc0038e13" class="bulleted-list"><li style="list-style-type:disc">Charging different prices at different times (like off-peak discounts or weekend surcharges) helps shift demand to less busy periods.</li></ul></div><div style="display:contents" dir="auto"><ul id="1f1eea59-ca7a-80cc-a559-d69ce51d9aa7" class="bulleted-list"><li style="list-style-type:disc">Promotions, deals, or loyalty incentives during low-demand times help reduce the negative effects of unused service capacity.</li></ul></div><div style="display:contents" dir="auto"><ul id="1f1eea59-ca7a-8095-8499-cb1cf1a1c6da" class="bulleted-list"><li style="list-style-type:disc">Booking systems allow providers to control and plan for demand in advance, reducing unpredictability and helping avoid over- or under-utilization.</li></ul></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1f2eea59-ca7a-8004-aaab-db36c5f7bc16"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1f2eea59-ca7a-805d-9871-fa7bf23379e8" class="">Ticket for a concert - sold out just for a service, never for a product</p></div></div></figure></div><div style="display:contents" dir="auto"><h2 id="1f1eea59-ca7a-80b3-bb70-d6cc9a665f59" class="">Variability</h2></div><div style="display:contents" dir="auto"><ul id="1f1eea59-ca7a-80f5-a625-c8a1ca92f015" class="bulleted-list"><li style="list-style-type:disc">refers to the fact that <strong>service quality can vary greatly</strong> from one provider to another</li></ul></div><div style="display:contents" dir="auto"><ul id="1f1eea59-ca7a-8075-ba07-f67005f11f76" class="bulleted-list"><li style="list-style-type:disc">Unlike goods, which can be mass-produced with consistent quality, services often vary because they&#x27;re delivered in real-time by humans. For example, two waiters at the same restaurant may provide very different customer experiences.</li></ul></div><div style="display:contents" dir="auto"><ul id="1f1eea59-ca7a-8017-a818-ee25296d6cd5" class="bulleted-list"><li style="list-style-type:disc">Monitoring performance (through feedback forms, reviews, or quality checks) helps ensure service standards are being met and allows for correction when variability arises.</li></ul></div><div style="display:contents" dir="auto"><ul id="1f1eea59-ca7a-80ed-aa3b-d901e18c4d6e" class="bulleted-list"><li style="list-style-type:disc">While people deliver services, equipment (e.g., diagnostic tools in healthcare, machines in laundromats) can support <strong>consistency</strong> and reduce human error, helping stabilize service quality</li></ul></div><div style="display:contents" dir="auto"><h2 id="1f2eea59-ca7a-8055-9630-ebced2b06412" class="">The services marketing mix</h2></div><div style="display:contents" dir="auto"><p id="1f2eea59-ca7a-80bf-9cfb-ed5bb51c2b12" class="">The services marketing mix is an <mark class="highlight-teal">extension of the 4P’s</mark>:</p></div><div style="display:contents" dir="auto"><ul id="1f2eea59-ca7a-8025-b2ac-d4263cabe309" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Physical evidence </mark>→ Customers look for clues to examine the likely quality of a service by inspecting the tangible evidence</li></ul></div><div style="display:contents" dir="auto"><ul id="1f2eea59-ca7a-80c2-b770-ee06abb7e123" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">People </mark>→ to form them, their behaviour form the experience for the customer</li></ul></div><div style="display:contents" dir="auto"><ul id="1f2eea59-ca7a-8073-adb1-fe728c513cec" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Process</mark> → invest in IT</li></ul></div><div style="display:contents" dir="auto"><ul id="1f2eea59-ca7a-8082-8372-facc949ce731" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Service branding</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1f2eea59-ca7a-8090-81e2-c89e5d566bd4" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1f2eea59-ca7a-80d4-968f-d125df1e983a" class="">Relationship Marketing</h2></div><div style="display:contents" dir="auto"><p id="1f2eea59-ca7a-802d-8811-f44849d861dc" class="">Six Benefits of Strong Customer Relationships (eg. <mark class="highlight-teal">subscription</mark>, or long term contract):</p></div><div style="display:contents" dir="auto"><ol type="1" id="1f2eea59-ca7a-8021-8d03-e2efa34a7976" class="numbered-list" start="1"><li>Increased purchases;</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1f2eea59-ca7a-80be-9993-ce2104b9fcf7" class="numbered-list" start="2"><li>Lower costs;</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1f2eea59-ca7a-80eb-be2b-e9bfbb0989d3" class="numbered-list" start="3"><li>Lifetime value (eg from a subscription)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1f2eea59-ca7a-80f9-98c4-cf2cfeed7583" class="numbered-list" start="4"><li>Sustainable competitive advantage → supplier switching cost (eg. from a software A to B)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1f2eea59-ca7a-80c7-94cf-c164f9dffc75" class="numbered-list" start="5"><li>Word of mouth promotion;</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1f2eea59-ca7a-8043-a5dd-dc965e53ee96" class="numbered-list" start="6"><li>Decreased staff turnover</li></ol></div><div style="display:contents" dir="auto"><p id="1f2eea59-ca7a-80a9-b36f-c1116ee3b0c6" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1f2eea59-ca7a-80e7-a7ad-c43107faf5e5" class="">Recurrent value is much more precious than non recurrent → otherwise high marketing work to sell new serices</p></div><div style="display:contents" dir="auto"><h2 id="1f2eea59-ca7a-806e-8085-ecf21f033cf4" class="">Meeting Customer Expectations</h2></div><div style="display:contents" dir="auto"><ol type="1" id="1f2eea59-ca7a-8087-ae00-ff2e68a0d1fa" class="numbered-list" start="1"><li>Reliability: is the service consistent and dependable?</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1f2eea59-ca7a-8085-ab0b-d2fa8c1e6b2a" class="numbered-list" start="2"><li>Assurance: that customers can trust the service company and its staff.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1f2eea59-ca7a-80d0-a449-d34b4e9c986a" class="numbered-list" start="3"><li>Responsiveness: how quickly do service staff respond to customer problems, requests and questions?</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1f2eea59-ca7a-8019-b2d8-c85224b9391f" class="numbered-list" start="4"><li>Empathy: that service staff act in a friendly and polite manner and care for their customers.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1f2eea59-ca7a-80eb-9ebe-d0ab84bc1343" class="numbered-list" start="5"><li>Tangibles: how well-managed is the tangible evidence of the service (e.g. staff appearance, decor, layout)?</li></ol></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1f2eea59-ca7a-806b-a558-e203d8c7a979"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1f2eea59-ca7a-8088-9a5c-e53c3672bccc" class="">Important to control the customer relations, all the extra time must be accountant, otherwise the final margin will be eroded</p></div></div></figure></div><div style="display:contents" dir="auto"><h2 id="1f2eea59-ca7a-80e6-ac28-d1d8b03155c8" class="">Gap Model</h2></div><div style="display:contents" dir="auto"><p id="1f2eea59-ca7a-804b-b51a-e28c36441762" class="">Improving service quality delivery requires an understanding of both customer expectations and the barriers that cause a difference between expected and perceived service levels. </p></div><div style="display:contents" dir="auto"><ul id="1f2eea59-ca7a-8037-a188-d1a2c24c9ad3" class="bulleted-list"><li style="list-style-type:disc">One approach has emphasized the closing of four gaps that are the main cause of service quality problems</li></ul></div><div style="display:contents" dir="auto"><ul id="1f2eea59-ca7a-8065-a56c-d95c9ebc4992" class="bulleted-list"><li style="list-style-type:disc">Gaps between expectations </li></ul></div><div style="display:contents" dir="auto"><p id="1f2eea59-ca7a-8032-a44e-ebd5b06e2daa" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="1f2eea59-ca7a-809e-846f-e0653dd88465" class="image"><a href="Value%20through%20Services/image.png"><img style="width:576px" src="Value%20through%20Services/image.png"/></a><figcaption>Ladder of loyalty</figcaption></figure></div><div style="display:contents" dir="auto"><p id="1f2eea59-ca7a-80ca-8f2a-de399ceabc9a" class="">The more engaged the more loyal</p></div><div style="display:contents" dir="auto"><p id="1f2eea59-ca7a-8037-a0f5-f4e099a05966" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1f2eea59-ca7a-808e-8a6f-f37c0b35ab4f" class="">Experiential marketing</h2></div><div style="display:contents" dir="auto"><p id="1f2eea59-ca7a-8013-b7d6-e16bb4c2347a" class="">Also emotion are important during the cusumer decisions</p></div><div style="display:contents" dir="auto"><p id="1f2eea59-ca7a-804c-b47c-e5f8892160f0" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1f2eea59-ca7a-80c5-bdb5-ef3ad2fcb81f" class="">Social Marketing</h2></div><div style="display:contents" dir="auto"><p id="1f2eea59-ca7a-8035-b599-df852bba8551" class=""><strong>Social Marketing</strong> refers to the use of <strong>marketing principles and techniques</strong> to influence behaviors that benefit individuals and communities for the <strong>greater social good</strong>, rather than for commercial profit. It is often used by <strong>governments, NGOs, public health organizations</strong>, and <strong>non-profits</strong> to tackle social issues.<br/><br/></p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

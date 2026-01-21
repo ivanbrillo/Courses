@@ -1,0 +1,820 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Labs</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2c0eea59-ca7a-8064-87ec-da5a2bb57ad4" class="page sans"><header><h1 class="page-title" dir="auto">Labs</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="2efeea59-ca7a-802b-8562-d24803de60a5" class="">ARM and STM32</h1></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-80c5-b677-ce566434eed8" class="">ARM develops the architecture and licenses it to other companies</p></div><div style="display:contents" dir="auto"><p id="2efeea59-ca7a-80a4-96ea-d34ff805674e" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="2c0eea59-ca7a-808b-8b29-e1930eda4dd0" class="">Cortex (processors family) Profiles</h3></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-8067-8940-c6782f161ac7" class=""><mark class="highlight-blue">Cortex-A</mark>, which stands for Application</p></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-802b-be01-ea639a0b9915" class="bulleted-list"><li style="list-style-type:disc">complex tasks like hosting a rich OS (androids)</li></ul></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-80d6-8572-d225c39fed19" class="bulleted-list"><li style="list-style-type:disc">Based on <mark class="highlight-orange">out of order</mark> (OOO) <mark class="highlight-orange">architecture </mark></li></ul></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-8020-872c-fc056b86b4db" class="bulleted-list"><li style="list-style-type:disc">cache, TLS, and support VM</li></ul></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-8011-844a-d61948b3688c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-8075-a4b0-fc47868cb9f9" class=""><mark class="highlight-blue">Cortex-R</mark>, which stand for Real-Time</p></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-80b1-a8d2-e57daa6ee748" class="bulleted-list"><li style="list-style-type:disc">embedded systems where reliability, <mark class="highlight-teal">high availability</mark>,<mark class="highlight-teal"> fault tolerance</mark>, maintainability and deterministic real-time response are essential</li></ul></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-8055-a92a-f3f1de1f0d1e" class="bulleted-list"><li style="list-style-type:disc">They include lock-step executions, <mark class="highlight-orange">ECC </mark>protection on memory (Error Correction Code with parity bits)</li></ul></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-8000-8b11-cdc823889629" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">lock-step execution</mark>: 2 cores executing in the same time the same things, and check if errors occurs, then throw an exception<div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-803e-824c-e06abcd094c0" class="bulleted-list"><li style="list-style-type:circle">With 3 I could adopt a majority voting and correct also</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-8047-8148-e1efc4d94c0b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-8015-a22b-fb4a39970b65" class=""><mark class="highlight-blue">Cortex-M</mark>, which stands for eMbedded</p></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-801a-bfb6-e8744174bf59" class="bulleted-list"><li style="list-style-type:disc">Designed for the low-cost embedded market</li></ul></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-8074-a804-e843cfbadb8a" class="bulleted-list"><li style="list-style-type:disc">High<mark class="highlight-teal"> energy efficiency</mark></li></ul></div><div style="display:contents" dir="auto"><p id="2efeea59-ca7a-8091-a338-cb8a8be8d780" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="2c0eea59-ca7a-80ff-a248-f221e5e9416c" class="">STM32 Microcontrollers</h2></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-80ca-b354-f687802cad63" class=""><mark class="highlight-orange">STM32 </mark>is a broad range of microcontrollers divided in nine sub families</p></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-80e2-94a6-e68fcebe72f7" class="bulleted-list"><li style="list-style-type:disc">STM32 buys the<mark class="highlight-blue"> </mark><mark class="highlight-teal_background">Cortex M</mark> design from ARM, puts it into a piece of silicon, adds memory (Flash/RAM) and peripherals (timers, USB, pins)</li></ul></div><div style="display:contents" dir="auto"><p id="2efeea59-ca7a-804c-9df9-ce1555ffd0f4" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="2efeea59-ca7a-80bc-a34f-e0cc5bd19f5c" class="">Cortex M3-M4 Architecture</h3></div><div style="display:contents" dir="auto"><div id="2c0eea59-ca7a-8090-a68f-d87790df3d49" class="column-list"><div style="display:contents" dir="auto"><div id="2c0eea59-ca7a-802c-8b52-ff556792cc2d" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-80c2-a4a7-e9a48c7e14eb" class=""><mark class="highlight-orange">3 stage pipeline</mark>: Fetch, Decode, Execute</p></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-8098-8751-dda707d87bea" class="bulleted-list"><li style="list-style-type:disc">HW divide and HW single cycle multiply</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="2c0eea59-ca7a-80ac-b04a-ebdb086bb952" style="width:43.75%" class="column"><div style="display:contents" dir="ltr"><figure id="2c0eea59-ca7a-8065-b32e-e39815306eb7" class="image"><a href="Labs/image.png"><img style="width:331.9375px" src="Labs/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-80dc-9410-e5c1a59758d8" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Simplified Branch Predictor</mark> → detect an if and fetch the next instruction</li></ul></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-807b-955e-d32fd22036b9" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-8064-865e-d7e8772a24bb" class=""><mark class="highlight-orange">Nested vector interrupt unit</mark> (NVIC): Each interrupt can be assigned a priority level, which defines the processing order in case of concurrent interrupts</p></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-80dc-87f6-c2bbafd201f9" class="bulleted-list"><li style="list-style-type:disc">the lower the higher priority (inverse or RT system)</li></ul></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-8094-aca1-f0fea1bfc01c" class="bulleted-list"><li style="list-style-type:disc">The NVIC provides fast and deterministic interrupt handling <div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-8074-a75c-e4341e757b2e" class="bulleted-list"><li style="list-style-type:circle">Perform the context switch in just <mark class="highlight-teal">12 CPU cycles</mark></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-804c-b546-d60e38086f5d" class="bulleted-list"><li style="list-style-type:disc"> The NVIC also contains a standard <mark class="highlight-blue">timer </mark>with <mark class="highlight-teal">auto-reload </mark>to provide periodic interrupts<div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-8072-a264-f1e4207f6653" class="bulleted-list"><li style="list-style-type:circle"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>clock</mtext><mo>=</mo><mn>10</mn><mi>K</mi><mi>H</mi><mi>z</mi></mrow><annotation encoding="application/x-tex">\text{clock} = 10KHz</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord text"><span class="mord">clock</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">10</span><span class="mord mathnormal" style="margin-right:0.04398em;">KHz</span></span></span></span></span><span>﻿</span></span></li></ul></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-805d-a645-de6147a85a99" class="bulleted-list"><li style="list-style-type:circle">I want an event every <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>m</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">1ms</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span><span class="mord mathnormal">m</span><span class="mord mathnormal">s</span></span></span></span></span><span>﻿</span></span> (<style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>K</mi><mi>H</mi><mi>z</mi></mrow><annotation encoding="application/x-tex">1KHz</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">1</span><span class="mord mathnormal" style="margin-right:0.04398em;">KHz</span></span></span></span></span><span>﻿</span></span>)</li></ul></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-8090-b1d3-cf17b1a800db" class="bulleted-list"><li style="list-style-type:circle"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>autoreload</mtext><mo>=</mo><mfrac><mtext>clock</mtext><mtext>target</mtext></mfrac><mo>−</mo><mn>1</mn><mo>=</mo><mn>10</mn><mi>K</mi><mi>H</mi><mi>z</mi><mi mathvariant="normal">/</mi><mn>1</mn><mi>K</mi><mi>H</mi><mi>z</mi><mo>−</mo><mn>1</mn><mo>=</mo><mn>9</mn></mrow><annotation encoding="application/x-tex">\text{autoreload} = \frac{\text{clock}}{\text{target}} - 1 = 10KHz/1KHz -1 = 9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord text"><span class="mord">autoreload</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.3612em;vertical-align:-0.4811em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">target</span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">clock</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4811em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">10</span><span class="mord mathnormal" style="margin-right:0.04398em;">KHz</span><span class="mord">/1</span><span class="mord mathnormal" style="margin-right:0.04398em;">KHz</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">9</span></span></span></span></span><span>﻿</span></span><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-8087-a9bf-c876db32d5fd" class="">→ Count from 0 to 9 repeatedly</p></div></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-806b-b85d-de436fe78f5c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-8082-90b6-fbbe0dfecb1b" class=""><mark class="highlight-orange">Wakeup interrupt controller </mark>(WIC)</p></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-80a9-b098-ebbcc285c2ae" class="bulleted-list"><li style="list-style-type:disc">It is a small area of the Cortex-M processor that is kept alive when the processor is in low-power mode</li></ul></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-80c0-92d5-fd61572389ba" class="bulleted-list"><li style="list-style-type:disc">The WIC can use the interrupt signals from the microcontroller peripherals to wake up the Cortex-M processor</li></ul></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-8036-9e2e-da38f78f760a" class="bulleted-list"><li style="list-style-type:disc">Useful feature for embedded devices</li></ul></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-80a7-b967-f267f076d245" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-80c2-a83f-fd44aa797f2a" class="">MPU (<mark class="highlight-orange">Memory Protection Unit</mark>)</p></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-8067-9455-dd8adb003861" class="bulleted-list"><li style="list-style-type:disc">Define privileged and unprivileged <mark class="highlight-teal">regions</mark> over the 4 GB address space</li></ul></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-80e4-bba3-db81c30db020" class="bulleted-list"><li style="list-style-type:disc">If the CPU is running in unprivileged mode and it tries to access a privileged region of memory, the MPU will raise an exception and triggers the fault service routine</li></ul></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-8055-8838-f99ab7d74d9b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-808d-9d55-f62cf1120fb5" class="">It introduces a hardware <mark class="highlight-orange">floating-point unit </mark>(FPU) for 32bit precision arithmetic</p></div><div style="display:contents" dir="auto"><div id="2efeea59-ca7a-8088-b916-d7e8b0e2a8ec" class="column-list"><div style="display:contents" dir="auto"><div id="2efeea59-ca7a-80b3-9bfd-ee2d5f95c0e4" style="width:62.5%" class="column"><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-8071-bcf3-d513b8c014fb" class="bulleted-list"><li style="list-style-type:disc">Support efficient <mark class="highlight-teal">digital signal process</mark> (DSP) hardware instructions<div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-8018-ba28-f0cd7d48ad6d" class="bulleted-list"><li style="list-style-type:circle">It uses <mark class="highlight-blue">SIMD </mark>(Single Instruction, Multiple Data)<strong>:</strong> Hardware that processes multiple small data points (like audio samples or pixel colors) in a single clock cycle</li></ul></div></li></ul></div></div></div><div style="display:contents" dir="auto"><div id="2efeea59-ca7a-8042-b6ee-f74a94fd00ee" style="width:37.5%" class="column"><div style="display:contents" dir="ltr"><figure id="2efeea59-ca7a-800e-978e-c71e0387230b" class="image"><a href="Labs/image%201.png"><img style="width:251.27679443359375px" src="Labs/image%201.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="2efeea59-ca7a-804b-b566-dbf09e403247" class="">
+</p></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-80f2-8d88-d54e813a9447" class="bulleted-list"><li style="list-style-type:disc">The <mark class="highlight-teal">hardware multiply accumulate</mark> (MAC) has also been improved so that many of the 32x32 arithmetic instructions are single cycle (or few cycles)</li></ul></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-80b1-84e0-cb187c0f6f59" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-8066-a625-c33bca8d8eba" class=""><mark class="highlight-orange">Harward bus architecture</mark></p></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-804d-b2ed-fd8885446712" class="bulleted-list"><li style="list-style-type:disc">They have a port for fetching instructions from <mark class="highlight-teal">code memory</mark> and a port for accessing <mark class="highlight-teal">SRAM</mark>. A third port is used to access <mark class="highlight-teal">peripherals</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-8000-a765-f63e0fc86d63" class="bulleted-list"><li style="list-style-type:disc">Implemented as a <mark class="highlight-blue">bus matrix</mark></li></ul></div><div style="display:contents" dir="auto"><p id="2efeea59-ca7a-80bb-a856-c5fc317f7571" class="">
+</p></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="2efeea59-ca7a-8082-8485-f2354ec184b8"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-809d-8549-eb725bcf777a" class="">Code is stored in Flash memory, not SRAM (volatile)</p></div></div></figure></div><div style="display:contents" dir="auto"><h3 id="2c0eea59-ca7a-80e7-af8c-c8d7b0dc1d9b" class="">STM Developement Kits</h3></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-809d-bf78-ee69a0fe02bc" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Nucleo boards</mark> → have arduino connectors, fast prototyping</li></ul></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-8010-8302-d2385e0cc98a" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Discovery kits</mark> → often include extra hardware (as display, accellerometer, …), cheap</li></ul></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-80f0-8408-fe0da14b3ef8" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Evaluation boards </mark>(EVAL) → complete with all the external circuits (tranceiver, …), expensive</li></ul></div><div style="display:contents" dir="auto"><hr id="2c0eea59-ca7a-8011-8392-c8412a45c246"/></div><div style="display:contents" dir="auto"><h1 id="2c0eea59-ca7a-8003-8132-e08c3195f095" class="">STM32Cube Software Library</h1></div><div style="display:contents" dir="auto"><p id="2efeea59-ca7a-80a9-990f-df5a17bb46ab" class="">The STM32Cube firmware is designed as a <mark class="highlight-blue">layered architecture</mark></p></div><div style="display:contents" dir="auto"><p id="2efeea59-ca7a-80a4-a981-c3cb5eb4c50e" class="">It consists of three main levels:</p></div><div style="display:contents" dir="auto"><ol type="1" id="2efeea59-ca7a-8084-96a1-c5bf1ad6620e" class="numbered-list" start="0"><li><mark class="highlight-blue">Level 0</mark>: this is the lowest software layer that interacts directly with the hardware. It includes three distinct types of drivers:<div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-80e7-b69a-c6db2c07e3a8" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">HAL </mark>(Hardware Abstraction Layer)  <code>HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET)</code><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-80b4-8489-d8f69ebe9bfa" class="bulleted-list"><li style="list-style-type:circle">Provides a <mark class="highlight-pink_background">high-level, generic, and portable</mark> (across micros) set of APIs to interact with peripherals (timers, UART, SPI)</li></ul></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-8042-bd57-da0b14708a89" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-pink_background">HAL uses LL</mark></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-80df-9024-e61d4ccc0f6a" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">LL </mark>(Low Layer) Drivers:<div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-8056-95b6-f6c8df972e5e" class="bulleted-list"><li style="list-style-type:circle">Offers a <mark class="highlight-pink_background">faster, light-weight, and register-level access</mark> to the hardware</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-80fa-a10f-d0648eb97ca3" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">BSP </mark>(Board Support Package)  <code>BSP_LCD_Init()</code>  <code>HAL_Delay(100)</code>  <code>BSP_LED_On(LED3)</code><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-8092-a23c-ec54dc789832" class="bulleted-list"><li style="list-style-type:circle">Drivers specifically for the external components mounted on the development board (not inside the chip), e.g. touch screen, …</li></ul></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-80a6-9cd9-dcca0a557460" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-pink_background">BSP uses HAL</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-8009-af43-e04dcd4054de" class="bulleted-list"><li style="list-style-type:circle">Split in two categories:<div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-80c6-b10a-c9c12187df58" class="bulleted-list"><li style="list-style-type:square">generic APIs which provide common and generic functions to all the STM32 Series</li></ul></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-8081-86a4-e6a837634c76" class="bulleted-list"><li style="list-style-type:square">extension APIs provide customized functions for a specific family</li></ul></div></li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2efeea59-ca7a-80eb-9471-ef23676ed8e7" class="numbered-list" start="1"><li>Level 1: <mark class="highlight-blue">Middleware Components</mark><div style="display:contents" dir="auto"><p id="2efeea59-ca7a-804c-b92b-e6f0e623d96d" class="">This layer sits on top of the drivers and provides complex software libraries and protocols → <mark class="highlight-teal_background">hardware independent</mark></p></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-8031-8ace-cfaa219865aa" class="bulleted-list"><li style="list-style-type:disc">RTOS → uses <mark class="highlight-pink_background">HAL drivers</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-8045-a4ff-f0720784b8dd" class="bulleted-list"><li style="list-style-type:disc">Graphics: Graphical libraries for driving displays and creating GUIs.</li></ul></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-8058-9f1f-e318389108c2" class="bulleted-list"><li style="list-style-type:disc">Others: e.g. TCP/IP networking</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2efeea59-ca7a-8082-96e2-c4e8e36c0e29" class="numbered-list" start="2"><li>Level 2: <mark class="highlight-blue">Application Layer</mark><div style="display:contents" dir="auto"><p id="2efeea59-ca7a-8046-a039-cedc3678e854" class="">It includes a demonstration based on the middleware service layer, the low-level abstraction layer and the applications that make basic use of the peripherals for board-based functions</p></div></li></ol></div><div style="display:contents" dir="ltr"><figure id="2efeea59-ca7a-8065-ab14-d5dda56a3c97" class="image"><a href="Labs/593be633-e780-4924-a3fb-e89ada54806e.png"><img style="width:432px" src="Labs/593be633-e780-4924-a3fb-e89ada54806e.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="2efeea59-ca7a-80d4-b386-eb46b7f74a51" class="">
+</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2efeea59-ca7a-80d7-a083-eab4688ef61b" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">int main(void) {
+  /*  1. Initialize the HAL Library 
+   * - Sets up the SysTick timer to fire every 1ms (1000Hz).
+   * - Sets NVIC Group Priority (usually to 4 bits for preemption)  */
+  HAL_Init(); 
+  
+  // 2. Configure the System Clock 
+  SystemClock_Config(); 
+  
+  // 3. User Code (Infinite Loop)
+  while (1) { // Application logic goes here }
+}</code></pre></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2efeea59-ca7a-801b-bf63-d2ed15bc89ba" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">  HAL_Init(); 
+  SystemClock_Config(); 
+  
+  // Change from sequential to event driven (FreeRTOS scheduler)
+  osKernelStart();  // doesn&#x27;t return (blocking)</code></pre></div><div style="display:contents" dir="auto"><div id="2efeea59-ca7a-8093-873a-f760d71c42c1" class="column-list"><div style="display:contents" dir="auto"><div id="2efeea59-ca7a-8049-bc19-cf71c8af82a7" style="width:31.25%" class="column"><div style="display:contents" dir="auto"><p id="2efeea59-ca7a-8081-965c-d62ecb23469e" class="">Whent he PB (<mark class="highlight-blue">push buttun</mark>) is configured to work in the interrupt mode (instead of polling mode), the interrupt service routine must be defined</p></div><div style="display:contents" dir="auto"><p id="2efeea59-ca7a-80be-a212-c809db22fe97" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="2efeea59-ca7a-8003-a6a4-e6910cde2c6d" style="width:68.75%" class="column"><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2efeea59-ca7a-800e-b27e-c6fa3d200dfd" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
+  if(GPIO_Pin == KEY_BUTTON_PIN) {
+      // HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5)
+  }
+}</code></pre></div></div></div></div></div><div style="display:contents" dir="auto"><hr id="2c0eea59-ca7a-809b-bd62-c3afb3850f2e"/></div><div style="display:contents" dir="auto"><h1 id="2c0eea59-ca7a-80b8-9812-f36171f334d9" class="">UART</h1></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-80ba-a05e-f66b46a9c9eb" class="">Almost all STM32 MCUs provide at least two UART/USART interfaces</p></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-8057-bf4a-ed53f4c85eae" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">USART</mark>: Universal Synchronous/Asynchronous Receiver/Transmitter interface</li></ul></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-802b-94f9-f94d752a6ade" class="bulleted-list"><li style="list-style-type:disc"><code>HAL_UART_Init(&amp;UartHandle)</code>  → setup baudrate and other settings</li></ul></div><div style="display:contents" dir="ltr"><figure id="2c0eea59-ca7a-80ad-8b61-d61457b7b820" class="image"><a href="Labs/image%202.png"><img style="width:528px" src="Labs/image%202.png"/></a></figure></div><div style="display:contents" dir="auto"><div id="2efeea59-ca7a-80d3-a70e-cee229f66392" class="column-list"><div style="display:contents" dir="auto"><div id="2efeea59-ca7a-803c-9aeb-c88974594a79" style="width:43.75%" class="column"><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-8085-921e-fac7ac0978f0" class="">The two devices must share the rate of transmission</p></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-80fd-b7fe-e1be6cb1bc60" class="">We need to setup a <mark class="highlight-teal">virtual COM</mark> port to communicate with the device, since its no longer exist in modern PC</p></div></div></div><div style="display:contents" dir="auto"><div id="2efeea59-ca7a-80ae-a7a1-c15238bbec91" style="width:56.25%" class="column"><div style="display:contents" dir="ltr"><figure id="2c0eea59-ca7a-8000-bfe3-e0c4f048b9ee" class="image"><a href="Labs/image%203.png"><img style="width:480px" src="Labs/image%203.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-801e-b3b9-c8a21fc42303" class=""><mark class="highlight-orange">Bit Rate</mark>: effective bits trasmitted per second</p></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-80fd-9996-f7dbecd1eb68" class="bulleted-list"><li style="list-style-type:disc">lower than baud since check, parity, end bits</li></ul></div><div style="display:contents" dir="auto"><p id="2efeea59-ca7a-8093-bd27-d0f5ab68f81c" class=""><mark class="highlight-orange">Baud Rate</mark>: number of <mark class="highlight-teal">symbols </mark>transmitted per second</p></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-80cc-8c6f-dbd055f7c357" class="bulleted-list"><li style="list-style-type:disc"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>bit_rate</mtext><mo>=</mo><mn>8</mn><mi mathvariant="normal">/</mi><mn>11</mn><mo>∗</mo><mtext>baud_rate</mtext></mrow><annotation encoding="application/x-tex">\text{bit\_rate} = 8/11 * \text{baud\_rate} </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0044em;vertical-align:-0.31em;"></span><span class="mord text"><span class="mord">bit_rate</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">8/11</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0044em;vertical-align:-0.31em;"></span><span class="mord text"><span class="mord">baud_rate</span></span></span></span></span></span><span>﻿</span></span></li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2efeea59-ca7a-808d-a77a-c1fb27dcb533" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">void My_UART_Init(void) {
+  huart2.Instance = USART2; // We are using USART2 peripheral
+  huart2.Init.BaudRate     = 115200;             // Speed (bits per second)
+  huart2.Init.WordLength   = UART_WORDLENGTH_8B; // 8 Data bits
+  huart2.Init.StopBits     = UART_STOPBITS_1;    // 1 Stop bit
+  huart2.Init.Parity       = UART_PARITY_NONE;   // No error check bit
+  huart2.Init.Mode         = UART_MODE_TX_RX;    // Enable both Transmit and Receive
+  huart2.Init.HwFlowCtl    = UART_HWCONTROL_NONE;// No RTS/CTS hardware flow control
+  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+  HAL_UART_Init(&amp;huart2);
+}
+
+if (HAL_UART_Transmit(Handle, Data_Pointer, Length, Timeout_ms) == HAL_OK) {} 
+else {}  // timeout
+ 
+if (HAL_UART_Receive(Handle, Buffer_Pointer, Length, Timeout_ms) == HAL_OK) {} 
+else {}  // timeout</code></pre></div><div style="display:contents" dir="auto"><hr id="2c0eea59-ca7a-8044-9cba-f2a20a12dd98"/></div><div style="display:contents" dir="auto"><h1 id="2c0eea59-ca7a-8029-8708-cc52067ae581" class="">Software Timers</h1></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-80f3-b229-d59577d739db" class="">Software timers are implemented and controlled by FreeRTOS kernel</p></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-800e-8625-edde0779affe" class="bulleted-list"><li style="list-style-type:disc">They <mark class="highlight-pink_background">do not require hardware support, and are not related to hardware timers</mark> </li></ul></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-80fc-91d7-edb0ba39ba48" class="bulleted-list"><li style="list-style-type:disc">They use only hte <code>systick</code> timer and have the same <mark class="highlight-teal">resolution</mark> (1ms)<div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-806e-9163-d9bce7fc8c76" class="bulleted-list"><li style="list-style-type:circle">If more resolution is needed, must opt for HW timers</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-806f-b903-d8030914257e" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-80dc-b403-fb1f93d9ed1c" class="">FreeRTOS uses a centralized thread, named <mark class="highlight-orange">RTOS daemon</mark>, which automatically calls the callback routines when a timer expires</p></div><div style="display:contents" dir="auto"><ul id="2c3eea59-ca7a-809a-8414-e2a5b3e8c4cd" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Callbacks must be short otherwise delay others</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-80fe-b426-ff09e0c99691" class="bulleted-list"><li style="list-style-type:disc"><code>osTimerDef(timerID, timerCallback)</code>  and I can create, start and stop timers</li></ul></div><div style="display:contents" dir="auto"><p id="2efeea59-ca7a-80d4-8fcf-c137fd9a63a5" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="2efeea59-ca7a-80f3-abd6-da531dc3d3f9" class="">Signals</h3></div><div style="display:contents" dir="auto"><p id="2efeea59-ca7a-80f0-a505-efcba43e615b" class=""><mark class="highlight-orange">Signals</mark>, which act as a lightweight mechanism for tasks to communicate and synchronize</p></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-80e3-a14e-e6dddd9130ff" class="bulleted-list"><li style="list-style-type:disc">A signal is simply a flag (<mark class="highlight-teal">lighweight</mark>), not a heavy data structure like a queue or semaphore</li></ul></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-80bb-82e4-cfe13f26e170" class="bulleted-list"><li style="list-style-type:disc">Based on two procedures:<div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-80a8-955b-e78221667a1c" class="bulleted-list"><li style="list-style-type:circle"><code><strong>osSignalSet(osThreadId thread_id, int32_t signals)</strong></code></li></ul></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-80ee-b1a8-e71a3e98e791" class="bulleted-list"><li style="list-style-type:circle"><code><strong>osSignalWait(int32_t signals, uint32_t millisec)</strong></code><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-80ff-8721-cdb03bcf9f64" class="bulleted-list"><li style="list-style-type:square">Pauses the current thread (<mark class="highlight-teal">blocking state</mark>) until specific flags are received (maximum wait of millisec)</li></ul></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-8035-ba4c-e23fd058f1bf" class="bulleted-list"><li style="list-style-type:square"><code>osEvent</code> is the struct returned, useful to understand what happened</li></ul></div></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="2efeea59-ca7a-8037-80e6-f06dd91a7439" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2efeea59-ca7a-80f7-9168-ffea80d74493" class="">First solution for executing threads with a fixed period</p></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-80bc-8630-e3a32f00cd9e" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal_background"><strong>NOTE:</strong></mark><mark class="highlight-teal_background"> It is wrong to implement complex logic inside a Timer Callback or ISR. </mark><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-804c-a397-fe0ad7ee0a1b" class="bulleted-list"><li style="list-style-type:circle">They must be extremely short (non-blocking) to avoid freezing the System</li></ul></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-80ab-8ae5-e6d21e602c6f" class="bulleted-list"><li style="list-style-type:circle">Implemented inside a timer, the task wouldn’t be preemptive nor with correct priorities</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2efeea59-ca7a-805a-8557-cb3eb7f99fa7" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">static void osTimerCallback1(void const *argument) {  
+  /* Send a signal to the Worker Thread */
+  osSignalSet(LED1_ThreadId, BIT_0);
+}
+
+static void LED_Thread1(void const *argument) {
+  for(;;)
+  {
+    osEvent event = osSignalWait(BIT_0, osWaitForever);
+    
+    if(event.value.signals == BIT_0) {
+		  // logic
+    } else  {}
+  }
+
+// ---- MAIN ---- //
+osThreadDef(LED3, LED_Thread1, osPriorityNormal, 0, configMINIMAL_STACK_SIZE);
+LED1_ThreadId = osThreadCreate(osThread(LED3), NULL);
+
+osTimerDef(Timer1, osTimerCallback1);
+osTimerId osTimer1 = osTimerCreate(osTimer(Timer1), osTimerPeriodic, NULL);
+
+osTimerStart(osTimer1, 1000);</code></pre></div><div style="display:contents" dir="auto"><p id="2efeea59-ca7a-8087-a183-d83ac1842a7f" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="2c3eea59-ca7a-805f-9931-fd4614b7c123" class=""><code>osDalayUntil(previousWakeTime, millisec)</code></h3></div><div style="display:contents" dir="auto"><p id="2efeea59-ca7a-80b2-b78d-ff41e5bd0a8f" class="">I should also check for <mark class="highlight-teal">overflow </mark>in the variable</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2efeea59-ca7a-80b4-8b1f-e6f2db6e37f5" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">static void ThreadX(void const *argument)
+{
+    uint32_t LastWakeTime = 0;  // if the thread start at boot
+    // otherwise the correct one is LastWakeTime = osKernelSysTick();
+
+    uint32_t period = 800; // in msec
+    uint32_t EndofExetime = LastWakeTime + period;
+
+    for(;;)
+    {
+        // do something...
+
+        /* 1. Check for Deadline Miss */
+        uint32_t CurrentTime = osKernelSysTick();
+
+        if (CurrentTime &gt; EndofExetime) {
+            // We took too long! The deadline passed
+        }
+
+        // This function automatically updates &#x27;LastWakeTime&#x27;
+        osDelayUntil(&amp;LastWakeTime, period);
+        EndofExetime = LastWakeTime + period;
+    }
+}</code></pre></div><div style="display:contents" dir="auto"><hr id="2c0eea59-ca7a-800a-9e2a-ce1418a09111"/></div><div style="display:contents" dir="auto"><h1 id="2c3eea59-ca7a-8029-a8a3-cce44a4385b6" class="">FreeRTOS</h1></div><div style="display:contents" dir="auto"><p id="2c3eea59-ca7a-8099-abaf-daaa6bc8fa06" class="">Cortex Microcontroller Software Interface Standard (<mark class="highlight-orange">CMSIS</mark>) is a vendor independent hardware abstraction layer for microcontrollers that are based on Arm Cortex processors</p></div><div style="display:contents" dir="auto"><ul id="2c3eea59-ca7a-80c8-9ba7-e482f5651695" class="bulleted-list"><li style="list-style-type:disc">FreeRTOS can be used with or without CMSIS interface → <mark class="highlight-blue">CMSIS-RTOS API</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3eea59-ca7a-806c-8257-c0532d2147d3" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Useful if i want to change </mark><mark class="highlight-pink_background"><span style="border-bottom:0.05em solid">OS</span></mark><mark class="highlight-pink_background"> or </mark><mark class="highlight-pink_background"><span style="border-bottom:0.05em solid">Micro</span></mark><mark class="highlight-pink_background"> without rewriting the whole codebase</mark></li></ul></div><div style="display:contents" dir="auto"><p id="2c3eea59-ca7a-8026-b428-fd241388ba9f" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c3eea59-ca7a-8016-a3c5-e5c8708180c1" class=""><mark class="highlight-orange">FreeRTOS </mark>only provides the core real-time scheduling functionality, inter-task communication, timing and synchronization primitives.</p></div><div style="display:contents" dir="auto"><ol type="1" id="2c3eea59-ca7a-8097-820e-d1f62a79d832" class="numbered-list" start="1"><li><mark class="highlight-blue">OpenRTOS </mark>→ same code as FreeRTOS but commerial (warrenty and legal protection)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3eea59-ca7a-80fc-8a08-d93f949c8194" class="numbered-list" start="2"><li><mark class="highlight-blue">SafeRTOS </mark>→ developed in compliance with safety standars</li></ol></div><div style="display:contents" dir="auto"><p id="2c3eea59-ca7a-80d8-af5b-ebb1ef417f79" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c3eea59-ca7a-8009-9bf9-f338965415b1" class="">Threads share the same address space → threads are named <mark class="highlight-teal">tasks </mark>in freeRTOS</p></div><div style="display:contents" dir="auto"><p id="2c3eea59-ca7a-8046-97cc-e88117dc9251" class="">A <mark class="highlight-orange">TCB </mark>(Task or Thread Control Block) is allocated for each thread</p></div><div style="display:contents" dir="auto"><ul id="2c3eea59-ca7a-80ab-ab31-dde18c6e0513" class="bulleted-list"><li style="list-style-type:disc">It is a descriptor of the thread, and contains all relevant information related to the thread execution (priority, the stack pointer, the program counter, CPU registers etc</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3eea59-ca7a-80a0-8957-f2fe0ae82b38" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal"><mark class="highlight-pink_background">Semaphores </mark></mark><mark class="highlight-pink_background">may have the unbounded priority inversion, while </mark><mark class="highlight-teal"><mark class="highlight-pink_background">mutex </mark></mark><mark class="highlight-pink_background">implements priority inheritance protocol</mark></li></ul></div><div style="display:contents" dir="auto"><p id="2c3eea59-ca7a-8086-a5e6-d42b300acd3b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c3eea59-ca7a-80d2-8b04-f53e02cc24e8" class="">There is a <mark class="highlight-blue">config </mark>file for scheduling algoithms, priority of system threads, number of priorities (thus numeber of queue)</p></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-80d3-aad5-cc2a65899010" class="bulleted-list"><li style="list-style-type:disc">The scheduler is a <mark class="highlight-orange">priority based scheduler</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-80ce-88de-df5f81705a0e" class="bulleted-list"><li style="list-style-type:disc">Threads priorities (max 3) are different from interrupt priorities<div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-80c6-9861-ccade3b62e35" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-pink_background">Interrupts always preempt a thread</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-80ce-b343-ed948809c1bb" class="bulleted-list"><li style="list-style-type:circle">Interrupt priority (decreasing) is important when more interrupt are raised</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="2c3eea59-ca7a-809d-a758-de50f7b692df" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c3eea59-ca7a-803a-a265-c22c364309fe" class="">In thread I cannot put a <mark class="highlight-teal">return</mark>, but I must have a <code>osThreadTerminate(NULL)</code> → remove TCB and memory</p></div><div style="display:contents" dir="ltr"><figure id="2efeea59-ca7a-8053-ac89-ff981df9ec9b" class="image"><a href="Labs/d610fa73-7583-4f50-a849-f51b8c837cbb.png"><img style="width:647px" src="Labs/d610fa73-7583-4f50-a849-f51b8c837cbb.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="2efeea59-ca7a-80b2-a5d6-fa96644275b3" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2efeea59-ca7a-80bb-bc43-ee48fa82c726" class="">I can set the scheduler properties here <code>FreeRTOSConfig.h</code></p></div><div style="display:contents" dir="ltr"><table id="2efeea59-ca7a-8066-9736-d86bc7f46105" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="2efeea59-ca7a-802f-b045-e7eec8353a60"><td id="Y@Mn" class="" style="width:214.66666666666666px"><strong>configUSE_PREEMPTION</strong></td><td id="t@UP" class="" style="width:214.66666666666666px"><strong>configUSE_TIME_SLICING</strong></td><td id="pAzT" class="" style="width:214.66666666666666px"><strong>Scheduling algorithm</strong></td></tr></div><div style="display:contents" dir="ltr"><tr id="2efeea59-ca7a-80b8-99fb-f57f3c59aaa6"><td id="Y@Mn" class="" style="width:214.66666666666666px">1</td><td id="t@UP" class="" style="width:214.66666666666666px">1</td><td id="pAzT" class="" style="width:214.66666666666666px">Prioritized preemptive scheduling with time slicing</td></tr></div><div style="display:contents" dir="ltr"><tr id="2efeea59-ca7a-80c3-bdc8-dbf2aba77a62"><td id="Y@Mn" class="" style="width:214.66666666666666px">1</td><td id="t@UP" class="" style="width:214.66666666666666px">0</td><td id="pAzT" class="" style="width:214.66666666666666px">Prioritized preemptive scheduling without time slicing<br/>- What we considered in theory</td></tr></div><div style="display:contents" dir="ltr"><tr id="2efeea59-ca7a-8077-887a-f38b1a338a14"><td id="Y@Mn" class="" style="width:214.66666666666666px">0</td><td id="t@UP" class="" style="width:214.66666666666666px">any value</td><td id="pAzT" class="" style="width:214.66666666666666px">Cooperative scheduling<br/>- task said who will be the next</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="2c3eea59-ca7a-808b-a5d0-db1328a8b310" class="">They are all <mark class="highlight-teal">fixed priority</mark> and preemptive:</p></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-8059-bb9f-c9d5694bac03" class="bulleted-list"><li style="list-style-type:disc"><span style="border-bottom:0.05em solid">Preemptive + </span><mark class="highlight-orange"><span style="border-bottom:0.05em solid">Time Slicing</span></mark>: High priority tasks interrupt low priority ones immediately. If two tasks have the <em>same</em> priority, they share the CPU by taking turns (<mark class="highlight-teal">round-robin</mark>) every tick.</li></ul></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-802a-b908-c0fab248839e" class="bulleted-list"><li style="list-style-type:disc"><span style="border-bottom:0.05em solid">Preemptive without Time Slicing</span>: High priority still interrupts. But if two tasks have the <em>same</em> priority, the one currently running keeps the CPU until it chooses to yield or blocks. It does not share automatically.<div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-80f7-9944-fcc19ae85385" class="bulleted-list"><li style="list-style-type:circle">Turning time slicing off results in a reduction in the scheduler’s processing overhead</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-8085-b3b7-e8dceb663188" class="bulleted-list"><li style="list-style-type:disc"><span style="border-bottom:0.05em solid">Cooperative</span>: No interrupts. A task runs until it explicitly gives up the CPU (<code>osYield</code> or <code>osDelay</code>). <div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-8089-9430-ee091fff09c1" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">system less responsive</mark></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="2efeea59-ca7a-805e-8022-f3fcfe1c2c3e"/></div><div style="display:contents" dir="auto"><h1 id="2efeea59-ca7a-809c-812b-d39df779ffd6" class="">Mutual Exclusions (MutExes) and Semaphores</h1></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2efeea59-ca7a-804a-b051-c5e4ed8c21ab" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">osMutexId osMutexCreate(osMutexDef(mutex_id))
+osStatus osMutexWait(mutex_id, uint32_t millisec)
+osStatus osMutexRelease(osMutexId mutex_id)
+osStatus osMutexDelete(osMutexId mutex_id)</code></pre></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-8068-8c19-ed46eccdc8c0" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">A call to release by a thread that does not hold the mutex blocks the kernel</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="2efeea59-ca7a-8084-bb74-f3b27598f917" class="bulleted-list"><li style="list-style-type:disc">Counting semaphores do not implement <mark class="highlight-teal">PIP</mark></li></ul></div><div style="display:contents" dir="auto"><p id="2efeea59-ca7a-800c-bbc2-eadf9e3d49aa" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

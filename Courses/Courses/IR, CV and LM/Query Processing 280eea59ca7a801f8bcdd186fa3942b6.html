@@ -1,0 +1,726 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Query Processing</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="280eea59-ca7a-801f-8bcd-d186fa3942b6" class="page sans"><header><h1 class="page-title" dir="auto">Query Processing</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><ol type="1" id="280eea59-ca7a-80d1-88ad-f2b951244abd" class="numbered-list" start="1"><li><mark class="highlight-blue">Boolean retrival</mark> → suitable for small/medium collections<div style="display:contents" dir="auto"><ul id="280eea59-ca7a-80f6-87c7-c9e0df43ab83" class="bulleted-list"><li style="list-style-type:disc">returns all documents matching the query</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="280eea59-ca7a-8004-a47b-d8ad28119346" class="numbered-list" start="2"><li><mark class="highlight-blue">Ranked retrival</mark> → suitable for large collections (web-scale)<div style="display:contents" dir="auto"><ul id="280eea59-ca7a-80fd-851a-c740016b12d9" class="bulleted-list"><li style="list-style-type:disc">returns only the top K matching documents → define a <mark class="highlight-teal">similarity function</mark>:  <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>q</mi></msub><mo stretchy="false">(</mo><mi>d</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mo>∑</mo><mrow><mi>t</mi><mo>∈</mo><mi>q</mi></mrow></msub><msub><mi>s</mi><mi>t</mi></msub><mo stretchy="false">(</mo><mi>q</mi><mo separator="true">,</mo><mi>d</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">s_q(d) = \sum _{t \in q} s_t(q, d)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">q</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">d</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1858em;vertical-align:-0.4358em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1308em;"><span style="top:-2.4003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mrel mtight">∈</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">q</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4358em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">d</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-808a-a5f9-c440ed499f91" class="bulleted-list"><li style="list-style-type:circle"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>:</mo><mi>Q</mi><mo>×</mo><mi>D</mi><mo>→</mo><mi mathvariant="double-struck">R</mi></mrow><annotation encoding="application/x-tex">s: Q \times D \rarr \mathbb{R}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">s</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">Q</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6889em;"></span><span class="mord mathbb">R</span></span></span></span></span><span>﻿</span></span>, then order the terms</li></ul></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-80e6-965e-ecb317bb1e0f" class="bulleted-list"><li style="list-style-type:circle">sum of score dependent on each term</li></ul></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-8077-afea-e897d1b5c55c" class="bulleted-list"><li style="list-style-type:circle">for each term this information is inside the posting list</li></ul></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-806a-8d11-fdb325f1025c" class="bulleted-list"><li style="list-style-type:circle">If it doesn’t appear on a document it’s score is zero</li></ul></div><div style="display:contents" dir="auto"><ul id="2c4eea59-ca7a-80d1-b347-e5fd0d00e217" class="bulleted-list"><li style="list-style-type:circle">depends on <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi></mrow><annotation encoding="application/x-tex">d </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">d</span></span></span></span></span><span>﻿</span></span> to count the words and on <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span></span></span></span></span><span>﻿</span></span> to normalize for example</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-801d-b7dd-d098562fac31" class="bulleted-list"><li style="list-style-type:disc">Useful for not returning 1000s or results, and since most users are incapable of writing boolean queries (logic operators)</li></ul></div></li></ol></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="280eea59-ca7a-80c0-9c37-d370b415fbea"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="280eea59-ca7a-806b-a088-c066858fce16" class="">We need to perform the text processing pipelines both in query and index time → otherwise I could have words in the query that are not present in the vocubulary</p></div></div></figure></div><div style="display:contents" dir="auto"><p id="280eea59-ca7a-8066-86c9-ec07c6ab256d" class="">We consider the document in a conjuctive (AND, all terms) or disjunctive (OR, at least one) way</p></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-80ba-9b0c-cf6aa7e88d2a" class="bulleted-list"><li style="list-style-type:disc">makes no sense to use disjuctive in boolean retrieval </li></ul></div><div style="display:contents" dir="auto"><p id="280eea59-ca7a-80f3-ad50-cbf29c242d2a" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="280eea59-ca7a-80c5-9425-e4a4c247a420" class="">TAAT - Term at a Time</h3></div><div style="display:contents" dir="auto"><div id="280eea59-ca7a-80f1-9c79-c765ee62ddd8" class="column-list"><div style="display:contents" dir="auto"><div id="280eea59-ca7a-80f1-9fac-e6db4b6380e2" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="280eea59-ca7a-80b1-b5c0-c0e9fe2372e5" class="">In ranked <mark class="highlight-teal">disjunctive </mark>retrieval, the posting lists can be traversed one query term at a time</p></div><div style="display:contents" dir="auto"><p id="2cdeea59-ca7a-808c-b448-ecad28da1cee" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="280eea59-ca7a-804d-89d9-e2a3bad3ae6a" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="280eea59-ca7a-80b7-bd73-f2e026432673" class="image"><a href="Query%20Processing/image.png"><img style="width:384px" src="Query%20Processing/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-80e6-8656-c5cf15848ebc" class="bulleted-list"><li style="list-style-type:disc">Use a score function called TF → term frequency<div style="display:contents" dir="auto"><p id="280eea59-ca7a-80da-832d-c18f09de65f3" class=""><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mrow><mi>T</mi><mi>F</mi></mrow></msub><mo stretchy="false">(</mo><mi>t</mi><mo separator="true">,</mo><mi>d</mi><mo stretchy="false">)</mo><mo>=</mo><mi>t</mi><msub><mi>f</mi><mrow><mi>d</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">s_{TF}(t, d) = tf_{d, t}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">TF</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">d</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.9805em;vertical-align:-0.2861em;"></span><span class="mord mathnormal">t</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span></p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-80f5-9260-ca4cedcbb06f" class="bulleted-list"><li style="list-style-type:disc">Scan for each term the structure sequentially, put everything inside an <mark class="highlight-orange">accumulator table</mark><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-80ff-a055-c7582e851ce8" class="bulleted-list"><li style="list-style-type:circle">Posting list are sorted by increasing docid, while accumulator table is sorted by score</li></ul></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-80dd-a942-d1b29666bf92" class="bulleted-list"><li style="list-style-type:circle">Then for the next term, start summing the scores for the docid</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="280eea59-ca7a-80b8-996a-f11c20727097" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="280eea59-ca7a-8052-8645-d2171e8b1e45" class="numbered-list" start="1"><li><mark class="highlight-teal">Cache-friendly</mark> → because we exploit spatial locality, since posting lists are stored sequentially</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="280eea59-ca7a-80c4-b33a-ca0f7a61f3b7" class="numbered-list" start="2"><li>Accumulator table is huge → bounded by the number of docs</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="280eea59-ca7a-80fd-90e6-e7eec23e0174" class="numbered-list" start="3"><li>Sorting is not a problem since it’s not necessary </li></ol></div><div style="display:contents" dir="auto"><div id="29eeea59-ca7a-8085-8786-ffda4577a2cb" class="column-list"><div style="display:contents" dir="auto"><div id="29eeea59-ca7a-805d-9e86-ee82183d0e72" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="280eea59-ca7a-8039-a50e-e44586fbba3d"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="280eea59-ca7a-80ea-8f5a-c63f4286b34f" class="">Array and hash table has not the same access time → no need to hash the index + no collisions</p></div></div></figure></div><div style="display:contents" dir="auto"><p id="2cdeea59-ca7a-80b6-a58e-daf07867017f" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="29eeea59-ca7a-80db-a1e2-eef7af572029" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="280eea59-ca7a-80fb-a8e6-df80c5f68abc" class="image"><a href="Query%20Processing/image%201.png"><img style="width:384px" src="Query%20Processing/image%201.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="280eea59-ca7a-808a-bdb2-eb542fa9bcca" class="">DAAT - Document at a Time</h3></div><div style="display:contents" dir="auto"><p id="280eea59-ca7a-8035-af0d-dce658ed2905" class="">In ranked disjunctive retrieval, the posting lists can be traversed <mark class="highlight-teal">all query terms in parallel</mark>, to fully process a document at a time</p></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-80d7-af34-d9acb7dc4b66" class="bulleted-list"><li style="list-style-type:disc">initialize an <mark class="highlight-teal">iterator </mark>on all posting lists exploiting the fact that they are sorted</li></ul></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-801b-8d96-d7d4bd8a0d2e" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Since I can compute directly the score, I do not need an hash map, but I can keep it directly inside the priority queue</mark></li></ul></div><div style="display:contents" dir="auto"><p id="280eea59-ca7a-804b-8a4a-d3be44ed5a0a" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="280eea59-ca7a-80f5-b9c3-d67afc75166f" class="numbered-list" start="1"><li>Smaller <mark class="highlight-teal">memory footprint</mark> than TAAT, just a priority queue</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="280eea59-ca7a-801f-ad5c-d1af91e3594f" class="numbered-list" start="2"><li>Support boolean and phreasal queries<div style="display:contents" dir="auto"><ul id="280eea59-ca7a-80f7-a562-dad14392c938" class="bulleted-list"><li style="list-style-type:disc">natural to force boolean constrains like term2 not present, or something like: term2 and 3 or 4</li></ul></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-8007-96a8-f09ad862393f" class="bulleted-list"><li style="list-style-type:disc">checking the position information I could also see if term2 and term5 are next to each other</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="280eea59-ca7a-8066-986b-dcf18ab79e58" class="numbered-list" start="3"><li>With no modificiation, it can run on <mark class="highlight-pink_background">distributed inverted index</mark></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="280eea59-ca7a-80e3-9957-e65bde7cb029" class="numbered-list" start="4"><li><mark class="highlight-pink_background">Less cache-friendly than TAAT</mark></li></ol></div><div style="display:contents" dir="auto"><div id="29eeea59-ca7a-800a-b525-e9db00d88ddf" class="column-list"><div style="display:contents" dir="auto"><div id="29eeea59-ca7a-80ea-a8f9-f18b3478139f" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="280eea59-ca7a-8020-9138-c324490a82f7"><div style="font-size:1.5em"><span class="icon">➡️</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="280eea59-ca7a-804b-944a-e30ed7a7f8ff" class="">Most commercial search engines are reported to use a variant of DAAT</p></div></div></figure></div></div></div><div style="display:contents" dir="auto"><div id="29eeea59-ca7a-80a9-8c9b-d3e1115bd375" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="280eea59-ca7a-8030-a49e-da509bae2009" class="image"><a href="Query%20Processing/image%202.png"><img style="width:384px" src="Query%20Processing/image%202.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="280eea59-ca7a-80a1-91c8-d214734c4b0d" class="">Distributed Query Processing</h3></div><div style="display:contents" dir="auto"><ol type="1" id="280eea59-ca7a-8005-8e5c-ed025f423bd9" class="numbered-list" start="1"><li>All queries sent to a manager machine, manager then sends messages to many index servers</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="280eea59-ca7a-80c3-853b-c0dc812c0ebc" class="numbered-list" start="2"><li>Every index server (stores a portion of index) must process the query locally</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="280eea59-ca7a-8023-9b5c-fc948b4f621f" class="numbered-list" start="3"><li>The results are collected and aggregated by a manager machine to produce the final top K results</li></ol></div><div style="display:contents" dir="auto"><p id="280eea59-ca7a-8000-b147-c31395c20350" class="">
+</p></div><div style="display:contents" dir="auto"><p id="280eea59-ca7a-8057-acbb-e0ebd77bed0c" class="">The two main approaces are</p></div><div style="display:contents" dir="auto"><ol type="1" id="280eea59-ca7a-80e6-a3b3-ef62ce9a8a6e" class="numbered-list" start="1"><li><mark class="highlight-orange">Document distribution </mark>(distributed local indexing) → most used<div style="display:contents" dir="auto"><ul id="280eea59-ca7a-8019-bb1a-f4ba3e15ff74" class="bulleted-list"><li style="list-style-type:disc">Each index server acts as a search engine for a small fraction of the total collection</li></ul></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-80b1-ad35-d4ae67acabaf" class="bulleted-list"><li style="list-style-type:disc">Each machine returns the top k local results and then are merged and keep the best k</li></ul></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-8023-b36c-ceda513a7d01" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Collection statistics should be shared for effective ranking (e.g. tfidf)</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-8051-9dd4-ff1c35e732ed" class="bulleted-list"><li style="list-style-type:disc">slowest one dominates the time required to serve a single query</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="280eea59-ca7a-801a-ac31-d78952430227" class="numbered-list" start="2"><li><mark class="highlight-orange">Term Distribution</mark> (distributed global indexing)<div style="display:contents" dir="auto"><ul id="280eea59-ca7a-808b-b98b-fdada1678e66" class="bulleted-list"><li style="list-style-type:disc">Each inverted list in the whole single index is assigned to one index server</li></ul></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-801f-8869-c22b970a5829" class="bulleted-list"><li style="list-style-type:disc">In most cases the data to process a query is not stored on a single machine</li></ul></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-802f-8059-e16fe02b3ac3" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">No need to use all servers</mark> (just the ones that have the query terms)</li></ul></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-80da-94ee-cc6601397bb5" class="bulleted-list"><li style="list-style-type:disc">now we need to wait just few servers to serve the query, not all</li></ul></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-806b-8375-c6a468eeff5b" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Load balancing</mark> depends on the distribution of query terms and their co-occurrence</li></ul></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-8034-afeb-c7261f8570b3" class="bulleted-list"><li style="list-style-type:disc">One of the index servers is chosen to process the query (master)<div style="display:contents" dir="auto"><ul id="280eea59-ca7a-80f6-bc98-d5a49f5263a5" class="bulleted-list"><li style="list-style-type:circle">usually the one holding the longest inverted list</li></ul></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-8050-ae3e-f38f4bfb2c4a" class="bulleted-list"><li style="list-style-type:circle">other index servers send information to that server</li></ul></div></li></ul></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="280eea59-ca7a-80f4-ba0e-ce50999e34a4"><div style="font-size:1.5em"><span class="icon">➡️</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="280eea59-ca7a-8017-905c-fcdb8214e633" class="">The partial index on each machine is called <mark class="highlight-orange">index shard</mark></p></div></div></figure></div></li></ol></div><div style="display:contents" dir="auto"><p id="280eea59-ca7a-80d3-a8f1-f959c7213b2b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="280eea59-ca7a-80e1-88aa-dfae680d6508" class=""><mark class="highlight-orange">Caching</mark>: about 50% of the queries each day are unique, but some are very popular</p></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-8078-a4be-edf3ffc58a66" class="bulleted-list"><li style="list-style-type:disc">About 15% of the queries per day have never occurred before</li></ul></div><div style="display:contents" dir="auto"><p id="280eea59-ca7a-801c-a03c-de294cb7caf5" class="">Should cache the popular query results and the commont posting lists (to store it in the query server)</p></div><div style="display:contents" dir="auto"><ul id="280eea59-ca7a-8028-b80c-fe7cdc08c217" class="bulleted-list"><li style="list-style-type:disc">Cache must be refreshed to prevent <mark class="highlight-teal">stale data</mark></li></ul></div><div style="display:contents" dir="auto"><p id="281eea59-ca7a-800c-b327-ef5c8ace84d4" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="281eea59-ca7a-8083-b0e9-f41d3256255b" class="">Compression</h3></div><div style="display:contents" dir="auto"><p id="280eea59-ca7a-80db-b4bd-c40c5e427d3f" class=""><mark class="highlight-orange">Compression </mark>for inverted index → in order to make it fit in RAM and not in disk</p></div><div style="display:contents" dir="auto"><ul id="281eea59-ca7a-80bc-be2c-c11a855e8930" class="bulleted-list"><li style="list-style-type:disc">tradeoff to compress as much as possible but not wasting too much time in decompressing it</li></ul></div><div style="display:contents" dir="auto"><p id="281eea59-ca7a-80c0-9cb1-fdad2304349f" class="">We can compress (typically both):</p></div><div style="display:contents" dir="auto"><ol type="1" id="281eea59-ca7a-8054-abf9-e45066c58a1c" class="numbered-list" start="1"><li>The <mark class="highlight-teal">lexicon </mark>(vocabolary) → because it needs to be accessed for every single term for every single query<div style="display:contents" dir="auto"><ul id="281eea59-ca7a-8036-9574-cfc0cf6e040b" class="bulleted-list"><li style="list-style-type:disc">Smaller it is, more posting lists can be kept in memory</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="281eea59-ca7a-8046-b010-e1768efcc84f" class="numbered-list" start="2"><li>The <mark class="highlight-teal">posting lists </mark>(inverted index)<div style="display:contents" dir="auto"><ul id="281eea59-ca7a-8052-bcd3-f62235d89981" class="bulleted-list"><li style="list-style-type:disc">decrease the time to read them from disk</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="281eea59-ca7a-8091-b697-e93225b4bd05" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="281eea59-ca7a-80fc-b93d-cb1dd3ebcebf" class="">Heap’s Law</h3></div><div style="display:contents" dir="auto"><ul id="281eea59-ca7a-80d1-9518-cdadfa1e1a21" class="bulleted-list"><li style="list-style-type:disc">How large is the term vocabulary <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi></mrow><annotation encoding="application/x-tex">V</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span></span></span></span></span><span>﻿</span></span>? (how many distinct words)</li></ul></div><div style="display:contents" dir="auto"><ul id="281eea59-ca7a-8039-a298-d4d2530a9023" class="bulleted-list"><li style="list-style-type:disc">Let <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><mi mathvariant="normal">∣</mi><mi>V</mi><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">M = |V|</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord">∣</span></span></span></span></span><span>﻿</span></span> denote the <mark class="highlight-teal">total number of distinct tokens</mark> in the collection (size of the vocabulary) [e.g. italian vocabulary]</li></ul></div><div style="display:contents" dir="auto"><ul id="281eea59-ca7a-8013-a8b6-d370bc2371dc" class="bulleted-list"><li style="list-style-type:disc">Let <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span></span></span><span>﻿</span></span> denote the <mark class="highlight-teal">total number of tokens</mark> in the collection (size of the document collection in terms of tokens) [all the words that appear including repetitions]</li></ul></div><div style="display:contents" dir="auto"><figure id="281eea59-ca7a-8040-aa7b-ee94ae1e3ee1" class="equation"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>M</mi><mo>=</mo><mi>k</mi><msup><mi>T</mi><mi>b</mi></msup></mrow><annotation encoding="application/x-tex">M = kT^b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8991em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8991em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span></span></span></span></span></span></span></span></span></div></figure></div><div style="display:contents" dir="auto"><p id="281eea59-ca7a-80d7-95dd-f8e711927e8d" class="">It is an empirical law, where <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>30</mn><mo>≤</mo><mi>k</mi><mo>≤</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">30 \leq k \leq 100</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7804em;vertical-align:-0.136em;"></span><span class="mord">30</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8304em;vertical-align:-0.136em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">100</span></span></span></span></span><span>﻿</span></span> and <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≈</mo><mn>0.5</mn></mrow><annotation encoding="application/x-tex">b \approx 0.5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.5</span></span></span></span></span><span>﻿</span></span>  → depends on the collection, by fitting given the collection (interpolation)</p></div><div style="display:contents" dir="auto"><div id="281eea59-ca7a-80db-82e3-e4bd46042dfb" class="column-list"><div style="display:contents" dir="auto"><div id="281eea59-ca7a-80f0-9d63-f16f21ef3453" style="width:62.5%" class="column"><div style="display:contents" dir="auto"><ul id="281eea59-ca7a-80be-8b4e-f23da4f79fc0" class="bulleted-list"><li style="list-style-type:disc">M grows <mark class="highlight-teal">sublinearly </mark>→ at start (small T) quite fast, then slower since probability of finding a new term is small</li></ul></div><div style="display:contents" dir="auto"><ul id="281eea59-ca7a-80ba-8515-c642f530c4f2" class="bulleted-list"><li style="list-style-type:disc">can be written in log-log space <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>log</mi><mo>⁡</mo><mi>M</mi><mo>=</mo><mi>log</mi><mo>⁡</mo><mi>k</mi><mo>+</mo><mi>b</mi><mi>log</mi><mo>⁡</mo><mi>T</mi></mrow><annotation encoding="application/x-tex">\log M = \log k + b \log T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span></span></span><span>﻿</span></span><div style="display:contents" dir="auto"><ul id="281eea59-ca7a-802f-9a10-e02d1f5ada64" class="bulleted-list"><li style="list-style-type:circle">It becomes linear</li></ul></div></li></ul></div></div></div><div style="display:contents" dir="auto"><div id="281eea59-ca7a-8069-b7ac-d6809b7af32f" style="width:37.5%" class="column"><div style="display:contents" dir="ltr"><figure id="281eea59-ca7a-8073-86e0-d4fb585c71b9" class="image"><a href="Query%20Processing/image%203.png"><img style="width:253.89999389648438px" src="Query%20Processing/image%203.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="281eea59-ca7a-8042-9b5d-cfd33b5189d6"><div style="font-size:1.5em"><span class="icon">➡️</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="281eea59-ca7a-806d-a829-faa9456c7ee3" class="">There is no upper bound on the vocabulary size</p></div></div></figure></div><div style="display:contents" dir="auto"><h3 id="281eea59-ca7a-80be-8ef1-e569c2f26448" class="">Zipf’s Law</h3></div><div style="display:contents" dir="auto"><p id="281eea59-ca7a-80a4-ad37-eb1dbdf05451" class="">We want to characterise the relative frequencies of terms</p></div><div style="display:contents" dir="auto"><ul id="281eea59-ca7a-80d2-9f0a-cf6b60ea7e7f" class="bulleted-list"><li style="list-style-type:disc">In natural language, there are a few very frequent terms and very many very rare terms</li></ul></div><div style="display:contents" dir="auto"><p id="281eea59-ca7a-80c9-ad00-c657aaaf6f27" class="">Zipf’s law: The i-th most frequent term has frequency <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∝</mo><mfrac><mn>1</mn><mi>i</mi></mfrac></mrow><annotation encoding="application/x-tex">\propto \frac {1}{i}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mrel">∝</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><span>﻿</span></span></p></div><div style="display:contents" dir="auto"><figure id="281eea59-ca7a-80df-be2b-c423814ad36e" class="equation"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>c</mi><msub><mi>f</mi><mi>i</mi></msub><mo>=</mo><mfrac><mi>K</mi><mi>i</mi></mfrac></mrow><annotation encoding="application/x-tex">cf_i = \frac{K}{i} </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">c</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.0463em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">i</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">K</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></div></figure></div><div style="display:contents" dir="auto"><div id="281eea59-ca7a-8075-b0d2-e7806487b0ec" class="column-list"><div style="display:contents" dir="auto"><div id="281eea59-ca7a-8063-a365-c05fcb35f597" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><ul id="281eea59-ca7a-800e-8652-d33b444b68fc" class="bulleted-list"><li style="list-style-type:disc"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><msub><mi>f</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">cf_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">c</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span>  is collection frequency: the number of occurrences of the term i in the collection</li></ul></div><div style="display:contents" dir="auto"><ul id="281eea59-ca7a-8090-96bf-ec5c983f3766" class="bulleted-list"><li style="list-style-type:disc">In the log-log space:<div style="display:contents" dir="auto"><p id="281eea59-ca7a-8092-88c8-d862280deaac" class=""> <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>log</mi><mo>⁡</mo><mi>c</mi><msub><mi>f</mi><mi>i</mi></msub><mo>=</mo><mi>log</mi><mo>⁡</mo><mi>K</mi><mo>−</mo><mi>log</mi><mo>⁡</mo><mi>i</mi></mrow><annotation encoding="application/x-tex">\log cf_i = \log K -\log i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">c</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">i</span></span></span></span></span><span>﻿</span></span></p></div><div style="display:contents" dir="auto"><p id="281eea59-ca7a-80a9-937e-c7b8262cbfe3" class="">
+</p></div></li></ul></div></div></div><div style="display:contents" dir="auto"><div id="281eea59-ca7a-807a-8099-f8a69788fa18" style="width:43.75000000000001%" class="column"><div style="display:contents" dir="ltr"><figure id="281eea59-ca7a-8095-b2bd-f5f1500e7e2a" class="image"><a href="Query%20Processing/image%204.png"><img style="width:384px" src="Query%20Processing/image%204.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="281eea59-ca7a-8026-ba51-df67d4f13f52" class="bulleted-list"><li style="list-style-type:disc">We have very long posting lists, just for very frequent terms (that are few)<div style="display:contents" dir="auto"><ul id="281eea59-ca7a-8018-83fe-e9e16da037f3" class="bulleted-list"><li style="list-style-type:circle">Typically are the stopwords → that we delete them (not in actual search engines because we want phrase searching)</li></ul></div><div style="display:contents" dir="auto"><ul id="281eea59-ca7a-806d-9506-ccff0bbb7485" class="bulleted-list"><li style="list-style-type:circle">e.g. La Repubblica → Repubblica </li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="281eea59-ca7a-80a0-8a5b-dbe8a14fc002" class="">
+</p></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="281eea59-ca7a-80f6-bb14-d8727ff49b6e"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%"><div style="display:contents" dir="auto"><ul id="281eea59-ca7a-8073-9730-c8b5ee5ea55b" class="bulleted-list"><li style="list-style-type:disc">In document partitioning we can partition correctly with those laws for having the inverted index fits in RAM</li></ul></div><div style="display:contents" dir="auto"><ul id="281eea59-ca7a-80b9-ba84-f2af5868fd1d" class="bulleted-list"><li style="list-style-type:disc">In term partitioning is problematic the most frequent words</li></ul></div></div></figure></div><div style="display:contents" dir="auto"><p id="2e3eea59-ca7a-8066-9387-d29f82a7f92d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="284eea59-ca7a-805c-ac17-f771de860642" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

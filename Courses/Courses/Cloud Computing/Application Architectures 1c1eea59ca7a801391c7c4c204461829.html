@@ -1,0 +1,732 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Application Architectures</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1c1eea59-ca7a-8013-91c7-c4c204461829" class="page sans"><header><h1 class="page-title" dir="auto">Application Architectures</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-8020-ab81-e8bbb8ddd4f6" class="">For now, the <mark class="highlight-orange">cloud </mark>is an infrastructure offering the possibility to create VMs</p></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-8049-9475-df0860c2087e" class="bulleted-list"><li style="list-style-type:disc">VMs have also a <mark class="highlight-blue">virtual network adapter</mark>, through which they can communicate with other VMs via a (virtual or physical) <mark class="highlight-teal">LAN </mark>or with external hosts</li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-805d-bc1c-e7877046b925" class="bulleted-list"><li style="list-style-type:disc">VMs can have access to a <mark class="highlight-blue">cloud storage</mark>, a physical or virtualized storage shared among all the VMs usually accessed via the LAN that connect the VMs</li></ul></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80bb-b382-c2ef77303d3c" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1c1eea59-ca7a-80aa-97b0-e28729feab13" class="">Traditional Application (legacy)</h3></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-80fe-8a71-fde00fcbcd6e" class="numbered-list" start="1"><li>At the core we have an<mark class="highlight-blue"> application server </mark>(<mark class="highlight-teal">single server</mark>), which runs the service implementing the logic of the application<div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-80ab-81c2-c7c3fd9e9a52" class="bulleted-list"><li style="list-style-type:disc">The application server is a physical server, on which the service runs, data is stored in its local hard disks<div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-80cb-b676-e8b1f89e2333" class="numbered-list" start="1"><li>On one other end, we have a simple<mark class="highlight-blue"> lightweight client</mark>, e.g. a web browser or a desktop/mobile application that provides the users the interface to the system, a web page or the application’s Graphical User Interface (GUI)</li></ol></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80d3-91c9-ec9bf0326a15" class="">Clients and the application server communicate typically using the local network, or some wide area network</p></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-806e-b4f7-deab8018857b" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1c1eea59-ca7a-80e6-821c-f4ccee955122" class="">Cloudification</h3></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80a7-9764-ccfe386a8554" class="">Cloudifications is the first step in bringing applications and services to the cloud</p></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-8020-946a-e050810f44f9" class="bulleted-list"><li style="list-style-type:disc">It means to move, as they are, their implementation on the cloud, transferring data and services from physical hardware installed on premises to VMs in the cloud</li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-8038-86fa-c8f5c436bdea" class="bulleted-list"><li style="list-style-type:disc">The <mark class="highlight-teal">overall architecture of the system remains intact</mark>: services are installed into VMs, users interact with clients installed into smartphones or PCs</li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-8066-9978-fdfc840e3522" class="bulleted-list"><li style="list-style-type:disc">The interaction between clients and the application server is still performed over a network (the Internet)</li></ul></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-8035-ab28-e368b26347a4" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-8086-bd04-cfc48fa1f00d" class="numbered-list" start="1"><li>Cheaper (hardware, personell, energy, location)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-800a-aeff-d3a5637e92e0" class="numbered-list" start="2"><li>More efficient applications</li></ol></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80aa-b9e6-d52bacd4b4a5" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-8091-a804-f3d069fca359" class="">This is not cloud computing:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-802d-bed5-e6974bf10bef" class="numbered-list" start="1"><li>Not scalable → in cloud computing, the resources may seem infinite to the application<div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-8061-9c49-c9bd05cdbc33" class="bulleted-list"><li style="list-style-type:disc">The code not changed and uploaded to the cloud will exploit only <mark class="highlight-teal">vertical scalability</mark>, bounded by the resources of the physical server</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80a4-924c-f579e8962459" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1c1eea59-ca7a-8016-b49c-c4a6ebbfe216" class="">Cloud Applications</h3></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-807c-9bee-f7dec9ac97ed" class="">Cloudification does not create true native cloud applications, it simply moves existing implementations to the cloud in order to benefit from some of the benefits provided by cloud computing, mainly cost reduction</p></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-8098-8ea0-d7a262ad2b2e" class="bulleted-list"><li style="list-style-type:disc">Cloud computing, as we saw, does not only provide cheap computing, storage and networking capabilities, it offers other advantages, like scalability, higher reliability, the capacity to handle big data</li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-8010-9499-dcc82f1737b2" class="bulleted-list"><li style="list-style-type:disc">Keeping the traditional architecture for cloud applications does not help in exploiting the full capabilities or advantages of cloud computing</li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-801e-8b01-ff7d6a0e6878" class="bulleted-list"><li style="list-style-type:disc">In order to ensure that, cloud applications should be <mark class="highlight-teal">redesigned</mark>, following a <mark class="highlight-teal">different model </mark>depending on the requirements of the application and the use-cases</li></ul></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80fc-8bb7-ee048376c7ae" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-801b-b2db-d42bf63c28f4" class="">Cloud applications are usually implemented as <mark class="highlight-orange">multi-tier systems</mark>: the different <mark class="highlight-teal">functionalities </mark>are split among different VMs, each one running a specific functionality</p></div><div style="display:contents" dir="auto"><div id="1c1eea59-ca7a-8066-9655-dbb9169231d9" class="column-list"><div style="display:contents" dir="auto"><div id="1c1eea59-ca7a-80d2-a8ce-c14f99f9ca76" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-8021-a96d-e95c784ab7a9" class="bulleted-list"><li style="list-style-type:disc">The simplest basic architecture is a <mark class="highlight-teal">two-tier architecture</mark> that separates the functionalities to manage the data from the application server</li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-802e-9b2d-ffe10d71ee9c" class="bulleted-list"><li style="list-style-type:disc">Applications interact with the database tier to retrieve the data required to handle client requests or to store the data coming from the clients</li></ul></div><div style="display:contents" dir="auto"><p id="1f0eea59-ca7a-805a-b626-d967c1b0cb26" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1c1eea59-ca7a-808f-a3db-d4b11f8bb225" style="width:43.75%" class="column"><div style="display:contents" dir="ltr"><figure id="1c1eea59-ca7a-8013-805c-dc76333c1454" class="image"><a href="Application%20Architectures/image.png"><img style="width:336px" src="Application%20Architectures/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><div id="1c1eea59-ca7a-802a-940a-cc7c8645f971" class="column-list"><div style="display:contents" dir="auto"><div id="1c1eea59-ca7a-802d-b86b-c8c59ee3c774" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-807e-8d0c-f8c104cc74cd" class="">If required multiple tiers can be adopted</p></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-80b7-a3bf-f88e580a8e95" class="bulleted-list"><li style="list-style-type:disc">For instance, storage functionalities could be extrapolated from the database tier, introducing an additional tier that manages only data storage</li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-80a8-a760-fde0f8f9274d" class="bulleted-list"><li style="list-style-type:disc">Tiers are organized in a <mark class="highlight-orange">chain of interactions</mark>, with inputs that is the output of the previous. Then inverse path</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1c1eea59-ca7a-804d-a07e-f8b8b0883bf5" style="width:43.75%" class="column"><div style="display:contents" dir="ltr"><figure id="1c1eea59-ca7a-80a4-b3f3-e7644efd2c37" class="image"><a href="Application%20Architectures/image%201.png"><img style="width:244.0124969482422px" src="Application%20Architectures/image%201.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-801a-9314-e00ef609e25a" class="">The tiers are connected through a LAN and use an application protocol, which can be implemented by a <mark class="highlight-orange">middleware </mark>software to simplify the  development</p></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80aa-acf2-c3e024a6acb6" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-803e-9163-ec5f64460d8c" class="">Functionality of one tier, are implemented by more then one VM running the same code. Useful for:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-809e-8306-e819fb9a4875" class="numbered-list" start="1"><li><mark class="highlight-blue">Load balancing</mark></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-806b-993b-d80a25d7bc72" class="numbered-list" start="2"><li>Preventing a <mark class="highlight-blue">single point of failure</mark></li></ol></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80fb-814e-d9fe93b46221" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-8072-881f-e8ae4a5e9fdc" class="">The set of VMs belonging to same tier implementing the application is named <mark class="highlight-orange">compute cluster</mark></p></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-801b-b31d-d655e7071077" class="bulleted-list"><li style="list-style-type:disc">A compute cluster, in general, is a set of VMs organized to perform a <mark class="highlight-teal">collective computation</mark> over a single large job or a set of single requests</li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-801f-9d25-ce2c8ff7b8b3" class="bulleted-list"><li style="list-style-type:disc">They also use a <mark class="highlight-teal">middleware </mark>to handle communication</li></ul></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-8078-85cd-d8b0b119c709" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1c1eea59-ca7a-8002-8158-ec11759a02c2" class="">High Availability (HA) Clusters</h2></div><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-8028-a34f-eff7636aa1d8" class="column-list"><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-80c9-a264-dcaf225f1355" style="width:62.5%" class="column"><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80e4-ace3-d820396783d0" class="">HA clusters are designed to be fault tolerant and support the execution of services that requires to be always available</p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80c9-b04c-fed89412968d" class="bulleted-list"><li style="list-style-type:disc">HA clusters operate with redundant nodes to sustain faults or failures and avoid single point of failures<div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8066-a948-fd304e7b697e" class="bulleted-list"><li style="list-style-type:circle">In each tier multiple VMs that perform the same operations</li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80d2-ab29-e8bec52d2e1d" class="">
+</p></div></li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-80c1-96e2-cdc49c4b7954" style="width:37.5%" class="column"><div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-8078-9bac-e505015dc5b4" class="image"><a href="Application%20Architectures/image%202.png"><img style="width:332px" src="Application%20Architectures/image%202.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80b0-9c07-ce526f6aee57" class="">Redundancy is managed in a tier by selecting a VM in the tier as <mark class="highlight-teal">master </mark>and setting the others as <mark class="highlight-teal">slaves</mark></p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8004-93db-e83b080d96ea" class="bulleted-list"><li style="list-style-type:disc">Slaves are configured to behave as backup, i.e. backup instances that kick in every time the master fails</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-803d-ad1e-d0e35c365436" class="bulleted-list"><li style="list-style-type:disc">An <mark class="highlight-teal">election </mark>procedure, or a <mark class="highlight-teal">static order</mark>, is adopted to select the slave that is going to behave as master during a failure</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80c4-aafd-ce0ba81afb92" class="bulleted-list"><li style="list-style-type:disc">In order to be able to offer the same functionalities of the master, some <mark class="highlight-teal">replication </mark>mechanism must be included to replicate data, configuration or settings also on the slaves as they change in the master</li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8010-90ad-ef5fa5dca88a" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1d0eea59-ca7a-80cb-80f2-d64db49b29e8" class="">Load-Balancing (LB) Clusters</h2></div><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-80ea-945e-eb27a8adaee5" class="column-list"><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-805d-b949-e96577be89c7" style="width:68.75%" class="column"><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80b6-9e27-e2d71cd33b07" class="">LB clusters are designed for higher resource utilization through load balancing among all the participating nodes</p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8005-990d-d951e917192a" class="bulleted-list"><li style="list-style-type:disc">The goal is to ensure <mark class="highlight-teal">scalability</mark>: as a result, all nodes <mark class="highlight-teal">share the workload</mark><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80d4-b584-e76af8b8499e" class="bulleted-list"><li style="list-style-type:circle">higher resource utilization and higher performance, such as a lower response time</li></ul></div><div style="display:contents" dir="auto"><p id="1eceea59-ca7a-8098-83a7-fb157c99abf6" class="">
+</p></div></li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-8054-82a7-c4b47be337eb" style="width:31.249999999999993%" class="column"><div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-802b-99f8-f9aa501d1004" class="image"><a href="Application%20Architectures/image%203.png"><img style="width:331.984375px" src="Application%20Architectures/image%203.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-804d-b662-c5f945a5fa41" class="">Load balancing is achieved by introducing an additional tier between the application tier and clients, the <mark class="highlight-orange">load balancer tier</mark></p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-804a-8467-cb5bf87d45d2" class="bulleted-list"><li style="list-style-type:disc">it takes the clients requests and forward them to one of the VMs eg following the rule of <mark class="highlight-teal">less loaded instance</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80d2-a108-efe0c9f97f6a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8060-97c7-cd679a230d92" class="">Data syncronization:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-8034-8b49-eb63ce9b339d" class="numbered-list" start="1"><li>Data replication</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-80e4-ba4d-c2c34dfb6367" class="numbered-list" start="2"><li><mark class="highlight-orange">Shared storage tier </mark>can be introduce to make the same data accessible from all the instances (data sharing complexity is on the storage tier)<div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-804c-a02e-fb4a8b66af57" class="bulleted-list"><li style="list-style-type:disc">avoid the overhead of data replication</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8010-8cbd-f1ad1385ffe9" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1d0eea59-ca7a-806e-b923-dd1be59eb5b6" class="">Compute Intensive (CI) Clusters</h2></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8094-94b4-d516c2f7914d" class="">Clusters designed to handle a large amount of data (eg. big data analysis)</p></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-807c-beba-f465248d363e" class="bulleted-list"><li style="list-style-type:disc">Adopts a <mark class="highlight-orange">divide et impera approach</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8088-bbf1-cbd1acda8b97" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-80c9-8451-e834fac0636d" class="numbered-list" start="1"><li>Divide the tasks in multiple sub-tasks (<mark class="highlight-teal">jobs</mark>) and the data in multiple <mark class="highlight-teal">chunks</mark>, each of them assigned to a job</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-8032-8b44-f97d0822a587" class="numbered-list" start="2"><li>Assign job, chunk tuple to a single server (<mark class="highlight-teal">worker</mark>) for analysis</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d0eea59-ca7a-80d1-b4d8-d36a290e4029" class="numbered-list" start="3"><li>Different workers return the results to a <mark class="highlight-teal">collector</mark>, that merges the results</li></ol></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-8082-bbcc-d0c734d7ed93" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80c6-9c5c-d035ba20ed24" class="">An example of a simple application is a web search algorithm, the world-wide web data is too much for a single machine to handle, the set of data to analyze (search for a specific keyword) is divided into chunks and assigned to different workers, a collector receives and aggregates the results received from the workers</p></div><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-803e-89cd-f422fa57c0a5" class="column-list"><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-80f6-8c40-f355778d97fd" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80ad-831a-e5874a80f157" class="bulleted-list"><li style="list-style-type:disc">In order to guarantee at the same time scalability to a large number of request an initial load balancer tier is usually adopted (mandatory if the application is a public application, e.g. a web search engine)</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8029-bcab-ed1513eada71" class="bulleted-list"><li style="list-style-type:disc">An instance in the application tier divides the data into chunks and creates the list of jobs</li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8078-a887-e3724bf391ff" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">The initial dataset is stored in a shared cloud storage, as it is impossible to contain all the data in the local storage of different VMs and synchronize the content, due to its size</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8017-944c-d1aa0bd08584" class="bulleted-list"><li style="list-style-type:disc">Jobs are dispatched to a set of workers, which belongs to a distributed processing infrastructure</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1d0eea59-ca7a-8049-96dd-e119d913f07e" style="width:43.74999999999999%" class="column"><div style="display:contents" dir="ltr"><figure id="1d0eea59-ca7a-805b-b19a-c982a1dec2a1" class="image"><a href="Application%20Architectures/image%204.png"><img style="width:384px" src="Application%20Architectures/image%204.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80f6-a106-ccf60af107e1" class="">To limit communication overhead, the batch processing infrastructure tier can have access to the storage tier</p></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-80c3-a8f3-c989527e5b76" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d0eea59-ca7a-80a2-b7dd-dcb5c3e8d803" class="">Conclusions on clusters</h3></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-80bf-ba3e-f68fb8c96b8e" class="bulleted-list"><li style="list-style-type:disc">LB and CI architectures, with a load balancing tier, are ready to scale horizontally, as traffic increases new VMs are created and included in the tier, so the load on each one can be reduce<div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8095-9b03-e65bc6fbb2fe" class="bulleted-list"><li style="list-style-type:circle">Contrarily, as load decreases VMs can be deallocated, so resources are not wasted</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1d0eea59-ca7a-8033-b635-ca1949b0efe7" class="bulleted-list"><li style="list-style-type:disc">In the HA architecture, instead, horizontal scalability can be exploited to improve redundancy (more VMs means more availability) or to rebalance the tier in case of failure</li></ul></div><div style="display:contents" dir="auto"><p id="1d0eea59-ca7a-806c-ad1e-e0185eda9473" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

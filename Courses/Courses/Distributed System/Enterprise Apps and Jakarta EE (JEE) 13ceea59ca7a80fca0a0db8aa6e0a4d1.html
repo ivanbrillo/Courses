@@ -1,0 +1,804 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Enterprise Apps and Jakarta EE (JEE)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="13ceea59-ca7a-80fc-a0a0-db8aa6e0a4d1" class="page sans"><header><h1 class="page-title" dir="auto">Enterprise Apps and Jakarta EE (JEE)</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="13beea59-ca7a-808b-b0a4-d6a4b386033f" class="">Web Services</h1></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-8072-ae9c-c0abfed18fb2" class="">Why a client should ask the help of a server to perform a computation?</p></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-80df-ab0f-ecbca80a2d0a" class="bulleted-list"><li style="list-style-type:disc">When the client doesn’t have something locally (performance, resources, capabilities)</li></ul></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-8007-9bc8-f33b796796bd" class="">
+</p></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-808f-bb09-cb55d9333ebf" class="">HTTP offer a standardized way to communicate with a server</p></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-80a9-96f4-d5e342fee840" class="bulleted-list"><li style="list-style-type:disc">lightweight protocol nowadays</li></ul></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-8012-9ff8-ed2be176c13b" class="">Use HTTP to provide clients with a description of a service result</p></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-8098-b403-ebcd95892fd5" class="">Needs to be formalized:</p></div><div style="display:contents" dir="auto"><ol type="1" id="13beea59-ca7a-803f-934c-c1f6496fc7ba" class="numbered-list" start="1"><li>required interactions</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="13beea59-ca7a-807c-96e3-c066e187bc35" class="numbered-list" start="2"><li>formats of the results</li></ol></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-805a-9bce-c858794f1150" class="">
+</p></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-80ac-a5e1-efda897910cb" class=""><mark class="highlight-orange">Interoperability</mark> between software applications running on a variety of platforms and frameworks</p></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-80ea-afaa-edc7e129429a" class="bulleted-list"><li style="list-style-type:disc">From ordinary API to server <mark class="highlight-orange">Web APIs</mark></li></ul></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-8007-971d-d9d18089439d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-80ea-a7d1-ec79164ee5c2" class="">Two different ways to develop web serveces</p></div><div style="display:contents" dir="auto"><ol type="1" id="13beea59-ca7a-8013-a65c-e0be4be51108" class="numbered-list" start="1"><li><mark class="highlight-blue">Big web services</mark> → enphasis on <strong><span style="border-bottom:0.05em solid">service</span></strong> access on the application through specific application level protocol (like XML)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="13beea59-ca7a-8055-9b51-cb4263c1d53a" class="numbered-list" start="2"><li><mark class="highlight-blue">RestFul WebServeces</mark> → enphasis on <strong><span style="border-bottom:0.05em solid">resource</span></strong> access. Classic HTTP methods are used, encoded via JSON or XML</li></ol></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-80bf-be04-c62cb0b3035c" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="13beea59-ca7a-8058-9e4e-fd1986866c47" class="">Big Web Services</h3></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-80b4-a253-c3b859331cd2" class="bulleted-list"><li style="list-style-type:disc">Use XML messagges according to <mark class="highlight-orange">SOAP</mark> (simple object access protocol) with XML encoding of data types</li></ul></div><div style="display:contents" dir="auto"><div id="13ceea59-ca7a-802e-8527-f558e5924d11" class="column-list"><div style="display:contents" dir="auto"><div id="13ceea59-ca7a-80c5-beb0-e53af741b44b" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-80e0-b010-d5dbf1b5af51" class="bulleted-list"><li style="list-style-type:disc">Formal description of the provided service by <mark class="highlight-orange">WSDL</mark> (WS description language) → similar to RPC<div style="display:contents" dir="auto"><ul id="13beea59-ca7a-8042-8fa4-c7168237cce8" class="bulleted-list"><li style="list-style-type:circle">not used in reality</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-802a-b796-c08032a6d202" class="bulleted-list"><li style="list-style-type:disc">heavy weight developement, reduced by supporting IDEs</li></ul></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-80eb-98be-f6ec8d626c25" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">JavaAPI</mark> → jax-ws, making SOAP transaction transparent</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="13ceea59-ca7a-80cd-9a0d-c975a4e3e5f2" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="13ceea59-ca7a-80e1-8535-da9b9089c5fd" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image.png"><img style="width:278.88751220703125px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-80b4-93f5-ecfa7cf4ce59" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="13beea59-ca7a-80bc-9e4f-efbd2e0e7cee" class="numbered-list" start="1"><li>WSLD first (easly supported by IDEs) or Implementation First</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="13beea59-ca7a-801b-ab35-f1f39d0c46fe" class="numbered-list" start="2"><li><mark class="highlight-orange">Broker Repository </mark>→ UDDI standard (Universal description discovery and integration)<div style="display:contents" dir="auto"><ol type="a" id="13beea59-ca7a-80bb-9fc0-d1f4d39c10d7" class="numbered-list" start="1"><li>publish the WSLD, so each client can access it</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="13beea59-ca7a-8019-97f6-f0c52fff94af" class="numbered-list" start="3"><li>Aimed at targeting <mark class="highlight-orange">SOA</mark> systems (service-oriented architecture)</li></ol></div><div style="display:contents" dir="auto"><p id="152eea59-ca7a-80df-9b23-f5de899074ee" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="13beea59-ca7a-8014-8265-e3789ee411d3" class="">RESTful Web Services</h3></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-80ea-a68c-f42e3e7b9216" class="">Lightweight</p></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-800c-9027-df74852b64bc" class="bulleted-list"><li style="list-style-type:disc">REST (representional state transfer) → not a standard but an architectural style</li></ul></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-8034-ad5b-c6e3310267b9" class="bulleted-list"><li style="list-style-type:disc">No XML messagges and no formal interface definition<div style="display:contents" dir="auto"><ul id="13beea59-ca7a-8044-a410-cc156ce96f5e" class="bulleted-list"><li style="list-style-type:circle">producer and consumer must have a mutual understandin of the context</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-807b-b4a9-e211f27eefed" class="bulleted-list"><li style="list-style-type:disc">A resource on the server and HTTP requests towards it can either return a description of its state or update it</li></ul></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-800b-9292-eeae2c0ce022" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">REST Constraint </mark><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-8010-a779-f6dadc3a7cf9" class="bulleted-list"><li style="list-style-type:circle">Client server architecture</li></ul></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-802f-b7c3-f72cfade8ed1" class="bulleted-list"><li style="list-style-type:circle">stateless-ness (no context)</li></ul></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-80c7-bae9-e7fa0bd7c7ae" class="bulleted-list"><li style="list-style-type:circle">Cacheability - clients and intermedietes can cache responses</li></ul></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-8047-864a-c27041b0e21e" class="bulleted-list"><li style="list-style-type:circle">Code on demand - possibility to transfer code</li></ul></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-809a-9b4f-f15280f60abb" class="bulleted-list"><li style="list-style-type:circle">Rest uniform interface → fixed set of operations (HTTP)<div style="display:contents" dir="auto"><ul id="13beea59-ca7a-80fb-80e8-f3fa8c679579" class="bulleted-list"><li style="list-style-type:square">PUT: create a new resources and DELETE deletes one</li></ul></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-8010-a78e-c8e9f77b47d9" class="bulleted-list"><li style="list-style-type:square">GET retrives the current state of a resource in some representation (HTML, JSON, XML)</li></ul></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-80b8-b4d2-ce7fc8aa8444" class="bulleted-list"><li style="list-style-type:square">POST transfer a new state to a resource</li></ul></div></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-8099-a858-efef037b9d80" class="">
+</p></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-80fd-8b18-e9af769dad99" class="">RESTful service should be call web API</p></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-805f-a377-da19589f5e23" class="bulleted-list"><li style="list-style-type:disc">The design of a proper API is crucial</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-80d3-a5be-d9551bf360e4" class="bulleted-list"><li style="list-style-type:disc">Different proposed DLs (Description Language)<div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-803a-8cf0-c14e6b0012ab" class="bulleted-list"><li style="list-style-type:circle">ex. OpenAPI → paired with graphical designers</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-80f3-b873-cd4129b9d1d7" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="13ceea59-ca7a-80b2-9ef2-d3515c9e0da6" class="">Java Restful WSs with JAX-RS</h2></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-80fc-be21-cf11423f3363" class="">JAX-RS → use annotations to decorate a “resource class”</p></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-8058-88ee-cc8b6fea21d6" class="bulleted-list"><li style="list-style-type:disc">internal servlet to store relative requests caches</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="13beea59-ca7a-8002-95cf-e695cfe862be" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">@Path -  relative URI path indicating the “placing” of the class
+@GET  - annotation for the class method to process GET requests 
+@Produces - specifies the MIME type of the content produced</code></pre></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-80c8-a680-c583b032bf65" class="">
+</p></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-8057-a96d-cf42cb7ab35a" class="">JSON (javascript object notation)</p></div><div style="display:contents" dir="auto"><ul id="13beea59-ca7a-801b-ae51-e92398a722bd" class="bulleted-list"><li style="list-style-type:disc">easier to parse than XML and much shorter</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-80eb-a51b-e014d11cefd9" class="bulleted-list"><li style="list-style-type:disc"> It supports the possibility to define a schema (as XSD in XML)</li></ul></div><div style="display:contents" dir="auto"><p id="13beea59-ca7a-8078-bd63-ffcf26613e05" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="13beea59-ca7a-8007-8d31-f2a32058f056" class="">SOA - Service Oriented Architecture</h3></div><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-80ae-898e-db51a98ac871" class="">Service-Oriented Architecture (SOA) is an <mark class="highlight-blue">architectural pattern</mark> in software design where different services are provided to various components through a communication protocol over a network. In SOA, software components are modular and loosely coupled, making it easier to integrate and scale applications.</p></div><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-8067-b64a-f62f99ffa911" class="">
+</p></div><div style="display:contents" dir="auto"><div id="13ceea59-ca7a-8063-93e5-dc0e35dca030" class="column-list"><div style="display:contents" dir="auto"><div id="13ceea59-ca7a-809e-bdf4-c6b8989fca90" style="width:31.25%" class="column"><div style="display:contents" dir="auto"><p id="13beea59-ca7a-803c-bfb4-e66356367570" class="">Existing application and on top of them I have some other services → composite services, that are organized to business process services </p></div></div></div><div style="display:contents" dir="auto"><div id="13ceea59-ca7a-809c-a697-d0c190f14946" style="width:68.75%" class="column"><div style="display:contents" dir="ltr"><figure id="13ceea59-ca7a-80ad-82cb-fbfe5c947df0" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%201.png"><img style="width:528px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%201.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-804e-955d-cfa2ca315fe7" class="bulleted-list"><li style="list-style-type:disc">The interface defines how a service provider will perform requests from a service consumer</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-805a-9648-cfc21bde77f1" class="bulleted-list"><li style="list-style-type:disc">The contract defines how the service provider and the service consumer should interact</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-807d-89ec-e3f177087655" class="bulleted-list"><li style="list-style-type:disc">The implementation is the actual service code itself</li></ul></div><div style="display:contents" dir="ltr"><figure id="13ceea59-ca7a-80bd-bb65-cb4cf1a79e99" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%202.png"><img style="width:603.7875366210938px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%202.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="16beea59-ca7a-80c8-aff7-c18af3d780cf" class="">
+</p></div><div style="display:contents" dir="auto"><p id="16beea59-ca7a-80bd-8a45-d54bf9647b80" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="152eea59-ca7a-8092-92ea-fdc16dff9b50" class="">From Distributed Object to Component</h3></div><div style="display:contents" dir="ltr"><figure id="152eea59-ca7a-809a-99ed-dec234374d39" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%203.png"><img style="width:480px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%203.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="152eea59-ca7a-80f2-ba45-cc663281b222" class="">
+</p></div><div style="display:contents" dir="auto"><p id="152eea59-ca7a-806c-94ec-c40c1bcafb62" class="">Components: A software component with required and provided interfaces</p></div><div style="display:contents" dir="auto"><ul id="152eea59-ca7a-8007-8355-d3f73247a378" class="bulleted-list"><li style="list-style-type:disc">composition</li></ul></div><div style="display:contents" dir="auto"><ul id="152eea59-ca7a-80a8-9dae-e1f8c2657994" class="bulleted-list"><li style="list-style-type:disc">EJB is a typical example</li></ul></div><div style="display:contents" dir="auto"><h1 id="152eea59-ca7a-80a3-9bbb-f9025a45badf" class="">JEE</h1></div><div style="display:contents" dir="auto"><p id="144eea59-ca7a-8052-ab4c-c3569bab952e" class=""><strong>Jakarta EE</strong> is a set of standardized APIs and specifications (like Servlets, JSP, EJB, JPA, etc.) for developing enterprise applications.</p></div><div style="display:contents" dir="auto"><div id="152eea59-ca7a-80c9-a7a2-d23d2d2be07a" class="column-list"><div style="display:contents" dir="auto"><div id="152eea59-ca7a-809f-959a-e07b9fddb475" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="152eea59-ca7a-8099-b081-e4b805cff25b" class="">Typical organization of a (web) application: <mark class="highlight-orange">3-tier architecture</mark> → a client-server architecture where:</p></div><div style="display:contents" dir="auto"><ol type="1" id="13ceea59-ca7a-80ab-b63c-db318220829f" class="numbered-list" start="1"><li>user interface,</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="13ceea59-ca7a-80a7-9a96-da09434d01b6" class="numbered-list" start="2"><li>functional process logic,</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="13ceea59-ca7a-8034-893c-f58ca3b64cd6" class="numbered-list" start="3"><li>data access/data storage</li></ol></div></div></div><div style="display:contents" dir="auto"><div id="152eea59-ca7a-8084-9060-ecb754565060" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="13ceea59-ca7a-804f-b025-e9427f93ed50" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%204.png"><img style="width:278.9750061035156px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%204.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-802e-965d-e651b65fe03e" class="">Are developed and maintained as independent modules, possibly on separate platforms.</p></div><div style="display:contents" dir="auto"><h3 id="13ceea59-ca7a-807e-90f0-da34bd44dd37" class="">Container</h3></div><div style="display:contents" dir="auto"><div id="13deea59-ca7a-80d2-8218-d9ad661cc129" class="column-list"><div style="display:contents" dir="auto"><div id="13deea59-ca7a-800d-978a-f418d5496d88" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><p id="13deea59-ca7a-801d-8a37-de5be169012b" class="">At the middleware level, components can be organized in containers, and components managed within containers</p></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-8059-896b-efe30768037c" class="bulleted-list"><li style="list-style-type:disc">A container, as well as any component, has both provided and requested interfaces</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="13deea59-ca7a-80d8-a1f8-cf7c7cfe83ae" style="width:43.75%" class="column"><div style="display:contents" dir="ltr"><figure id="13deea59-ca7a-80c4-8d9b-c572517fabbc" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%205.png"><img style="width:308.38751220703125px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%205.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-80ce-a45a-ce27930d4618" class="">It’s up to the server to provide the resource, either retrieving it as a file (<span style="border-bottom:0.05em solid">static</span> content), or generating it on the fly by means of a program (<span style="border-bottom:0.05em solid">dynamic</span> content)</p></div><div style="display:contents" dir="auto"><h3 id="13deea59-ca7a-80cd-bb92-f13e0cba2b7d" class="">Common Gateway Interface (CGI)</h3></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-80a6-90d4-d7e9a4ca5609" class="">A standard protocol for web servers to execute shell programs that dynamically generate web pages.</p></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-80dd-8915-c4353a31e838" class="bulleted-list"><li style="list-style-type:disc">CGI scripts are usually placed in the special directory cgi-bin. Parameters are passed via environment vars and by std input.</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="13deea59-ca7a-8032-8a99-f342542e6526" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">http://xyz.com/cgi-bin/myscript.pl/my/pathinfo?a=1&amp;b=2   // perl script</code></pre></div><div style="display:contents" dir="auto"><ul id="16ceea59-ca7a-8057-b32e-fe0483898d87" class="bulleted-list"><li style="list-style-type:disc">generally the server spawn a new process to execute the script</li></ul></div><div style="display:contents" dir="auto"><p id="16ceea59-ca7a-8057-8e1f-cbcbc3c33e03" class="">
+</p></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-807a-b01e-c2cd3d14e37f" class="">To improve performance, the code for content generation could be executed internally to the web server process → possibly using multithreading. </p></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-80b3-9f5c-ede5f8d3fcbb" class="bulleted-list"><li style="list-style-type:disc">In Microsoft environments: classic ASP. In Jakarta EE: Servlets, and related technologies</li></ul></div><div style="display:contents" dir="auto"><h1 id="13deea59-ca7a-8044-ba3d-c0bd4b7e8989" class="">Tomcat Web Server</h1></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-80e8-bde4-d3b12ddb819e" class="">Basic internal components:</p></div><div style="display:contents" dir="auto"><ol type="1" id="13deea59-ca7a-8065-86ae-eef99f98b47c" class="numbered-list" start="1"><li><mark class="highlight-orange">Coyote</mark>: HTTP “Connector,” listens on ports and forwards requests to the engine</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="13deea59-ca7a-8097-9655-f60ab9b96ff3" class="numbered-list" start="2"><li><mark class="highlight-orange">Catalina</mark>: “Engine,” Servlet container; it refers also to a Realm (DB of usernames, passwords, and relative roles). → run the web applications provided by the web server</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="13deea59-ca7a-801a-95e7-d2e8ab3b2cb4" class="numbered-list" start="3"><li><mark class="highlight-orange">Jasper</mark>: JSP container<div style="display:contents" dir="auto"><ol type="a" id="13deea59-ca7a-80e1-8e49-e944d0b5dda6" class="numbered-list" start="1"><li>JavaServer Pages → It converts JSP pages (which are HTML pages with embedded Java code) into Java Servlets that resolve to pure dynamic HTML</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><div id="16ceea59-ca7a-806e-b520-c151b173dda2" class="column-list"><div style="display:contents" dir="auto"><div id="16ceea59-ca7a-8005-9bb7-ec0e4e1a9b53" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="16ceea59-ca7a-80de-b62d-c7e4b4f59640" class="bulleted-list"><li style="list-style-type:disc">Jasper integrates tightly with Catalina. When a JSP request is received:<div style="display:contents" dir="auto"><ol type="1" id="16ceea59-ca7a-80b9-a05d-c4c8d0b29587" class="numbered-list" start="1"><li>Catalina forwards the request to Jasper.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="16ceea59-ca7a-8096-b9ef-c25990f38f16" class="numbered-list" start="2"><li>Jasper processes the JSP, generating a servlet if necessary.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="16ceea59-ca7a-8050-abf2-ff85da284590" class="numbered-list" start="3"><li>The servlet is handed back to Catalina for execution.</li></ol></div></li></ul></div></div></div><div style="display:contents" dir="auto"><div id="16ceea59-ca7a-801b-b268-fafbaf69dd21" style="width:49.99999999999999%" class="column"><div style="display:contents" dir="ltr"><figure id="13deea59-ca7a-80da-ba68-cbec2a0f781b" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%206.png"><img style="width:528px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%206.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="16ceea59-ca7a-80cd-96bb-f19460add4de" class="">
+</p></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-8000-b43e-c6b39aa1fa07" class="bulleted-list"><li style="list-style-type:disc">Valve: element to be inserted in the REQ processing pipeline</li></ul></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-8081-a50f-c4253d37326d" class=""><strong>Supporting Components</strong></p></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-8074-bc23-d83e30015f36" class="bulleted-list"><li style="list-style-type:disc"><strong>Logger</strong>: Handles logging throughout different levels</li></ul></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-80b5-b8d5-ebbaa8ad2f9d" class="bulleted-list"><li style="list-style-type:disc"><strong>Session Manager</strong>: Manages user sessions</li></ul></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-80c8-bbaf-d9b2b85c11fe" class="bulleted-list"><li style="list-style-type:disc"><strong>Class Loader</strong>: Loads Java classes as needed</li></ul></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-80d8-9397-c8031776e13a" class="bulleted-list"><li style="list-style-type:disc"><strong>Listeners</strong>: Monitor and react to events</li></ul></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-8051-8a52-c0f7effcacea" class="">
+</p></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-8072-9b8e-cccd7b040fdf" class=""><mark class="highlight-orange">Host</mark> → virtual host name (example.com)</p></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-807e-9406-d122efd62527" class="bulleted-list"><li style="list-style-type:disc">also more then one for server</li></ul></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-80cc-a2f8-db6d08047299" class="">What is after the first “/” can be mapped to different web applications → each of them is assigned a so called <mark class="highlight-orange">Context </mark>(<span style="border-bottom:0.05em solid">represents a specific web application</span>)</p></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-8047-b9dd-d3c397274707" class="bulleted-list"><li style="list-style-type:disc">each of them has some resources (servlet and JSP)</li></ul></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-80f1-b21f-e168135099c4" class="bulleted-list"><li style="list-style-type:disc">The web app used to process each HTTP request is selected by Catalina based on matching the longest possible prefix of the Request URI against the context path of each defined Context</li></ul></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-8092-bfcb-de2ab18e5d63" class="">
+</p></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-80e3-bd4d-da1f89411503" class="">In the filesystem, one directory (appBase - by default, “<mark class="highlight-orange">webapps</mark>”) is used to keep all the material for web applications</p></div><div style="display:contents" dir="auto"><ul id="16ceea59-ca7a-80bd-a66d-f36283225efa" class="bulleted-list"><li style="list-style-type:disc">Each web application has a dedicated folder inside <code>webapps</code></li></ul></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-8083-a9eb-c1d2db4b1d2b" class="">
+</p></div><div style="display:contents" dir="auto"><div id="13deea59-ca7a-80f1-bda5-ebc92fd9bb6b" class="column-list"><div style="display:contents" dir="auto"><div id="13deea59-ca7a-80cf-9aa2-ccdf8dc5e826" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="13deea59-ca7a-80c8-99f2-e84455ba7b62" class="">Rules to obtain the base file name, given the context path:</p></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-80d5-bddb-cf3db8d5df57" class="bulleted-list"><li style="list-style-type:disc">If the context path is “/” → “ROOT”</li></ul></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-80d1-8c05-cfb7f44937ab" class="bulleted-list"><li style="list-style-type:disc">If the context path is not “/” → base name = context path with the leading &#x27;/&#x27; removed, and any remaining &#x27;/&#x27; replaced with &#x27;#&#x27;</li></ul></div><div style="display:contents" dir="auto"><p id="16ceea59-ca7a-8060-a426-d76e616b219c" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="13deea59-ca7a-800b-9523-d08bc625bab2" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="13deea59-ca7a-80c1-aa9c-fb1959bf5a05" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%207.png"><img style="width:278.88751220703125px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%207.png"/></a><figcaption>for each web-application a folder inside web-app</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="16ceea59-ca7a-80a6-9d96-ef5ea9663abc" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">webapps/
+├── ROOT        → Handles requests for `http://example.com/`
+├── app1        → Handles requests for `http://example.com/app1`
+├── nested#app  → Handles requests for `http://example.com/nested/app</code></pre></div><div style="display:contents" dir="auto"><p id="16ceea59-ca7a-8090-96e3-fdc55a15a485" class="">
+</p></div><div style="display:contents" dir="auto"><p id="16ceea59-ca7a-8049-b905-e97c3949af22" class=""><code><strong>web.xml</strong></code></p></div><div style="display:contents" dir="auto"><ul id="16ceea59-ca7a-8082-9eaf-e5afdeceae1b" class="bulleted-list"><li style="list-style-type:disc">The deployment descriptor for the web application.</li></ul></div><div style="display:contents" dir="auto"><ul id="16ceea59-ca7a-80e1-9813-e9c2b60ee7b9" class="bulleted-list"><li style="list-style-type:disc">Used to define servlets, filters, and other components.</li></ul></div><div style="display:contents" dir="auto"><p id="16ceea59-ca7a-8061-a4b6-e2f151c250f5" class="">
+</p></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-80e9-ad1d-c3aaca550070" class=""><mark class="highlight-orange">WEB-INF</mark> contains config files and custom Java classes and libraries needed for that application</p></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-80b3-8cac-ed53c4d3310f" class="bulleted-list"><li style="list-style-type:disc">cannot be directly addressed from outside (the browser)</li></ul></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-805c-82ab-db7f985c5b26" class="">
+</p></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-8053-ac6a-d723d4607378" class="">To avoid interference of classes belonging to different contexts, different classloader hierarchies are used for each context.</p></div><div style="display:contents" dir="auto"><div id="13deea59-ca7a-807f-9e72-e1d3f65dc49e" class="column-list"><div style="display:contents" dir="auto"><div id="13deea59-ca7a-80e4-8cc8-f25dd6f87b48" style="width:37.50000000000001%" class="column"><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="13deea59-ca7a-8091-80d4-e554c66d3876"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="3f301ddd-200a-4362-ae45-81787b0186cc" class="">A WebApp Classloader <mark class="highlight-orange">doesn’t delegate first </mark></p></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-80b7-bca1-f0431707b575" class="bulleted-list"><li style="list-style-type:disc">only for Java core libraries… but such a behavior can be modified</li></ul></div></div></figure></div><div style="display:contents" dir="auto"><p id="144eea59-ca7a-8026-a90c-df3752a7d54a" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="13deea59-ca7a-8067-b9ef-fdc3bef4e67e" style="width:29.166666666666675%" class="column"><div style="display:contents" dir="ltr"><figure id="13deea59-ca7a-8058-a51f-e1edb10ffaa5" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%208.png"><img style="width:288px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%208.png"/></a></figure></div></div></div><div style="display:contents" dir="auto"><div id="152eea59-ca7a-8000-b12d-efd15b29935c" style="width:33.33333333333333%" class="column"><div style="display:contents" dir="ltr"><figure id="13deea59-ca7a-80f0-97e5-ea8a2a9b63a7" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%209.png"><img style="width:144px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%209.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-8063-9fdf-e7746887c412" class="">Any loaded class is identified by its name AND the classloader that loaded it, so the same class used in two web apps might be loaded twice.</p></div><div style="display:contents" dir="auto"><h1 id="13deea59-ca7a-805d-8f5b-c0e26d789e51" class="">Servlets</h1></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-8054-af75-e4a0c62455f5" class="">Java classes/objects that respond to a request, aimed at producing the content for the response.</p></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-809a-91cb-c591948e90ac" class="bulleted-list"><li style="list-style-type:disc">A class that implements the interface <code>jakarta.servlet.Servlet</code></li></ul></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-802a-b1b4-ce5c0d5b3271" class="bulleted-list"><li style="list-style-type:disc">The <span style="border-bottom:0.05em solid">thread-per-request</span> model is generally applied → <mark class="highlight-orange">synch issues</mark>!<div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="13deea59-ca7a-80fb-a7a9-eca488f1e2b6"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="e087626e-cd9a-4640-990c-6d793984c26b" class="">Must be thread-safe!</p></div></div></figure></div></li></ul></div><div style="display:contents" dir="auto"><p id="16ceea59-ca7a-808b-81cd-fb2c603d8352" class="">
+</p></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-806b-8d30-f1a472ff7528" class="">Servlets are kept in a <mark class="highlight-orange">container</mark>, which manages them.</p></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-8064-8938-c0f18ef6085c" class="bulleted-list"><li style="list-style-type:disc">Methods of servlet are meant to be invoked by the container → no need to create a main function<div style="display:contents" dir="auto"><ul id="13deea59-ca7a-806b-8a97-c062f8807548" class="bulleted-list"><li style="list-style-type:circle">this is the most important step of the <span style="border-bottom:0.05em solid">request processing pipeline</span> (for builing the dynamic page)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-80fa-ade4-e209fb19b306" class="bulleted-list"><li style="list-style-type:disc">The container is responsible for managing the lifecycle of servlets, and for mapping <span style="border-bottom:0.05em solid">URLs</span> to the corresponding servlets<div style="display:contents" dir="auto"><ul id="13deea59-ca7a-8015-940f-ee54a65da38e" class="bulleted-list"><li style="list-style-type:circle">usally with url pattern instead of single urls</li></ul></div></li></ul></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="13deea59-ca7a-80f9-b668-fc7e3c14ccdb"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="13deea59-ca7a-806d-a536-e72d0f9d1186" class="">In practice: our custom servlets have to extend either GenericServlet or, usually, HttpServlet</p></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-805f-b2cc-ebc340338a8a" class="bulleted-list"><li style="list-style-type:disc">theoretically could work with any type of protocol</li></ul></div></div></figure></div><div style="display:contents" dir="ltr"><figure id="13deea59-ca7a-80de-aafe-dd75b9aa802d" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2010.png"><img style="width:432px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2010.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="13deea59-ca7a-8046-aa91-e7a6d6ea67f7" class="">Life-Cycle</h3></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="13deea59-ca7a-8030-a4c4-cb2d017843b0"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="43a87638-53e0-4ed6-953a-7dd37bfc92e7" class="">The entire lifecycle of a servlet is managed by the container</p></div></div></figure></div><div style="display:contents" dir="auto"><div id="13deea59-ca7a-80d3-9d3e-f2f80788b30c" class="column-list"><div style="display:contents" dir="auto"><div id="13deea59-ca7a-80ba-8f8b-d9a575d984c1" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="13deea59-ca7a-800b-8c52-c02df6b39506" class=""><br/>Upon a REQ, <code>service()</code> is invoked → possibly, de-multiplexing to doPost(), doGet(), etc.</p></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-80dd-ada7-e4cee432defc" class="bulleted-list"><li style="list-style-type:disc">One-thread per request, so I don’t need to have different instances of this class</li></ul></div><div style="display:contents" dir="auto"><p id="144eea59-ca7a-8088-a2d3-c70986fa45ac" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="13deea59-ca7a-801f-a474-e6b4ebb89756" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="13deea59-ca7a-80af-8241-c8b0d7095102" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2011.png"><img style="width:278.88751220703125px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2011.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-8049-844e-ecef6412380f" class="">
+</p></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-80a0-9ce0-e19f42bcb59d" class="">For a simple handling of HTTP requests/responses, request and responses are represented by corresponding <span style="border-bottom:0.05em solid">objects</span>, so that containers can easily take care of them throughout their processing pipeline.<br/>According to Servlets specification, such objects must implement:</p></div><div style="display:contents" dir="auto"><ol type="1" id="13deea59-ca7a-80cc-bc96-d3766be08424" class="numbered-list" start="1"><li>jakarta.servlet.http.HttpServletRequest</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="13deea59-ca7a-8016-b8ee-c6cb1ac7f092" class="numbered-list" start="2"><li>jakarta.servlet.http.HttpServletResponse</li></ol></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-801f-b8e7-d2522d011cd3" class="bulleted-list"><li style="list-style-type:disc">request/response objects are passed by the container to the servlet service method!</li></ul></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-80d8-9417-feeb1058a5aa" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="13deea59-ca7a-807c-b2e5-fb1a72aadc4b" class="">Req Parameters</h3></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-8029-bbcd-f99c9cf530fd" class="">Regardless of GET/POST mode, parameters can be accessed within the request object using the methods (ServletRequest interface):</p></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-801c-921c-d51cf04a3016" class="bulleted-list"><li style="list-style-type:disc"><code>getParameterNames()</code> provides the names of the parameters</li></ul></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-801f-9bae-c3912018f9e3" class="bulleted-list"><li style="list-style-type:disc"><code>getParameter(name)</code> returns the value of a named parameter</li></ul></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-8047-9c54-c20e46371731" class="bulleted-list"><li style="list-style-type:disc"><code>getParameterValues()</code> returns an array of all values of a parameter if it has more than one values. Information in HTTP headers is retrieved in the same way.</li></ul></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-8012-a9eb-d32093f6e834" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="13deea59-ca7a-80c4-938f-e7fe1476387e" class="">Response</h3></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-80c1-a0b8-ebc2159272a2" class="">Two ways of inserting data in the body of the response message:</p></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-809f-aa0f-ef90682fe38a" class="bulleted-list"><li style="list-style-type:disc"><code>getWriter()</code> returns a PrintWriter for sending text data</li></ul></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-8020-bebc-d51504d4b3cb" class="bulleted-list"><li style="list-style-type:disc"><code>getOutputStream()</code> returns a ServletOutputStream to send binary data</li></ul></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-801e-b57c-e0842adfed42" class="">Both need to be closed after use!</p></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-8076-8ca5-dbb88be7e3cc" class="bulleted-list"><li style="list-style-type:disc">Setting headers’ content: specific methods, e.g. <code>setContentType(&lt;MIME_type&gt;)</code></li></ul></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-80f1-87c3-df68276a1e90" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="13deea59-ca7a-8090-9325-e10072f110d3" class="">Mapping URL to Servlets</h3></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-80e6-827e-da65680eeb53" class="">Specified in the webapp deployment descriptor <code>web.xml</code> in two steps:</p></div><div style="display:contents" dir="auto"><ol type="1" id="13deea59-ca7a-809d-9916-fa83eb7041fb" class="numbered-list" start="1"><li>from URL pattern to servlet name</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="152eea59-ca7a-8061-87e4-dde96a8083b7" class="numbered-list" start="2"><li>from servlet name to servlet class</li></ol></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-80d5-9a44-d22cb2dfd5e3" class="">Alternative way: directly in the code, using annotations:<br/></p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="13deea59-ca7a-803b-96e6-e4168977e030" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">@WebServlet(
+	name = &quot;MyAnnotatedServlet&quot;,
+	urlPatterns = {&quot;/foo&quot;, &quot;/bar&quot;, &quot;/pippo*&quot;}
+)
+public class MyServlet extends HttpServlet {
+	// servlet code
+}</code></pre></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-80bd-beb8-ec5da36b1969" class="bulleted-list"><li style="list-style-type:disc">type of annotations that are present in the .class file so external tools can extract this metadata (tomcat check in the classes that extends servlets)</li></ul></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-805c-84d6-de6513e510b8" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="13deea59-ca7a-80a9-931b-ff2d249f0add" class="">Default Servelet</h3></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-808d-8cf8-e2836bb8da12" class="">In Tomcat, ordinary handling of static contents (e.g., html pages, images, etc.) is performed using a dedicated “system” servlet:</p></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-80ac-ac8f-ecdc24b5c311" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">DefaultServlet</mark>, which is called for any REQ URL referring to static content.</li></ul></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-80d1-b8c5-e9566ae11a59" class="">Implementation class: <code>org.apache.catalina.servlets.DefaultServlet</code>, which extends the abstract class HttpServlet</p></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-8072-842b-eff14d3ecfa7" class="bulleted-list"><li style="list-style-type:disc">Specific ways to access content depends on its settings, e.g., it is possible to specify if directory listing is allowed or not (html page with all files of the directory)</li></ul></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-80e9-a995-fecfcaa50a8e" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="13deea59-ca7a-80c8-89c1-c47e1bdf0bc2" class="">Grouping requests into Sessions</h3></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-805b-a5ac-c0d19afb72ac" class="">A series of queries from the same client may be semantically related, i.e., may correspond to several interactions along time belonging to one specific conversation.  Such groups are called <mark class="highlight-orange">sessions</mark>.</p></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-8033-8918-db803b378c1a" class="bulleted-list"><li style="list-style-type:disc">cookies expiration, login, shopping cart and so on…</li></ul></div><div style="display:contents" dir="ltr"><figure id="13deea59-ca7a-80d3-9137-c2e5035ecde6" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2012.png"><img style="width:603.7374877929688px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2012.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-80a5-ae3a-cfabc896dd54" class="">Sessions can be defined by setting a maximum distance between adjacent requests; different values result in different “clusters.”</p></div><div style="display:contents" dir="auto"><p id="142eea59-ca7a-80d7-9188-c9ca4f80a087" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="142eea59-ca7a-80e2-a62c-dd69cb10724d" class="">Session Tracking</h3></div><div style="display:contents" dir="auto"><p id="13deea59-ca7a-80b6-a4b4-f3da9cc4eb53" class="">Sessions can be specified by setting a timeout value, to be reset as a new request in the same session arrives. </p></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-80c9-85b5-f3fc7ac300b0" class="bulleted-list"><li style="list-style-type:disc">The web server must be able to identify sessions (assigning “<mark class="highlight-orange">SessionIDs</mark>”), and to determine whether a request belong to a certain session. </li></ul></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-802c-a76e-c803474b70aa" class="bulleted-list"><li style="list-style-type:disc">Sessions are represented through specific objects (interf. HttpSession) that have to be <span style="border-bottom:0.05em solid">shared</span> across all the servlets accessed by the same client.</li></ul></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-80d4-be89-c0b9d0c7b5a9" class="bulleted-list"><li style="list-style-type:disc">Programmatically, session objects can be obtained from requests:<br/><code>HttpSession mySess = req.getSession(boolean create);</code><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-8027-8626-d55ed7a314a8" class="bulleted-list"><li style="list-style-type:circle">Crete a session if there is not any session related to the request</li></ul></div><div style="display:contents" dir="auto"><ul id="13deea59-ca7a-80e3-9040-fe1f9f1ca228" class="bulleted-list"><li style="list-style-type:circle">It’s just an interface, we don’t know what is the underlying class → web server specific, but the same code is portable</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="142eea59-ca7a-80fb-84d3-f6bda0613580" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="142eea59-ca7a-8007-a5e8-f8844a5bed5e" class="numbered-list" start="1"><li>Making use of <mark class="highlight-teal">cookies</mark> (standard) → they have an expiration date<div style="display:contents" dir="auto"><ol type="a" id="142eea59-ca7a-80bb-b0e3-e4dd340ab78b" class="numbered-list" start="1"><li>For tomcat the name they are called <code>JSessionID</code></li></ol></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="142eea59-ca7a-80be-a3be-e9042982f38a" class="numbered-list" start="2"><li><mark class="highlight-teal">Hidden fields</mark> → in HTML I can add an element that is not rendered, with some infos associeted to it, so the server that provide the HTML content to the client will add also an hidden field with the session identifier</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="142eea59-ca7a-806e-b49a-fe8c36be164d" class="numbered-list" start="3"><li><mark class="highlight-teal">URL rewriting </mark>→ embedd the session ID inside the URL <div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="142eea59-ca7a-807d-b128-e73ea5314fed" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">http://www.example.com/page?sessionID=abc123</code></pre></div></li></ol></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="142eea59-ca7a-8014-a692-e11724d3f414"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="142eea59-ca7a-804a-9b63-e6186e939dd1" class="">Session tracking is motivated by the need to associate state information with sessions</p></div></div></figure></div><div style="display:contents" dir="auto"><p id="142eea59-ca7a-8091-8dcf-f0597a843867" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="142eea59-ca7a-8053-959d-e8f387b1dd60" class="">Session Objects</h3></div><div style="display:contents" dir="auto"><div id="142eea59-ca7a-807d-9439-f52c9ee16da0" class="column-list"><div style="display:contents" dir="auto"><div id="142eea59-ca7a-8083-9787-c36de5ff2a01" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="142eea59-ca7a-80f9-8215-c746b51d3183" class="">A specific <mark class="highlight-orange">HttpSession object </mark>has to be used for every ongoing session.</p></div><div style="display:contents" dir="auto"><ul id="142eea59-ca7a-805e-8c97-eda5985545a1" class="bulleted-list"><li style="list-style-type:disc">The webserver marks each new session with a unique “SessionID”; session objects can be kept in an <mark class="highlight-teal">associative array</mark>, with SessionIDs as keys.</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="142eea59-ca7a-8070-ab0e-d417f81875b8" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="142eea59-ca7a-8088-bfc1-f43963af3ef4" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2013.png"><img style="width:278.88751220703125px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2013.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="142eea59-ca7a-80eb-a2fc-f4d6e085c5aa" class="bulleted-list"><li style="list-style-type:disc">Any REQ message that belongs to a certain session, must be associated to the relative SessionID: this makes the container able to retrieve the correct session object from any servlet.<div style="display:contents" dir="auto"><ul id="142eea59-ca7a-80d2-a301-c06ee2178c0f" class="bulleted-list"><li style="list-style-type:circle">In tomcat each object has a manager in charge of session objects</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="142eea59-ca7a-8025-b7d0-c6c7c4b5b639" class="">
+</p></div><div style="display:contents" dir="auto"><p id="142eea59-ca7a-805e-97db-c7a1515cf459" class="">State info in Session objects is kept as a set of attributes, each identified by a key, accessed via methods:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="142eea59-ca7a-809c-b3fb-ccebf0b9f1a2" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public void setAttribute(String name, Object obj)
+public Object getAttribute(String name)</code></pre></div><div style="display:contents" dir="auto"><p id="142eea59-ca7a-8045-8e87-cd1a31dfb853" class="">Optionally, sessions can be invalidated:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="142eea59-ca7a-801d-9d27-c18f13f8a99a" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">mySess.invalidate()   // immediately
+mySess.setMaxInactiveInterval(int interval)  // max interval  between 
+              //successive requests (default value defined in web.xml)</code></pre></div><div style="display:contents" dir="ltr"><figure id="142eea59-ca7a-80f0-9579-f1a9819c2419" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2014.png"><img style="width:603.7875366210938px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2014.png"/></a><figcaption>Servlet Example</figcaption></figure></div><div style="display:contents" dir="auto"><h3 id="142eea59-ca7a-8029-9b35-d6a334f14ad6" class="">Servlet Filters</h3></div><div style="display:contents" dir="auto"><p id="142eea59-ca7a-80b2-b777-e52f01233493" class="">Upon receiving a REQ, often some typical actions have to be undertaken.</p></div><div style="display:contents" dir="auto"><ul id="142eea59-ca7a-80ba-9725-e8392f76e55a" class="bulleted-list"><li style="list-style-type:disc">E.g. recording, IP logging, input validation, authentication check, encryption/decryption, etc.</li></ul></div><div style="display:contents" dir="auto"><ul id="142eea59-ca7a-80c9-82ab-ecbb2585602a" class="bulleted-list"><li style="list-style-type:disc">I can specified a base URL that from there it must be checked</li></ul></div><div style="display:contents" dir="auto"><div id="142eea59-ca7a-8047-bf34-d8af8f6d6c88" class="column-list"><div style="display:contents" dir="auto"><div id="142eea59-ca7a-8026-85dc-c25adacfc26d" style="width:75%" class="column"><div style="display:contents" dir="auto"><p id="142eea59-ca7a-80a8-b816-eaac574f206f" class="">Each action can be carried out by a pluggable server-managed component named <mark class="highlight-teal">servlet filter </mark></p></div><div style="display:contents" dir="auto"><ul id="142eea59-ca7a-806a-af17-f913391d358e" class="bulleted-list"><li style="list-style-type:disc">Before reaching the final destination the request will be passed through a series of filters</li></ul></div><div style="display:contents" dir="auto"><ul id="142eea59-ca7a-80e9-af94-d6776b439e33" class="bulleted-list"><li style="list-style-type:disc">Whether applying or not a filter to a REQ depends on the match between the REQ URL and the pattern specified for the filter</li></ul></div><div style="display:contents" dir="auto"><ul id="142eea59-ca7a-80b7-ad94-cd285804c1d8" class="bulleted-list"><li style="list-style-type:disc">Pros: <span style="border-bottom:0.05em solid">separation of concerns</span> (different pieces of SW/different tasks), easy maintenance</li></ul></div><div style="display:contents" dir="auto"><ul id="142eea59-ca7a-80e6-a408-ed79436b9a78" class="bulleted-list"><li style="list-style-type:disc">APIs: in jakarta.servlet, interfaces Filter,  FilterChain,  FilterConfig</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="142eea59-ca7a-80a7-baf4-fad491f71fb1" style="width:25%" class="column"><div style="display:contents" dir="ltr"><figure id="142eea59-ca7a-80dc-8035-d48344bc1421" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2015.png"><img style="width:278.88751220703125px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2015.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="142eea59-ca7a-8005-b0d7-db2f6cf1af6b" class="">A custom servlet filter must extend Filter  →  and implement the methods</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="142eea59-ca7a-8033-bb80-fd6f42cd612d" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">init()
+destroy()
+doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)</code></pre></div><div style="display:contents" dir="auto"><p id="142eea59-ca7a-8012-8858-c18de094cbf3" class="">To pass the REQ to the next component  →  <code>chain.doFilter(req, resp);</code></p></div><div style="display:contents" dir="auto"><ul id="142eea59-ca7a-804e-9883-eeedbb190120" class="bulleted-list"><li style="list-style-type:disc">Mapping of filters: as for servlets, in web.xml or using annotations</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="142eea59-ca7a-80e9-897e-fc0436b2025e" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">@WebFilter(filterName = &quot;TimeOfDayFilter&quot;, urlPatterns = {&quot;/*&quot;},
+       initParams = {@WebInitParam(name = &quot;mood&quot;, value = &quot;awake&quot;)})
+ public class TimeOfDayFilter implements Filter {}</code></pre></div><div style="display:contents" dir="auto"><h3 id="142eea59-ca7a-80d6-a857-eb1def808627" class="">Servlet Collaboration</h3></div><div style="display:contents" dir="auto"><p id="142eea59-ca7a-80a4-925d-df9158fa8b4a" class="">It is possible to make servlets/resources collaborate for the construction of the response content via the <code>RequestDispatcher</code> interface.</p></div><div style="display:contents" dir="auto"><ul id="142eea59-ca7a-80ad-a719-fb2def7098b6" class="bulleted-list"><li style="list-style-type:disc">A RequestDispatcher can be obtained from the ServletRequest object by the factory method <code>request.getRequestDispatcher(&lt;targetResource&gt;)</code> </li></ul></div><div style="display:contents" dir="auto"><ul id="142eea59-ca7a-8047-9b89-dfc733dc2d4b" class="bulleted-list"><li style="list-style-type:disc">The argument identifies the servlet/resource we want to collaborate with.</li></ul></div><div style="display:contents" dir="auto"><p id="142eea59-ca7a-80cf-b13c-ea4baab1b5cc" class="">
+</p></div><div style="display:contents" dir="auto"><p id="142eea59-ca7a-80f0-9d7e-c62da9508f7d" class="">Two possible types of collaborations:</p></div><div style="display:contents" dir="auto"><ol type="1" id="142eea59-ca7a-80bb-8f79-ef73715e2d90" class="numbered-list" start="1"><li>Obtaining content to <mark class="highlight-teal">include</mark><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="142eea59-ca7a-8075-be05-d4b84bccc33e" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">rd = request.getRequestDispatcher(&lt;targetResource&gt;);
+rd.include(request, response);</code></pre></div><div style="display:contents" dir="ltr"><figure id="142eea59-ca7a-80d1-8ba5-c05031119ce1" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2016.png"><img style="width:603.7875366210938px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2016.png"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="142eea59-ca7a-8093-9bfc-d44392ad9b6e" class="numbered-list" start="2"><li><mark class="highlight-teal">Delegation</mark> of request handling<div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="142eea59-ca7a-80ad-9e12-c4cf9693dde0" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">rd = request.getRequestDispatcher(&lt;targetResource&gt;);
+rd.forward(request, response);</code></pre></div><div style="display:contents" dir="ltr"><figure id="142eea59-ca7a-808d-9c18-cd22751e82c0" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2017.png"><img style="width:575.7625122070312px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2017.png"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><p id="142eea59-ca7a-8065-8f7c-f03183cd02b0" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="142eea59-ca7a-8030-b097-ea26adec4260" class="">Sharing Infos across Servlets</h3></div><div style="display:contents" dir="auto"><p id="142eea59-ca7a-80d5-86c4-deede30308fc" class="">As servlets can possibly collaborate, they may need to share information.</p></div><div style="display:contents" dir="auto"><p id="142eea59-ca7a-80ed-b36a-f9ef149a2830" class="">Information sharing can be obtained with standard objects created by the container, and made available to servlets: <mark class="highlight-orange">scope objects</mark></p></div><div style="display:contents" dir="auto"><ul id="142eea59-ca7a-807a-937d-e130280abbe1" class="bulleted-list"><li style="list-style-type:disc">They are equipped with the methods setAttribute/getAttribute.</li></ul></div><div style="display:contents" dir="auto"><ul id="142eea59-ca7a-8005-94af-dadfee97e9ba" class="bulleted-list"><li style="list-style-type:disc">Among them:<div style="display:contents" dir="auto"><ul id="142eea59-ca7a-80b8-83d2-c292ae07a803" class="bulleted-list"><li style="list-style-type:circle">Request relative to one http transaction (<mark class="highlight-teal">request scope</mark>) → in req obj, useful for jsp or filtering</li></ul></div><div style="display:contents" dir="auto"><ul id="142eea59-ca7a-8033-9243-f5047fb6d830" class="bulleted-list"><li style="list-style-type:circle">The session object (<mark class="highlight-teal">session scope</mark>) → keeps infos across sessions</li></ul></div><div style="display:contents" dir="auto"><ul id="142eea59-ca7a-80de-b119-e4a8662a2df6" class="bulleted-list"><li style="list-style-type:circle">The <strong>ServletContext</strong> obj, one per web application (<mark class="highlight-teal">web scope</mark>)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="142eea59-ca7a-807b-8dfb-cef1df397f5a" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="142eea59-ca7a-8049-8d72-d9e43477f4c2" class="">Structuring</h3></div><div style="display:contents" dir="auto"><p id="142eea59-ca7a-8096-8458-ef5413f296ac" class="">Servlets are a basic technology that imposes no constraint on how a whole application should be structured.</p></div><div style="display:contents" dir="auto"><ul id="142eea59-ca7a-80fb-859e-c2de9f15a0bd" class="bulleted-list"><li style="list-style-type:disc">Risk: <mark class="highlight-orange">Magic Servlet</mark> <mark class="highlight-orange">antipattern</mark>, where issues about different aspects of the application are dealt within the same method.<div style="display:contents" dir="auto"><ul id="16ceea59-ca7a-8065-adc1-c1b132c66428" class="bulleted-list"><li style="list-style-type:circle">For example, a servlet that is responsible for:<div style="display:contents" dir="auto"><ul id="16ceea59-ca7a-8029-a4d7-e738120cdccc" class="bulleted-list"><li style="list-style-type:square">Handling HTTP requests</li></ul></div><div style="display:contents" dir="auto"><ul id="16ceea59-ca7a-80e1-b93d-e5aa555eb6ad" class="bulleted-list"><li style="list-style-type:square">Processing business logic</li></ul></div><div style="display:contents" dir="auto"><ul id="16ceea59-ca7a-80b6-8e49-d99b9ea90cf7" class="bulleted-list"><li style="list-style-type:square">Managing database connections</li></ul></div><div style="display:contents" dir="auto"><ul id="16ceea59-ca7a-806c-b8c4-cd3a011a8120" class="bulleted-list"><li style="list-style-type:square">Rendering views (HTML)</li></ul></div></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="142eea59-ca7a-8087-98cd-fe21fb192238" class="bulleted-list"><li style="list-style-type:disc">Solution: define specific roles, so that a specific task/concern refers to a distinct software component.<div style="display:contents" dir="auto"><ul id="142eea59-ca7a-808a-b6e6-f7540bf56ac1" class="bulleted-list"><li style="list-style-type:circle">Less freedom but you have a guidance for the solution</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="142eea59-ca7a-8045-8d0d-db224670b963" class="bulleted-list"><li style="list-style-type:disc">Consequence: introduction of further levels of abstraction for a well-structured development of web apps.</li></ul></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="142eea59-ca7a-80b2-855e-eba615a0c82d"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%"><div style="display:contents" dir="auto"><ul id="4747c0df-49c6-469b-9717-4d7828d1daf1" class="bulleted-list"><li style="list-style-type:disc">A <strong>pattern</strong> in programming refers to a reusable solution to a commonly occurring problem within a given context.</li></ul></div><div style="display:contents" dir="auto"><ul id="142eea59-ca7a-8081-9d70-f5513c8356b8" class="bulleted-list"><li style="list-style-type:disc">An <strong>antipattern</strong> is a commonly used but ineffective or counterproductive approach to solving a problem.</li></ul></div></div></figure></div><div style="display:contents" dir="auto"><div id="142eea59-ca7a-800f-a5a7-c5190d5d79e7" class="column-list"><div style="display:contents" dir="auto"><div id="142eea59-ca7a-80ce-8ccd-c240b64eca2e" style="width:43.75%" class="column"><div style="display:contents" dir="auto"><ol type="1" id="142eea59-ca7a-80f7-8155-fd75d8bee45f" class="numbered-list" start="1"><li>Model → menages data</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="142eea59-ca7a-808c-a589-ff9251b964ce" class="numbered-list" start="2"><li>View → Handles interaction with the user</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="142eea59-ca7a-8087-9f8a-e8ecd5ad8cd5" class="numbered-list" start="3"><li>Controller → coordinates interactions</li></ol></div></div></div><div style="display:contents" dir="auto"><div id="142eea59-ca7a-8043-865b-eac12219ceb2" style="width:56.25%" class="column"><div style="display:contents" dir="ltr"><figure id="142eea59-ca7a-80d6-bb7e-fd32107ecc71" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2018.png"><img style="width:384px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2018.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h2 id="142eea59-ca7a-80f7-a870-ef943b94df88" class="">Template System &amp; Engines</h2></div><div style="display:contents" dir="auto"><p id="144eea59-ca7a-80c8-ba3f-eeb92015078f" class="">Servlets cannot be easily maintained because of the <mark class="highlight-teal">tight coupling</mark> of presentation (HTML) and business logic (in Java).</p></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-803d-a767-fe44f7d7a6be" class="bulleted-list"><li style="list-style-type:disc">Proposed solution: adoption of a server-side web template system, with templates in HTML, and logic embedded by using special tags.</li></ul></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-800b-9e53-cd907e77ad34" class="bulleted-list"><li style="list-style-type:disc">Such templates have to be processed by a <mark class="highlight-teal">template engine</mark>, getting to the actual dynamic content.</li></ul></div><div style="display:contents" dir="auto"><div id="144eea59-ca7a-802e-ba24-fe4d81c42d28" class="column-list"><div style="display:contents" dir="auto"><div id="144eea59-ca7a-8021-8447-dd1c1d658ebe" style="width:75%" class="column"><div style="display:contents" dir="auto"><p id="144eea59-ca7a-800a-adeb-f33c59927421" class="">The Template Engine is in charge of analyzing the “placeholder elements” in the template.<br/></p></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-804e-b746-fe610b3ac189" class="bulleted-list"><li style="list-style-type:disc">getting on the final elements via a collection in the form of a database</li></ul></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-8050-bac6-cc73c09c9297" class="bulleted-list"><li style="list-style-type:disc">Not just for web content</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="144eea59-ca7a-801c-a168-db1c869b987c" style="width:25.000000000000007%" class="column"><div style="display:contents" dir="ltr"><figure id="144eea59-ca7a-806e-aa43-f8ae3c8dc113" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2019.png"><img style="width:278.88751220703125px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2019.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="144eea59-ca7a-8084-83de-ed02904fc085" class="">Jakarta Server Pages</h3></div><div style="display:contents" dir="ltr"><figure id="144eea59-ca7a-8069-881b-ce7d09264f23" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2020.png"><img style="width:603.7750244140625px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2020.png"/></a></figure></div><div style="display:contents" dir="auto"><ol type="1" id="144eea59-ca7a-8067-b90f-c820889fbc32" class="numbered-list" start="1"><li>Translation → the JSP file is converted into valid java code (servlet)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="144eea59-ca7a-801f-b23a-dc7a831caecf" class="numbered-list" start="2"><li>Compiation → compile the translated code into bytecode (servlet)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="144eea59-ca7a-805e-9bd8-e04e68e68123" class="numbered-list" start="3"><li>The compiled servlet’s <code>_jspService()</code> method is invoked to generate dynamic content</li></ol></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-8068-ac42-f45cf171cd44" class="bulleted-list"><li style="list-style-type:disc"><strong>First-time request:</strong> Slightly slower due to translation and compilation</li></ul></div><div style="display:contents" dir="auto"><div id="144eea59-ca7a-80d4-a477-e71bc1f177b5" class="column-list"><div style="display:contents" dir="auto"><div id="144eea59-ca7a-802a-a080-f1094cf31d0d" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="144eea59-ca7a-8063-8f93-f08bf3808884" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2021.png"><img style="width:480px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2021.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="16ceea59-ca7a-80a6-a4c9-f4bacd169fca" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="144eea59-ca7a-80f3-b491-d78500f7c43f" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="144eea59-ca7a-80d4-81ef-fe927301d1f3" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2022.png"><img style="width:432px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2022.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="144eea59-ca7a-8087-9692-cbe3d90c6fe7" class="">Some objects are made available to the JSP by the environment, <span style="border-bottom:0.05em solid">implicitly</span>:</p></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-80cb-94cb-f2fbbc6f36f8" class="bulleted-list"><li style="list-style-type:disc">request, response</li></ul></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-807a-8a48-d53e316b311f" class="bulleted-list"><li style="list-style-type:disc">out - PrintWriter obj to write in the response body</li></ul></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-804b-b587-fda7ad206464" class="bulleted-list"><li style="list-style-type:disc">session - to access the session obj</li></ul></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-80a8-a2c8-dd521cdbaf99" class="bulleted-list"><li style="list-style-type:disc">application - to access ServletContext obj (info sharing across JSPs)</li></ul></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-801a-bcc0-fd70f353716b" class="bulleted-list"><li style="list-style-type:disc">page </li></ul></div><div style="display:contents" dir="auto"><h3 id="144eea59-ca7a-806e-9627-e67b319bf323" class="">Deploying/Packaging webapps</h3></div><div style="display:contents" dir="auto"><p id="144eea59-ca7a-80d4-8c38-d6144f9adb4b" class="">The standard deployment of a Jakarta web application requires the web module to be organized as shown aside</p></div><div style="display:contents" dir="ltr"><figure id="144eea59-ca7a-80ef-bcca-c07f52a19fd0" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2023.png"><img style="width:528px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2023.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="144eea59-ca7a-803d-9257-e3eacb92f033" class="">
+</p></div><div style="display:contents" dir="auto"><p id="144eea59-ca7a-809a-96d3-f67ca09c2714" class="">JSPs are typically used to support the “<mark class="highlight-teal">view</mark>” part of the <span style="border-bottom:0.05em solid">MVC pattern</span>. </p></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-80ab-8737-f8c408d621c5" class="bulleted-list"><li style="list-style-type:disc">The abstraction provided by JSP is sufficient only for relatively small web applications.</li></ul></div><div style="display:contents" dir="auto"><p id="144eea59-ca7a-8021-9280-f1a6211446b8" class="">As the complexity grows up, it can be controlled by making use of more integrated approaches that make transparent the underlying used technologies, like Servlets and JSPs (using controller, model instead).<br/>The resulting systems are known as web frameworks, and most of them are designed taking MVC as the reference pattern.</p></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-80ea-aad6-f818ee86db9d" class="bulleted-list"><li style="list-style-type:disc">Spring, Django</li></ul></div><div style="display:contents" dir="auto"><h1 id="144eea59-ca7a-8005-9e9e-f2f192733da1" class="">Enterprise Applications</h1></div><div style="display:contents" dir="auto"><p id="144eea59-ca7a-808e-a550-fc3ea5349b97" class="">Use of plain objects in an enterprise app shows some problems:</p></div><div style="display:contents" dir="auto"><ol type="1" id="144eea59-ca7a-8012-92be-c22210cddc53" class="numbered-list" start="1"><li><mark class="highlight-orange">No deployment transparency</mark> → depends on the way the objects is developed on a particular platform</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="144eea59-ca7a-809d-9d70-d631de93002e" class="numbered-list" start="2"><li><mark class="highlight-orange">Implicit</mark> dependencies (must be made explicit) → depends on other classes, but these dependencies are implicit</li></ol></div><div style="display:contents" dir="auto"><div id="144eea59-ca7a-80ac-b65b-c7a5e7a3c3d6" class="column-list"><div style="display:contents" dir="auto"><div id="144eea59-ca7a-80ea-bebc-eea309fd1cc5" style="width:62.5%" class="column"><div style="display:contents" dir="auto"><p id="144eea59-ca7a-805b-b806-c8395992a63c" class="">Solution: from concept of object  →  <mark class="highlight-orange">component</mark> </p></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-80cd-bb96-c3148319c320" class="bulleted-list"><li style="list-style-type:disc">Provided/required interfaces: contract between different components</li></ul></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-8002-b40a-d79e8a980786" class="bulleted-list"><li style="list-style-type:disc">Need to support the exploitation of components → a new component to do that</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="144eea59-ca7a-8057-8b78-d8ae85cfef72" style="width:37.5%" class="column"><div style="display:contents" dir="ltr"><figure id="144eea59-ca7a-8008-936c-d63598b15b56" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2024.png"><img style="width:288px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2024.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="144eea59-ca7a-80b1-8204-e2e857da3464" class="">The programmer must focus on business logic, without spending time on distributed computing issues.</p></div><div style="display:contents" dir="auto"><h3 id="144eea59-ca7a-80f6-bc6b-f81fc48b6692" class="">Application Server</h3></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-8020-b0c8-efa38ad7c563" class="bulleted-list"><li style="list-style-type:disc">Architectural support to separation of concerns  → <mark class="highlight-orange">Container pattern </mark>to manage components</li></ul></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-8056-802f-df3512ff1b5b" class="bulleted-list"><li style="list-style-type:disc"><span style="border-bottom:0.05em solid">Middleware solution</span>: Application server <div style="display:contents" dir="auto"><ul id="16ceea59-ca7a-8003-a242-ff34199c5169" class="bulleted-list"><li style="list-style-type:circle">An <strong>Application Server</strong> provides a set of middleware services for web applications, <strong>abstracting</strong> away the complexities of interacting with the operating system, databases, and other system-level resources.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="144eea59-ca7a-80fc-a7fd-c145468833ec" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="144eea59-ca7a-8009-a266-c6dd30dd009c" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2025.png"><img style="width:603.7750244140625px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2025.png"/></a><figcaption>JEE servers (java enterprise edition)</figcaption></figure></div><div style="display:contents" dir="auto"><p id="144eea59-ca7a-8051-aa75-e376770f87b3" class="">
+</p></div><div style="display:contents" dir="auto"><p id="144eea59-ca7a-805f-87aa-e2e2c96bc495" class="">EJB Container → Enterprise Java Bean </p></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-806e-9ac1-fe2be2c4eba6" class="bulleted-list"><li style="list-style-type:disc">It handles EJBs that are in charge of supporting the business logic</li></ul></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-8004-9f75-e5eaeafb3aa8" class="bulleted-list"><li style="list-style-type:disc">dealing with data usually present in DB</li></ul></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="144eea59-ca7a-8046-a55a-c2c0b7ceffcb"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="48f86f0f-c618-44cc-bf30-60cf70742dd7" class="">Java <mark class="highlight-orange">BEAN </mark>is an object with a standard interface towards all the other objects that will use it → getter and setters method for each attributes (we don’t care how they are kept)</p></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-802a-ab2d-c548a93b65de" class="bulleted-list"><li style="list-style-type:disc">standard name given the name of the attribute</li></ul></div></div></figure></div><div style="display:contents" dir="auto"><p id="144eea59-ca7a-80dd-b9d1-da4316346c98" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="144eea59-ca7a-806b-82e2-e4150f9b13b7" class="">The Spring Framework</h2></div><div style="display:contents" dir="auto"><p id="144eea59-ca7a-80a3-bbce-dab0a933735f" class="">Modular framework to support Java enterprise applications, relying on <mark class="highlight-teal">containers</mark> and <mark class="highlight-teal">modules</mark> to provide assorted functionalities.</p></div><div style="display:contents" dir="auto"><div id="144eea59-ca7a-800e-9e04-d37e7c5789f3" class="column-list"><div style="display:contents" dir="auto"><div id="144eea59-ca7a-803b-9b6f-cce213c1df9b" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-8064-b396-eed5b54f020e" class="bulleted-list"><li style="list-style-type:disc">Idea: “providing a formalized means of composing disparate components into a fully working application.”</li></ul></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-8041-8e30-f5a4c445601a" class="bulleted-list"><li style="list-style-type:disc">Support to JEE features is present as well (in “Context”).</li></ul></div><div style="display:contents" dir="auto"><p id="144eea59-ca7a-804c-8d4f-c7e41d0144b6" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="144eea59-ca7a-80d3-acb3-dff861ca1492" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="144eea59-ca7a-8057-a1aa-e388eb36e036" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2026.png"><img style="width:278.88751220703125px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2026.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="144eea59-ca7a-80b6-8070-cca86ece0678" class="">Provide a different, more flexible way to organize an enterprise application</p></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-80a4-9d8c-eeb9b8736c64" class="bulleted-list"><li style="list-style-type:disc">deal with every type of applications, not just web-app </li></ul></div><div style="display:contents" dir="auto"><p id="144eea59-ca7a-80c6-8929-f8e64b6234a3" class="">
+</p></div><div style="display:contents" dir="auto"><p id="144eea59-ca7a-80fd-a8d1-cbd32a0071c1" class="">Spring has been structured according to several design patterns, such as <mark class="highlight-teal">Factory</mark> (no call to new) and <mark class="highlight-teal">Inversion of Control </mark>(IoC).</p></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-8000-acab-fcae8e9af3db" class="bulleted-list"><li style="list-style-type:disc">IoC is used/provided in the core containers. <div style="display:contents" dir="auto"><ul id="144eea59-ca7a-802b-b341-c02e80ced2f2" class="bulleted-list"><li style="list-style-type:circle">With IoC, it is up to the framework to call the custom code.</li></ul></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-8044-a735-d865f89898f2" class="bulleted-list"><li style="list-style-type:circle">Can be specified via Java Annotations or using configuration files</li></ul></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-80d5-91b3-efa63e884ea8" class="bulleted-list"><li style="list-style-type:circle">You don’t write the complete control flow, but just the components. It’s up to the <span style="border-bottom:0.05em solid">container</span> to apply the required control flow</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-80f4-a434-dd5e5bbee129" class="bulleted-list"><li style="list-style-type:disc">The configuration and lifecycle management of application Java objects<br/>is typically done via <mark class="highlight-teal">Dependency Injection</mark> (DI).<div style="display:contents" dir="auto"><ul id="144eea59-ca7a-8070-8ce4-c861a5daaaab" class="bulleted-list"><li style="list-style-type:circle">With DI, an object/function receives (by the external <span style="border-bottom:0.05em solid">container</span>) other objects/functions that it requires: <span style="border-bottom:0.05em solid">no need to create them internally</span>.</li></ul></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-80ac-a0e3-df9c7da73810" class="bulleted-list"><li style="list-style-type:circle">DI aims to separate the concerns of constructing objects and using them → not responsability of the programmer to specify what is needed, the middleware will take care of that</li></ul></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-806c-b158-d0d17fd2773b" class="bulleted-list"><li style="list-style-type:circle">done via Java Annotations</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="144eea59-ca7a-803a-8f05-c0d447a092ac" class="">
+</p></div><div style="display:contents" dir="auto"><p id="144eea59-ca7a-8024-b6ce-e5e70cf3b838" class="">App development in Spring is “POJO Based”: no specific constraint is posed over Java classes, so just a servlet container is needed, nothing more complex.</p></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-80a1-943f-eeea23870db1" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">POJO</mark> (Plain Old Java Object) refers to an ordinary class, not required to implement standard interfaces, extend standard classes, etc.<div style="display:contents" dir="auto"><ul id="144eea59-ca7a-80a9-a576-d8fab2589ddc" class="bulleted-list"><li style="list-style-type:circle">for JEE I have a lot of constraints like EJB containers</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-8036-83c3-cc389473faf5" class="bulleted-list"><li style="list-style-type:disc">Highly modular: any application can use some modules, and ignore the rest.</li></ul></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-807b-88da-f2524e15748c" class="bulleted-list"><li style="list-style-type:disc">Annotations: convenient way to specify the roles of the used components</li></ul></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-8019-9971-f129c140c039" class="">
+</p></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-8000-bb38-e8d74f1a11bd" class="">The objects managed by a Spring IoC Container (according to configuration information) are called <mark class="highlight-orange">beans</mark> → <mark class="highlight-orange">singleton</mark> by default</p></div><div style="display:contents" dir="auto"><ol type="1" id="149eea59-ca7a-8021-908a-c7880aecd7fa" class="numbered-list" start="1"><li>@Beam → a method-level annotation to specify that the object returned by<br/>such a method must be handled as a bean</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="149eea59-ca7a-809a-9f81-e900af433e1a" class="numbered-list" start="2"><li>@Component → used to mark a class as a component (bean), that can be specified better with:<div style="display:contents" dir="auto"><ol type="a" id="149eea59-ca7a-80f2-b72b-c1572b8f99b4" class="numbered-list" start="1"><li>@Controller - bean responsible to handle user requests</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="149eea59-ca7a-8019-a8bf-eca5d34399e9" class="numbered-list" start="2"><li>@Service - bean that holds business logic (provides a service)</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="149eea59-ca7a-80d9-a36a-c66c73d3ee38" class="numbered-list" start="3"><li>@Repository - for DAO classes or similar, with access to data repos.</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-80ff-9744-c2a76c8cb1d6" class="">
+</p></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-80be-ac12-fac4a215719e" class="">Spring MVC → web apps according to the Model-View-Controller pattern</p></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-8038-bf4f-dacd4fe7d8f4" class="">As other web frameworks, it uses the <mark class="highlight-orange">front controller pattern</mark>:</p></div><div style="display:contents" dir="auto"><ul id="149eea59-ca7a-802a-aa3e-fbae2907120c" class="bulleted-list"><li style="list-style-type:disc">A central Servlet, the DispatcherServlet, provides a common algorithm for request processing</li></ul></div><div style="display:contents" dir="auto"><ul id="149eea59-ca7a-805f-96a7-ffd18eddcdf6" class="bulleted-list"><li style="list-style-type:disc">The actual work is performed by configurable delegate components: <div style="display:contents" dir="auto"><ul id="149eea59-ca7a-8032-994a-e842e6a3789b" class="bulleted-list"><li style="list-style-type:circle">first a controller is chosen to create the model and specify the view </li></ul></div><div style="display:contents" dir="auto"><ul id="149eea59-ca7a-80d4-ab3b-c0c4f9e812dc" class="bulleted-list"><li style="list-style-type:circle">then the specific view is used for the response rendering.</li></ul></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-8055-b25c-ef53a9769be5" class="">Approach flexible enough to support diverse workflows.</p></div></li></ul></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-80b6-8f80-e17e3f7a81cd" class="">
+</p></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-80be-8569-c842abd8c541" class="">Whenever an incoming REQ is passed to <code><strong>DispatcherServlet</strong></code>:</p></div><div style="display:contents" dir="auto"><ol type="1" id="149eea59-ca7a-80d9-823c-e9b6d06cbea0" class="numbered-list" start="1"><li>A HandlerMapping bean is used to determine what specific controller bean to use for this request</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="149eea59-ca7a-808f-9a52-f4c4ef60f551" class="numbered-list" start="2"><li>The chosen called controller (handler) creates the model and returns indications on what view to use</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="149eea59-ca7a-809a-ac64-e58f48e5b032" class="numbered-list" start="3"><li>A <strong>ViewResolver</strong> bean, given the name returned by the controller, determines the actual View to be used</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="149eea59-ca7a-80d9-ac64-dd6f2e61a308" class="numbered-list" start="4"><li>The chosen View takes care of rendering the passed model</li></ol></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-80ec-b2bf-f0ade3109592" class=""><strong><span style="border-bottom:0.05em solid">Such beans belong to a specific WebApplicationContext</span></strong></p></div><div style="display:contents" dir="ltr"><figure id="149eea59-ca7a-80d8-a65a-f945481fa2b0" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2027.png"><img style="width:603.7875366210938px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2027.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="16ceea59-ca7a-80a3-99c7-f21393cea6c7" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="149eea59-ca7a-8072-bee5-d6ab736baeb5" class="">Spring Boot</h3></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-80a0-9bbb-ce199b3b885b" class="">Developing Spring applications is challenging because of:</p></div><div style="display:contents" dir="auto"><ol type="1" id="149eea59-ca7a-80f1-8bb6-ced8b2a71e63" class="numbered-list" start="1"><li>Need for extensive configuration (via annotations/XML etc.)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="149eea59-ca7a-80c8-8fd5-d45ca0ff56ac" class="numbered-list" start="2"><li>Complex handling of dependencies (with many modules)</li></ol></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-8016-a6c3-e6a557d508e6" class="">Possible solution: through the “<strong><span style="border-bottom:0.05em solid">Convention over configuration</span></strong>” principle</p></div><div style="display:contents" dir="auto"><ul id="149eea59-ca7a-8019-abaa-f4ea2b952be3" class="bulleted-list"><li style="list-style-type:disc">Idea: take an “opinionated view” of Spring  →   Spring Boot<div style="display:contents" dir="auto"><ul id="149eea59-ca7a-806c-95b6-ee7162403f77" class="bulleted-list"><li style="list-style-type:circle">Simplified configuration</li></ul></div><div style="display:contents" dir="auto"><ul id="149eea59-ca7a-801c-9e1a-ec0d70beb23e" class="bulleted-list"><li style="list-style-type:circle">Embedded web servers (stand-alone apps, no deployment issues)</li></ul></div><div style="display:contents" dir="auto"><ul id="149eea59-ca7a-800c-a9bd-c7a848bd5a52" class="bulleted-list"><li style="list-style-type:circle">Off-the-shelf templates for different types of apps</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-8084-89e1-d2c697d047bd" class="">
+</p></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-8081-98d8-cb3256c0375b" class="">In Spring Boot, we have an “entry-point” class with the “main” method → it must be annotated with <mark class="highlight-orange">@SpringBootApplication</mark>, which auto-adds:</p></div><div style="display:contents" dir="auto"><ol type="1" id="149eea59-ca7a-8025-aaaa-fe37572d6656" class="numbered-list" start="1"><li>@Configuration: Tags the class as a source of bean definitions for the application context.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="149eea59-ca7a-8094-aeed-cd4a9e894653" class="numbered-list" start="2"><li>@EnableAutoConfiguration: Tells Spring Boot to start adding beans based on classpath settings, etc.. For example, if spring-webmvc is on the classpath, this app is set as as a web app, activating the relative behaviors, such as setting up a DispatcherServlet.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="149eea59-ca7a-80a4-8b39-ee08cb19e469" class="numbered-list" start="3"><li>@ComponentScan: Tells Spring to look for other components, configurations, etc.</li></ol></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-8068-8c65-e8768f28eb45" class="">The main() method typically uses Spring Boot’s SpringApplication.run() method to launch the application.</p></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-800a-b12b-c7146cce4e19" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="149eea59-ca7a-80d3-a4db-d28bfc53d32c" class="">Indirect Communication: JMS</h1></div><div style="display:contents" dir="auto"><p id="144eea59-ca7a-80a9-85ee-fd068e588efa" class=""><mark class="highlight-orange">JMS</mark> → Jakarta Messaging System </p></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-80ca-b02b-d24cbb043ebd" class="bulleted-list"><li style="list-style-type:disc">Another type of communication called indirect communication</li></ul></div><div style="display:contents" dir="auto"><ul id="144eea59-ca7a-8031-a7f8-f7cbc51f9342" class="bulleted-list"><li style="list-style-type:disc">It’s up to the indermediator to hadle these messages</li></ul></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-8072-bafe-c8c9c92c8d90" class=""><br/><mark class="highlight-orange">MOM</mark> (Message Oriented Middleware) is an infrastructure to support indirect and asynchronous communication across components of a distributed application.</p></div><div style="display:contents" dir="auto"><ul id="149eea59-ca7a-8057-9dc0-fab164bd7b7f" class="bulleted-list"><li style="list-style-type:disc">It makes transparent the networking and communication protocol details, addressing HW/SW heterogeneity → use of <mark class="highlight-orange">msg brokers</mark>.<div style="display:contents" dir="auto"><ul id="149eea59-ca7a-80f9-9734-dbfc51106974" class="bulleted-list"><li style="list-style-type:circle">Asynchronicity - via message queuing</li></ul></div><div style="display:contents" dir="auto"><ul id="149eea59-ca7a-802f-a16c-fa6c926b7630" class="bulleted-list"><li style="list-style-type:circle">[Intelligent] [Routing] - different routing specifications</li></ul></div><div style="display:contents" dir="auto"><ul id="149eea59-ca7a-8069-a263-eda8488a3ae9" class="bulleted-list"><li style="list-style-type:circle">[Msg Transformation] - via specific tools</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-8016-a717-d0cf64e250da" class="">
+</p></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-80a5-a939-ed1ce0264321" class="">Message-oriented technologies rely on an <mark class="highlight-teal">intermediary component</mark>: senders may ignore many details about receivers (even identities!).</p></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-807f-8443-efb66bbb1027" class="">This is an approach suitable to integrate heterogeneous systems.</p></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-80e7-857a-ea025523f142" class="">Models:</p></div><div style="display:contents" dir="auto"><ol type="1" id="149eea59-ca7a-80d3-94a1-d77de81f6a1b" class="numbered-list" start="1"><li>Point-to-point (message queues)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="149eea59-ca7a-802c-bd5e-e5121cb9ba87" class="numbered-list" start="2"><li>Publish-subscribe (topics)</li></ol></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-803c-a3ea-e562172e2d3f" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="149eea59-ca7a-806e-bbf5-ca58a6480bc1" class="">Point-to-Point Messaging</h3></div><div style="display:contents" dir="auto"><div id="149eea59-ca7a-805f-a143-de7cab15237a" class="column-list"><div style="display:contents" dir="auto"><div id="149eea59-ca7a-803f-a810-c5c4e0b1d37a" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="149eea59-ca7a-80da-83ed-c506f537c134" class="bulleted-list"><li style="list-style-type:disc">More senders-receiver with possibly shared connections.</li></ul></div><div style="display:contents" dir="auto"><ul id="149eea59-ca7a-8017-9f9e-e880f5cda22b" class="bulleted-list"><li style="list-style-type:disc">No hypotheses on the order that msgs are consumed</li></ul></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-80dd-afaa-f658bf1ed1bf" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="149eea59-ca7a-807e-b8cc-c88c0a698c12" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="149eea59-ca7a-80d8-95d6-cfc0c17b4084" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2028.png"><img style="width:278.875px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2028.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure id="149eea59-ca7a-80bd-9a8b-f8cf5b603ef9" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2029.png"><img style="width:384px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2029.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="149eea59-ca7a-80b9-9139-e3871a9a5e0b" class="">Publish/Subscribe Messaging</h3></div><div style="display:contents" dir="auto"><div id="149eea59-ca7a-8038-8851-ec629baffae3" class="column-list"><div style="display:contents" dir="auto"><div id="149eea59-ca7a-8058-a2f7-e2785b57c460" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="149eea59-ca7a-8035-b839-c970511802ce" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2030.png"><img style="width:278.88751220703125px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2030.png"/></a></figure></div></div></div><div style="display:contents" dir="auto"><div id="149eea59-ca7a-80f9-aef3-cb63cc5ca64d" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="149eea59-ca7a-802c-9208-eb2267a679b4" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2031.png"><img style="width:278.88751220703125px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2031.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="149eea59-ca7a-80a2-ba62-d9502ebf654d" class="">JMS Programming Objects</h3></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-8097-8f2e-fe415a29ab6a" class="">Objects used to implement JMS messaging:</p></div><div style="display:contents" dir="auto"><div id="149eea59-ca7a-809a-bf85-df345357be8d" class="column-list"><div style="display:contents" dir="auto"><div id="149eea59-ca7a-8018-8347-d79a4f1ac178" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><ul id="149eea59-ca7a-8054-b8ba-e43cdf2a7ee8" class="bulleted-list"><li style="list-style-type:disc">connection factory → create connections</li></ul></div><div style="display:contents" dir="auto"><ul id="149eea59-ca7a-8057-bbe6-c82ebc2893fd" class="bulleted-list"><li style="list-style-type:disc">connection - comm. channel to the broker</li></ul></div><div style="display:contents" dir="auto"><ul id="149eea59-ca7a-80b3-bc85-f203c21e56ac" class="bulleted-list"><li style="list-style-type:disc">session - client/broker conversation</li></ul></div><div style="display:contents" dir="auto"><ul id="149eea59-ca7a-802e-948c-d26b23a812bc" class="bulleted-list"><li style="list-style-type:disc">producer - obj to send msgs to a destination</li></ul></div><div style="display:contents" dir="auto"><ul id="149eea59-ca7a-80d0-95fc-e1d69c3ea4c2" class="bulleted-list"><li style="list-style-type:disc">consumer - obj to get msgs from a destination</li></ul></div><div style="display:contents" dir="auto"><ul id="149eea59-ca7a-803f-bd44-c45f6f6e9e83" class="bulleted-list"><li style="list-style-type:disc">message - made of header, properties, body</li></ul></div><div style="display:contents" dir="auto"><ul id="149eea59-ca7a-803e-b0fb-ecdaa1e25e07" class="bulleted-list"><li style="list-style-type:disc">destination - represents phys. dest.</li></ul></div><div style="display:contents" dir="auto"><p id="16ceea59-ca7a-8051-b14f-fb8a5278340d" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="149eea59-ca7a-80c8-b033-e7d94f841099" style="width:43.75%" class="column"><div style="display:contents" dir="ltr"><figure id="149eea59-ca7a-8039-bc78-f8e712385033" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2032.png"><img style="width:278.88751220703125px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2032.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-8067-a309-c8121ccd80d0" class="">
+</p></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-801c-a95f-d77ccb8ab1df" class="">JMS Administered Objects (pre-configured JMS objects, that sympify simplify the configuration and management of the app) → <mark class="highlight-teal">administered objects</mark></p></div><div style="display:contents" dir="auto"><ol type="1" id="149eea59-ca7a-8064-b3f1-c35ef72f35bf" class="numbered-list" start="1"><li>Connection factories to brokers</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="149eea59-ca7a-8047-9d2e-ee71171fc2f3" class="numbered-list" start="2"><li>Destinations to preconfigured places like queue</li></ol></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-80a4-86e7-f8c8e98f50c4" class="">Are typically created by Administration tools on the Application Server</p></div><div style="display:contents" dir="auto"><ul id="149eea59-ca7a-8095-840d-cfe5ac3971bb" class="bulleted-list"><li style="list-style-type:disc">The clients look up the connection factories and destinations in the JNDI registry to establish communication with the message broker.</li></ul></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-807e-bc37-e03a8c571a9a" class="">Their use in JMS is possible through <mark class="highlight-teal">JNDI</mark> (Java Naming and Directory Interface) lookup of the corresponding “administered objects”</p></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-80de-912c-e19d6c6f678f" class="">
+</p></div><div style="display:contents" dir="auto"><div id="149eea59-ca7a-8009-8e05-ecfb288bf950" class="column-list"><div style="display:contents" dir="auto"><div id="149eea59-ca7a-802b-acf9-cc1342bd9fcc" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="149eea59-ca7a-8094-84d8-fd32ccda16e7" class="bulleted-list"><li style="list-style-type:disc"><strong>Message Producer (ClientA)</strong>:<div style="display:contents" dir="auto"><ul id="149eea59-ca7a-805a-a7a8-c302885f5655" class="bulleted-list"><li style="list-style-type:circle">Uses the <strong>JMS API</strong> to send messages to the broker.</li></ul></div><div style="display:contents" dir="auto"><ul id="149eea59-ca7a-8008-8a19-f477816baa67" class="bulleted-list"><li style="list-style-type:circle">First, it performs a JNDI lookup to retrieve the required administered objects (e.g., the connection factory and destination).</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="149eea59-ca7a-80fd-acee-fdd33399094b" class="bulleted-list"><li style="list-style-type:disc"><strong>Message Consumer (ClientC)</strong>:<div style="display:contents" dir="auto"><ul id="149eea59-ca7a-80dd-a764-fc2981dd1be2" class="bulleted-list"><li style="list-style-type:circle">Retrieves administered objects via JNDI.</li></ul></div><div style="display:contents" dir="auto"><ul id="149eea59-ca7a-808f-b70e-d8b93924c256" class="bulleted-list"><li style="list-style-type:circle">Uses the JMS API to consume messages from the broker.</li></ul></div></li></ul></div></div></div><div style="display:contents" dir="auto"><div id="149eea59-ca7a-801f-9052-d65b4b22f387" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="149eea59-ca7a-808e-ae47-cdcdd30bf1ee" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2033.png"><img style="width:330.9875183105469px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2033.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-8031-a769-f9b80670e5c6" class="">
+</p></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="149eea59-ca7a-80be-afe5-f6f16208148f" class="bulleted-list"><li style="list-style-type:disc"><strong>Message Broker</strong>:<div style="display:contents" dir="auto"><ul id="149eea59-ca7a-80b8-aaef-ceabcdbe7922" class="bulleted-list"><li style="list-style-type:circle">The central component that routes messages between producers and consumers. It has <strong>physical destinations</strong> (like queues or topics) where messages are stored temporarily.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="149eea59-ca7a-80c7-82ff-e93a9803e7e1" class="bulleted-list"><li style="list-style-type:disc"><strong>Object Store</strong>:<div style="display:contents" dir="auto"><ul id="149eea59-ca7a-80fe-ba2a-cdf8c3b35bd5" class="bulleted-list"><li style="list-style-type:circle">A storage system (or registry) that holds the administered objects. The administrator uses tools to configure these objects and store them here</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="149eea59-ca7a-808f-b4d3-f7c04aa7b58f" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="149eea59-ca7a-8049-89c9-c8590f19228b" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2034.png"><img style="width:603.7750244140625px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2034.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="150eea59-ca7a-80b2-b8d1-ef3dbbf56d93" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="150eea59-ca7a-8019-9726-cb9bce45257f" class="">Enterprise Java Bean (EJB)</h1></div><div style="display:contents" dir="auto"><p id="150eea59-ca7a-802b-a4b6-d5c4c7f0c904" class="">EJB is a server-side component that encapsulates the business logic of an application.</p></div><div style="display:contents" dir="auto"><ul id="150eea59-ca7a-8068-b454-d54476e429c2" class="bulleted-list"><li style="list-style-type:disc">The EJB container is responsible for managing them, and it provides system-level services to enterprise beans</li></ul></div><div style="display:contents" dir="auto"><ul id="150eea59-ca7a-80d1-a9c5-fea4b4f7f956" class="bulleted-list"><li style="list-style-type:disc">Reusability: new applications can be built from existing EJBs.</li></ul></div><div style="display:contents" dir="auto"><p id="150eea59-ca7a-8007-8f03-e2544be43411" class="">
+</p></div><div style="display:contents" dir="auto"><p id="150eea59-ca7a-8093-a9c1-e17b4b8acf48" class="">Types</p></div><div style="display:contents" dir="auto"><ol type="1" id="150eea59-ca7a-8019-9cfe-d3d26de40f00" class="numbered-list" start="1"><li><mark class="highlight-blue">Sessions Bean</mark> (not persistent in HDD)<div style="display:contents" dir="auto"><ol type="a" id="150eea59-ca7a-802b-83e4-ee826edc8c39" class="numbered-list" start="1"><li><mark class="highlight-orange">stateful</mark> → The client holds a reference to the session bean instance, which allows the client to invoke methods on the bean mantaining the state</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="150eea59-ca7a-801b-b052-e1507f84111e" class="numbered-list" start="2"><li><mark class="highlight-orange">stateless</mark> → Stateless Session Beans are pooled by the container, meaning the EJB container can reuse instances of the bean to serve different clients<div style="display:contents" dir="auto"><ol type="i" id="150eea59-ca7a-80b4-b0e3-ec11f2b824f6" class="numbered-list" start="1"><li>Offer better scalability for apps with a large number of clients</li></ol></div><div style="display:contents" dir="auto"><ol type="i" id="150eea59-ca7a-803e-81ff-ec590cb93e5c" class="numbered-list" start="2"><li>Typically, an app requires <mark class="highlight-teal">fewer</mark> stateless session beans than stateful session beans to support the same number of clients</li></ol></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="150eea59-ca7a-8053-ad8b-d62f1de72e33"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="150eea59-ca7a-8036-ab08-cef97e7fafee" class="">A stateless session bean can implement a web service, but a stateful session bean cannot (because of <mark class="highlight-teal">idempotence</mark> issues)</p></div></div></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="150eea59-ca7a-80a5-9f47-f4e98cf3b1b8" class="numbered-list" start="3"><li><mark class="highlight-orange">singleton</mark> → unique, shared across the application<div style="display:contents" dir="auto"><ol type="i" id="150eea59-ca7a-80a8-9bc9-faab4df07c28" class="numbered-list" start="1"><li>a singleton session bean is accessed concurrently by clients</li></ol></div><div style="display:contents" dir="auto"><ol type="i" id="150eea59-ca7a-80d6-8887-efd52e5f4cb9" class="numbered-list" start="2"><li>Singleton session beans maintain their state between client invocations, but are not required to maintain their state across server crashes or shutdowns</li></ol></div><div style="display:contents" dir="auto"><ol type="i" id="150eea59-ca7a-8000-9dc5-c9cbc40e02fa" class="numbered-list" start="3"><li>Singleton session beans can implement web service endpoints.</li></ol></div></li></ol></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="150eea59-ca7a-809c-8aef-fd8a7884a024" class="numbered-list" start="2"><li><mark class="highlight-blue">Message Driven Beans</mark> → business objects whose execution is triggered by messages instead of by method calls</li></ol></div><div style="display:contents" dir="auto"><p id="150eea59-ca7a-80f4-aedc-c55e5031cf5c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="150eea59-ca7a-8005-a0e3-f850c3b5252b" class="">Session EJBs may implement a local/remote interface.</p></div><div style="display:contents" dir="auto"><ul id="150eea59-ca7a-8064-83a6-f155860109c2" class="bulleted-list"><li style="list-style-type:disc">The interface represents the contract with the client, and it is usually defined independently of the EJB implementation.</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="150eea59-ca7a-8037-b9a4-fdbf80c4ec4a" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">@Local  @Remote
+@Stateless  @Stateful</code></pre></div><div style="display:contents" dir="auto"><div id="150eea59-ca7a-8091-91fb-e4f0e84bed7e" class="column-list"><div style="display:contents" dir="auto"><div id="150eea59-ca7a-80ab-9733-f1f06db6fa78" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="150eea59-ca7a-8097-a870-d4bdd4fba929" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2035.png"><img style="width:278.88751220703125px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2035.png"/></a><figcaption>stateless/singleton (not pooled)</figcaption></figure></div></div></div><div style="display:contents" dir="auto"><div id="150eea59-ca7a-8028-b708-e97b372e84a4" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="150eea59-ca7a-8051-be39-e4639814bc05" class="image"><a href="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2036.png"><img style="width:278.88751220703125px" src="Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)/image%2036.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="150eea59-ca7a-8031-8c82-f992613deea7" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="150eea59-ca7a-8040-b7ca-e67754b2bf20" class="">Looking for remote resourcese</h2></div><div style="display:contents" dir="auto"><p id="150eea59-ca7a-80aa-97dd-c8e7aadfa320" class="">The Java Naming and Directory Interface (JNDI) is a Java API for a directory service to discover/lookup data/objects via a name.</p></div><div style="display:contents" dir="auto"><ul id="150eea59-ca7a-8093-a342-ce4b884a77dc" class="bulleted-list"><li style="list-style-type:disc">Any JEE Application Server typically includes a JNDI service</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="150eea59-ca7a-802f-8435-ea3424b35f27" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Hashtable contextArgs = new Hashtable();
+contextArgs.put( … ) // insert all req. params to locate the service 
+Context myContext = new InitialContext(contextArgs);
+
+ MyBean myBean = (MyBean)  myContext.lookup(&quot;com.mysite.ejb.MyBean&quot;);</code></pre></div><div style="display:contents" dir="auto"><p id="150eea59-ca7a-8068-9174-d51f9651d5ac" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

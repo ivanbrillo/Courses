@@ -1,0 +1,740 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>HDFS and YARN</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1b9eea59-ca7a-8015-a45d-da888f6fe200" class="page sans"><header><h1 class="page-title" dir="auto">HDFS and YARN</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="1b9eea59-ca7a-8066-bda3-fe620650b520" class="">Hadoop Distributed File System</h1></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-80e8-98b8-f8904ad1af7f" class="">Manages storage across a network of machines in a cluster (creation, modification and deletion)</p></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-8049-bf15-fbf0bd22d386" class="bulleted-list"><li style="list-style-type:disc">Designed to run on clusters of <mark class="highlight-blue">commodity hardware</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-802f-aa13-d908905c888b" class="bulleted-list"><li style="list-style-type:disc">Does not require expensive, highly-reliable hardware<div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-806c-ad0d-eb84e77606f5" class="bulleted-list"><li style="list-style-type:circle">Highly fault-tolerant</li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-80a5-a3dc-ec852d20c003" class="bulleted-list"><li style="list-style-type:circle">Failures are the norm rather than the exception</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-80cc-ac11-d2aa08191660" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-80d8-af71-cfa14418fc73" class="">Files are divided into <mark class="highlight-blue">chunks </mark>(or blocks)</p></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-8070-badd-f00969d5c300" class="bulleted-list"><li style="list-style-type:disc">Typically 64/128 megabytes in size (even bigger)</li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-8007-8e57-e8825ef4304b" class="bulleted-list"><li style="list-style-type:disc">Blocks are replicated at different compute nodes (usually 3+)</li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-80ca-8d6b-d146f33926ac" class="bulleted-list"><li style="list-style-type:disc">Nodes holding copies of one block are located on different racks</li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-80c9-94a5-d708c01b718e" class="bulleted-list"><li style="list-style-type:disc">Block size and the degree of replication can be decided by the user</li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-806b-9046-d25c247c0062" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">A special node (the </mark><mark class="highlight-blue"><mark class="highlight-pink_background">master node</mark></mark><mark class="highlight-pink_background">) stores, for each file, the positions of its blocks → </mark><mark class="highlight-orange"><mark class="highlight-pink_background">master-slave architecture</mark></mark><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-8023-a7e5-e9bd9bf88a9e" class="bulleted-list"><li style="list-style-type:circle">The master node is itself replicated</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-806b-aeea-ceb19c1f35f3" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-804e-a632-c6e880b39b54" class="">Large chunks to minimize the cost of seeks</p></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-80af-9e67-e918198779fd" class="bulleted-list"><li style="list-style-type:disc">The block abstractions allows a file to be larger than any single disk</li></ul></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-803a-9ca1-f836fed5c39f" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-80c3-9080-f125e38dcb74" class="">HDFS cluster consists of a single <mark class="highlight-orange"><mark class="highlight-pink_background">Namenode</mark></mark>, a <span style="border-bottom:0.05em solid">master server</span> that manages the file system namespace and regulates access to files by clients.</p></div><div style="display:contents" dir="auto"><ol type="1" id="1b9eea59-ca7a-805f-b6f5-d9e4992c5e49" class="numbered-list" start="1"><li>Maintains filesystem tree</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b9eea59-ca7a-8094-8c3a-ca3150cc6f8f" class="numbered-list" start="2"><li>Files metadata </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b9eea59-ca7a-80cb-98c6-f01c61d20cf5" class="numbered-list" start="3"><li>File-to-block mapping</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b9eea59-ca7a-805f-8cae-e53e7de06837" class="numbered-list" start="4"><li>Location of blocks (i.e., on which datanodes)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b9eea59-ca7a-8097-8957-e0d78b8b742a" class="numbered-list" start="5"><li>Access permissions</li></ol></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-8047-9de7-fc014dd383e1" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-80f8-b890-ce222ca11e59" class="">There are a number of <mark class="highlight-orange"><mark class="highlight-pink_background">Datanodes</mark></mark>, usually<mark class="highlight-teal"> one per node</mark> in a cluster.<br/>Datanodes store and manage the actual data blocks.</p></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-8046-b514-dc2386ffefbf" class="bulleted-list"><li style="list-style-type:disc">A file is splitted into one or more blocks, and blocks are stored in Datanodes.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-804f-9b78-fcf191351ed2" class="bulleted-list"><li style="list-style-type:disc">The Datanodes manage storage attached to the nodes that they run on.</li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-8088-8f8d-fd481761f5e0" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Datanodes serve read/write requests, perform block creation, deletion, and replication upon instruction from Namenode.</mark></li></ul></div><div style="display:contents" dir="auto"><div id="1f0eea59-ca7a-8032-a53a-ced644e805fa" class="column-list"><div style="display:contents" dir="auto"><div id="1f0eea59-ca7a-801d-8ed5-c9ea802c8361" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-8043-ad0a-d907428a61c7" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Each Datanode sends a </mark><mark class="highlight-teal"><mark class="highlight-pink_background">heartbeat </mark></mark><mark class="highlight-pink_background">message periodically to the Namenode.</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1f9eea59-ca7a-80e7-a0b2-e11fa6f5a5dd" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1f0eea59-ca7a-80a2-a493-d7b3475565a1" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1b9eea59-ca7a-8044-afc3-da52fae64870" class="image"><a href="HDFS%20and%20YARN/image.png"><img style="width:384px" src="HDFS%20and%20YARN/image.png"/></a><figcaption>hearhbeat</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-8084-9e7f-dddbcf74bd9d" class="">This client is an interface between the actual clients (mapper and reducers) and the HDFS → they doesn’t communicate directly for the principle of abstraction</p></div><div style="display:contents" dir="auto"><div id="1b9eea59-ca7a-8050-a00e-d98e8e8fc901" class="column-list"><div style="display:contents" dir="auto"><div id="1b9eea59-ca7a-8051-abfd-cb7170566938" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1b9eea59-ca7a-8094-9d8a-f0bf0793e9fa" class="image"><a href="HDFS%20and%20YARN/image%201.png"><img style="width:533.1591186523438px" src="HDFS%20and%20YARN/image%201.png"/></a></figure></div></div></div><div style="display:contents" dir="auto"><div id="1b9eea59-ca7a-808d-9856-df6b2d3e108d" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1b9eea59-ca7a-8003-ac70-cdf8e727a7bd" class="image"><a href="HDFS%20and%20YARN/image%202.png"><img style="width:533.1591186523438px" src="HDFS%20and%20YARN/image%202.png"/></a><figcaption>namenode response</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><div id="1b9eea59-ca7a-8087-9510-d24e49c824ef" class="column-list"><div style="display:contents" dir="auto"><div id="1b9eea59-ca7a-80bb-bdd2-efe61a86eec8" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1b9eea59-ca7a-80bf-877f-cab096fcb4a6" class="image"><a href="HDFS%20and%20YARN/image%203.png"><img style="width:533.1591186523438px" src="HDFS%20and%20YARN/image%203.png"/></a><figcaption>the msg contains also the info to perform the replica to B</figcaption></figure></div></div></div><div style="display:contents" dir="auto"><div id="1b9eea59-ca7a-80f2-93a1-e1a4f5dc5f60" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1b9eea59-ca7a-8045-8f2c-c3662fcfabd9" class="image"><a href="HDFS%20and%20YARN/image%204.png"><img style="width:533.1704711914062px" src="HDFS%20and%20YARN/image%204.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure id="1b9eea59-ca7a-8001-92e9-d17a3296d7a5" class="image"><a href="HDFS%20and%20YARN/image%205.png"><img style="width:336px" src="HDFS%20and%20YARN/image%205.png"/></a><figcaption>Also the replication is chosen by the namenode</figcaption></figure></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-805c-a6bf-e6a80aa812cc" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="1b9eea59-ca7a-8063-a215-e5e6f17c0b33" class="image"><a href="HDFS%20and%20YARN/image%206.png"><img style="width:533.1591186523438px" src="HDFS%20and%20YARN/image%206.png"/></a><figcaption>Read. Client is the actual client (mapper). Distributed File System instead is the acutal interface together with FSDataInputStream</figcaption></figure></div><div style="display:contents" dir="auto"><ol type="1" id="1b9eea59-ca7a-801d-a3b1-f3dde66ab792" class="numbered-list" start="1"><li>The block locations will be returned in a list <mark class="highlight-teal"><mark class="highlight-pink_background">ordered by the proximity</mark></mark><mark class="highlight-teal"> </mark>of the client to the data (choose the right replica to reduce data transfer)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b9eea59-ca7a-8056-9b5d-d7a84efe06b2" class="numbered-list" start="2"><li>The actual client, call only three methods: open, read, close → high level</li></ol></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1f9eea59-ca7a-80d8-9b27-df25189aeed0"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1f9eea59-ca7a-8088-bd3b-cd7289276c97" class="">For each block, the namenode returns the addresses of the datanodes that have a copy of that block. Furthermore, the datanodes are sorted according to their proximity to the client</p></div><div style="display:contents" dir="auto"><ul id="1f9eea59-ca7a-80ab-bbf1-d3b15c53b30a" class="bulleted-list"><li style="list-style-type:disc">namenode does almost nothing → highly scalabel</li></ul></div></div></figure></div><div style="display:contents" dir="ltr"><figure id="1f9eea59-ca7a-80b2-9651-ee0b1a42e39e" class="image"><a href="HDFS%20and%20YARN/image%207.png"><img style="width:709.9715576171875px" src="HDFS%20and%20YARN/image%207.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-804c-888f-d359e9381a6f" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-80b9-a6ea-e93d09aa7c84" class="">The network is represented as a <mark class="highlight-blue">tree </mark>and the distance between two nodes is the sum of their distances to their closest common ancestor</p></div><div style="display:contents" dir="ltr"><figure id="1b9eea59-ca7a-8047-8c4e-fc1c2f0389cb" class="image"><a href="HDFS%20and%20YARN/image%208.png"><img style="width:533.1591186523438px" src="HDFS%20and%20YARN/image%208.png"/></a><figcaption>2 data-center, each 2 racks, each n server</figcaption></figure></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-8047-9241-deccb478e279" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-8055-9c27-ed2bae361e41" class="">Distance between <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>i</mi><mi>s</mi><mi>t</mi><mo stretchy="false">(</mo><msub><mi>n</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>n</mi><mn>2</mn></msub><mo stretchy="false">)</mo><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">dist(n_1, n_2) = 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">i</span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span></span></span></span></span><span>﻿</span></span>  and <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>i</mi><mi>s</mi><mi>t</mi><mo stretchy="false">(</mo><msub><mi>n</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>n</mi><mn>3</mn></msub><mo stretchy="false">)</mo><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">dist(n_1, n_3) = 4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">i</span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">4</span></span></span></span></span><span>﻿</span></span> </p></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-80bb-935d-f9534ef2ea57" class="bulleted-list"><li style="list-style-type:disc">Minimize the distance in this way</li></ul></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-808d-b3f5-f898a09c3318" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="1b9eea59-ca7a-8056-b753-d3b488d0dd64" class="image"><a href="HDFS%20and%20YARN/image%209.png"><img style="width:533.1704711914062px" src="HDFS%20and%20YARN/image%209.png"/></a><figcaption>write. FSData save to a single block + 2 replicas</figcaption></figure></div><div style="display:contents" dir="auto"><p id="1f9eea59-ca7a-80e7-a353-d8863e10ee41" class="">The namenode performs various checks to make sure the file doesn’t already exist and that the client has the right permissions to create the file.</p></div><div style="display:contents" dir="auto"><ul id="1f9eea59-ca7a-80a8-b5e7-cc157eeb0453" class="bulleted-list"><li style="list-style-type:disc">Output stream is responsible for asking the namenode to allocate new blocks by picking a list of suitable datanodes to store the replicas</li></ul></div><div style="display:contents" dir="auto"><p id="1f9eea59-ca7a-80b3-91d3-c066fec65e8c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-80a8-8518-c53cadfe7263" class="">How does the name-node choose which datanodes to store the replicas on?</p></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-80ff-a6d8-e8008fe3d291" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange"><mark class="highlight-pink_background">First replica on the same node as the client</mark></mark><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-80f0-90ad-fca11933110f" class="bulleted-list"><li style="list-style-type:circle">For clients running outside the cluster, a node is chosen at random</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-8003-b775-ea23dc236ebe" class="bulleted-list"><li style="list-style-type:disc">Second replica on a different rack from the first, chosen at random</li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-805e-9fe3-c9bb98e456c1" class="bulleted-list"><li style="list-style-type:disc">Third replica on the same rack as the second, but on a different node chosen at random<div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-8090-8176-c3b03fc81d7f" class="bulleted-list"><li style="list-style-type:circle">Further replicas are placed on random nodes in the cluster</li></ul></div><div style="display:contents" dir="ltr"><figure id="1f9eea59-ca7a-80d5-a6f0-e3ecefe8c3da" class="image"><a href="HDFS%20and%20YARN/image%2010.png"><img style="width:682.0170288085938px" src="HDFS%20and%20YARN/image%2010.png"/></a></figure></div></li></ul></div><div style="display:contents" dir="auto"><h1 id="1b9eea59-ca7a-80df-ab02-d9ffac92f9f2" class="">YARN (yet another resource negotiatior)</h1></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-80bc-9661-f10c67a9673d" class="bulleted-list"><li style="list-style-type:disc">added from Hadoop 2.0</li></ul></div><div style="display:contents" dir="auto"><h3 id="1b9eea59-ca7a-80da-819b-ee3add3c5b4f" class="">Hadoop 1.0</h3></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-80c7-b313-c8a81479d079" class=""><mark class="highlight-blue">Job</mark> → unit of work the client want to be performed</p></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-80ec-9873-e911039c1d50" class=""><mark class="highlight-blue">Task </mark>→ unit of work that hadoop schedules and runs on nodes (map&amp;reduce)</p></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-8045-8145-d575f4d91d7b" class=""><mark class="highlight-blue">Slot </mark>→ processing elements for tasks (CPU, memory etc) allocated to execute map and reduce </p></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-8073-9a11-fe3623ef8d2e" class="bulleted-list"><li style="list-style-type:disc">Problem that the allocated amount of them where always <mark class="highlight-yellow_background">equal </mark>to different Task</li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-8034-9cc9-f561558daef5" class="bulleted-list"><li style="list-style-type:disc">Also each slot has a <mark class="highlight-pink_background">tag</mark> that says map or reduce → not flexible, I cannot do workload balance between the two pools</li></ul></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-803e-b2f8-fd1c3c01b1a1" class=""><mark class="highlight-blue">Job Tracker </mark>→ master component (maybe replicated)</p></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-80c2-a566-d961ae33274b" class="bulleted-list"><li style="list-style-type:disc">manages resources, accept jobs and create tasks → schedule them to run in Task Traker</li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-8004-a4b6-d93bfb3b386c" class="bulleted-list"><li style="list-style-type:disc">monitor tasks and task trackers status, keeping also the record, re-executing tasks upon failure<div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-8063-83c0-ea0bf3abdacf" class="bulleted-list"><li style="list-style-type:circle">Problem of <mark class="highlight-teal">scalability</mark>, too many thing for a single component</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-806f-a03b-e5844a16e47a" class=""><mark class="highlight-blue">Task Traker</mark> → the actual slave that manage the task. </p></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-8027-9579-c64c199e69f4" class="bulleted-list"><li style="list-style-type:disc">takes rule by Job Traker</li></ul></div><div style="display:contents" dir="ltr"><figure id="1b9eea59-ca7a-8061-8b38-deead4a92efd" class="image"><a href="HDFS%20and%20YARN/image%2011.png"><img style="width:384px" src="HDFS%20and%20YARN/image%2011.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-8067-a84f-c1a6c5f47b43" class="bulleted-list"><li style="list-style-type:disc">Scalability<div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-80c8-bc4c-ea84894f2b15" class="bulleted-list"><li style="list-style-type:circle">Job Tracker performs resource allocation and monitoring for all the jobs</li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-808b-9df3-dc46a548ab2c" class="bulleted-list"><li style="list-style-type:circle">No more than 4,000 nodes and 40,000 concurrent tasks (whereas with YARN, it goes up to 10,000 nodes and 100,000 tasks)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-80dd-a56b-e6819cf96315" class="bulleted-list"><li style="list-style-type:disc">Availability<div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-803b-aacc-f8c8b048fe17" class="bulleted-list"><li style="list-style-type:circle">Job tracker is a single point of failure (same as YARN)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-802b-af3c-c7df3393e027" class="bulleted-list"><li style="list-style-type:disc">Resource Utilization<div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-8037-b12b-fe6c40f8602a" class="bulleted-list"><li style="list-style-type:circle">Due to the predefined number of map and reduce slots for each Task Tracker, utilization issues occur, e.g., <mark class="highlight-pink_background">a reduce task has to wait because only map slots are available in the cluster</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-80c4-94e6-d32ea9b24715" class="bulleted-list"><li style="list-style-type:circle">Furthermore, a slot can be too big (waste of resources) or too small (which may cause a failure) for a particular task</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1c8eea59-ca7a-8073-b573-c85f13badb8b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c8eea59-ca7a-80cf-b85c-cc77bde7f8d4" class="">In MapReduce 1, the jobtracker takes care of both:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c8eea59-ca7a-805f-93b2-d003a0f3ab74" class="numbered-list" start="1"><li><mark class="highlight-teal">job scheduling</mark> (matching tasks with tasktrackers) → done by <mark class="highlight-pink_background">resource manager</mark></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c8eea59-ca7a-80cd-968e-d087517dd909" class="numbered-list" start="2"><li><mark class="highlight-teal">task progress monitoring</mark> (keeping track of tasks, restarting failed or slow tasks, and doing task bookkeeping, such as maintaining counter totals) → done by the <mark class="highlight-pink_background">application master</mark> (one for each MapReduce job)</li></ol></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-809c-b5eb-dbd4ef5e5cd3" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1b9eea59-ca7a-8041-9427-cea807623a0e" class="">YARN</h3></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-80d4-975a-cf931527ded4" class=""><mark class="highlight-orange">YARN </mark>provides its core services via two types of long-running daemons:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1b9eea59-ca7a-80aa-a264-c30e3701bfe3" class="numbered-list" start="1"><li>a <mark class="highlight-blue">Resource Manager</mark> (one per cluster) to manage the use of resources across the cluster</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b9eea59-ca7a-806f-bc50-c5e35d78fab4" class="numbered-list" start="2"><li>a <mark class="highlight-blue">Node Managers</mark> (one per node in the cluster) to launch <mark class="highlight-teal">containers </mark>and monitor usage of container resources, reporting stats to resource manager</li></ol></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-8090-b32a-c5e961bedd51" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b9eea59-ca7a-8049-868b-d42a3694c1dc" class="">A <mark class="highlight-blue">container </mark>is a set of computer resources allocated to run an application specific process (e.g., a map or reduce task).</p></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-80ef-9fb3-f845553e1d74" class="bulleted-list"><li style="list-style-type:disc">are not tagged for map or reduce tasks</li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-800f-bdd4-cd6940b3441e" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">not predefined amount of resources. Tasks can request what they need</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-8033-9b6a-cf00a71c25f2" class="bulleted-list"><li style="list-style-type:disc">The task can express locality constraints on which it want to be executed <div style="display:contents" dir="auto"><ul id="1b9eea59-ca7a-800b-a987-fe869c42b74c" class="bulleted-list"><li style="list-style-type:circle">If the <mark class="highlight-teal"><mark class="highlight-pink_background">locality constraint</mark></mark><mark class="highlight-teal"> </mark>cannot be met, no allocation is made or the constraint can be loosened (e.g., on another node in the same rack) or delay scheduling</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1c8eea59-ca7a-80ca-a8de-d6a43237b61d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c8eea59-ca7a-807f-a79f-c08669eff8c7" class="">For each job the resource manager run an <mark class="highlight-blue">application master process</mark> inside a node manager container. It will:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c8eea59-ca7a-8068-adc1-ca76a4702fd4" class="numbered-list" start="1"><li>Request more containers from the resource managers and use them to run a distributed computation</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c8eea59-ca7a-80e9-9a77-e73a0edd0eb4" class="numbered-list" start="2"><li>Takes the duty to monitor Tasks</li></ol></div><div style="display:contents" dir="auto"><h2 id="1c0eea59-ca7a-80b0-ac47-f63b4beef3d0" class="">YARN Scheduling</h2></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-8070-8b4e-c1cef58df642" class="">Provide different schedulers that allocate resources to applications based on different policies</p></div><div style="display:contents" dir="auto"><h3 id="1c0eea59-ca7a-80ec-8f21-e51fe7765ceb" class="">FIFO scheduler</h3></div><div style="display:contents" dir="auto"><div id="1c0eea59-ca7a-80a5-bf5f-f86104f9f79c" class="column-list"><div style="display:contents" dir="auto"><div id="1c0eea59-ca7a-80d1-b4fa-e2cede9b7883" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-806d-a59f-d98459cab775" class="">The FIFO Scheduler places applications in a single queue and runs them in the order of submission (first in, first out)</p></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-8076-ac41-d891c4add804" class="bulleted-list"><li style="list-style-type:disc">job2 is <mark class="highlight-blue">starving </mark>until job1 terminates</li></ul></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-80c0-9170-d9b1ea1e6da0" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1c0eea59-ca7a-80a5-9393-fa4464081086" style="width:43.74999999999999%" class="column"><div style="display:contents" dir="ltr"><figure id="1c0eea59-ca7a-80b4-9ae2-dda32a6c2ff0" class="image"><a href="HDFS%20and%20YARN/image%2012.png"><img style="width:480px" src="HDFS%20and%20YARN/image%2012.png"/></a><figcaption>All resources to job1 since its big, but it’s an extreme case</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="1c0eea59-ca7a-80c1-a08a-c5e9fdbc6b7b" class="">Capacity Scheduler</h3></div><div style="display:contents" dir="auto"><div id="1c0eea59-ca7a-8090-babe-dcf64dfe3730" class="column-list"><div style="display:contents" dir="auto"><div id="1c0eea59-ca7a-80f8-94f5-d1c30d7e49e3" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-800d-ba5c-c4fbed0f4010" class="">The Capacity Scheduler has separate queues</p></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-8005-bc5f-d5753cc68a1a" class="bulleted-list"><li style="list-style-type:disc">Each queue dedicated to an user of the cluster</li></ul></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-80d9-9b1e-f25294208a2d" class="">Each queue configured to use a given fraction of the cluster capacity (not equal)</p></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-8022-8528-e67619419692" class="bulleted-list"><li style="list-style-type:disc">This is the <mark class="highlight-teal">default </mark>scheduler</li></ul></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-80e9-b067-da5564f07770" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1c0eea59-ca7a-80cf-a178-f66139005728" style="width:43.75000000000001%" class="column"><div style="display:contents" dir="ltr"><figure id="1c0eea59-ca7a-8022-a608-eff344401bd7" class="image"><a href="HDFS%20and%20YARN/image%2013.png"><img style="width:480px" src="HDFS%20and%20YARN/image%2013.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-8062-a327-d472f19e0497" class="bulleted-list"><li style="list-style-type:disc">Within a queue, applications are scheduled using FIFO scheduling</li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-80d6-90db-e4ecd5e729d8" class="bulleted-list"><li style="list-style-type:disc">A large job finishes later than when using FIFO Scheduler</li></ul></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-806c-9fbe-f7adedf03b76" class="">The problem is the <mark class="highlight-blue">waste of resources</mark></p></div><div style="display:contents" dir="auto"><h3 id="1c0eea59-ca7a-80ef-9d4c-e5ade26eb0a9" class="">Fair Scheduler</h3></div><div style="display:contents" dir="auto"><div id="1c0eea59-ca7a-805b-affa-e3afa1e7e08a" class="column-list"><div style="display:contents" dir="auto"><div id="1c0eea59-ca7a-80e9-b68b-c235d78887ce" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-80a5-ae7b-effdd1ba0008" class="">There is no need to reserve a set amount of capacity (no queue)</p></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-80a5-b42d-f8eeb67fc294" class="bulleted-list"><li style="list-style-type:disc">It will dynamically balance resources among all running jobs<div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-809b-ba92-d01fb8b54395" class="bulleted-list"><li style="list-style-type:circle">E.g., when the first job starts, it gets all cluster resources. When the second job starts, it gets half of the cluster resources, and so on</li></ul></div></li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1c0eea59-ca7a-808c-ad5f-ffb03bdde676" style="width:43.75%" class="column"><div style="display:contents" dir="ltr"><figure id="1c0eea59-ca7a-8014-a88d-fc4b64c2e122" class="image"><a href="HDFS%20and%20YARN/image%2014.png"><img style="width:384px" src="HDFS%20and%20YARN/image%2014.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><div id="1f9eea59-ca7a-809d-b70d-f8e4d445c719" class="column-list"><div style="display:contents" dir="auto"><div id="1f9eea59-ca7a-808f-b43a-f7f251c8dd14" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-8052-ac60-fdedb7c0662a" class="bulleted-list"><li style="list-style-type:disc">Fair scheduling is<mark class="highlight-teal"> per-user </mark>(not per job): if user A submits two jobs and user B only one, then each A’s job gets 25% while B’s job gets 50% of resources</li></ul></div><div style="display:contents" dir="auto"><p id="1faeea59-ca7a-8087-85be-dc88bb9c37c7" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1f9eea59-ca7a-80ec-9972-c13a367d2b7d" style="width:43.75%" class="column"><div style="display:contents" dir="ltr"><figure id="1f9eea59-ca7a-8020-95eb-d11b94bac832" class="image"><a href="HDFS%20and%20YARN/image%2015.png"><img style="width:331.960205078125px" src="HDFS%20and%20YARN/image%2015.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1c0eea59-ca7a-80cb-9cbf-fe804b864ac7"><div style="font-size:1.5em"><span class="icon">📢</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-808c-8f02-d43bdbe811f6" class="">There is not a best approach, all depends on the requirement of the application</p></div></div></figure></div><div style="display:contents" dir="auto"><h3 id="1c0eea59-ca7a-80ce-9acb-d394409d5c7a" class="">Delay Scheduling</h3></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-808a-b615-fd1bb14b576f" class=""><span style="border-bottom:0.05em solid">Variant of Fair or Capacity scheduler, that can be activated</span></p></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-809e-87b4-c857befaebf6" class="bulleted-list"><li style="list-style-type:disc">All YARN schedulers try to honor locality requests → move process to the data</li></ul></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-8037-b314-c4bdbddd19fd" class="">On a busy cluster, however, there is a good chance that a required node is saturated by other containers at the time of a request</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c0eea59-ca7a-806a-8208-fa922672c31b" class="numbered-list" start="1"><li>We can loosen the constraint by allocating resources o<mark class="highlight-pink_background">n another node on the </mark><mark class="highlight-teal"><mark class="highlight-pink_background">same rack</mark></mark><mark class="highlight-pink_background"> </mark>(consume network only between two nodes)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c0eea59-ca7a-8071-95bc-c0ad6cb86ae0" class="numbered-list" start="2"><li>We can <mark class="highlight-pink_background">wait a short time</mark> to increase statistically the chances of being allocated in a container on the same node → more efficient (delay scheduling)<div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-8002-9900-d50e718a0c16" class="bulleted-list"><li style="list-style-type:disc">After some seconds, if it cannot be allocated, it will be executed on another machine</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-80fe-8647-f337c8875fb7" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-804f-b554-dd5528a15bd6" class="">Every node manager in a YARN cluster periodically sends a <mark class="highlight-teal">heartbeat </mark>request to the <mark class="highlight-teal">resource manager</mark></p></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-8031-a64a-ef213ce0300d" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Heartbeats carry information about the node manager’s running containers and the resources available for new containers</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-802f-b270-e7b2f4ead8f1" class="bulleted-list"><li style="list-style-type:disc">Each heartbeat is a potential scheduling <mark class="highlight-pink_background">opportunity</mark> for an application to run a container</li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-800e-b43a-d321fa716a51" class="bulleted-list"><li style="list-style-type:disc">When using delay scheduling, the scheduler doesn’t simply use the first scheduling opportunity it receives, but waits for up to a given maximum number of scheduling opportunities to occur before loosening the locality constraint</li></ul></div><div style="display:contents" dir="auto"><p id="1c8eea59-ca7a-8013-aea2-c1791d00527c" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1c8eea59-ca7a-80b8-9a04-f7396407e9b9" class="">Overall Process</h3></div><div style="display:contents" dir="auto"><div id="1c8eea59-ca7a-801d-85fa-df100ed66e7d" class="column-list"><div style="display:contents" dir="auto"><div id="1c8eea59-ca7a-80c0-b339-c4f6e22fd27b" style="width:31.25%" class="column"><div style="display:contents" dir="auto"><ol type="1" id="1c0eea59-ca7a-809e-8fd6-e683ec8e88b3" class="numbered-list" start="1"><li>Blue: components from the Hadoop framework</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c0eea59-ca7a-8084-9109-c0b37efd8ae5" class="numbered-list" start="2"><li>Orange boxes: the one that the developer needs to provide (app logic)</li></ol></div><div style="display:contents" dir="auto"><p id="1c8eea59-ca7a-8018-b845-fffe0d5f07b1" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1c8eea59-ca7a-804a-b3eb-fb11251a1b7d" style="width:68.75%" class="column"><div style="display:contents" dir="ltr"><figure id="1c0eea59-ca7a-80d2-8c7c-e6fca202bad2" class="image"><a href="HDFS%20and%20YARN/image%2016.png"><img style="width:528px" src="HDFS%20and%20YARN/image%2016.png"/></a><figcaption>Often asked in exams</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-8058-ae5e-f1c8091ea9ca" class="">MapReduce program is the<mark class="highlight-orange"> driver code </mark></p></div><div style="display:contents" dir="auto"><ol type="1" id="1f9eea59-ca7a-803c-91a2-efd678794a99" class="numbered-list" start="1"><li><code>job.waitForCompletion(true)</code> submit the job</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1f9eea59-ca7a-80d5-a0be-f7df41e446ad" class="numbered-list" start="2"><li> job <div style="display:contents" dir="auto"><ol type="a" id="1f9eea59-ca7a-80eb-85e6-ff170594da88" class="numbered-list" start="1"><li>call <span style="border-bottom:0.05em solid">Resource manager</span>, that gives an ID to the job</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1f9eea59-ca7a-80f2-b5e0-df62e556ec75" class="numbered-list" start="2"><li>check output directories not used</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1f9eea59-ca7a-80e1-94c7-c918999e41b3" class="numbered-list" start="3"><li>compute input splits</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c0eea59-ca7a-8009-8e9f-f729640f8ae8" class="numbered-list" start="3"><li>copy job resources it needs in HDFS (named after the ID) → jar files (map class, reduce class), jobs configurations and input splits</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c0eea59-ca7a-80c2-99c1-f23d3a3c163a" class="numbered-list" start="4"><li>Job is officialy submitting to <span style="border-bottom:0.05em solid">resource manager</span> </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c0eea59-ca7a-8045-9e5b-f32fa123534e" class="numbered-list" start="5"><li>Since the resource manager knows the resource utilization, it contact a <span style="border-bottom:0.05em solid">node manager</span> to start a container to execute the <span style="border-bottom:0.05em solid">app master</span></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c0eea59-ca7a-807e-be66-f0ae73ebee30" class="numbered-list" start="6"><li>initialization steps → datastructures to keep track of tasks </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c0eea59-ca7a-80f0-8a44-fc6ec59d43ec" class="numbered-list" start="7"><li>retrive infos from HDFS on the input splits (number of map tasks = number of input splits) </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c0eea59-ca7a-80f0-b90a-fa18b6a157eb" class="numbered-list" start="8"><li>It asks to the resource manager to understand where to put the substasks (because it knows who is free), and to allocate the containers</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c0eea59-ca7a-80a9-b7dd-df7d8eb51fe4" class="numbered-list" start="9"><li>Ask to first node manager to open a container, open a JVM and YarnChild will be the master of the task </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1f9eea59-ca7a-80a8-8493-c6e6e9bad95a" class="numbered-list" start="10"><li>retrives jar file for executing and data from HDFS</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1f9eea59-ca7a-8007-b031-dadc81dc4ddf" class="numbered-list" start="11"><li>run</li></ol></div><div style="display:contents" dir="auto"><p id="1f9eea59-ca7a-808a-a067-c6ef3fabbc3f" class="">
+</p></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1f9eea59-ca7a-80c3-a5e2-d4d45afe5c72"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1f9eea59-ca7a-80a3-879a-d76a618be131" class="">Reduce tasks can run anywhere in the cluster, but requests for map tasks have data locality constraints that the scheduler tries to honor</p></div></div></figure></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-806f-a487-dd1200d460f0" class=""><mark class="highlight-pink_background">Job is a </mark><mark class="highlight-teal"><mark class="highlight-pink_background">gateway </mark></mark><mark class="highlight-pink_background">(interface to abstract the complexity) from HDFS and YARN</mark></p></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-8054-8994-f4e46b617f9d" class=""><mark class="highlight-teal">Uber Mode execution </mark>→ just for debugging or teaching (typically if it is small, must be enabled)</p></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-8018-b115-e78931b5ce86" class="bulleted-list"><li style="list-style-type:disc">All the tasks of map and reduce will run inside the container where the<mark class="highlight-pink_background"> app master is running</mark></li></ul></div><div style="display:contents" dir="auto"><h3 id="1c0eea59-ca7a-80af-9a06-f2cf9502c2fc" class="">Fault Tolerance</h3></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-8033-9534-d339b1615151" class="">In order of increasing criticality</p></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-80b9-8b05-c11c69e723eb" class="">The application master will try to avoid rescheduling the task on a node manager where it has<br/>previously failed</p></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-80f0-8740-dad37110ac26" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c0eea59-ca7a-809d-96a8-ebde4d5ff465" class="numbered-list" start="1"><li>Task Failure (map or reduce) → least serious case<div style="display:contents" dir="auto"><ol type="a" id="1c0eea59-ca7a-80b7-a01d-f92b2b31068b" class="numbered-list" start="1"><li>The user code in the task throws a <mark class="highlight-teal">runtime exception</mark><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-8058-8579-f7955672fcbc" class="bulleted-list"><li style="list-style-type:disc">The task JVM reports the error back to its parent<mark class="highlight-blue"> application master</mark> before it exits.</li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-809f-be66-d27d809db73a" class="bulleted-list"><li style="list-style-type:disc">The application master marks the task attempt as failed and frees the container resources</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1c0eea59-ca7a-80ae-80a4-d5a2591c1bbc" class="numbered-list" start="2"><li>Sudden exit of the task JVM<div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-8098-b0fe-c023d12659c3" class="bulleted-list"><li style="list-style-type:disc">The<mark class="highlight-blue"> node manager</mark> (that senses the fail) informs the application master</li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-802c-b948-c0e881e5ce13" class="bulleted-list"><li style="list-style-type:disc">The application master marks the task attempt as failed and frees the container resources</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1c0eea59-ca7a-80a6-b52f-eeecc6090a0d" class="numbered-list" start="3"><li><mark class="highlight-teal">Hanging tasks</mark><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-801c-b28c-f0f0c8f89f9c" class="bulleted-list"><li style="list-style-type:disc">The <mark class="highlight-pink_background"><span style="border-bottom:0.05em solid">application master</span></mark> notices that it hasn’t received a progress update for a while</li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-8091-ab6e-c5dc6fd50f73" class="bulleted-list"><li style="list-style-type:disc">The task JVM process will be killed automatically after this period (typically 10 minutes) → try to execute on another node</li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-80eb-b661-e1506bb04edf" class="bulleted-list"><li style="list-style-type:disc">The application master marks the task as failed</li></ul></div></li></ol></div></li></ol></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-80e5-9760-d7764e57defa" class="">2. Application Master Failure<div class="indented"><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-80c0-af90-d14c852341b3" class="bulleted-list"><li style="list-style-type:disc">Application master periodically sends <mark class="highlight-teal">heartbeats </mark>to the <mark class="highlight-blue">resource manager</mark>.</li></ul></div><div style="display:contents" dir="auto"><ul id="1c8eea59-ca7a-8097-887d-d3ab9fa1ce59" class="bulleted-list"><li style="list-style-type:disc">The resource manager will detect the failure and start a new instance of the master running in a new container (managed by a node manager)</li></ul></div><div style="display:contents" dir="auto"><ul id="1c8eea59-ca7a-8041-95cb-c8d3b3290fcc" class="bulleted-list"><li style="list-style-type:disc">The client needs to go back to the resource manager to ask for the new application master’s address (this process is transparent to the user)</li></ul></div><div style="display:contents" dir="auto"><ul id="1c8eea59-ca7a-80f7-ab64-c92891b8b68a" class="bulleted-list"><li style="list-style-type:disc">If a MapReduce application master fails twice it will not be tried again and the job will fail</li></ul></div></div></p></div><div style="display:contents" dir="auto"><ol type="1" id="1c0eea59-ca7a-8047-94f6-fec24a5f4558" class="numbered-list" start="3"><li>Node Manager Failure → more critical because more applications could be controlled by the node manager<div style="display:contents" dir="auto"><ul id="1c8eea59-ca7a-808b-8533-d6967321143a" class="bulleted-list"><li style="list-style-type:disc">Node managers periodically send heartbeats to the resource manager</li></ul></div><div style="display:contents" dir="auto"><ul id="1c8eea59-ca7a-801d-af05-c33abeec827a" class="bulleted-list"><li style="list-style-type:disc">The resource manager will notice a node manager that has stopped sending heartbeats<br/>if it hasn’t received one for 10 minutes</li></ul></div><div style="display:contents" dir="auto"><ul id="1c8eea59-ca7a-801d-bc4e-e06b578eb5de" class="bulleted-list"><li style="list-style-type:disc">The resource manager will remove it from its pool of nodes to schedule containers on</li></ul></div><div style="display:contents" dir="auto"><ul id="1c8eea59-ca7a-80b8-a7c9-ff4d9208c565" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Any task or application master running on the failed node manager will be considered<br/>failed and will be therefore recovered by using the mechanisms seen before</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1c8eea59-ca7a-8025-ae43-c050f67de8f8" class="bulleted-list"><li style="list-style-type:disc">Node managers may be blacklisted if the number of failures for the application is high<br/>(even if node manager itself has not failed)<div style="display:contents" dir="auto"><ul id="1c8eea59-ca7a-80de-a7a8-f1319bf9bf99" class="bulleted-list"><li style="list-style-type:circle">Blacklisting is done by the application master</li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-80d4-87f2-f0740d3bea7a" class="">4. Resource Manager Failure<div class="indented"><div style="display:contents" dir="auto"><ul id="1c8eea59-ca7a-8060-8f20-d7072107429e" class="bulleted-list"><li style="list-style-type:disc">Failure of the resource manager is serious: without it neither jobs nor task containers can be launched</li></ul></div><div style="display:contents" dir="auto"><ul id="1c8eea59-ca7a-80a0-a36b-ffb91e328378" class="bulleted-list"><li style="list-style-type:disc">In the default configuration, the resource manager is a <mark class="highlight-teal">single point of failure</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1c8eea59-ca7a-808b-9ee8-e72785d02033" class="bulleted-list"><li style="list-style-type:disc">To achieve high availability, it is necessary to run a pair of resource managers in an active-standby configuration</li></ul></div><div style="display:contents" dir="auto"><ul id="1c8eea59-ca7a-8063-bef9-d4c18f374712" class="bulleted-list"><li style="list-style-type:disc">Information about all the running applications is stored in a <mark class="highlight-pink_background">highly available state store</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1c8eea59-ca7a-80a5-b773-c9cf407c4ac9" class="bulleted-list"><li style="list-style-type:disc">The standby resource manager can recover the core state of the failed active resource manager</li></ul></div><div style="display:contents" dir="auto"><ul id="1c8eea59-ca7a-80d7-bf68-cd667aeb77c5" class="bulleted-list"><li style="list-style-type:disc">he transition of a resource manager from standby to active is handled by a <mark class="highlight-teal">failover controller</mark><div style="display:contents" dir="auto"><ul id="1c8eea59-ca7a-809d-8472-c863926eefb2" class="bulleted-list"><li style="list-style-type:circle">The default failover controller uses leader election mechanism to ensure that there is only a single active resource manager at one time</li></ul></div><div style="display:contents" dir="auto"><ul id="1c8eea59-ca7a-804f-870d-d5180f55a412" class="bulleted-list"><li style="list-style-type:circle">Clients and node managers must be configured to handle resource manager failover. They try connecting to each resource manager in a round-robin fashion until they find the active one</li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-803e-bf63-cf7ecd7888a1" class="bulleted-list"><li style="list-style-type:circle">It doesn’t introduce a new point of failure because it works in a similar way of blockchain. Distributed component that achive decisions (election of the new resource manager) based on the majority of them</li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-80fb-9589-f2249dec3fa2" class="bulleted-list"><li style="list-style-type:circle">Read the checkpoint file and start from there</li></ul></div></li></ul></div></div></p></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-8099-9d04-f84a27d97c22" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1c0eea59-ca7a-8005-bbff-cdde20570675" class="">Speculative Execution</h3></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-80ba-8595-f807c19c5ffb" class="">Problem: <mark class="highlight-teal">Stragglers </mark>(i.e., slow tasks) significantly lengthen the completion time of<br/>the job. Tasks can be slow due:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c0eea59-ca7a-80e2-b18b-ffdb48455df0" class="numbered-list" start="1"><li>Hardware degradation</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c0eea59-ca7a-8077-9aef-eeca7ecaea1a" class="numbered-list" start="2"><li>Software misconfiguiration</li></ol></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-80d3-a6a9-fffb86a47693" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-80f1-a35a-cb0dc0397fe5" class="">Solution: <mark class="highlight-teal"><mark class="highlight-pink_background">Speculative execution</mark></mark>: application master tracks the progress of all tasks of the same type (Map and Reduce) in a job (need to complete all the maps to start the reduce). When the tasks are struggling (above some time) then:</p></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-80c3-ae0a-f344d766fb34" class="bulleted-list"><li style="list-style-type:disc">Launches speculative duplicate tasks for the small portion of tasks that are running significantly slower than the average</li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-8026-8947-f677ea9084dc" class="bulleted-list"><li style="list-style-type:disc">Whichever one (i.e., original and speculative) finishes first, “wins”. The other is killed.</li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-8023-be3f-d83e9f389fad" class="bulleted-list"><li style="list-style-type:disc">Additional cost: a few percent more resource usage</li></ul></div><div style="display:contents" dir="auto"><h3 id="1c0eea59-ca7a-805d-9649-e7312d1d6dea" class="">Shuffle and Sort</h3></div><div style="display:contents" dir="ltr"><figure id="1c0eea59-ca7a-802f-8991-f48bb911a8d2" class="image"><a href="HDFS%20and%20YARN/image%2017.png"><img style="width:605.7875366210938px" src="HDFS%20and%20YARN/image%2017.png"/></a><figcaption>asked during exam</figcaption></figure></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-8005-a6e2-e8046fe4f869" class=""><code>context.write</code> → save the computation to the buffer in main memory</p></div><div style="display:contents" dir="auto"><p id="1c8eea59-ca7a-80cc-8320-ea3289695107" class="">Each time the memory buffer reaches the spill threshold (80% by default), a new spill file is created by the <mark class="highlight-teal">spiller </mark>(thread in JVM), so after the map task has written its last output record, there could be several <mark class="highlight-teal">spill files</mark>.</p></div><div style="display:contents" dir="auto"><ol type="1" id="1edeea59-ca7a-801e-902a-dd546afc149b" class="numbered-list" start="1"><li>every spill file, before being written on disk is sorted and then passed by the combiner (if defined)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1edeea59-ca7a-809c-ab3f-c0d9e044ca64" class="numbered-list" start="2"><li>As last thing, the map task will merge the files on disk in a sorted order, and if necessary (min number of spill files), run another time the combiner </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1edeea59-ca7a-80e7-a904-e72cdc9bc1f2" class="numbered-list" start="3"><li>Partitioner is used to map a key partition to the right reduce task → same key across map tasks to the same reduce task</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1edeea59-ca7a-8014-96f3-d62ba34300bf" class="numbered-list" start="4"><li>reduce task will copy the partition on the local disk of the mapper to theirs, as soon as a map task has finished</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1edeea59-ca7a-8039-b12c-c26084d4d640" class="numbered-list" start="5"><li>then merge the different files and sort them</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1edeea59-ca7a-80fb-9d7a-df0ac8621f90" class="numbered-list" start="6"><li>call the reduce function for each key - list of values</li></ol></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-808d-93c2-c322e11245ea" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-8085-9a90-de76635bea48" class="">The reduce task (that you written), starts when all the map tasks finishes</p></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-8090-b27d-e02304d37551" class="bulleted-list"><li style="list-style-type:disc">In the mean time it takes the data from the mapper local disks when their task finishes</li></ul></div><div style="display:contents" dir="auto"><ul id="1c8eea59-ca7a-802b-8624-ed343d615d22" class="bulleted-list"><li style="list-style-type:disc">If they are small enough to fit into memory good, otherwise putted into disk</li></ul></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-8078-9fbf-d34d52003d40" class="bulleted-list"><li style="list-style-type:disc">The information is known by the application master (monitoring progress of tasks) → inform the reducers that they will start a copier thread to get the data (in memory if not too big and or disk)</li></ul></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-80bb-b51a-f01727a49a6e" class="">Another step of shuffling and sorting after the merge</p></div><div style="display:contents" dir="auto"><ul id="1c0eea59-ca7a-80c1-af91-cf5edc5fd072" class="bulleted-list"><li style="list-style-type:disc">I get as many files as the number of reducers → all inside the output directory of HDFS</li></ul></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-8052-99e8-cbee235e9869" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c0eea59-ca7a-8097-a510-eb4bef317a9d" class="">HDFS is only in the input and output → not in the middle! That is the local disk </p></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-80a2-9e76-fb7b3cd6937e" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

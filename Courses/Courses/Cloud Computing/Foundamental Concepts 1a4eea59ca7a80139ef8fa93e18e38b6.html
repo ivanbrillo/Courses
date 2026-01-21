@@ -1,0 +1,742 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Foundamental Concepts</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1a4eea59-ca7a-8013-9ef8-fa93e18e38b6" class="page sans"><header><h1 class="page-title" dir="auto">Foundamental Concepts</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="1a4eea59-ca7a-8052-8c9a-c38432a9536f" class="">Cloud Computing</p></div><div style="display:contents" dir="auto"><ul id="1a4eea59-ca7a-804e-be20-f46398434792" class="bulleted-list"><li style="list-style-type:disc">it is the result of a series of developments that have taken place over the past few decades</li></ul></div><div style="display:contents" dir="auto"><ul id="1a4eea59-ca7a-8025-82be-c8b1044e70fb" class="bulleted-list"><li style="list-style-type:disc">only the composition of some key technologies has enabled cloud computing (virtualization …)</li></ul></div><div style="display:contents" dir="auto"><p id="1a4eea59-ca7a-80dd-8014-f8326448d7a1" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1a4eea59-ca7a-801f-8300-cf150c5eaa17" class="">MainFrames</h3></div><div style="display:contents" dir="auto"><p id="1a4eea59-ca7a-8095-be21-c98219c40a63" class="">Commercial usage of computing started around 1970s with <mark class="highlight-teal">mainframes </mark>(large computer installed in a room)</p></div><div style="display:contents" dir="auto"><ul id="1a4eea59-ca7a-80aa-89a4-e8405f461473" class="bulleted-list"><li style="list-style-type:disc">Organizations acquired such hardware to automate basic data processing</li></ul></div><div style="display:contents" dir="auto"><ul id="1a4eea59-ca7a-80fe-99eb-ffc7a47ddac5" class="bulleted-list"><li style="list-style-type:disc">So expensive a company couldn’t afford more than one → <mark class="highlight-orange">time-shared utilization</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1a4eea59-ca7a-804d-833e-e20087c934ab" class="bulleted-list"><li style="list-style-type:disc">Different users were accessing the mainframe from terminals</li></ul></div><div style="display:contents" dir="auto"><p id="1a4eea59-ca7a-80dc-ad68-e0ff122e6ce7" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1a4eea59-ca7a-80e1-ba7a-f218c81ef026" class="">PC Revolution</h3></div><div style="display:contents" dir="auto"><p id="1a4eea59-ca7a-80cc-8434-cffbe8a032c3" class="">At the end of the 70s less expensive computers came into the market → <mark class="highlight-teal">Personal Computer</mark></p></div><div style="display:contents" dir="auto"><ul id="1a4eea59-ca7a-806c-8427-d2218201ba9f" class="bulleted-list"><li style="list-style-type:disc">Big organizations installed multiple PCs in different offices</li></ul></div><div style="display:contents" dir="auto"><ul id="1a4eea59-ca7a-803a-870f-f068c3d98e47" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Network communication</mark> technologies were introduced to allow communication between PCs for data transfer (<mark class="highlight-teal">LAN </mark>and <mark class="highlight-teal">WAN</mark>)</li></ul></div><div style="display:contents" dir="auto"><p id="1a4eea59-ca7a-8074-afb8-c13e40571699" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1a4eea59-ca7a-8079-b73e-cf64f23a9420" class="">This lead to the creation of <mark class="highlight-orange">distributed applications</mark></p></div><div style="display:contents" dir="auto"><div id="1a4eea59-ca7a-80eb-96db-ed72b2cfa857" class="column-list"><div style="display:contents" dir="auto"><div id="1a4eea59-ca7a-80d6-86a8-c1d59fa5199c" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1a4eea59-ca7a-8042-9655-cae233d6cde9" class="image" style="text-align:right"><a href="Foundamental%20Concepts/image.png"><img style="width:192px" src="Foundamental%20Concepts/image.png"/></a></figure></div></div></div><div style="display:contents" dir="auto"><div id="1a4eea59-ca7a-80ab-a957-d82722173842" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1a4eea59-ca7a-8042-9828-c29bce5dbd41" class="image"><a href="Foundamental%20Concepts/image%201.png"><img style="width:192px" src="Foundamental%20Concepts/image%201.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1a4eea59-ca7a-8098-ad05-fc1c0f88998d" class="">Also introduced the <mark class="highlight-orange">parallel processing</mark> (more task computed together on the same PC)</p></div><div style="display:contents" dir="auto"><p id="1a4eea59-ca7a-80f6-bb02-e73db5955e27" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1a4eea59-ca7a-8020-af48-fd995594603b" class="">Distributed Computing System </h3></div><div style="display:contents" dir="auto"><div id="1a4eea59-ca7a-80b7-97f4-f63b03dbe98a" class="column-list"><div style="display:contents" dir="auto"><div id="1a4eea59-ca7a-8082-ba23-cb210a09d379" style="width:43.75%" class="column"><div style="display:contents" dir="auto"><p id="1a4eea59-ca7a-8074-86f2-db13ddedc57e" class="">Applications are programmed to be executed in a distributed manner as a <mark class="highlight-teal">composition of different tasks</mark></p></div><div style="display:contents" dir="auto"><ul id="1a4eea59-ca7a-8038-8dbe-cd2b6049b49c" class="bulleted-list"><li style="list-style-type:disc">Nodes communicate to exchange data or results</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1a4eea59-ca7a-8071-b4f8-c541cb9b8a3d" style="width:56.25%" class="column"><div style="display:contents" dir="ltr"><figure id="1a4eea59-ca7a-801a-b846-df23316d4052" class="image"><a href="Foundamental%20Concepts/image%202.png"><img style="width:480px" src="Foundamental%20Concepts/image%202.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1a4eea59-ca7a-803d-87ae-ea588be6dc56" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1a4eea59-ca7a-80f0-89c9-ce382c84d22e" class="">Cluster Computing</h3></div><div style="display:contents" dir="auto"><p id="1a4eea59-ca7a-809c-9d80-f82cfe35a124" class="">The next natural step was the creation of clusters: groups of multiple nodes (computers) all connected to the same <mark class="highlight-blue">LAN </mark>to perform the same (or similar) tasks</p></div><div style="display:contents" dir="auto"><ul id="1a4eea59-ca7a-8066-a849-d830da97dc67" class="bulleted-list"><li style="list-style-type:disc">Computers are clustered together for a more <mark class="highlight-teal">efficient </mark>computing (less communication overhead) and to improve <mark class="highlight-teal">reliability </mark>(if one fail the other take over)</li></ul></div><div style="display:contents" dir="auto"><ul id="1a4eea59-ca7a-802d-a620-dc2dc3edc2be" class="bulleted-list"><li style="list-style-type:disc">Among the PCs of a cluster, one node is selected as <mark class="highlight-brown">cluster head</mark> → distribute the tasks</li></ul></div><div style="display:contents" dir="ltr"><figure id="1a4eea59-ca7a-801f-9b6a-ebc0abedbd3f" class="image"><a href="Foundamental%20Concepts/image%203.png"><img style="width:432px" src="Foundamental%20Concepts/image%203.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1a4eea59-ca7a-805c-a472-e81076616609" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1a4eea59-ca7a-8095-88ea-f7e07f0a1ebb" class="">Grid Computing</h3></div><div style="display:contents" dir="auto"><ul id="1a4eea59-ca7a-802b-b910-ccb6ee825a4b" class="bulleted-list"><li style="list-style-type:disc">The cluster head represented a single point of failure</li></ul></div><div style="display:contents" dir="auto"><ul id="1a4eea59-ca7a-80f1-815c-e88c3c38f8a7" class="bulleted-list"><li style="list-style-type:disc">To mitigate this risk in early 90s a new architecture was introduced, grid computing: <mark class="highlight-teal">a pool of resources</mark> in which the control functionalities were implemented in a <mark class="highlight-brown">decentralized manner</mark> (not in the cluster head) → masterless between nodes inside the grid</li></ul></div><div style="display:contents" dir="ltr"><figure id="1a4eea59-ca7a-80fa-a4fa-de059f26d5e7" class="image"><a href="Foundamental%20Concepts/image%204.png"><img style="width:480px" src="Foundamental%20Concepts/image%204.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1a4eea59-ca7a-803b-92b7-e0614317f36c" class="">It had many <strong>drawbacks</strong>:</p></div><div style="display:contents" dir="auto"><ul id="1a4eea59-ca7a-8060-98b1-d11e61100f84" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Real-time scaling</mark> was not possible: more computing power/storage → unlike modern cloud, grid computing did not have built-in mechanisms to efficiently<mark class="highlight-pink_background"> scale on demand</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1a4eea59-ca7a-803f-8401-f94b088b3f40" class="bulleted-list"><li style="list-style-type:disc">The system was not <mark class="highlight-teal">fault tolerant</mark>: the failure of a node results in the failure of a task<div style="display:contents" dir="auto"><ul id="1c3eea59-ca7a-80e8-ad2b-d5dda4e81de2" class="bulleted-list"><li style="list-style-type:circle">No failure management system where developed (replication, redundancies)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1a4eea59-ca7a-80aa-8058-c20a502c727b" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Heterogeneous </mark><mark class="highlight-teal"><mark class="highlight-pink_background">hardware </mark></mark><mark class="highlight-pink_background">required code adaptation </mark>→ developers needs to write different codes for the different platflorms, no abstraction</li></ul></div><div style="display:contents" dir="auto"><p id="1a4eea59-ca7a-8065-9196-eccdd1dcadd7" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1a4eea59-ca7a-8044-9e66-ede003262e59" class="">Hardware Virtualization</h3></div><div style="display:contents" dir="auto"><p id="1a4eea59-ca7a-809a-a629-e3805157b5ad" class="">The execution of software on different architecture without changes required to <mark class="highlight-teal">decouple </mark>software systems from the underlying physical resources of computers</p></div><div style="display:contents" dir="auto"><ul id="1a4eea59-ca7a-80d3-9bdb-f84cd7c11a4d" class="bulleted-list"><li style="list-style-type:disc">This would allow to deal with hardware diversity but also to achieve real time scalability</li></ul></div><div style="display:contents" dir="auto"><ul id="1a4eea59-ca7a-8079-a1fb-fe528fd31c3b" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">a layer of software</mark> over the hardware system that could simulate the whole physical system environment and provide a common interface</li></ul></div><div style="display:contents" dir="auto"><p id="1a4eea59-ca7a-8071-8699-c0cb80c0b165" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1a4eea59-ca7a-8045-b8fe-c41c56f7fd53" class="">Web Based Technologies</h3></div><div style="display:contents" dir="auto"><p id="1a4eea59-ca7a-808a-9f46-f0c6c984ce77" class="">In addition to enabling grid computing to empower the development of large computing systems, faster networks allowed users from different geographical locations to <mark class="highlight-teal">collaborate </mark>in almost real time</p></div><div style="display:contents" dir="auto"><p id="1a4eea59-ca7a-801a-8dcb-c2ac96cdd029" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1a4eea59-ca7a-8016-86ba-fed6ebb35ab7" class="">Service Oriented Architecture (SOA)</h3></div><div style="display:contents" dir="auto"><p id="1a4eea59-ca7a-80c8-99d7-f912b5ade8aa" class="">It is a<mark class="highlight-pink_background"> </mark><mark class="highlight-teal"><mark class="highlight-pink_background">development method</mark></mark> in which applications are developed by leveraging software components (services) interacting each other</p></div><div style="display:contents" dir="auto"><ul id="1a4eea59-ca7a-80fb-aaa1-d90fec074654" class="bulleted-list"><li style="list-style-type:disc">Each service is an independent entity that communicate with the others via <mark class="highlight-brown">messages</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1a4eea59-ca7a-8024-a683-e3eefa4056e1" class="bulleted-list"><li style="list-style-type:disc">Flexible to changes</li></ul></div><div style="display:contents" dir="auto"><p id="1a4eea59-ca7a-80d2-b28c-c62301209670" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1a4eea59-ca7a-809d-a7a1-efbd6b731d4a" class="">Utility Computing Model</h3></div><div style="display:contents" dir="auto"><p id="1a4eea59-ca7a-80ea-b8c7-ea99da190dac" class="">Computing era reached a point in which we had:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1a4eea59-ca7a-8092-9a8a-daae3b232b09" class="numbered-list" start="1"><li>Scalable computing infrastructure made of heterogeneous resources</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1a4eea59-ca7a-80cf-8f0c-f6d912949819" class="numbered-list" start="2"><li>Distributed computing environments empowered by high bandwidth networks</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1a4eea59-ca7a-80e0-9bc5-e4cf8c960959" class="numbered-list" start="3"><li>Collaborative environment across the world via web services</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1a4eea59-ca7a-8036-83a0-ccfd492402a9" class="numbered-list" start="4"><li>Flexible applications via SOA</li></ol></div><div style="display:contents" dir="auto"><p id="1a4eea59-ca7a-8026-98f4-de5871e661e3" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1a4eea59-ca7a-80fc-9f55-d8dbd18e2152" class=""><mark class="highlight-brown">Utility Computing</mark>: delivering of computing resources as <mark class="highlight-teal">utility</mark>, following a pay per use model and on demand</p></div><div style="display:contents" dir="auto"><ul id="1a4eea59-ca7a-8014-816c-ea5ca1694481" class="bulleted-list"><li style="list-style-type:disc">Crucial enabler for this model was <mark class="highlight-teal">hardware virtualization</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1a4eea59-ca7a-8055-ba7d-f0626e2c15be" class="bulleted-list"><li style="list-style-type:disc">Eventually it become <mark class="highlight-brown">cloud computing</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-8027-8dbf-c9ede80876d4" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1a5eea59-ca7a-8053-b3bf-fce889c41438" class="">Cloud Computing</h3></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-809e-9d24-e1d80942980b" class="">Historically the term ‘Cloud’ has been used as an abstraction of the network in system diagrams</p></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-80b9-909a-f1eedcec9056" class="bulleted-list"><li style="list-style-type:disc">In general, Cloud Computing refers to both the applications delivered as <mark class="highlight-brown">services </mark>over the internet and the <mark class="highlight-brown">infrastructure </mark>(hardware and software) in the datacenter that provides those services</li></ul></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-8057-8be2-e28ab2562d31" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-8006-9b08-d9d8c0b5373d" class=""><strong>Cloud Computing original definition</strong>: <em>cloud computing is a distinct </em><em><mark class="highlight-blue">IT environment </mark></em><em>designed for the purpose of </em><em><span style="border-bottom:0.05em solid">remotely</span></em><em> providing, </em><em><mark class="highlight-teal">scalable </mark></em><em>and </em><em><mark class="highlight-teal">measured</mark></em><em>, </em><em><mark class="highlight-blue">IT</mark></em><em> </em><em><mark class="highlight-blue">resources </mark></em><em>that are accessible via the </em><em><span style="border-bottom:0.05em solid">Internet</span></em></p></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-80fd-b143-d96bbab4e20e" class="">
+</p></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-802c-9b31-e8495c82c226" class="bulleted-list"><li style="list-style-type:disc">IT Resources → CPU, RAM, disk storage</li></ul></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-8038-bbce-d9f9a684c97f" class="bulleted-list"><li style="list-style-type:disc">IT envornment (infrastructure) must be connected to the internet</li></ul></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-8048-a938-d0c42a2126dc" class="bulleted-list"><li style="list-style-type:disc">Without scalable and measured properties I have a remote server, not cloud<div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-80a4-bd58-da3b72f5a9ac" class="bulleted-list"><li style="list-style-type:circle">Scalable → made available upon request of user in a matter of short time</li></ul></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-801e-a8d2-c4850cb61a93" class="bulleted-list"><li style="list-style-type:circle">Measurable → the usage of those resources by the user must be measurable (eg. seconds of CPU, GB of storage, network bandwidth, …)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-8060-831c-ebed689a0aa1" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1a5eea59-ca7a-80cc-bd62-f6286f92e769" class="">Cloud Service</h2></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-8062-b692-cb64bf60ae09" class="">Such resources provided by the Cloud Infrastructure are used to implement Cloud Services</p></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-8031-8fe7-cf5cbbb0dfd5" class="">A Cloud Service can be itself an application or offer a pure service.</p></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-803b-a98a-f3a3ba981301" class="bulleted-list"><li style="list-style-type:disc">When it implements an <mark class="highlight-brown">application</mark>, it usually exposes an interface that is accessed directly by users via web pages (using a browser)</li></ul></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-8069-af38-debc9a024ad0" class="bulleted-list"><li style="list-style-type:disc">When it implements a <mark class="highlight-brown">service </mark>that is exploited by other applications, it can be accessed via a set of programming interfaces API</li></ul></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-801f-97ea-e79d730893f6" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-8021-8b24-c9291d35b3c9" class="">Examples:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1a5eea59-ca7a-80f2-8d16-f59d771222a4" class="numbered-list" start="1"><li>Cloud file storage services (via pure service or application)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1a5eea59-ca7a-8069-a1da-ef04b399dd41" class="numbered-list" start="2"><li>Cloud ERP services (Enterprise Resource Planning)</li></ol></div><div style="display:contents" dir="auto"><h3 id="1a5eea59-ca7a-8094-97a5-f2d8b2851b96" class="">XaaS (Everything as a Service)</h3></div><div style="display:contents" dir="ltr"><figure id="1a5eea59-ca7a-8017-b7aa-d9177bd2973e" class="image"><a href="Foundamental%20Concepts/image%205.png"><img style="width:528px" src="Foundamental%20Concepts/image%205.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1eeeea59-ca7a-803f-8a11-ed543998abf1" class="">variety of services and applications delivered to users over the internet, rather than being provided locally </p></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-808d-90c2-c9fc4d80b15d" class="bulleted-list"><li style="list-style-type:disc">advantages of cloud applications</li></ul></div><div style="display:contents" dir="auto"><h3 id="1a5eea59-ca7a-802e-81d1-c1bd8b03b6e7" class="">Roles</h3></div><div style="display:contents" dir="ltr"><figure id="1a5eea59-ca7a-80ad-8989-c5c75f1c9a34" class="image"><a href="Foundamental%20Concepts/image%206.png"><img style="width:624px" src="Foundamental%20Concepts/image%206.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-8041-9c02-c0e463053765" class=""><strong><span style="border-bottom:0.05em solid">Primary Roles</span></strong>:</p></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-8013-b53c-e48223dd8664" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Cloud Provider</mark>: The organization that provides cloud-based IT resources. It is usually responsible for creating and managing the Cloud Infrastructure. Normally IT resources are made available for lease by Cloud Consumers</li></ul></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-80e9-a951-e2df409329e0" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Cloud Service Owner</mark>: The person or organization that create a cloud service running on the resources provided by the cloud infrastructure (pays the cloud provider)</li></ul></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-8003-9529-e1a2101ec48f" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Cloud Service User</mark>: The final user of a cloud service (pays cloud service owner to use their service)</li></ul></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-80f0-8a4a-d2894bb8946f" class=""><strong><span style="border-bottom:0.05em solid">Secondary roles</span></strong>:</p></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-806e-8b06-dd6c45990abe" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Cloud Resource Administrator</mark>: The person or the organization responsible for administering cloud-based IT resources. The administrator usually belongs to the cloud provider, but it can belong also to the cloud consumer<div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-8072-98f6-f656e34c2e31" class="bulleted-list"><li style="list-style-type:circle">Third party that reduce prices, like buying more resources from more providers</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-80d4-be63-d704e83646e8" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Cloud Carrier</mark>: The party responsible for providing connectivity between users and the cloud provider (between datacenter and internet)</li></ul></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-80c8-94b4-d5e493ac5c70" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Cloud Auditor</mark>: A third-party that conducts independent assessments of the cloud environment. Its role typically includes evaluating security and performance.<div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-80ed-9afd-e083acd79af6" class="bulleted-list"><li style="list-style-type:circle">make sure contracts between provider and service owner are respected</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-8071-99d0-d8cdb0ac78d0" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Cloud Consumer</mark>: An organization (or a human) that has a formal contract or arrangement with the Cloud Provider to use IT resources → who actually use the resources<div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-8058-8620-e2b0f967db78" class="bulleted-list"><li style="list-style-type:circle">99% are equal to service owner, but consumer may not create the service, but I could just buy from a company the application</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-800a-98e5-d7135372d23a" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1a5eea59-ca7a-801e-9568-d7476fcbe6c1" class="">Cloud Model</h2></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-8031-9ca6-ec51e66d1a25" class="">Since resources are <span style="border-bottom:0.05em solid">measurable</span> → It adopts a <mark class="highlight-brown">utility-based model</mark></p></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-80c4-baea-dab6edfc2b4c" class="">Since resources are <span style="border-bottom:0.05em solid">scalable</span> → resources can be <mark class="highlight-brown">provisioned dynamically</mark> upon request</p></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-803a-aec5-cd86f1dc8e21" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="1a5eea59-ca7a-806c-9183-dc45381fbc82" class="numbered-list" start="1"><li>Utility Based Model: IT resources (computing, storage, connectivity) are delivered using a ‘<mark class="highlight-blue">pay-per-use</mark>’ price model<div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-809c-a209-caf5d34c2b24" class="bulleted-list"><li style="list-style-type:disc">pay only what they use</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1a5eea59-ca7a-8076-b78a-e98040ee2df6" class="numbered-list" start="2"><li>Dynamiclly provisioned resources: resources are managed with minimal effort, without the need for human intervention<div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-8029-a3ec-f2bbd5171051" class="bulleted-list"><li style="list-style-type:disc">allocated upon request in a short amount of time</li></ul></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-80a8-aa20-deace464e8c3" class="bulleted-list"><li style="list-style-type:disc">Resources can be provisioned not only as per request of a human but also under the orchestration of a software that request more/less resources</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-803a-b238-fca34a1d0ab4" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1a5eea59-ca7a-8050-a578-d230b9447438" class="">Business Model</h3></div><div style="display:contents" dir="auto"><div id="1a5eea59-ca7a-80e3-aa31-f8562527e14f" class="column-list"><div style="display:contents" dir="auto"><div id="1a5eea59-ca7a-8030-b861-f355f62df1a3" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-808b-a24a-ed53d8e91737" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Cloud computing providers</mark> (e.g. Amazon, Rackspace, Google) sell IT resources </li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1a5eea59-ca7a-80b0-a786-e9e67526382f" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1a5eea59-ca7a-80b5-a829-e50d4bb28289" class="image"><a href="Foundamental%20Concepts/image%207.png"><img style="width:336px" src="Foundamental%20Concepts/image%207.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-807f-888a-c05a08e4ba98" class="bulleted-list"><li style="list-style-type:disc">Other companies (the <mark class="highlight-blue">Cloud consumer</mark>) buy such resources to create services and applications they can use internally or sell to their <mark class="highlight-blue">customer</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-8097-ad76-dd1fe0aac8b1" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1a5eea59-ca7a-801f-9542-f10d6e82817b" class="">Cloud Computing Infrastructure</h3></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-80fc-b482-f1e17fbfc08c" class="">Cloud infrastructure is deployed in datacenters by the cloud provider</p></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-802d-8a0a-faac143dbffa" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Datacenter</mark>: a dedicated space to house servers and network equipment</li></ul></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-807d-a8c8-e1157df9d289" class="">Such hardware provide IT resources such as computing, storage and networking</p></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-80b8-87e1-c2cd1c650561" class="bulleted-list"><li style="list-style-type:disc">Eventually such resources are accessed by <mark class="highlight-teal">multiple cloud consumers </mark>at the same time via internet connection</li></ul></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-802a-8654-f2b24c918a80" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1a5eea59-ca7a-80a0-b626-c82242784cc9" class="">Multi-Tenancy</h3></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-80c6-94e1-d9859a3687d7" class="">The traditional computing architectures are <mark class="highlight-teal">multi-users system</mark>, thus allowing multiple users to access the resources of a system → <strong>NOT </strong>cloud computing</p></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-8003-854d-d227c4a6365e" class="bulleted-list"><li style="list-style-type:disc">The system (e.g. a server) is installed and configured by an administrator</li></ul></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-80ad-a2bd-da8dcfd9a2b0" class="bulleted-list"><li style="list-style-type:disc">When the number of users (each one with its own requirements) increases, it becomes impossible for the administrator to handle all the requirements</li></ul></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-8079-a338-c4418e83c4ff" class="">Ideally, we would like to have a <mark class="highlight-teal">multi-tenant architecture </mark>in which multiple consumers are served at the same time</p></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-800a-8a2b-de707fe82a7d" class="bulleted-list"><li style="list-style-type:disc">Tenants are not user, they are the administrators of their system, they can control all its aspects</li></ul></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-80ab-83ff-c30ca1199e4d" class="bulleted-list"><li style="list-style-type:disc">The cloud computing infrastructure is multi-tenant, in order to be scalable we want cloud consumer to have the impression to be in control of the assigned resource</li></ul></div><div style="display:contents" dir="auto"><h1 id="1a5eea59-ca7a-8027-9e6b-ed153555e071" class="">Virtualization</h1></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1eeeea59-ca7a-8060-9b61-e81b9cff6a0a"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1eeeea59-ca7a-803e-bb45-ceb3c515c1b7" class="">fondamental for <mark class="highlight-pink_background">mesurability and multi-tenancy + heterogenuity of the hardware</mark></p></div></div></figure></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-8089-b454-d24d047e8b9f" class="bulleted-list"><li style="list-style-type:disc">Virtualization is a key enabler to create a multi-tenant infrastructure → without is a multi-user system (otherwise everyone config will conflict)</li></ul></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-8099-94b1-d405a743eefb" class="">Virtualization is a broad concept, it refers to every technique that allows to create a virtualized version of something (i.e. IT resources)</p></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-8014-a3e2-c11fb78a5d33" class="bulleted-list"><li style="list-style-type:disc">By using virtualization, <mark class="highlight-teal">multiple virtual copies </mark>of the real resources can be created</li></ul></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-8002-85b2-efdb1d3b3cbb" class="bulleted-list"><li style="list-style-type:disc">Cloud consumers have access not to the real versions but the virtualized ones, thus having the illusion that they are in complete control</li></ul></div><div style="display:contents" dir="auto"><p id="1a6eea59-ca7a-805d-9b81-e3e0a8d07cfc" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1a6eea59-ca7a-80a0-994f-d48bee3f7737" class="">The software that virtualize the resources <mark class="highlight-teal">measures their utilization</mark></p></div><div style="display:contents" dir="auto"><h3 id="1a5eea59-ca7a-80b1-aa4c-e35a909ce988" class="">Hardware Virtualization</h3></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-80a6-8cdf-e1a9808cad94" class="">The most popular virtualization technology used in cloud computing is hardware virtualization that allows to create a virtual representation of all hardware resources of a physical machine (a server creating a virtual server)</p></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-80aa-9612-d796903cdb22" class="bulleted-list"><li style="list-style-type:disc">Hardware virtualization or system level virtualization provides an abstract execution environment on top of which a <mark class="highlight-teal">full operating system</mark> can be run</li></ul></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-80ae-a8fa-ce72f5fd9d19" class="bulleted-list"><li style="list-style-type:disc">It usually exploits different virtualization techniques to virtualize each component of the system</li></ul></div><div style="display:contents" dir="auto"><div id="1a5eea59-ca7a-8065-86e1-ce8e8d6981cd" class="column-list"><div style="display:contents" dir="auto"><div id="1a5eea59-ca7a-8043-ac5c-f60d8c95f22c" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-8025-b516-fc1126958ea9" class="bulleted-list"><li style="list-style-type:disc">Each virtual environment on which an operating system is run is called <mark class="highlight-brown">Virtual Machine</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1eeeea59-ca7a-807c-bd6c-fc78dcdb3284" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1a5eea59-ca7a-809d-97c9-c63a4517c434" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1a5eea59-ca7a-8008-acd6-c05eef298507" class="image"><a href="Foundamental%20Concepts/image%208.png"><img style="width:432px" src="Foundamental%20Concepts/image%208.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-80d1-b5a2-f4cd0d6a924c" class="">Hardware Virtualization allows multiple Operating Systems to run on the same hardware</p></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-8034-a0fa-c47d869865d1" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-8046-901b-f73afd44d98a" class="">Different types, that differ on the level of abstraction (waste resources creating a more high level virtualization)</p></div><div style="display:contents" dir="auto"><ol type="1" id="1a5eea59-ca7a-808a-96f3-e10279f4c1ab" class="numbered-list" start="1"><li>Full virtualization</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1a5eea59-ca7a-80f0-81f1-c98bc495010e" class="numbered-list" start="2"><li>Para virtualization</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1a5eea59-ca7a-800a-87b0-c8c310213102" class="numbered-list" start="3"><li>Operating system virtualization</li></ol></div><div style="display:contents" dir="auto"><h3 id="1a5eea59-ca7a-8030-8cf9-d11d547f8822" class="">Hypervisor</h3></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-8043-839e-cac19766ee50" class="">The virtual hardware is managed and controlled by the <mark class="highlight-brown">virtualization layer</mark></p></div><div style="display:contents" dir="auto"><div id="1a5eea59-ca7a-80e0-a0e1-cc8f775399bb" class="column-list"><div style="display:contents" dir="auto"><div id="1a5eea59-ca7a-80e1-9da0-d648f4d3d388" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-802b-8155-ce7a7e3fda87" class="bulleted-list"><li style="list-style-type:disc">Core element of such layer is the Hypervisor or Virtual Machine manager, a software that <mark class="highlight-teal">recreates the virtualized hardware environment</mark> in which the guest operating system runs</li></ul></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-8050-929e-cf35edaddeb5" class="bulleted-list"><li style="list-style-type:disc">The real machine on which the hypervisor runs is called host</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1a5eea59-ca7a-8011-a48f-f856c05b14e3" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1a5eea59-ca7a-80dd-a9ff-ee6cc6a4006a" class="image"><a href="Foundamental%20Concepts/image%209.png"><img style="width:288px" src="Foundamental%20Concepts/image%209.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="1a5eea59-ca7a-801f-849d-dec41c8bb7dd" class="">Cloud Virtualized Infrastructure</h3></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-80b1-9063-d93f0667ccec" class="bulleted-list"><li style="list-style-type:disc">In a datacenter, multiple servers are installed and interconnected</li></ul></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-804d-820d-cda69f1f47c2" class="bulleted-list"><li style="list-style-type:disc">Each server runs a <mark class="highlight-teal">hypervisor </mark>for the execution of VMs</li></ul></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-80fb-bce9-db16e0023567" class="bulleted-list"><li style="list-style-type:disc">VMs can be created dynamically as cloud consumers require new resources to host new cloud services</li></ul></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-8001-948e-de05c06ef236" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1a5eea59-ca7a-803f-964e-cbe3704b42c3" class="">All physical servers are interconnected though a high-speed local connection (LANs)</p></div><div style="display:contents" dir="auto"><ul id="1a5eea59-ca7a-80c6-821c-d1108f228ddf" class="bulleted-list"><li style="list-style-type:disc">Through this network infrastructure each VM can communicate with external hosts (to expose its cloud services) or can communicate with other VMs (to implement complex services)</li></ul></div><div style="display:contents" dir="ltr"><figure id="1a5eea59-ca7a-80ef-82a6-d86dba52f8e0" class="image"><a href="Foundamental%20Concepts/image%2010.png"><img style="width:480px" src="Foundamental%20Concepts/image%2010.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1a6eea59-ca7a-803d-94ae-ebb458596f58" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1a6eea59-ca7a-80da-aa60-d6b09dc23393" class="">Horizontal Scaling</h3></div><div style="display:contents" dir="auto"><div id="1a6eea59-ca7a-8018-8fac-f13035ba01cd" class="column-list"><div style="display:contents" dir="auto"><div id="1a6eea59-ca7a-801b-9f97-e11d046e18d6" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1a6eea59-ca7a-8011-b086-ef38ad1fe451" class="">Allocating or releasing the <mark class="highlight-teal">same type</mark> of IT resources, e.g. the same type of Virtual Servers</p></div><div style="display:contents" dir="auto"><ul id="1a6eea59-ca7a-802c-8063-e89e96a7c443" class="bulleted-list"><li style="list-style-type:disc">Scaling out → new resources are allocated</li></ul></div><div style="display:contents" dir="auto"><ul id="1a6eea59-ca7a-8038-ae08-eec12f030cc4" class="bulleted-list"><li style="list-style-type:disc">Scaling down → resources are deallocated</li></ul></div><div style="display:contents" dir="auto"><p id="1a6eea59-ca7a-806c-bf5f-c329b737f3c0" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1a6eea59-ca7a-802a-95c5-ebe8cff5567e" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1a6eea59-ca7a-80b2-b638-cb7774e6a1c3" class="image"><a href="Foundamental%20Concepts/image%2011.png"><img style="width:331.96875px" src="Foundamental%20Concepts/image%2011.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1a6eea59-ca7a-80aa-9736-de9209e1f53f" class="bulleted-list"><li style="list-style-type:disc">For instance, new VMs are allocated running the same cloud service to handle more traffic</li></ul></div><div style="display:contents" dir="auto"><ul id="1a6eea59-ca7a-800c-a58a-ebd91da881d2" class="bulleted-list"><li style="list-style-type:disc">the most popular one</li></ul></div><div style="display:contents" dir="auto"><h3 id="1a6eea59-ca7a-8035-ac6c-d4ebfc6fb502" class="">Vertical Scaling</h3></div><div style="display:contents" dir="auto"><div id="1a6eea59-ca7a-80cf-86c0-d80ad9c306a6" class="column-list"><div style="display:contents" dir="auto"><div id="1a6eea59-ca7a-8079-a7ab-c17a6c6b718f" style="width:68.75%" class="column"><div style="display:contents" dir="auto"><p id="1a6eea59-ca7a-807c-a453-f1d48760aee7" class="">When an existing IT resource is <mark class="highlight-teal">replaced </mark>by another with higher or lower capacity, or the configuration of the same resource is modified to have higher or lower capacity</p></div><div style="display:contents" dir="auto"><ul id="1a6eea59-ca7a-8051-ae1d-f6cee181ac8a" class="bulleted-list"><li style="list-style-type:disc">Scaling up -&gt; capacity is increased</li></ul></div><div style="display:contents" dir="auto"><ul id="1a6eea59-ca7a-8052-8d2a-dc6b718b62ee" class="bulleted-list"><li style="list-style-type:disc">Scaling down -&gt; capacity is decreased</li></ul></div><div style="display:contents" dir="auto"><p id="1a6eea59-ca7a-80a4-b9dd-ef7afd1fde48" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1a6eea59-ca7a-80b3-9302-dc5b57da8b95" style="width:31.25%" class="column"><div style="display:contents" dir="ltr"><figure id="1a6eea59-ca7a-8034-b725-e65bcd1dce15" class="image"><a href="Foundamental%20Concepts/image%2012.png"><img style="width:165.984375px" src="Foundamental%20Concepts/image%2012.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1a6eea59-ca7a-8055-adeb-d0ffa34110e0" class="bulleted-list"><li style="list-style-type:disc">For instance, a VM is replaced/reconfigured to have 4 CPUs instead of 2 CPUs</li></ul></div><div style="display:contents" dir="auto"><ul id="1a6eea59-ca7a-803d-b7b3-c681b09be152" class="bulleted-list"><li style="list-style-type:disc">less popular since some <mark class="highlight-teal">downtime </mark>is required during the switch</li></ul></div><div style="display:contents" dir="auto"><ul id="1a6eea59-ca7a-8020-8075-fbcf678fbcc5" class="bulleted-list"><li style="list-style-type:disc">limited by the maximum capacity of the hardware</li></ul></div><div style="display:contents" dir="auto"><p id="1a6eea59-ca7a-80f4-87de-e4eba298f3c2" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

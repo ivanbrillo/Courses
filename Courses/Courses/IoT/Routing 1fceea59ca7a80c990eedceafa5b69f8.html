@@ -1,0 +1,738 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Routing</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1fceea59-ca7a-80c9-90ee-dceafa5b69f8" class="page sans"><header><h1 class="page-title" dir="auto">Routing</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><div id="21beea59-ca7a-8057-9d65-e9f738cbca51" class="column-list"><div style="display:contents" dir="auto"><div id="21beea59-ca7a-80a9-85d3-fae67df64206" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8004-b681-f3cf1eb61bc4" class="">LLN characheristics</p></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-80d2-89d9-d807dba46032" class="numbered-list" start="1"><li>resource constraints</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-8066-9a8f-f6a18f7f807d" class="numbered-list" start="2"><li>intermittent connectivity (congestion, interferences)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-80e1-bb34-e808425f2552" class="numbered-list" start="3"><li>lossy links → dynamic loss rate (environment factors)</li></ol></div><div style="display:contents" dir="auto"><p id="21beea59-ca7a-807c-bb8e-c00f5d92b248" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="21beea59-ca7a-8071-aeb7-d0d1bcfdfcc1" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1fceea59-ca7a-804e-8dd3-f3293df423b0" class="image"><a href="Routing/image.png"><img style="width:550.9801025390625px" src="Routing/image.png"/></a><figcaption>Link quality characterization</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-8013-bae9-d62385a341fb" class="numbered-list" start="1"><li><mark class="highlight-blue">Flat routing </mark>→ No hierarchy, no special role and the routing protocols doesn’t exploit any organization<div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80ae-b5ac-cccd59337765" class="bulleted-list"><li style="list-style-type:disc">eg. flooding, AODV</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-80e6-a5d5-ec362a44bfbc" class="numbered-list" start="2"><li><mark class="highlight-blue">Hierarchical routing </mark>→ suitable to data aggregation<div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8018-bc3e-fd90ebff0142" class="bulleted-list"><li style="list-style-type:disc">cluster based </li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-807e-af54-f9867950da4a" class="numbered-list" start="3"><li><mark class="highlight-blue">Location based routing</mark> → Node location is exploited (via GPS)</li></ol></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80fd-bb00-db68bab743e7" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="1fceea59-ca7a-8093-beaa-e159bce9c2cb" class="">Flooding</h1></div><div style="display:contents" dir="auto"><div id="1fceea59-ca7a-80fe-b07b-d3d232d12e0e" class="column-list"><div style="display:contents" dir="auto"><div id="1fceea59-ca7a-8074-9878-ec6a377c0e49" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8051-b980-d0534d8613b9" class="">Upon receiving a packet, the message is forwarded to all their neighbours</p></div><div style="display:contents" dir="auto"><p id="21beea59-ca7a-8034-b726-ccc8e3fa3713" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1fceea59-ca7a-8011-bff3-edb8a6399cb9" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1fceea59-ca7a-8089-a99a-d74211ff9b1f" class="image"><a href="Routing/image%201.png"><img style="width:288px" src="Routing/image%201.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8004-b87b-fb7a53583ef2" class="bulleted-list"><li style="list-style-type:disc">It implies that the final destination receive <mark class="highlight-teal">different copy</mark> of the same message from different paths</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-804c-b4f7-faa99614b2b2" class="bulleted-list"><li style="list-style-type:disc">lot of messages → interference → collisions → retrasmission</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8005-8f70-d24b2e9a3f2d" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">high energy consumption </mark>→ unsuitable for LLNs</li></ul></div><div style="display:contents" dir="auto"><h1 id="1fceea59-ca7a-8099-8a88-e75f45c4217d" class="">Hierarchical Routing</h1></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-801c-9ac9-c22e190db3e1" class="">regular <mark class="highlight-blue">sensor nodes</mark> and <mark class="highlight-blue">relay nodes</mark> (cluster heads, router nodes)</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80a7-8172-c8c1670968d6" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-804a-bd59-d65897232cdb" class="">two step forwarding</p></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-800a-8fe2-c0c1b0d259f8" class="numbered-list" start="1"><li>sensor send data to relay nodes</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-8011-9516-eeae364e9a9a" class="numbered-list" start="2"><li>relay nodes forward data to the sink node</li></ol></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8070-9ee6-d21609ee68a7" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-808a-954c-d8aad3b8a37b" class="">Two approaches</p></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-804b-90a3-ccc81d4a7668" class="numbered-list" start="1"><li>cluster based collection</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-8005-be80-eb972fb43c82" class="numbered-list" start="2"><li>tree based collection</li></ol></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80ac-963f-fe5b80b8df86" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1fceea59-ca7a-8040-b442-c26606c85dca" class="">LEACH</h2></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8089-b390-cd83cfe22d84" class="">cluster hierarchy</p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-809d-ab25-e05ad061c3cb" class="bulleted-list"><li style="list-style-type:disc">a <mark class="highlight-blue">cluster-head</mark> (CH) within each cluster</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-801e-87a5-e6d5fa8c0151" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">distributed CH election algorithm</mark> → <mark class="highlight-teal">rotation </mark>for uniform distribution of energy consuption</li></ul></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8028-b3af-f21e811a62fb" class="">Each node selects the CH minimizing the energy needed for communications → closer to the node typically</p></div><div style="display:contents" dir="auto"><div id="1fceea59-ca7a-8058-a6b1-d1f6e50e15ee" class="column-list"><div style="display:contents" dir="auto"><div id="1fceea59-ca7a-803b-8e1a-f8bea01c8f19" style="width:75%" class="column"><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8024-b7a6-ec0564deebf6" class="">CHs forward messages to the sink</p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8014-8cd0-dc7518e9adf0" class="bulleted-list"><li style="list-style-type:disc">Direct communication</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80a0-993e-d5b3fc1d71c6" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">TDMA schedule</mark></li></ul></div><div style="display:contents" dir="auto"><p id="227eea59-ca7a-8066-8c85-dc851026466d" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1fceea59-ca7a-80db-ad0b-cc1d350efc98" style="width:24.999999999999993%" class="column"><div style="display:contents" dir="ltr"><figure id="1fceea59-ca7a-8077-9808-ce25ae0370eb" class="image" style="text-align:center"><a href="Routing/image%202.png"><img style="width:144px" src="Routing/image%202.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><div id="227eea59-ca7a-80d7-8e22-c9ec1fd2c53c" class="column-list"><div style="display:contents" dir="auto"><div id="227eea59-ca7a-80f9-96c2-d7e22aec0012" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1fceea59-ca7a-805b-86de-ce9e36509d4a" class="image"><a href="Routing/image%203.png"><img style="width:432px" src="Routing/image%203.png"/></a><figcaption>Only two are connected to the sink → hierarchical</figcaption></figure></div></div></div><div style="display:contents" dir="auto"><div id="227eea59-ca7a-8053-81d2-fae2f9463ddb" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1fceea59-ca7a-80f7-bf22-fa4548979b56" class="image"><a href="Routing/image%204.png"><img style="width:432px" src="Routing/image%204.png"/></a><figcaption>mesh network</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-807f-b3ed-eb0b021cd072" class="">Good for energy saving mechanism → cluster head could aggragate data, or decide whether or not send the msg</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8056-8470-d61e7fea2595" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1fceea59-ca7a-80e0-a451-d65b6e39d34f" class="">Tree based routing</h2></div><div style="display:contents" dir="auto"><div id="1fceea59-ca7a-8085-a198-c26562dca841" class="column-list"><div style="display:contents" dir="auto"><div id="1fceea59-ca7a-80a7-8133-e6c16823a960" style="width:75%" class="column"><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-807d-93fc-cf7ac0d47252" class="">nodes can send packets only to their parent</p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80cb-92a6-d9f23cf1ada8" class="bulleted-list"><li style="list-style-type:disc">nodes needs to self-organize in a tree structure</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80cb-8f63-f3754c97ecd2" class="bulleted-list"><li style="list-style-type:disc">here all the nodes needs to be aware of the neighbouring nodes, not just the CH</li></ul></div><div style="display:contents" dir="auto"><p id="21beea59-ca7a-80a8-ad88-d4b457ba7638" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1fceea59-ca7a-8040-8552-eafe31d1dd49" style="width:25%" class="column"><div style="display:contents" dir="ltr"><figure id="1fceea59-ca7a-800f-9fa0-f8e92af353cc" class="image"><a href="Routing/image%205.png"><img style="width:120px" src="Routing/image%205.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8058-8896-d6523b30773a" class="">Estimating the link lenght to arrive to the destination → we can asses the loss proability</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80d6-b70b-d61417c6b7c9" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8076-bddc-f45be6b76816" class="">One approach to build the tree is by using the <mark class="highlight-teal">broadcast and reverse path</mark></p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80cb-b484-e7c47b90ae38" class="bulleted-list"><li style="list-style-type:disc">Sink node periodically send beacons messages and other nodes will rebroadcast</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8006-9611-ee67461ebcc7" class="bulleted-list"><li style="list-style-type:disc">Nodes use the source address of the first received beacon to select the parent node</li></ul></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-800e-8a84-dd5090ca39ba" class="">This could cause messages to collide, maybe receiving the first readable from a further node</p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80b7-bd79-c0e2cbbb6925" class="bulleted-list"><li style="list-style-type:disc">no shortest path considered and also no link quality considered</li></ul></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8090-b32b-c2041afa0474" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-803f-8346-ca4f3dc6b9b1" class="">Second approach is the <mark class="highlight-teal">Shortest Path (SP)</mark></p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8004-b061-f2dda1654fd8" class="bulleted-list"><li style="list-style-type:disc">based on the hop count metrics → It’s a conventional <mark class="highlight-pink_background">Distance Vector (DV) protocol</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80a6-bb99-fe9b58cd69b4" class="bulleted-list"><li style="list-style-type:disc">During the propagation of messages to construct the tree, these messages contain a hop count counter that increases each time a node retransmits the message.</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-807f-8314-efefda648f0d" class="bulleted-list"><li style="list-style-type:disc">the preferred parent is the one that guarantees the minimum number of hops to the data collector</li></ul></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80c2-b8d5-d6bd4d8f445a" class="">We are just considering the hop and not the link quality</p></div><div style="display:contents" dir="auto"><h1 id="1fceea59-ca7a-807d-8880-f6c970784f7e" class="">RPL Protocol</h1></div><div style="display:contents" dir="auto"><div id="1fceea59-ca7a-80e1-965c-df95ee318a31" class="column-list"><div style="display:contents" dir="auto"><div id="1fceea59-ca7a-8095-87fe-dc26d31fef7d" style="width:62.5%" class="column"><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8041-91f8-dd5c548f4626" class="">Routing requirements depends on the application, like:</p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80ea-a156-c04381f0819b" class="bulleted-list"><li style="list-style-type:disc">industrial, smart cities, home automation, building automation</li></ul></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8078-8c1a-c2a060b3c7e2" class="">Once listed all they design a new protocol</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-804d-8896-f9f19184ff7b" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1fceea59-ca7a-802b-a14f-f5de515b3120" style="width:37.49999999999999%" class="column"><div style="display:contents" dir="ltr"><figure id="1fceea59-ca7a-80fb-8f4e-e20dc9f5493f" class="image"><a href="Routing/image%206.png"><img style="width:384px" src="Routing/image%206.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-808e-8a07-d750835f3aa2" class="">Main features</p></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-80a1-bd1d-cbf859b51220" class="numbered-list" start="1"><li>distance vector protocol → either multipoint-to-point, point-to-multipoint and point-to-point</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-806b-8863-d550a9b523fe" class="numbered-list" start="2"><li>specifically designed for LLNs</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-805b-8efa-d4c0c5e234c2" class="numbered-list" start="3"><li>layer 3 routing protocol</li></ol></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8057-a5a0-f619c0cb1bb2" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80eb-b053-ef18a37e4708" class="block-color-teal"><mark class="highlight-orange">Destination-Oriented Directed Acyclic Graph (DODAG)</mark></p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-804e-ae77-e00c6f261e52" class="bulleted-list"><li style="list-style-type:disc">Tree-like structure, but nodes can associate to more than one parent</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8023-8043-c5f848ec28c6" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Routes are then computed based on a distance vector protocol</mark></li></ul></div><div style="display:contents" dir="ltr"><figure id="1fceea59-ca7a-8034-a7a4-fd4f62eaa84d" class="image"><a href="Routing/image%207.png"><img style="width:605.7875366210938px" src="Routing/image%207.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8052-a453-e6c119267ed4" class="">Devices:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-8039-9682-d31def934af0" class="numbered-list" start="1"><li>Low Power and Lossy <mark class="highlight-blue">Border Router </mark>(LBR) <div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80a6-b13c-eb0038cb359c" class="bulleted-list"><li style="list-style-type:disc">Root of a DODAG</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-806a-9fb0-c63530afd288" class="bulleted-list"><li style="list-style-type:disc">The LBR also acts as a gateway between LLN and Internet</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-8095-9da0-e5a7a6bede4f" class="numbered-list" start="2"><li><mark class="highlight-blue">Router </mark><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8028-8ec3-e3f614b9c1eb" class="bulleted-list"><li style="list-style-type:disc">A device that can generate and forward traffic</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80c3-84a2-db57d25df410" class="bulleted-list"><li style="list-style-type:disc">A router does not have the ability to create a new DODAG, but associate to an existing one</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-8084-9643-f2a0683a219a" class="numbered-list" start="3"><li><mark class="highlight-blue">Host </mark>→ End device<div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8073-ab9c-d74e0ae4206e" class="bulleted-list"><li style="list-style-type:disc">Can generate data traffic</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80c9-89dd-f2af05738c9d" class="bulleted-list"><li style="list-style-type:disc">Cannot forward traffic</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><div id="1fceea59-ca7a-809b-b76b-e7ec92ba398e" class="column-list"><div style="display:contents" dir="auto"><div id="1fceea59-ca7a-803b-b759-f1e9b9e28a1b" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1fceea59-ca7a-807d-bd9a-fe222f89d1c9" class="image"><a href="Routing/image%208.png"><img style="width:278.8625183105469px" src="Routing/image%208.png"/></a></figure></div></div></div><div style="display:contents" dir="auto"><div id="1fceea59-ca7a-809d-b65a-fe992673aa5f" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1fceea59-ca7a-804d-979d-dde85578dd3c" class="image"><a href="Routing/image%209.png"><img style="width:278.875px" src="Routing/image%209.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-802e-a337-e8f6070bb207" class=""><mark class="highlight-orange">RPL topologies</mark></p></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-80f5-bf6e-d555cacab659" class="numbered-list" start="1"><li>Hierarchical Topology: Nodes are forced to form DODAGs (based on parent-child relationship)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-8098-bbd2-dd5d07c08f22" class="numbered-list" start="2"><li><mark class="highlight-pink_background">Mesh Topology: RPL allows the forwarding through siblings, when needed</mark></li></ol></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8091-b045-ca4e401fe3aa" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-807a-b616-e553a168f24f" class=""><mark class="highlight-blue">Auto-Configuration</mark></p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-809f-8d6a-dc3cce13e688" class="bulleted-list"><li style="list-style-type:disc">RPL-based LLNs benefit from basic IPv6 routing characteristics<div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80a9-93d0-ffce9ad85b68" class="bulleted-list"><li style="list-style-type:circle">Neighbor Discovery</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8008-85f7-f111f3c947ee" class=""><mark class="highlight-blue">Self-Healing</mark></p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8052-8e6a-cc57332a7eb7" class="bulleted-list"><li style="list-style-type:disc">Adaptation to network topology changes and node failures<div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80f1-887c-c53d055b17a9" class="bulleted-list"><li style="list-style-type:circle">links and nodes in LLNs are not stable and may vary frequently</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80c4-b346-fc3dd8424674" class="bulleted-list"><li style="list-style-type:circle">mechanisms that choose <mark class="highlight-pink_background">more than one parent per node</mark> in the DODAG to eliminate/decrease the risk of failure</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8004-8fce-e40fb6c62ce8" class=""><mark class="highlight-blue">Loop avoidance and detection</mark></p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-809d-b9e3-f936bc4ac46a" class="bulleted-list"><li style="list-style-type:disc">RPL includes reactive mechanisms to detect loops</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80a4-8767-ccd72eb9ac92" class="bulleted-list"><li style="list-style-type:disc">RPL triggers recovery mechanisms (global and local repair) when the loops occur</li></ul></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8078-91a7-f8bfafa5b766" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80db-a646-cae8ad159470" class="">RPL can operate over multiple link layers</p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80c7-b6f7-fe554ffac75e" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">independent from data-link layer technology</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80b6-b6f9-c22cdf0a49e2" class="">It is possible to construct multiple DODAGs, each with a root (BR)</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8013-a623-e84806f7a4a3" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80f2-926d-da4603264640" class=""><mark class="highlight-orange">RPL Instances </mark>refer to separate copies of the RPL routing protocol running in a network. Each RPL Instance operates independently and has its own routing table and configuration settings</p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8054-9729-d2200ce7213a" class="bulleted-list"><li style="list-style-type:disc">Identified by <code>RPLInstanceID</code></li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8078-8b6d-e5a757b83b94" class="bulleted-list"><li style="list-style-type:disc">One or more DODAGs, identified by the same RPLInstanceID</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8069-a4b4-dbe1ff3bf3a5" class="bulleted-list"><li style="list-style-type:disc">All DODAGs within the same Instance share the same metrics/constraints</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-800b-b349-c392c71f8f51" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">RPL nodes may belong to different instances</mark><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8028-8d56-fd0a8b04b111" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-pink_background">But to one and only one DODAG per RPL instance</mark></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="21beea59-ca7a-802a-b7ce-cfa96cc037a3" class=""><br/>Each Instance has its own <strong>Objective Function (OF)</strong>, configuration, and routing table</p></div><div style="display:contents" dir="auto"><ul id="21beea59-ca7a-8018-ae26-de7615fa98aa" class="bulleted-list"><li style="list-style-type:disc">used for different types of requirements in the same network</li></ul></div><div style="display:contents" dir="ltr"><figure id="1fceea59-ca7a-80b3-97ab-c8de420a699f" class="image"><a href="Routing/image%2010.png"><img style="width:528px" src="Routing/image%2010.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="1fceea59-ca7a-80d2-9b16-df39a1f9f09f" class="">Rank</h3></div><div style="display:contents" dir="auto"><div id="1fceea59-ca7a-808a-8158-d20137307050" class="column-list"><div style="display:contents" dir="auto"><div id="1fceea59-ca7a-8089-a394-dd721631c7d6" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80c1-a150-edbd6dd03c6e" class="">Root node is established from the beginning → <mark class="highlight-pink_background">not dynamic</mark></p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80b6-9128-df8ee304fc05" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1fceea59-ca7a-800b-8b9e-e8c53af3e00c" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1fceea59-ca7a-804b-9b8e-f21502fab977" class="image"><a href="Routing/image%2011.png"><img style="width:336px" src="Routing/image%2011.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8032-ae32-c414b54f9ace" class=""><mark class="highlight-pink_background">A rank is an integer that represents the location of a node within the DODAG</mark></p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80ab-bbb0-f3f4ec80f309" class="bulleted-list"><li style="list-style-type:disc">The rank value strictly increases in the downstream direction</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8041-a3a7-cf7c9dc15b58" class="bulleted-list"><li style="list-style-type:disc">lower value → higher rank</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8047-af4b-fc07f916e378" class="bulleted-list"><li style="list-style-type:disc">It is <mark class="highlight-teal">not</mark> a measure of the path cost towards the root</li></ul></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80dd-8d09-c727e8364d5b" class="">The rank is used for:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-80ce-a63f-d970e1044caa" class="numbered-list" start="1"><li>avoid and detect routing loops </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-8096-b758-c3492c694681" class="numbered-list" start="2"><li>select the next hop for forwarding<div style="display:contents" dir="auto"><ol type="a" id="1fceea59-ca7a-801f-aac6-c60f22749916" class="numbered-list" start="1"><li>a parent (lower rank)</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1fceea59-ca7a-80d1-839e-d4912133d1a2" class="numbered-list" start="2"><li>sibling (equal rank)</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80b2-bac5-d1c475953c0b" class="">Nodes maintain a<mark class="highlight-teal"> list of candidate parents and siblings</mark></p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8007-8964-dca7b062b6f0" class="bulleted-list"><li style="list-style-type:disc">used if the current parent loses its routing ability</li></ul></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80d4-aa28-ead6ffc3aa47" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8093-a0f3-f8d54939afec" class="">Ranks are generated via an<mark class="highlight-orange"> Objective Function (OF)</mark></p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80d1-b07f-e0f946857276" class="">It defines how nodes translate one or more metrics/constraints into ranks</p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80c7-a975-d0f34d74dc99" class="bulleted-list"><li style="list-style-type:disc">Delay, Bandwidth, Reliability</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80ed-aa49-c6b2d9acad4a" class="bulleted-list"><li style="list-style-type:disc">Node Energy (eg. battery or connected), Node attributes</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80a8-92e9-fd30e83f45e4" class="bulleted-list"><li style="list-style-type:disc">Hop count, link throughput, link reliability</li></ul></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8009-ab68-eb08e938ee2f" class="">Defines also how to compute the path cost, how to select the parent</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-801f-81ff-da55c362eec8" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-800a-8523-df92f05ae23a" class="">I could use two functions <mark class="highlight-teal">concurrently</mark>. Example: network with two main applications</p></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8032-ab13-c1a040e32a4c" class="bulleted-list"><li style="list-style-type:disc">Alarms: time sensitive paths, short delay, highly reliable paths</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8027-b5a2-de87d1c7972a" class="bulleted-list"><li style="list-style-type:disc">Telemetry: non-time sensitive paths, minimum number of hops, not traversing battery-operated nodes to preserve their energy</li></ul></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8046-84ac-e63c4fda13c3" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80d6-8cc9-cce9e045c763" class="">OF used in practice</p></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-80fc-8672-c6225f0f534b" class="numbered-list" start="1"><li><mark class="highlight-blue">OF0 </mark>(objective function zero) → no metrics measured, just relies on hop_counts</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-801f-9eb4-f31a63dabba2" class="numbered-list" start="2"><li><mark class="highlight-blue">MRHOF </mark>that is based on various metrics such as link quality, node energy, and path cost</li></ol></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8023-8dd2-ccd00cdce338" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1fceea59-ca7a-80e5-897a-e2078d886b29" class="">MSG types</h3></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8092-90a2-cd9bb81b4dea" class="">Based on 6 <mark class="highlight-teal">ICMPv6 messages</mark></p></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-80a3-b6c2-d7e92dfaa26c" class="numbered-list" start="1"><li>DIS → DODAG Information Solicitation for a DIS message<div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-807e-acdd-d959894abc29" class="bulleted-list"><li style="list-style-type:disc">may be used to probe neighbor nodes in adjacent DODAGs</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-808a-aa73-e62e7685b153" class="numbered-list" start="2"><li>DIO → DODAG Information Object<div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8031-8f7d-c11c567e6039" class="bulleted-list"><li style="list-style-type:disc">used to construct a new DODAG</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8005-8e38-c21f83ad420e" class="bulleted-list"><li style="list-style-type:disc">Broadcast to all nodes by the root → allow nodes to discover RPL instance and it’s configuration parameters (OF), select a parent</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80b8-b315-c0cef2c11c2f" class="block-color-pink_background bulleted-list"><li style="list-style-type:disc">the message contains a <code>version number</code> that is incremented every time an update is done, <code>RPLInstanceID</code>, the rank of the sender, <code>DODAGID</code>, mode of operation (<code>MoP</code>)</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-8040-b9cf-e1343af2a29b" class="numbered-list" start="3"><li>DAO →  Destination Advertisement Object <div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80b6-8753-c6313b8171be" class="bulleted-list"><li style="list-style-type:disc">Used to propagate reverse route information, by recording the nodes visited along the path</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80ce-aaee-dc143b928617" class="bulleted-list"><li style="list-style-type:disc">Sent by all, rather then the root → populate routing tables with adresses of children for the non-leaf nodes</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8022-b233-e68751e390c3" class="bulleted-list"><li style="list-style-type:disc">contains apart form the two ids, <code>DAOSequence</code> , incremented by one at each passage</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-807f-96eb-c5fdd6dc7244" class="numbered-list" start="4"><li>DAO-ACK → DAO Acknoledgement in response to a DAO message</li></ol></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80f0-8d40-fc1176ef5574" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1fceea59-ca7a-80d4-91b5-c07395014db6" class="">DODAG Contruction</h3></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-802d-b017-f462b017bbeb" class="">Composed in two phases</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80d5-85d8-d07fc02128f0" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-8014-a328-ea02d2923fcd" class="numbered-list" start="1"><li><mark class="highlight-teal">Broadcast </mark>transmission of DIO messages from root<div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-80de-82c3-ec26d4421eec" class="bulleted-list"><li style="list-style-type:disc">to build <mark class="highlight-teal">upward </mark>routes from nodes to the root</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8001-991c-e224e7be9daf" class="bulleted-list"><li style="list-style-type:disc">Each node, before re-broadcast the message, <mark class="highlight-pink_background">update the value of the rank</mark>. It allows each node to determine its position along the DODAG</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8051-8830-f9d19fb04489" class="bulleted-list"><li style="list-style-type:disc">by receiving a DIO message, a node learns the set of nodes in the<mark class="highlight-teal"> </mark><mark class="highlight-teal"><mark class="highlight-pink_background">one-hop neighborhood</mark></mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-807f-951b-cae089bba164" class="bulleted-list"><li style="list-style-type:disc">using the OF in the msg, it calculate it’s rank (based on ranks received by the neighbours)</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8033-8170-ef0dfb023387" class="bulleted-list"><li style="list-style-type:disc">select one or more parents from the neighbor set (lower rank) and a <mark class="highlight-blue">preferred parent</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8055-a1b4-f1f4669f19f3" class="bulleted-list"><li style="list-style-type:disc">DIO messages are<mark class="highlight-pink_background"> periodically re-broadcast to update routing information</mark>.<div style="display:contents" dir="auto"><ul id="21beea59-ca7a-80cf-860e-e6365a98167f" class="bulleted-list"><li style="list-style-type:circle">If using a small period: reduces the probability of having stale information or persistence of loops, but of course uses more bandwidth and energy</li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-80e6-be20-e9b96fb8647b" class="numbered-list" start="2"><li><mark class="highlight-teal">Unicast </mark>transmission of DAO messages<div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8089-b052-d86048eeb0b9" class="bulleted-list"><li style="list-style-type:disc">To build downward routes from the DODAG root to nodes</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-800b-8da7-e4ca5af95865" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">each node</mark> sends a DAO to the root, via the selected parent</li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8076-8142-c829243b0bde" class="bulleted-list"><li style="list-style-type:disc">Upon receiving a DAO message, a visited node<div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-80b5-82a8-dadcd8fcbaae" class="numbered-list" start="1"><li><mark class="highlight-pink_background">Inserts its address in the DAO message</mark></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-805c-a5db-df677fa64996" class="numbered-list" start="2"><li>Retransmits the updated DAO message upward</li></ol></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1fceea59-ca7a-8003-928d-d744be81fd0e" class="bulleted-list"><li style="list-style-type:disc">Upon receiving a DAO message, the root learns the downward route towards that node</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-808f-b072-c5328ccbf4b8" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-8086-b5b2-fedc37f72d76" class=""><mark class="highlight-orange">Mode of operations</mark> for downward routes (<mark class="highlight-pink_background">specified in the DIO message</mark>):</p></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-801f-9ef2-c1cbec21fffb" class="numbered-list" start="1"><li><mark class="highlight-blue">Storing Mode </mark>→ Upon receiving a DAO message, an intermediate node<div style="display:contents" dir="auto"><ol type="a" id="1fceea59-ca7a-8044-b5f8-c3045dd8a62c" class="numbered-list" start="1"><li>Inserts its own address in the DAO message</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1fceea59-ca7a-8068-a295-cf98d9fba24b" class="numbered-list" start="2"><li>Shortest route advertised in the DAO message is stored</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1fceea59-ca7a-80a6-ad23-f6f0752b2554" class="numbered-list" start="3"><li>Forwards the DAO message to its preferred parent</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1fceea59-ca7a-80b0-941b-eabe13c7007c" class="numbered-list" start="2"><li><mark class="highlight-blue">Non-Storing Mode</mark> → Upon receiving a DAO message, an intermediate node<div style="display:contents" dir="auto"><ol type="a" id="1fceea59-ca7a-8081-a4b1-d7a73ad637ce" class="numbered-list" start="1"><li>Inserts its own address in the DAO message</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1fceea59-ca7a-8063-a05f-dd8b957a2375" class="numbered-list" start="2"><li>Does not store the route advertised in the DAO message</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1fceea59-ca7a-8083-bc4d-f8f5658d2512" class="numbered-list" start="3"><li>Forwards the DAO message to its preferred parent</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><div id="1fceea59-ca7a-801a-be5a-f41b2c5d2572" class="column-list"><div style="display:contents" dir="auto"><div id="1fceea59-ca7a-80c8-8d20-ef0f48c7c975" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1fceea59-ca7a-80a7-a466-d038cde7a476" class="image"><a href="Routing/image%2012.png"><img style="width:583.9772338867188px" src="Routing/image%2012.png"/></a></figure></div></div></div><div style="display:contents" dir="auto"><div id="1fceea59-ca7a-804e-a6df-efc312528a33" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1fceea59-ca7a-8093-8c63-f286d24949ea" class="image"><a href="Routing/image%2013.png"><img style="width:709.9715576171875px" src="Routing/image%2013.png"/></a><figcaption>parent selection</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure id="1fceea59-ca7a-8017-8122-e2a20cf8d186" class="image"><a href="Routing/image%2014.png"><img style="width:432px" src="Routing/image%2014.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1fceea59-ca7a-80b8-b1b6-eb553daa383c" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

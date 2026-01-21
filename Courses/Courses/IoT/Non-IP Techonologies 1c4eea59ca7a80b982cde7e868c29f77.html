@@ -1,0 +1,732 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Non-IP Techonologies</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1c4eea59-ca7a-80b9-82cd-e7e868c29f77" class="page sans"><header><h1 class="page-title" dir="auto">Non-IP Techonologies</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8029-a376-c4b6b2760e86" class="">Different non-IP technologies available</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-80f2-ae6d-d0b68bb1fa25" class="numbered-list" start="1"><li>ZigBee → Independent, neutral, nonprofit corporation<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-804b-8308-c89cd81bf763" class="bulleted-list"><li style="list-style-type:disc">open alliance (anyone can join) and global</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80d9-adc0-c9183b3a676e" class="bulleted-list"><li style="list-style-type:disc">they certificate products with their name, create specification</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8080-a9c4-e2f87a313352" class="numbered-list" start="2"><li>Zwave</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8063-972c-fe636dfdf7c6" class="numbered-list" start="3"><li>Bluetooth</li></ol></div><div style="display:contents" dir="auto"><h1 id="1c4eea59-ca7a-80b6-9747-e93141beb58f" class="">ZigBee</h1></div><div style="display:contents" dir="auto"><div id="21aeea59-ca7a-8086-9585-e0312ad52d16" class="column-list"><div style="display:contents" dir="auto"><div id="21aeea59-ca7a-8027-9d5b-ecbeb72563eb" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-807b-b028-f8c550a0cd9a" class="">There is <mark class="highlight-pink_background">no transport protocol layer</mark> </p></div><div style="display:contents" dir="auto"><ul id="21aeea59-ca7a-806b-ba50-ff606eccf238" class="bulleted-list"><li style="list-style-type:disc">no need for multiplexing and demultiplexing since there is just one application</li></ul></div><div style="display:contents" dir="auto"><ul id="21aeea59-ca7a-8092-bec1-ce8248f3a202" class="bulleted-list"><li style="list-style-type:disc">reliability will not be guaranteed by that layer</li></ul></div><div style="display:contents" dir="auto"><ul id="21aeea59-ca7a-8056-8db5-ee6d1b7158ca" class="bulleted-list"><li style="list-style-type:disc">congestion control is not needed since low volume of data</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="21aeea59-ca7a-80c7-99e8-dd2c761b4208" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1c4eea59-ca7a-8040-a3a3-c4918c25e328" class="image"><a href="Non-IP%20Techonologies/image.png"><img style="width:384px" src="Non-IP%20Techonologies/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-800b-8599-de326bdd225d" class="">The phisical layer and the mac layer are the <mark class="highlight-orange">802.15.4 standard</mark></p></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8064-a443-d05f7dba676f" class="bulleted-list"><li style="list-style-type:disc">ZigBee adresses only the upper layers</li></ul></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8039-9550-f900fa5f9884" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1c4eea59-ca7a-80a4-8a59-d93436ab86c4" class="">Device Types</h3></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-80c6-a092-f108156ff7db" class="numbered-list" start="1"><li><mark class="highlight-blue">ZigBee Coordinator </mark>(ZC) → one is required for each network<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80b0-a92f-d3702c0e5cb6" class="bulleted-list"><li style="list-style-type:disc">it’s responsible for starting the network and managing the activities</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8058-ac81-e7377c6e6608" class="numbered-list" start="2"><li><mark class="highlight-blue">ZigBee Router </mark>(ZR) → intermedate nodes that forward the messages (<mark class="highlight-teal">multihop routing</mark>)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8092-95a4-efc7eda214ff" class="numbered-list" start="3"><li><mark class="highlight-blue">ZigBee End Devices </mark>(ZED) → In the perifery of the network, are the final destination<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80a7-bda8-cf52342eaecd" class="bulleted-list"><li style="list-style-type:disc">doesn’t allow routing</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80a5-a0d5-d42ac84274cd" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1c4eea59-ca7a-806f-a6a9-eee891398124" class="">Tologies</h3></div><div style="display:contents" dir="ltr"><figure id="1c4eea59-ca7a-80fb-932c-cf06152b8a0b" class="image"><a href="Non-IP%20Techonologies/image%201.png"><img style="width:432px" src="Non-IP%20Techonologies/image%201.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80da-8b6a-c15a2e849d87" class="">Three topologies defined:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8028-a425-ec14da4e3830" class="numbered-list" start="1"><li><mark class="highlight-blue">Star</mark></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8023-afe2-c640d05aec61" class="numbered-list" start="2"><li><mark class="highlight-blue">Mesh </mark>→ graph topology<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-805d-96cc-c385f7411d88" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Non-beacon enabled mode</mark> is used</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80a8-b68c-efed695a8e2e" class="bulleted-list"><li style="list-style-type:disc">The coordinator and the routers must always be on → not energy constrained or energy harvesting system</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80ad-9fe0-ecfdd18b1e94" class="bulleted-list"><li style="list-style-type:disc">End devices can <mark class="highlight-teal">wake up at any time</mark> they need to communicate since the routers and the coordinator are always on</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-80a0-8675-d56a0ef7ea6d" class="numbered-list" start="3"><li><mark class="highlight-blue">Cluster Tree </mark>→ tree topology, intermediate one<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-803e-8a9c-e6e96e2368b2" class="bulleted-list"><li style="list-style-type:disc">generally<mark class="highlight-teal"> not supported</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8010-b844-eff9a0823920" class="bulleted-list"><li style="list-style-type:disc">root is the coordinator, other internal nodes are routers, leafs are end devices</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><h2 id="1c4eea59-ca7a-80c6-a85f-c4111295f00a" class="">Routing Protocol - AODV</h2></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80f5-904e-dba97c91674f" class=""><mark class="highlight-orange">AODV:</mark> Ad-hoc On-demand Distance Vector</p></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-805a-be3a-e622f5be5dba" class="bulleted-list"><li style="list-style-type:disc">on demand since is lazy and not proactive</li></ul></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-801b-a4b4-f6da6f0dc184" class="">Consider the <mark class="highlight-pink_background">Mesh Topology </mark>(since star is obv and the other is not supported)</p></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8053-aec4-e9cfac9ddb51" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Non-Beacon Enabled mode</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80e7-a4c6-f65f70fb171b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80b4-97ef-e4d435cc09dd" class="">We cannot use traditional routing protocols since they are all conceived with routers all active and long range</p></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80b6-bef5-f2aed0d2a321" class="bulleted-list"><li style="list-style-type:disc">but energy could be a problem for routers in these networks</li></ul></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8062-80ae-fa8d305ba660" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80d7-8050-f4e5a04e7dde" class=""><mark class="highlight-pink_background">Don’t calculate path in advance</mark> in order to save energy</p></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8096-859e-f98441cb8dc6" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">reactive approach </mark>(lazy) and not proactive like in traditional internet<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-800c-8fa7-f7e3f075edee" class="bulleted-list"><li style="list-style-type:circle">only when necessary (a node want to send the msg to a specific destination)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-805a-8222-e23d89b0392a" class="bulleted-list"><li style="list-style-type:disc">The <mark class="highlight-teal">latency </mark>will increase, but less bandwidth necessary and also less <mark class="highlight-teal">energy </mark>consumed<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80c9-8d64-c66b2100e321" class="bulleted-list"><li style="list-style-type:circle">Unlike proactive protocols that <strong>continuously update all routes</strong>,<mark class="highlight-pink_background"> reactive protocols </mark><mark class="highlight-pink_background"><strong>only update routes that are actively in use (in case of crash)</strong></mark></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-809c-bd7e-fbbad14363d9" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8020-b75e-c94b75fb029a" class="">Based on <mark class="highlight-blue"><mark class="highlight-pink_background">sequence number </mark></mark>in order to:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8042-83d5-efdd8cd5b82f" class="numbered-list" start="1"><li>prevent loops</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8097-8fb3-ffd59ebb3588" class="numbered-list" start="2"><li>select the most recent path</li></ol></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-809d-90ea-e6cd443a5138" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1c4eea59-ca7a-806e-8673-eba3b26c76cf" class="">Routing Table</h3></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-805a-97f6-d4ceded8c1fd" class="">The <mark class="highlight-orange">routing table</mark> provide the next hop towards a given destination (useful for end devices)</p></div><div style="display:contents" dir="auto"><ul id="21aeea59-ca7a-8090-9348-fa2fe5f3e4eb" class="bulleted-list"><li style="list-style-type:disc">It’s mantained<mark class="highlight-pink_background"> in every </mark><mark class="highlight-blue"><mark class="highlight-pink_background">router</mark></mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8015-a2b5-eef5383926a7" class="bulleted-list"><li style="list-style-type:disc">Every destination has an entry in the table</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8041-8ee9-c9534969a5bb" class="bulleted-list"><li style="list-style-type:disc">there is a <mark class="highlight-blue"><mark class="highlight-pink_background">lifetime</mark></mark><mark class="highlight-blue"> </mark>associated with each entry<div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-804c-9cfa-caeff65c2884" class="bulleted-list"><li style="list-style-type:circle">Refreshed the timer every time the path is used</li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-80b4-ab33-cb6910c2229a" class="bulleted-list"><li style="list-style-type:circle">when the lifetime expiration the entry is purged → network topology changes</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8044-9c23-f7c7b8a6440c" class="">
+</p></div><div style="display:contents" dir="auto"><div id="21aeea59-ca7a-80b9-9643-e8236f531193" class="column-list"><div style="display:contents" dir="auto"><div id="21aeea59-ca7a-807e-ab7f-e241b4984938" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8066-8f1c-d5a336265919" class="">When in discovery better not to use the information (routes are not yet fully established or confirmed, may not be the optimal)</p></div></div></div><div style="display:contents" dir="auto"><div id="21aeea59-ca7a-8099-b530-fa2329356aef" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1c4eea59-ca7a-8052-901e-fc19ead36c67" class="image"><a href="Non-IP%20Techonologies/image%202.png"><img style="width:506.9460144042969px" src="Non-IP%20Techonologies/image%202.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="1c4eea59-ca7a-80f2-a090-e4b0ff6449f4" class="">Forwarding Algorithm</h3></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8043-97d7-cffbd24ed61e" class="">Different from rounting, since forwarding is send the packed along the path, while routing is finding the path</p></div><div style="display:contents" dir="auto"><p id="21aeea59-ca7a-8028-a5b8-c856cbb1b69b" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-80db-93a3-d8ad8f1e76a3" class="numbered-list" start="1"><li>A packet is received</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-80e2-8687-fb526a0524b6" class="numbered-list" start="2"><li>Is this device the end destination? → If yes pass to higher layer to process</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8069-8234-fbfef682f480" class="numbered-list" start="3"><li>Otherwise is the packet adressed to a device connected to this router? → If yes route to the child</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8054-b206-d7e8c97487e1" class="numbered-list" start="4"><li>Otherwise is there a routing table entry for the destination? → If yes route to the text hop</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8048-b978-d9b0704e028c" class="numbered-list" start="5"><li>Otherwise are there resources (energy) to start a route discovery? → If yes initiate route discovery</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8004-bcb1-c63a19dac526" class="numbered-list" start="6"><li><mark class="highlight-pink_background">Otherwise route along the tree (</mark><mark class="highlight-teal"><mark class="highlight-pink_background">parent node</mark></mark><mark class="highlight-pink_background">)</mark></li></ol></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8012-afd4-c31a0c578008" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1c4eea59-ca7a-8046-997f-fb7783e21919" class="">Route Discovery</h3></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8016-83c9-e82fc38831c6" class="">Made in Non-Beacon mode (routers are always active)</p></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-805d-abd6-c962f9107ff0" class="">Based on two control packets:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-803e-a06d-c2ec2b34076e" class="numbered-list" start="1"><li><mark class="highlight-blue">Route request </mark>(RREQ)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8038-9276-c9a77f9d6a13" class="numbered-list" start="2"><li><mark class="highlight-blue">Route reply</mark> (RREP)</li></ol></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8059-add6-f711d4ae55d3" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8016-bed9-e3a6ad9e5fa1" class="">Source node S:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8002-b1be-c16f10e552f5" class="numbered-list" start="1"><li>Broadcast a RREQ</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-80e0-b5a4-ede271ffeedf" class="numbered-list" start="2"><li>waits for the corresponding RREP</li></ol></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80bf-930d-e492b63ac848" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-804c-8d0b-e9b1f8f782eb" class="">Intermediate Node X:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1caeea59-ca7a-80fa-a902-eb6f21cc3ea5" class="numbered-list" start="1"><li>RREQ from Y →<div style="display:contents" dir="auto"><ol type="a" id="1caeea59-ca7a-80f6-b0ae-f4f963ca3ac2" class="numbered-list" start="1"><li>creates an entry in RT with the inverse path:  Y next hop, S destination<div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80a1-8ef6-c00b675c6cfe" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">used to forward the RREP back to S</mark></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1caeea59-ca7a-8076-a903-e23d4955daed" class="numbered-list" start="2"><li><mark class="highlight-pink_background">re-broadcast the RREQ </mark></li></ol></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8028-b123-c830c0c0f436" class="numbered-list" start="2"><li>RREP from Y  →<div style="display:contents" dir="auto"><ol type="a" id="1caeea59-ca7a-80e4-99f9-e83f9cc66de4" class="numbered-list" start="1"><li> creates the forward path in the RT: Y is the next hop to D</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1caeea59-ca7a-8087-888f-e1682d66c493" class="numbered-list" start="2"><li>forwards RREP to S using the reverse path</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80df-bde9-ef0bd17f3d9a" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="1caeea59-ca7a-80c1-8fa5-d729e54f59bd" class="image"><a href="Non-IP%20Techonologies/image%203.png"><img style="width:709.9874877929688px" src="Non-IP%20Techonologies/image%203.png"/></a></figure></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8041-b8c8-cabd98fd7f30" class="numbered-list" start="1"><li>not considered end devices, but just router (not important in the path discovery) and <mark class="highlight-teal">links bidirectional</mark></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8094-988f-de21af2b7bd2" class="numbered-list" start="2"><li>Imagine S start with the routing table with only <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">{</mo><mi>F</mi><mo>:</mo><mi>C</mi><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{F: C\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mclose">}</span></span></span></span></span><span>﻿</span></span></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-803f-a4e1-fa738d9fb5ec" class="numbered-list" start="3"><li>Start by broadcasting the RREQ with the destination G and it’s origin S</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8073-86b9-f04b045ac4b3" class="numbered-list" start="4"><li>B and C implicitly understand that is possible to trasmit to S </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-807b-b8b9-f5aea080d741" class="numbered-list" start="5"><li>B and C broadcast the received RREQ to the neighbours D and E</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-80cc-8db6-cf3ba48f1e63" class="numbered-list" start="6"><li>D realizes that they can reach the originator S by trasmitting to B → new entry on the routing table (same thing with E)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-803c-a94c-dcb570112ca9" class="numbered-list" start="7"><li>D and E retrasmit to neighbours → they will re-receive the RREQ with the same ID and will be managed - next slides</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-80bf-bb32-d8a6691cd6a8" class="numbered-list" start="8"><li>Update the routing tables of H and F</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-807d-861d-e28ec32a4965" class="numbered-list" start="9"><li>G send back the RREP → the path to S is already learnt by the previous nodes</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-80a8-ae4a-d18be92bb328" class="numbered-list" start="10"><li>S update the routing table <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">{</mo><mi>F</mi><mo>:</mo><mi>C</mi><mo separator="true">,</mo><mi>G</mi><mo>:</mo><mi>B</mi><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{F: C, G:B\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">G</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mclose">}</span></span></span></span></span><span>﻿</span></span></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c4eea59-ca7a-8080-a3d2-e6c5ef83a0f0" class="numbered-list" start="11"><li>Subsequent RREP with longer paths will be discarded, otherwise update RT</li></ol></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-80a5-b2b4-c0f3ca0202a5" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1c4eea59-ca7a-808f-8e9d-ca931e90db67" class="">Route Discovery Table (RDT)</h3></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8031-b72a-e581c606221c" class="">In addition to the Routing Table there is another table, the Route Discovery Table (RDT) which is maintained by routers and the coordinator to implement route discovery.</p></div><div style="display:contents" dir="auto"><div id="21aeea59-ca7a-807d-b554-c846b1eebcfa" class="column-list"><div style="display:contents" dir="auto"><div id="21aeea59-ca7a-80f5-bd4e-dfaa16b55843" style="width:31.25%" class="column"><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-808e-9ab8-f4f19772a3ef" class="">Used for:</p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-806b-a604-e65fcc813738" class="bulleted-list"><li style="list-style-type:disc">avoiding loops</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-801b-bacd-c4d0978c724c" class="bulleted-list"><li style="list-style-type:disc">choosing the most efficient path</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80d5-830d-e731335d726a" class="bulleted-list"><li style="list-style-type:disc">removing the expired path</li></ul></div><div style="display:contents" dir="auto"><p id="226eea59-ca7a-802e-886f-c9679c129f66" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="21aeea59-ca7a-8047-849c-c3b3adca5504" style="width:68.75%" class="column"><div style="display:contents" dir="ltr"><figure id="1c4eea59-ca7a-8027-aec1-e6fe0c9b2018" class="image"><a href="Non-IP%20Techonologies/image%204.png"><img style="width:528px" src="Non-IP%20Techonologies/image%204.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="1c4eea59-ca7a-801c-af7a-c9f152e8fec0" class="">RREQ Processing</h3></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-802a-a23c-f311308cea69" class="">Each RREQ message carries a <mark class="highlight-pink_background">RREQ ID</mark> which the <mark class="highlight-teal">originator </mark>increments every time it sends a new RREQ message</p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80bf-8713-f697da9d9c99" class="bulleted-list"><li style="list-style-type:disc">In this way the <mark class="highlight-pink_background">RREQ ID and source address</mark> can be used as a unique reference for a route discovery process.</li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8048-acc3-e6c02061dfd7" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8009-9ac9-f68f7d86ef97" class="">When a RREQ arrives at an intermediate node (router):</p></div><div style="display:contents" dir="ltr"><figure id="1c4eea59-ca7a-80f1-9299-d00cfb705d05" class="image"><a href="Non-IP%20Techonologies/image%205.png"><img style="width:576px" src="Non-IP%20Techonologies/image%205.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8025-b623-f326bee24720" class="bulleted-list"><li style="list-style-type:disc">fwd cost is sent with the RREQ and increased at each hop </li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8090-af11-d9e282579d99" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Update the RDT and RT entry each time → </mark><mark class="highlight-teal"><mark class="highlight-pink_background">discovery </mark></mark><mark class="highlight-pink_background">because may exist some better paths</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80f6-b2fe-cdfe99b57589" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-803c-9c36-dce899c64d94" class="">when send RREP also RT active?</p></div><div style="display:contents" dir="auto"><h3 id="1c4eea59-ca7a-807f-a3f6-f1266ab8698c" class="">RREP Processing</h3></div><div style="display:contents" dir="ltr"><figure id="1caeea59-ca7a-8018-81d4-df95d6647803" class="image"><a href="Non-IP%20Techonologies/image%206.png"><img style="width:624px" src="Non-IP%20Techonologies/image%206.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80b5-b3a7-ec1f838a10b5" class="">Note that <mark class="highlight-pink_background">intermediate nodes never change the RT entry status to Active</mark> as a result of receiving a RREP message</p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80c1-ae62-ddd0465faa64" class="bulleted-list"><li style="list-style-type:disc">They will only change the entry status upon reception (and routing) of a data message for the given destination</li></ul></div><div style="display:contents" dir="auto"><h3 id="1c4eea59-ca7a-8098-a3b1-eb28a1085977" class="">Route Maintainance</h3></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-809d-8a18-e5ee35f29023" class="">Suppose <strong>node X</strong> detects that its link to <strong>X1</strong> is broken (e.g., due to signal loss, node X1 moving out of range, or power failure).</p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-804b-b8cc-e8a26c4680aa" class="bulleted-list"><li style="list-style-type:disc">Since X was using this link to forward packets, it must <strong>notify the network</strong> about the broken path</li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8053-b006-df0501bec43d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80fb-954d-c914fb97ef87" class=""><mark class="highlight-teal"><mark class="highlight-pink_background"><strong>URR </strong></mark></mark><mark class="highlight-pink_background"><strong>(Unsolicited Route Reply)</strong></mark> is a message sent to notify upstream nodes (<span style="border-bottom:0.05em solid">nodes that rely on X for routing</span> → X look at his own table the destinations that could reach) that the path involving <strong>X → X1</strong> is no longer valid</p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8045-ac40-e89bcab44fce" class="bulleted-list"><li style="list-style-type:disc">This message propagates <strong>backward toward the source node</strong> to inform it that it must find a new route </li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80ce-9ee4-f36b0e40b551" class="bulleted-list"><li style="list-style-type:disc">When a node <mark class="highlight-pink_background">receives a </mark><mark class="highlight-pink_background"><strong>URR</strong></mark><mark class="highlight-pink_background">, it </mark><mark class="highlight-pink_background"><strong>invalidates its own routing table entry</strong></mark><mark class="highlight-pink_background"> for that destination</mark><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8065-a2dd-e856f3587c35" class="bulleted-list"><li style="list-style-type:circle">Then forward the URR</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1c4eea59-ca7a-8085-b156-fdf40df34044" class="bulleted-list"><li style="list-style-type:disc">The<mark class="highlight-teal"> source node S</mark> upon receiving URR, S starts a <mark class="highlight-pink_background">route discovery phase</mark> to find a new path to the destination</li></ul></div><div style="display:contents" dir="auto"><p id="22aeea59-ca7a-8092-b8ea-c620d5ffc60c" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="22aeea59-ca7a-80f1-856e-e9a9dfeac3c8" class="numbered-list" start="1"><li><strong>X marks affected entries as invalid</strong> in its routing table</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="22aeea59-ca7a-801d-aaa7-e8b643da2157" class="numbered-list" start="2"><li><strong>X sends URR (Unsolicited Route Reply) messages</strong> for each affected destination (D1 and D3)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="22aeea59-ca7a-808e-9c84-f5d7eb57fc50" class="numbered-list" start="3"><li><strong>URR propagates backward</strong> to nodes that were using X to reach these destinations</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="22aeea59-ca7a-8005-be58-d7fc4b732817" class="numbered-list" start="4"><li><strong>Each node receiving URR</strong> checks its own routing table and forwards the URR if it was using the broken path</li></ol></div><div style="display:contents" dir="auto"><h1 id="1c4eea59-ca7a-8003-85c7-cb8aab586457" class="">How to connect a LLM to Internet?</h1></div><div style="display:contents" dir="auto"><h3 id="1c4eea59-ca7a-808d-aedf-fa048d358df6" class="">Application Gateway</h3></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8019-9a60-df3d0181120a" class="">Application Gateway is a <mark class="highlight-teal">translator </mark>that implements ZigBee stack, but also the traditional internet protocols</p></div><div style="display:contents" dir="auto"><ul id="21aeea59-ca7a-8092-82a5-dc515429f174" class="bulleted-list"><li style="list-style-type:disc">The translation is performed in the application layer</li></ul></div><div style="display:contents" dir="ltr"><figure id="1c4eea59-ca7a-80f4-a3fc-c1352253c0e5" class="image"><a href="Non-IP%20Techonologies/image%207.png"><img style="width:576px" src="Non-IP%20Techonologies/image%207.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="1c4eea59-ca7a-8075-810e-de475b1c619e" class="">Fully IP Solution</h3></div><div style="display:contents" dir="auto"><p id="1c4eea59-ca7a-8047-98d9-f0720c954e48" class="">All uses the IPv6 protocol</p></div><div style="display:contents" dir="auto"><ul id="21aeea59-ca7a-8034-8b88-cb76c44ecc8d" class="bulleted-list"><li style="list-style-type:disc">To enable communication between the local network and the external network, a <mark class="highlight-pink_background">border router </mark>is used. This border router has two interfaces, allowing it to connect to both networks.</li></ul></div><div style="display:contents" dir="ltr"><figure id="1c4eea59-ca7a-8034-b7c4-f494e6d14c11" class="image"><a href="Non-IP%20Techonologies/image%208.png"><img style="width:576px" src="Non-IP%20Techonologies/image%208.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80c3-83fc-d9014f350d0e" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

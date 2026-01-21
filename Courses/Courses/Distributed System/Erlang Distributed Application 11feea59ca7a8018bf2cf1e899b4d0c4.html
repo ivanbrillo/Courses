@@ -1,0 +1,752 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Erlang Distributed Application</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="11feea59-ca7a-8018-bf2c-f1e899b4d0c4" class="page sans"><header><h1 class="page-title" dir="auto">Erlang Distributed Application</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="11feea59-ca7a-8080-8722-eecd861f082a" class="">Possibility to spawn processes on remote nodes and machines</p></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-8022-8b34-e316a022ca43" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="11feea59-ca7a-80c5-a763-e8131ccd8df4" class="numbered-list" start="1"><li><mark class="highlight-orange">Distributed Erlang</mark>: programs run on nodes, with their own set of processes. Any processes can interact across nodes </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="11feea59-ca7a-8014-b05e-e7b93da45dee" class="numbered-list" start="2"><li><mark class="highlight-orange">Socket-based distribution</mark>: more secured, based on sockets</li></ol></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-80f9-9eac-eacc755f0477" class="">
+</p></div><div style="display:contents" dir="auto"><div id="11feea59-ca7a-8034-8f93-cea37d4e359d" class="column-list"><div style="display:contents" dir="auto"><div id="11feea59-ca7a-80f1-9774-c65861e0e3fe" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="11feea59-ca7a-8070-a603-f74b82edae2a" class="">Each machines can hold more than one nodes → Erland node (spawned when type erl)</p></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-8001-9064-c312d62251b6" class="bulleted-list"><li style="list-style-type:disc">Each node is connected to the others</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="11feea59-ca7a-80a9-be70-c9b73f4992cc" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="11feea59-ca7a-80f9-b36c-f9b1d78284d4" class="image"><a href="Erlang%20Distributed%20Application/image.png"><img style="width:330.9861145019531px" src="Erlang%20Distributed%20Application/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-8058-9c92-eb562a3f4d45" class="">
+</p></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-80c3-856a-d2b9ded9fcc2" class="">Nodes must be given unique names to be contacted. The format is: <code>Name@Host</code></p></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-80bf-a0c1-c5d85040120e" class="">eg. ale@localhost</p></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-8062-9f43-d8fe1ab80d7b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-802c-aaef-c261d4d6d0a5" class="">Cluster: connection of nodes</p></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-80ab-b755-fb7d742f75da" class="bulleted-list"><li style="list-style-type:disc">I can use just one of name types<div style="display:contents" dir="auto"><ul id="11feea59-ca7a-808a-87dc-d4905562bf37" class="bulleted-list"><li style="list-style-type:circle">Long names with fully qualified domain names</li></ul></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-8055-8757-ffcbf60ebf8e" class="bulleted-list"><li style="list-style-type:circle">Short Names w/o “.”</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-8058-84f7-dbfc47174f5b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-80fb-b0dd-c715b68cd05c" class=""><mark class="highlight-orange">EPDM</mark> (Erlang Port Mapper Deamon) runs on port 4369 in each machines in the cluster, acting as a name server, enabling contacts across nodes.</p></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-8005-8879-e1d8257ff63c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-8056-8faf-d5db84085163" class="">Two nodes are connected the first type they try to comminicate</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11feea59-ca7a-80bd-9525-e5e0780988e8" class="code code-wrap"><code class="language-Erlang" style="white-space:pre-wrap;word-break:break-all">net_kernel:connect_node(tom@localhost).  # or ...
+net_adm:ping(Node)  </code></pre></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-8094-b694-fca3b5a71ca4" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Transitive connection</mark>: If node X is connect to Y, then Y will be connected with all the nodes connected to X</li></ul></div><div style="display:contents" dir="ltr"><figure id="11feea59-ca7a-80a7-82ca-e86ca8574b40" class="image"><a href="Erlang%20Distributed%20Application/image%201.png"><img style="width:576px" src="Erlang%20Distributed%20Application/image%201.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-8038-b8f1-cd392914ea4a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-8023-a9a0-ea1d8c86ec1a" class="">Nodes from different clusters are not allowed to connect.</p></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-8073-8b02-ff93a1b8b467" class="bulleted-list"><li style="list-style-type:disc">the trick is to use a cookie shared by all nodes of a cluster</li></ul></div><div style="display:contents" dir="ltr"><figure id="11feea59-ca7a-8017-ab49-eb21dc52457e" class="image"><a href="Erlang%20Distributed%20Application/image%202.png"><img style="width:707.9722290039062px" src="Erlang%20Distributed%20Application/image%202.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-803c-a6ca-c61cb6f56aee" class="">
+</p></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-801b-bee1-df105eb69283" class="">Spawn processes remotly</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11feea59-ca7a-8064-bfca-c6e606624075" class="code code-wrap"><code class="language-Erlang" style="white-space:pre-wrap;word-break:break-all">spawn(tom@localhost, fun() -&gt; io:format(&quot;w&quot;, [node()]) end).</code></pre></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-8064-9486-dec7b755ec14" class="bulleted-list"><li style="list-style-type:disc">The output is kept and displayed on me and not in the remote machine</li></ul></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-800d-b647-c5f06090f047" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Remote PID </mark> <code>node()</code>→ the first number in not zero</li></ul></div><div style="display:contents" dir="ltr"><figure id="11feea59-ca7a-8027-bb97-d1153c56c914" class="image"><a href="Erlang%20Distributed%20Application/image%203.png"><img style="width:707.9861450195312px" src="Erlang%20Distributed%20Application/image%203.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-80aa-aa62-e68fb779d50f" class="">
+</p></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-8076-8bd6-d9c60d7054f4" class="">Modules provided to support distributed Erlang programs:</p></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-8032-9154-f49400e38de5" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">net_kernel</mark> - to connect/disconnect nodes, to switch a node to distributed/non-distributed, to control heartbeat...</li></ul></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-8070-a3c3-d102e1e11d90" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">global</mark> - a global process registry → use <em>global:send(Name, Msg);</em> handles name conflicts</li></ul></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-809e-815a-eb8c02a44122" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">rpc</mark> - functions to execute commands on remote nodes → <em>rpc:call(Node,Mod,Funct,Args)</em> returns locally whatever is returned by the function executed remotely; <em>rpc:call/5</em>  specify a timeout for asynchronous computing</li></ul></div><div style="display:contents" dir="auto"><h3 id="11feea59-ca7a-8007-a38b-f3371bc6e391" class="">OTP - Open Telecom Platform</h3></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-8044-85f8-c2a1ca2e3c39" class="">Tool for boosting development of Erlang programs</p></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-806e-a79f-c4ecdaaf3896" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">OTP Behavior</mark>: a behavior encapsulates common behavioral patterns. It&#x27;s described as an application framework that can be parameterized by a callback module. This means that behaviors provide a generic structure for certain types of tasks, which can be customized for specific use cases (es. gen_server)</li></ul></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-8040-8153-cd900b7f3f49" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Callback function </mark>is a function that is pass by a caller in order to be called later. Can be <span style="border-bottom:0.05em solid">synchronous</span> callback if it is exectued before the called function return or <span style="border-bottom:0.05em solid">deferred</span> callback when it is executed after (used by event handling es gui)</li></ul></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-800f-bd45-c597f76eec68" class="">
+</p></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-806b-9350-c604b41580e8" class="">Separation of Concerns in OTP:</p></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-805b-9577-e827a54dcb9c" class="bulleted-list"><li style="list-style-type:disc">Non-functional issues are handled by the Behavior</li></ul></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-8082-a632-f2ed85cc95d9" class="bulleted-list"><li style="list-style-type:disc">Specific Functional issues are handled by the Callback (custom) module</li></ul></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-8065-87a0-ea7fe23b0a0a" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="11feea59-ca7a-80ab-8adb-f9aec21eee74" class="">Server</h3></div><div style="display:contents" dir="ltr"><figure id="11feea59-ca7a-809a-886d-e36970d7d050" class="image"><a href="Erlang%20Distributed%20Application/image%204.png"><img style="width:707.9722290039062px" src="Erlang%20Distributed%20Application/image%204.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="11feea59-ca7a-801c-a6ef-d000fccafc20" class="image"><a href="Erlang%20Distributed%20Application/image%205.png"><img style="width:707.9861450195312px" src="Erlang%20Distributed%20Application/image%205.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="11feea59-ca7a-801b-9ff1-f0dc9c871e40" class="image"><a href="Erlang%20Distributed%20Application/image%206.png"><img style="width:707.9722290039062px" src="Erlang%20Distributed%20Application/image%206.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-80e4-bcc2-e926ce06ad27" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="11feea59-ca7a-80f3-a761-e047e9dc4685" class="">OTP gen_server (behavior)</h3></div><div style="display:contents" dir="ltr"><figure id="11feea59-ca7a-80f2-a0f6-e5caf294398c" class="image"><a href="Erlang%20Distributed%20Application/image%207.png"><img style="width:547.0972290039062px" src="Erlang%20Distributed%20Application/image%207.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-8028-a158-ec7e713fe487" class="bulleted-list"><li style="list-style-type:disc">Call synchronous request, while cast unsynchronous</li></ul></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-80d5-9506-e822282e5fa3" class="bulleted-list"><li style="list-style-type:disc">The callback module must specify <code>-behaviour(gen_server).</code>This Erlang attribute tells the compiler that this module is intended to be a callback module for gen_server.</li></ul></div><div style="display:contents" dir="auto"><ul id="128eea59-ca7a-8068-99e8-fabc65274270" class="bulleted-list"><li style="list-style-type:disc">call is syncrounous, meanwhile cast in unsyncronous</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="128eea59-ca7a-803e-b83e-e8e6752907ab" class="code code-wrap"><code class="language-Erlang" style="white-space:pre-wrap;word-break:break-all">init(Args) -&gt;
+	{ok, {0, 0}}.   // {ok, InitialState}
+	
+handle_call(Request, From, State) -&gt;
+	{gimme, N} = Request
+	....
+	{reply, NewTotal/NewTimes, {NewTotal, NewTimes}}  // {reply, ReplayPayload, NewState}
+	
+	
+gen_server:cast(avg_server, {gimme, 4})</code></pre></div><div style="display:contents" dir="auto"><h3 id="11feea59-ca7a-804e-a0ec-ca551b3061af" class="">ETS and DETS</h3></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-8053-8a32-da8f8608024e" class="bulleted-list"><li style="list-style-type:disc">system modules to store erlang terms</li></ul></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-803d-a15a-d75a0c712ada" class="bulleted-list"><li style="list-style-type:disc">provide {key:value} lookup tables (collection of tuples)<div style="display:contents" dir="auto"><ul id="11feea59-ca7a-8068-aefd-c39af73d9825" class="bulleted-list"><li style="list-style-type:circle">Sets: no duplicate keys</li></ul></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-80e9-a1b5-f7dbf7c7a62d" class="bulleted-list"><li style="list-style-type:circle">can have duplicate keys but not duplicate tuples</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="11feea59-ca7a-801f-9775-f70f94674182" class="">MNESIA</h3></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-8083-a43a-fa95aa81a8a9" class="">It can store any kind of Erlang data structure.</p></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-80b5-b9a7-dc9ae802a6b0" class="bulleted-list"><li style="list-style-type:disc">In a Mnesia db, data is organized in tables</li></ul></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-80c0-a59d-f7a2fa8d5782" class="bulleted-list"><li style="list-style-type:disc">query language capabilities (as in SQL) are available in ordinary Erlang syntax.</li></ul></div><div style="display:contents" dir="auto"><h1 id="11feea59-ca7a-8084-9390-c0521d23b92b" class="">Dealing with errors</h1></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-80e5-ab79-ee3aae5cc11a" class="">Erlang is intended to support the development of fault-tolerant systems, thus runtime errors must be handled</p></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-80e1-b204-fea881d4003b" class="bulleted-list"><li style="list-style-type:disc">Error Handling in CONCURRENT programs - we need to deal with errors at the process level, in collection of processes. In case of a process crash, we want another process may detect the event, and take over the job of the crashed process.</li></ul></div><div style="display:contents" dir="ltr"><figure id="11feea59-ca7a-80c6-a573-e477c8e09825" class="image"><a href="Erlang%20Distributed%20Application/image%208.png"><img style="width:707.9444580078125px" src="Erlang%20Distributed%20Application/image%208.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="11feea59-ca7a-80ff-b778-d8e8e686cee8"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="410ad6fa-50ef-470a-8fdf-7fa5e946bc3b" class="">In Erlang, the focus is in the cure, not on prevention!</p></div></div></figure></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11feea59-ca7a-8053-903b-cd19d1ce6b7b" class="code code-wrap"><code class="language-Erlang" style="white-space:pre-wrap;word-break:break-all">try
+    % Block of code that might cause an error
+    Expression
+[of]
+    % Handle the successful result
+    Pattern -&gt; SuccessCode
+catch
+    % Handle exceptions (errors, throws, exits)
+    Class:Exception -&gt; ErrorHandlingCode
+[after]
+		% Like finally in other langs
+		Expression
+end.</code></pre></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="11feea59-ca7a-80ab-b629-d4e56bfc2be5"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="8c8e474e-28b5-4c58-93fa-9c6d028495ee" class="">Cannot use tail recursion in the protected expression (is just a loop and i will not know where to jump).</p></div></div></figure></div><div style="display:contents" dir="auto"><h3 id="11feea59-ca7a-806e-a43c-df2d46209c8c" class="">Links</h3></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-809f-91ca-fe6947cc500e" class="">A special relationship between processes can be set up, to let us terminate a set of related processes in case one of them would fail. BIF: link/1, and spawn_link/1-3</p></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-8095-980b-fdda25588966" class="bulleted-list"><li style="list-style-type:disc">The other process dies if it is not a system process</li></ul></div><div style="display:contents" dir="auto"><h3 id="11feea59-ca7a-803f-893a-e3c98e4d494b" class="">System Process</h3></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-80c9-ae73-c2caa1c51c46" class="">I can catch process signals by making the recipient a <mark class="highlight-teal">system process.</mark></p></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-803d-90a6-ce82e18dc307" class="">Any exit signal to a system process is converted to a regular message. Upon receiving it, we can decide what to do, maybe, restarting the dead process!</p></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-809d-b86a-ef57f4e6ad41" class="bulleted-list"><li style="list-style-type:disc">Special case: <span style="border-bottom:0.05em solid">kill</span> reason → never trapped; an ultimate weapon! The recipient of “kill” will send out the “killed” reason</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11feea59-ca7a-80a2-a220-c09f88f67a48" class="code code-wrap"><code class="language-Erlang" style="white-space:pre-wrap;word-break:break-all">process_flag(trap_exit, true),
+receive
+    {&#x27;EXIT&#x27;, Pid, Reason} -&gt;
+        io:format(&quot;Process ~p exited with reason ~p~n&quot;, [Pid, Reason])
+end.</code></pre></div><div style="display:contents" dir="auto"><h3 id="11feea59-ca7a-8009-a3b8-ec407a146468" class="">Monitor</h3></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-8094-95ab-d68eb31b9e40" class="">A more flexible kind of relationship can be set up via monitor/2-3, and spawn_monitor/1-3.</p></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-80ab-b0c8-f7a01f25e12b" class="">Differently from links, monitors</p></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-8091-b648-fb8012fef30b" class="bulleted-list"><li style="list-style-type:disc">are unidirectional;</li></ul></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-80e7-8732-c88504758b95" class="bulleted-list"><li style="list-style-type:disc">can be stacked (1+ instances per ordered pair).</li></ul></div><div style="display:contents" dir="auto"><ul id="11feea59-ca7a-80f5-afad-e1a6e85dfbbc" class="bulleted-list"><li style="list-style-type:disc">Does not coupled its life (unless system process) to the other process</li></ul></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-8085-af46-d7fc2688c8ff" class="">As a monitored process goes down, the monitoring process receives a message whose pattern is<br/><code>{&#x27;DOWN&#x27;, MonitorRef, process, Pid, Reason}.</code></p></div><div style="display:contents" dir="auto"><p id="11feea59-ca7a-80f3-b860-c57faea3c3a2" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,749 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>MongoDB</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="13ceea59-ca7a-80da-b4a3-e4dc40d7d171" class="page sans"><header><h1 class="page-title" dir="auto">MongoDB</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-808d-86e1-d659aae6e718" class="">mongoDB stands for “Humongous DB”</p></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-8013-b3ed-cd358864c68d" class="bulleted-list"><li style="list-style-type:disc">open source</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-80a6-b2f6-eafb6109c9b1" class="bulleted-list"><li style="list-style-type:disc">high performance in C++</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-8053-8268-c2385358864a" class="bulleted-list"><li style="list-style-type:disc">offers features for sttistics and analytics</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-8062-86f8-ecdbcc532515" class="bulleted-list"><li style="list-style-type:disc">high scalability → replicas and horizontal scalability</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-80c0-97d3-d1ffb8f8eef6" class="bulleted-list"><li style="list-style-type:disc">diffferent configuration on CAP triangle → CP and AP mainly</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-80be-bc15-f2da96bc8919" class="bulleted-list"><li style="list-style-type:disc">used either for OLAP and OTLP</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-80ac-8c48-d96a8dbd01b6" class="bulleted-list"><li style="list-style-type:disc">document is <mark class="highlight-orange">BSON format </mark>(binary json) → max 16MB<div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-80ea-b13b-c90bf9f4251c" class="bulleted-list"><li style="list-style-type:circle">If I have a video then there will be a link of a folder in a server where is located </li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-8093-aed2-d81f495d1e9d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-80fc-bee2-da6ac5f3c5d5" class=""><mark class="highlight-blue">Collections</mark></p></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-8066-bd52-c54c575f49e7" class="bulleted-list"><li style="list-style-type:disc">are like tables of relational DBs.</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-80e2-aa28-d5018d4b6777" class="bulleted-list"><li style="list-style-type:disc">their documents do not need to have uniform structures</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-8060-aacd-ed1bb4381999" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">have index set in common</mark></li></ul></div><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-8029-abf3-e42f3d0455f6" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="13ceea59-ca7a-8060-a140-e7d545c7071e" class="">JSON</h3></div><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-80eb-a668-ce3c959ae9d0" class="">“JavaScript Object Notation”</p></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-8052-9808-e0eb33e4a9aa" class="bulleted-list"><li style="list-style-type:disc">Easy for humans to write/read, easy for computers to parse/generate</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-80ce-9057-d00ed2bb2b95" class="bulleted-list"><li style="list-style-type:disc">6 main data types (string, number, object, array, boolean, null)</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-80bf-a4a3-e87580dfe74f" class="bulleted-list"><li style="list-style-type:disc">JSON document is an <span style="border-bottom:0.05em solid">unordered</span> collection of “field: value” pairs<div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-800d-af85-ee35a412425b" class="bulleted-list"><li style="list-style-type:circle">JSON objects fields are not ordered, but <mark class="highlight-blue">array</mark> elements are.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-8017-915b-dddd1df7c4b1" class="bulleted-list"><li style="list-style-type:disc">Objects can be nested</li></ul></div><div style="display:contents" dir="auto"><h3 id="13ceea59-ca7a-80bd-9fb6-d7c1fe3255dc" class="">BSON</h3></div><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-8042-85a3-e50d9503f116" class="">BSON stands for Binary JSON</p></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-80e8-8bd0-dbefa902129a" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Binary-encoded serialization</mark> of JSON-like docs</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-80d9-8ed6-f04dc52b7767" class="bulleted-list"><li style="list-style-type:disc">BSON extends the JSON model to provide <mark class="highlight-blue">additional data types </mark>(date or pointers…), <mark class="highlight-blue">ordered</mark> fields, and to be <mark class="highlight-blue">efficient</mark> for encoding and decoding within different languages</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-8051-aa74-dc69557e52e1" class="bulleted-list"><li style="list-style-type:disc">The MongoDB BSON implementation is lightweight, fast and highly traversable</li></ul></div><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-80f0-9d41-eee4f084f621" class="">
+</p></div><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-80df-b84b-fb7167e41894" class="">The advantages of using documents are:</p></div><div style="display:contents" dir="auto"><ol type="1" id="13ceea59-ca7a-80cc-a696-d626f5ec84f6" class="numbered-list" start="1"><li>Documents (i.e. objects) correspond to <span style="border-bottom:0.05em solid">native data types</span> in many programming languages.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="13ceea59-ca7a-8053-aa5f-ebc3ec03f76d" class="numbered-list" start="2"><li><span style="border-bottom:0.05em solid">Embedded documents</span> and <span style="border-bottom:0.05em solid">arrays</span> reduce need for expensive joins.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="13ceea59-ca7a-8064-91a0-e996b14e5713" class="numbered-list" start="3"><li>Dynamic schema supports fluent <span style="border-bottom:0.05em solid">polymorphism</span>.</li></ol></div><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-80e1-a7c5-d187f4fd5742" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="13ceea59-ca7a-8037-9d20-fb78f7d5b34b" class="">_id Field</h3></div><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-80f8-a34a-e488b4e0f4e4" class="">By default, each document contains an _id field. This field has several special characteristics:</p></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-8097-b688-d18f3d261a37" class="bulleted-list"><li style="list-style-type:disc">The value serves as primary key for collection.</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-80fc-a799-f8d7db79c3dd" class="bulleted-list"><li style="list-style-type:disc">The value is unique, immutable, and should be any non-array type.</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-8030-9414-f8afd9e527bf" class="bulleted-list"><li style="list-style-type:disc">Default data type is <mark class="highlight-blue">ObjectId</mark>, which is “small, likely unique, fast to generate, and ordered.”</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-8067-8ff3-e52b57d14f4c" class="bulleted-list"><li style="list-style-type:disc">Sorting on an ObjectId value is roughly equivalent to sorting on <mark class="highlight-blue">creation time</mark>.</li></ul></div><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-80ce-acf3-fec001d397eb" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="13ceea59-ca7a-8002-8f83-dc74e41b05da" class="">Features</h3></div><div style="display:contents" dir="auto"><ol type="1" id="13ceea59-ca7a-8056-857a-df52ef2aaaa6" class="numbered-list" start="1"><li>High Performance<div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-808f-8a77-f9fae1687101" class="bulleted-list"><li style="list-style-type:disc">MongoDB provides high performance data persistence.</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-8085-bd43-f82b92e63e64" class="bulleted-list"><li style="list-style-type:disc">Support for embedded data models reduces I/O activity on database system → not more access.</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-806f-a33b-de20e82df2ce" class="bulleted-list"><li style="list-style-type:disc">Indexes support faster queries and can include keys from embedded documents and arrays.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="13ceea59-ca7a-805a-bc61-dd90b4a04e51" class="numbered-list" start="2"><li>Rich Query Language. MongoDB supports a rich query language to support read and write operations (CRUD) as well as:<div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-80ba-aed9-cb5b5552a826" class="bulleted-list"><li style="list-style-type:disc">Data Aggregation</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-8071-9cfd-cc958df61364" class="bulleted-list"><li style="list-style-type:disc">Text Search and Geospatial Queries.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="13ceea59-ca7a-80d9-8c2e-d505e8f96240" class="numbered-list" start="3"><li>High Availability<div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-80ec-b9b7-c3a38b758e57" class="bulleted-list"><li style="list-style-type:disc">MongoDB’s replication facility, called replica set, provides: <span style="border-bottom:0.05em solid">automatic failover</span> and <span style="border-bottom:0.05em solid">data redundancy</span>.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="13ceea59-ca7a-805a-a6b9-e01c2c55cd8f" class="numbered-list" start="4"><li>Horizontal Scalability. MongoDB provides horizontal scalability as part of its core functionality:<div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-8050-a393-d24a721f3b84" class="bulleted-list"><li style="list-style-type:disc">Sharding distributes data across a cluster of machines.</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-8026-8796-c9e9b44581cf" class="bulleted-list"><li style="list-style-type:disc">MongoDB supports creating zones of data based on the shard key.</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-8030-9deb-d1baf1c2621a" class="bulleted-list"><li style="list-style-type:disc">In a balanced cluster, MongoDB directs reads and writes covered by a zone only to those shards inside the zone.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-8084-8c51-c92bc5daaf55" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="13ceea59-ca7a-8026-a2b7-f488e061adee" class="">Core Processes</h3></div><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-8068-900f-c6e9e778d85e" class="">The core components in the MongoDB package are:</p></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-8064-8091-d076dab2d4f5" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">mongod</mark>: the main daemon process for the MongoDB system. It handles data requests, manages data access, and database process (doc)</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-8081-97cd-ca0e080be05d" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">mongos</mark>: the controller and query router interfaced between client applications and the sharded cluster (doc);</li></ul></div><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-80da-a4c6-f7a845f333ec" class="">Old Mongo Versions:</p></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-80a5-8760-dbe007b9b8dd" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">mongo</mark>: the interactive MongoDB Shell. The MongoDB Shell is transitioning to <mark class="highlight-orange">mongosh</mark> which is shipped with <span style="border-bottom:0.05em solid">MongoDB Compass</span>.<div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-800c-80d5-f1e0dbb025ee" class="bulleted-list"><li style="list-style-type:circle">JS command line application</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-808e-9fcd-d74525bdd12a" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="13ceea59-ca7a-8057-9b2f-d11ad21f3bb5" class="">Replica Architecture</h3></div><div style="display:contents" dir="ltr"><figure id="13ceea59-ca7a-80b6-b2b9-e8471d1d40eb" class="image"><a href="MongoDB/image.png"><img style="width:384px" src="MongoDB/image.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-802a-b072-d0a07f646bec" class="bulleted-list"><li style="list-style-type:disc">can make read operation by the secondarys servers, while writes only on the primary</li></ul></div><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-80b9-ab70-c54a9671b90b" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="13ceea59-ca7a-804a-bef2-dda81a5b5450" class="">Sharding </h3></div><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-801d-9b15-cf0dc925bedf" class="">MongoDB shards data at the collection level, distributing the collection data across the shards in the cluster.</p></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-8025-929a-e552c52268e1" class="bulleted-list"><li style="list-style-type:disc">Config Server for shard specific information</li></ul></div><div style="display:contents" dir="ltr"><figure id="13ceea59-ca7a-8003-9f58-fdfbb16e5911" class="image"><a href="MongoDB/image%201.png"><img style="width:576px" src="MongoDB/image%201.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="13ceea59-ca7a-8010-bd28-e1697c9f1a88" class="image"><a href="MongoDB/image%202.png"><img style="width:603.7750244140625px" src="MongoDB/image%202.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-80ed-a243-d05b5b277c68" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="13ceea59-ca7a-80fc-81cf-d6d56ece58ed" class="">Configuration File and Others files</h3></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-800b-8016-c4043bf6d8ff" class="bulleted-list"><li style="list-style-type:disc">replicas and sharding</li></ul></div><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-80b5-a620-fe5bef27f5dd" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="13ceea59-ca7a-8096-b189-e353d027cf6f" class="">MongoDB server</h3></div><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-8023-ac63-cf0ded79521c" class="">27017 is the default port where the standalone mongod listen on</p></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-8086-bd19-f60e20cc2ef9" class="bulleted-list"><li style="list-style-type:disc">We can use <code>--port</code> to change in</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="13ceea59-ca7a-8041-b13f-e63736d6ff0b" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">mongosh &quot;mongodb://localhost:27017&quot;
+mongosh &quot;mongodb://mongodb0.example.com:28015&quot; -- username alice --authenticationDatabase admin</code></pre></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="13ceea59-ca7a-80dc-8bb4-c928ddf50775" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">db.shutdownServer()
+show databases
+db     // show the db currently used
+use &lt;database&gt;
+db.myCollection.insertOne( { x: 1 } );</code></pre></div><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-80ff-a906-d05f77c66b48" class="">
+</p></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-807c-bf29-eae3c52a4bb9" class="bulleted-list"><li style="list-style-type:disc">In MongoDB, insert operations target a single collection. All write<br/>operations in MongoDB <mark class="highlight-orange">are atomic on the level of a single document</mark>.</li></ul></div><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-80c6-ae7f-cc816eb2669a" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="13ceea59-ca7a-8048-969a-c7a263b0a9e9" class="image"><a href="MongoDB/image%203.png"><img style="width:384px" src="MongoDB/image%203.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-8059-9938-ebe2dd56a996" class="bulleted-list"><li style="list-style-type:disc"><code>insertMany()</code> can insert multiple documents into a collection.</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="13ceea59-ca7a-805c-b8d4-e2df37f13623" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">db.users.find({age: 27})
+db.users.find({status: {$in {&quot;pendig&quot;, &quot;registered&quot;} }})</code></pre></div><div style="display:contents" dir="ltr"><figure id="13ceea59-ca7a-80a9-92a6-e53488ac3732" class="image"><a href="MongoDB/image%204.png"><img style="width:481px" src="MongoDB/image%204.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-80c6-a66a-f0acd48a10c7" class="bulleted-list"><li style="list-style-type:disc">they are AND operations</li></ul></div><div style="display:contents" dir="ltr"><figure id="13ceea59-ca7a-8022-a5c1-d20298725d60" class="image"><a href="MongoDB/image%205.png"><img style="width:575px" src="MongoDB/image%205.png"/></a><figcaption>start with “p”</figcaption></figure></div><div style="display:contents" dir="ltr"><figure id="13ceea59-ca7a-8042-ab0f-f9ad2dc77dc7" class="image"><a href="MongoDB/image%206.png"><img style="width:603.7750244140625px" src="MongoDB/image%206.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="13ceea59-ca7a-80ec-8171-f4d430d35b14" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="13ceea59-ca7a-80f2-ae9b-c7290702e62b" class="">Update</h3></div><div style="display:contents" dir="ltr"><figure id="13ceea59-ca7a-8024-825e-dbd913cbd21f" class="image"><a href="MongoDB/image%207.png"><img style="width:603.7750244140625px" src="MongoDB/image%207.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-800c-b140-f7993cfc5928" class="bulleted-list"><li style="list-style-type:disc">The &lt;filter&gt; document is defined as a query that we previously analyzed and specify the set of document to update.</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-80eb-af16-edb2717b728c" class="bulleted-list"><li style="list-style-type:disc">The &lt;update&gt; document specify the modification to apply.</li></ul></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-80e5-9855-d715d6281e3d" class="bulleted-list"><li style="list-style-type:disc">The &lt;options&gt; document specify a set of parameters for the modifications.</li></ul></div><div style="display:contents" dir="ltr"><figure id="13ceea59-ca7a-8074-a9d7-e5eb041fc92b" class="image"><a href="MongoDB/image%208.png"><img style="width:603.7750244140625px" src="MongoDB/image%208.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="13ceea59-ca7a-8066-a736-ec09fa2d5481" class="bulleted-list"><li style="list-style-type:disc">cannot change _id </li></ul></div><div style="display:contents" dir="auto"><p id="143eea59-ca7a-80bc-a50f-e6498f92ef3d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="143eea59-ca7a-80fe-b0d2-c9d9a7a569f4" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="143eea59-ca7a-80ef-b42d-fcaa2b478916" class="">INDEXES - exam questions </h1></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-8048-b8a8-f00902c40b0b" class="bulleted-list"><li style="list-style-type:disc">important for analytics → OLAF part of the application</li></ul></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="143eea59-ca7a-803e-8338-e999e1b11398"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="143eea59-ca7a-80a1-b470-ff969250cbb2" class="">If an appropriate index exists for a query, MongoDB can use the index to limit the number of documents it must inspect.</p></div></div></figure></div><div style="display:contents" dir="auto"><p id="143eea59-ca7a-80af-ba53-f1419f227d44" class="">
+</p></div><div style="display:contents" dir="auto"><p id="143eea59-ca7a-80c9-8986-fb41ef55f0a6" class="">Indexes are special data structures that store a small portion of the collection’s data set in an easy to traverse form. → used for reading, updated in writing</p></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-80be-a36e-f9b6fb243079" class="bulleted-list"><li style="list-style-type:disc">The index stores the value of a specific field or set of fields (<mark class="highlight-teal">compound indexes</mark>), ordered by the value of the field.</li></ul></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-80d4-94c3-db703a45883c" class="bulleted-list"><li style="list-style-type:disc">The ordering of the index entries supports efficient equality matches and range-based query operations.</li></ul></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-8041-8256-f5d6ac016d21" class="bulleted-list"><li style="list-style-type:disc">In addition, MongoDB can return sorted results by using the ordering in the index.</li></ul></div><div style="display:contents" dir="auto"><p id="143eea59-ca7a-8023-a753-fda0c0396790" class="">MongoDB defines indexes at the collection level and supports indexes on any field or sub-field of the documents in a MongoDB collection.</p></div><div style="display:contents" dir="ltr"><figure id="143eea59-ca7a-80c3-9beb-c7629f69d618" class="image"><a href="MongoDB/image%209.png"><img style="width:603.7625122070312px" src="MongoDB/image%209.png"/></a><figcaption>index for score</figcaption></figure></div><div style="display:contents" dir="auto"><p id="143eea59-ca7a-805f-98f5-c8c846ad3dd7" class="">Pointers to the head of a list of documents</p></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-80d5-aa1a-c0fd68e3a2ab" class="bulleted-list"><li style="list-style-type:disc">no need to scan all the documents for a particular score</li></ul></div><div style="display:contents" dir="auto"><p id="143eea59-ca7a-80b3-b06d-d3ededbbce35" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="143eea59-ca7a-80df-8909-c384137e3d4d" class="">One to many</h3></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-80cb-8fc2-d8e655f4ff24" class="bulleted-list"><li style="list-style-type:disc">or embedded documents</li></ul></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-8057-aad3-d0ac82c3d9ce" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal"><strong><span style="border-bottom:0.05em solid">NOT</span></strong></mark> in the review a link to hotel → normalized version but inefficient, otherwise scan all the reviews</li></ul></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-8006-a0f4-fd69ffb509c1" class="bulleted-list"><li style="list-style-type:disc">but a list of IDs of the reviews in hotel → directly retrive the document because I have an index. <mark class="highlight-teal">DOCUMENT LINK</mark></li></ul></div><div style="display:contents" dir="auto"><p id="143eea59-ca7a-80f4-aad8-f9a5896ac240" class="">
+</p></div><div style="display:contents" dir="auto"><p id="143eea59-ca7a-8067-ac6e-eb4e4483215f" class="">
+</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="143eea59-ca7a-801f-867f-e503d29553eb" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">db.collection.createIndex(keys, options)</code></pre></div><div style="display:contents" dir="auto"><p id="143eea59-ca7a-80b1-92c0-d28bfdceedee" class="">
+</p></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-8007-9d6b-f181010a015f" class="bulleted-list"><li style="list-style-type:disc">the value describes the type of index for that field. For an ascending index on a<br/>field, specify a value of 1; for descending index, specify a value of -1.</li></ul></div><div style="display:contents" dir="ltr"><figure id="143eea59-ca7a-80b9-88b7-ff67e6accff2" class="image"><a href="MongoDB/image%2010.png"><img style="width:603.7750244140625px" src="MongoDB/image%2010.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="143eea59-ca7a-808b-a9e8-e5a3bae583f7"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="359184e6-14e0-4d7b-b2b5-8e0d41941cb3" class="">discuss COMPUND INDEX in EXAM</p></div></div></figure></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-80c4-a7fa-cf80442e1919" class="bulleted-list"><li style="list-style-type:disc">index defined on more than one field</li></ul></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-80a6-b2c5-c8f1cfcaa8c2" class="bulleted-list"><li style="list-style-type:disc">for each field i need to specify how to order it → <mark class="highlight-teal">the order matters</mark> in the definition of the index<div style="display:contents" dir="auto"><ul id="143eea59-ca7a-806b-9021-f4a7f97a731c" class="bulleted-list"><li style="list-style-type:circle">all the queries should be coherent on the order defined</li></ul></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-80d2-bcd5-e752afc76023" class="bulleted-list"><li style="list-style-type:circle">For example, an index key pattern { a: 1, b: 1 } can support a sort on { a:<br/>1, b: 1 } but not on { b: 1, a: 1 }.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-80ed-9aca-fa12ae34cbdc" class="bulleted-list"><li style="list-style-type:disc">For a query to use a compound index for a sort, the specified sort direction for all keys must match the index key pattern or match the inverse of the index key pattern.</li></ul></div><div style="display:contents" dir="ltr"><figure id="143eea59-ca7a-80fc-b4bb-e65a8808549b" class="image"><a href="MongoDB/image%2011.png"><img style="width:462px" src="MongoDB/image%2011.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="143eea59-ca7a-8083-a274-c0fa5b861a2c" class="">In an embedded document i could define an index in city</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="143eea59-ca7a-80b1-b421-fe284d7e8c65" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">db.users.createIndex({&quot;loc.city&quot; : 1})</code></pre></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-8081-a48d-fc9ab1dc68e5" class="bulleted-list"><li style="list-style-type:disc">what happen if we define and index as follows db.users.createIndex({loc : 1}) ?Indexing the entire subdocument will only help queries that are querying for the entire subdocument, such as db.users.find({&quot;loc&quot; : {&quot;ip&quot; : &quot;123.456.789.000&quot;, &quot;city&quot; : &quot;Shelby ville&quot;, &quot;state&quot; : &quot;NY&quot;}}})).<div style="display:contents" dir="auto"><ul id="143eea59-ca7a-807b-ae56-eae67c89601a" class="bulleted-list"><li style="list-style-type:circle">The following query: db.users.find({&quot;loc.city&quot; : &quot;Shelbyville&quot;}) will be not supported by the the index on the entire document.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="143eea59-ca7a-80b1-826e-d76835c35f2e" class="">
+</p></div><div style="display:contents" dir="auto"><p id="143eea59-ca7a-8049-b446-c525ac5cc3c9" class="">
+</p></div><div style="display:contents" dir="auto"><p id="143eea59-ca7a-8045-9b3b-d2633ef2b551" class="">DOenst make sense to define index if too many different values (too complicate, maybe better to scan all documents than the index ) or too low</p></div><div style="display:contents" dir="auto"><p id="143eea59-ca7a-805f-b3e5-fb1f14464376" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="143eea59-ca7a-80fb-ac9d-c0ff281c22a8" class="image"><a href="MongoDB/image%2012.png"><img style="width:603.7750244140625px" src="MongoDB/image%2012.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-8053-9520-caa684bb890b" class="bulleted-list"><li style="list-style-type:disc">create an index for each element of the array → So i will define 2 indexes</li></ul></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-808a-b936-c5ed4a87d0d8" class="bulleted-list"><li style="list-style-type:disc">Notice that indexing an array creates an index entry for each element of the array, so if a post had 20 comments, it would have 20 index entries.</li></ul></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-80ee-86c2-e67daa989e6f" class="bulleted-list"><li style="list-style-type:disc">This makes array indexes more expensive than single-value ones: for a single insert, update, or remove, every array entry of the index might have to be updated.</li></ul></div><div style="display:contents" dir="auto"><p id="143eea59-ca7a-80e3-854e-c6bc5fa9d53d" class="">Indexes on array elements do not keep any notion of position: <mark class="highlight-teal">we cannot use an index<br/>for a query that is looking for a specific array element . </mark>(eg. the forth)</p></div><div style="display:contents" dir="ltr"><figure id="143eea59-ca7a-8083-bcc9-f2688d54252e" class="image"><a href="MongoDB/image%2013.png"><img style="width:603.7875366210938px" src="MongoDB/image%2013.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="143eea59-ca7a-808c-9940-ca9b22f54c8d" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="143eea59-ca7a-8099-b1d5-d6a4d9659ece" class="">Advanced Indexes</h3></div><div style="display:contents" dir="auto"><p id="143eea59-ca7a-801f-ac91-ce5c8ba64f21" class="">MongoDB offers the possibility of defining the following advanced indexes:</p></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-809f-b5e7-d7d97eb75a22" class="bulleted-list"><li style="list-style-type:disc">Geospatial Index: supports efficient queries of geospatial coordinate data.<br/>MongoDB provides two special indexes: 2d indexes that uses planar geometry<br/>when returning results and 2dsphere indexes that use spherical geometry to<br/>return results. Details: <a href="https://www.mongodb.com/docs/manual/core/indexes/index-types/index-">https://www.mongodb.com/docs/manual/core/indexes/index-types/index-geospatial</a></li></ul></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-8006-999f-d8d46cb8614a" class="bulleted-list"><li style="list-style-type:disc">Text Index: MongoDB provides text indexes to support text search queries on<br/>string content. Text indexes can include any field whose value is a string or an<br/>array of string elements. Details:<br/><a href="https://docs.mongodb.com/manual/core/index-text/">https://docs.mongodb.com/manual/core/index-text/</a></li></ul></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-804e-a5c3-f0359e0f354b" class="bulleted-list"><li style="list-style-type:disc">Hash index: supports hash based sharding and indexes the hash of the value of a<br/>field. Only support equality matches and cannot support range-based queries.<br/>Details: <a href="https://docs.mongodb.com/manual/core/index-hashed/">https://docs.mongodb.com/manual/core/index-hashed/</a></li></ul></div><div style="display:contents" dir="auto"><p id="143eea59-ca7a-8069-a3cc-f5f81a80021c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="143eea59-ca7a-80ce-8af4-c3419a78211e" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="143eea59-ca7a-8098-99d3-f8bbcf79b889" class="">Types of Indexes</h3></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-80ff-875d-c2f50800a55b" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Unique Indexes</mark>: The unique property for an index causes MongoDB to reject duplicate values for the indexed field (<a href="https://docs.mongodb.com/manual/core/index-unique/">https://docs.mongodb.com/manual/core/index-unique/</a>).</li></ul></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-8010-8fb1-d51da70b9957" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Partial Indexes</mark>: only index the documents in a collection that meet a specified filter expression. By indexing a subset of the documents in a collection, partial indexes have lower storage requirements and reduced performance costs for index creation and maintenance (<a href="https://docs.mongodb.com/manual/core/index-partial/">https://docs.mongodb.com/manual/core/index-partial/</a>).</li></ul></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-808a-b777-f89f846cee1a" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Sparse Indexes</mark>: the sparse property of an index ensures that the index only contain entries for documents that have the indexed field. The index skips documents that do not have the indexed field → otherwise considered as null (<a href="https://docs.mongodb.com/manual/core/index-sparse/">https://docs.mongodb.com/manual/core/index-sparse/</a>).</li></ul></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-803c-bf2a-e1e3a239e1dd" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">TTL Indexes</mark>: are special indexes that MongoDB can use to automatically remove<br/>documents from a collection after a certain amount of time. This is ideal for certain types of information like machine generated event data, logs, and session information that only need to persist in a database for a finite amount of time<br/>(<a href="https://docs.mongodb.com/manual/core/index-ttl/">https://docs.mongodb.com/manual/core/index-ttl/</a>).</li></ul></div><div style="display:contents" dir="auto"><p id="143eea59-ca7a-805a-ac88-daaed720aeb5" class="">
+</p></div><div style="display:contents" dir="auto"><p id="143eea59-ca7a-809d-9229-f8c7f03781cf" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="143eea59-ca7a-8055-9036-c387940d20b2" class="image"><a href="MongoDB/image%2014.png"><img style="width:707.9874877929688px" src="MongoDB/image%2014.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="143eea59-ca7a-8045-9ad2-da1e2c348e92" class="">
+</p></div><div style="display:contents" dir="auto"><p id="143eea59-ca7a-80e5-8f5a-e0fff2a1512e" class="">less entry variation for the type, so its better to define the second </p></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-805d-97bf-f0d6d58ffec7" class="bulleted-list"><li style="list-style-type:disc">in the second i Just scan 2 documents</li></ul></div><div style="display:contents" dir="auto"><ul id="143eea59-ca7a-80da-98c9-dc0c5d89b059" class="bulleted-list"><li style="list-style-type:disc">in the first 6</li></ul></div><div style="display:contents" dir="auto"><p id="143eea59-ca7a-80ba-b58b-c87dde8f3772" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

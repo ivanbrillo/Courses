@@ -1,0 +1,742 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Risk Management</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1edeea59-ca7a-8096-a197-c7efdc9fc2a3" class="page sans"><header><h1 class="page-title" dir="auto">Risk Management</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8076-8508-c65aca3d017d" class="">Organizations with greater risk management maturity outperform their peers financially</p></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-80c8-8c58-e3c5104afa89" class="bulleted-list"><li style="list-style-type:disc">opportinity of substainable growth not just risks</li></ul></div><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-80ad-b93e-deb24972336b" class="image"><a href="Risk%20Management/image.png"><img style="width:620.9750366210938px" src="Risk%20Management/image.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-8005-b2e9-eb83d0115ae6" class="image"><a href="Risk%20Management/22539046-131a-46b4-a551-76211542f5e1.png"><img style="width:462.4936386768448px" src="Risk%20Management/22539046-131a-46b4-a551-76211542f5e1.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8028-ad15-c9faff75e36c" class=""><mark class="highlight-blue"><mark class="highlight-pink_background">Risk</mark></mark><mark class="highlight-pink_background">: an uncertain event or condition that, if it occurs, has a positive or negative effect on one or more project objectives</mark></p></div><div style="display:contents" dir="auto"><ol type="1" id="1edeea59-ca7a-80c9-af44-e88aa327250e" class="numbered-list" start="1"><li>Threats → eg. project cost will growth</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1edeea59-ca7a-80d0-b37e-eef8576a80c0" class="numbered-list" start="2"><li>Opportunities </li></ol></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-80d4-b47a-e509d752ad61" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8084-8f2a-e6223d611220" class="">Opportunities are often <mark class="highlight-blue">overlooked </mark>because of:</p></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-80e0-a803-d3d06b8b424b" class="bulleted-list"><li style="list-style-type:disc">Pessimism &amp; predisposition to find errors</li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-802a-ba83-e5208e173b6e" class="bulleted-list"><li style="list-style-type:disc">External locus of control </li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-8017-8b26-fb28add15d54" class="bulleted-list"><li style="list-style-type:disc">Strength of negative rewards → Negative consequences often outweigh the perceived benefits of acting.</li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-80e6-99a5-eb2c5def2b9d" class="bulleted-list"><li style="list-style-type:disc">Absence of positive rewards</li></ul></div><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-80e3-b31c-d28db5be2b94" class="image"><a href="Risk%20Management/image%201.png"><img style="width:605.7750244140625px" src="Risk%20Management/image%201.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8089-98d6-d77f96c9a211" class="">
+</p></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-806e-9824-dc14b538e7c3" class="bulleted-list"><li style="list-style-type:disc">Risk universe: the full range of risks which could impact, either positively or negatively, on the ability of the organization to achieve its long-term objectives</li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-802a-97e5-e524ae679cd0" class="bulleted-list"><li style="list-style-type:disc">Risk capacity: an organization will not have the capacity or capability to take all the risks in its risk universe (e.g. capital, resources, constraints from external stakeholders)</li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-805b-8efa-ea2c5495431e" class="bulleted-list"><li style="list-style-type:disc">Risk in(tolerance): the boundaries of risk taking outside of which the organization is not prepared to venture in pursuit of its long-term objectives </li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-8029-850b-fc4eff7d079d" class="bulleted-list"><li style="list-style-type:disc">Risk appetite: ‘the amount of risk an organization is willing to seek or accept in the pursuit of its objectives’</li></ul></div><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-8054-9646-ea5989df42ed" class="image"><a href="Risk%20Management/image%202.png"><img style="width:384px" src="Risk%20Management/image%202.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-807a-b246-e4a9501a2a99" class="">
+</p></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-8061-ab6b-ecca0074d339" class="bulleted-list"><li style="list-style-type:disc">Successes achieved through prevention are <mark class="highlight-blue">invisible</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-80f5-87cd-cff2493dc90d" class="bulleted-list"><li style="list-style-type:disc">The amount of risk an organization is willing to seek or accept depends on the risk<br/>appetite</li></ul></div><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-8097-8333-de9cefcd0710" class="image"><a href="Risk%20Management/image%203.png"><img style="width:720px" src="Risk%20Management/image%203.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8071-835f-c866ed595e9e" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1edeea59-ca7a-80d5-8dab-d403cc6f2568" class="">1. Plan</h3></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8038-a5fa-f6515ac530f2" class="">Describe how Risk Management activities will be structured and performed</p></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-804a-9d89-fd0a05d419a3" class="block-color-blue"><mark class="highlight-orange">Risk Breakdown Structure (RBS)</mark></p></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-803e-b38c-fef83f0aba54" class="bulleted-list"><li style="list-style-type:disc">Hierarchical representation of potential sources of risk</li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-80ae-94e0-fc574ff46618" class="bulleted-list"><li style="list-style-type:disc">help to consider the full range of risks</li></ul></div><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-804f-9d1f-dee10ba0726f" class="image"><a href="Risk%20Management/image%204.png"><img style="width:605.75px" src="Risk%20Management/image%204.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-809e-9e66-d0d2c57bae51" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1edeea59-ca7a-8073-a770-e480d2039da6" class="">2. Identify Risks</h3></div><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-8073-b85f-c498576f77fc" class="image"><a href="Risk%20Management/image%205.png"><img style="width:384px" src="Risk%20Management/image%205.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-802a-a626-caed6839ec3e" class=""><mark class="highlight-orange">Brainstorming </mark>downsides</p></div><div style="display:contents" dir="auto"><ol type="1" id="1edeea59-ca7a-80a5-bb6e-e953577a13b1" class="numbered-list" start="1"><li>groupthinking</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1edeea59-ca7a-801a-8c69-c41afbc91526" class="numbered-list" start="2"><li>not everyone will contribute</li></ol></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-80be-ac86-f8d230774e40" class="">Upsides:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1edeea59-ca7a-804c-8a57-e3755524abea" class="numbered-list" start="1"><li>familiar</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1edeea59-ca7a-80e1-805e-d5fb9e399d6d" class="numbered-list" start="2"><li>can generate many risks quickly</li></ol></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8021-b6a4-c1b966bdec91" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-809d-9be8-fc81e3b7a440" class=""><mark class="highlight-orange">Pre-Mortem</mark></p></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-80a3-8ff4-c501456f8168" class="bulleted-list"><li style="list-style-type:disc">The assembled group is asked to imagine that the project is completed or has been terminated.</li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-8057-b4c3-ccd4eac5753f" class="bulleted-list"><li style="list-style-type:disc">The project has failed to meet one or more of its objectives.</li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-80c3-8479-f7be1dd3b3a8" class="bulleted-list"><li style="list-style-type:disc">the group is asked to describe why the project has failed.</li></ul></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-80eb-9ceb-e64cfc878505" class="">Or that is gone good and identify opportunities</p></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-80fa-8a5a-f36b5493998d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8041-a4a1-e2864796a5f8" class=""><mark class="highlight-orange">Affinity Diagrams</mark></p></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-8065-8fb1-d8e546c05f45" class="bulleted-list"><li style="list-style-type:disc">The ideas generated from any other risk gathering techniques are sorted into groups by categories.</li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-8089-99d9-d0674cc7e457" class="bulleted-list"><li style="list-style-type:disc">The sorting makes it easier to see additional risks that have not been identified</li></ul></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-80bf-869a-e94f972adf06" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8001-b0b9-fad2f340c761" class=""><mark class="highlight-orange">Delphi technique</mark></p></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-80bf-939b-f69827125747" class="bulleted-list"><li style="list-style-type:disc">Determine the list of experts but keep the list of names anonymous</li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-8007-823d-c676798f60c9" class="bulleted-list"><li style="list-style-type:disc">Collect all expert opinions</li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-80e3-9b6d-da5ba1a2598e" class="bulleted-list"><li style="list-style-type:disc">Compile them into a list (keeping the names’ anonymous)</li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-80e8-9b65-e187ad9a3fca" class="bulleted-list"><li style="list-style-type:disc">Try to reach consensus among the group</li></ul></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8050-a8ae-d8a607f33eb3" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8071-841e-f81092f543c2" class=""><mark class="highlight-orange">AI</mark></p></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-804f-a2ea-d20d22c27b28" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-807c-b863-e252f7ccd108" class=""><mark class="highlight-orange">Cause and effect diagram</mark></p></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-8097-b858-cf2ebe81cd9e" class="bulleted-list"><li style="list-style-type:disc">Visual tool to help a person or group see the potential causes and identify new ones</li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-80f8-a887-e57006fe56b8" class="bulleted-list"><li style="list-style-type:disc">from risks to causes</li></ul></div><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-809d-9953-d31155e9c2d3" class="image"><a href="Risk%20Management/image%206.png"><img style="width:336px" src="Risk%20Management/image%206.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-80e2-b727-f91db2d4d102" class="image"><a href="Risk%20Management/image%207.png"><img style="width:605.7875366210938px" src="Risk%20Management/image%207.png"/></a><figcaption>Cause-Risk-Effect formulation</figcaption></figure></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8065-a467-d664f9f45197" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8084-bf31-fe1fa0d59cfa" class="">Do it until it seems stupid → no more useful risk to be identified (eg. alien comes to earth)</p></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8013-be21-dccc9f1ce4f0" class=""><mark class="highlight-orange">Scope creep </mark>→ not to delivery the full objectives of the project </p></div><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-80d9-90bc-d25228b52daa" class="image"><a href="Risk%20Management/image%208.png"><img style="width:605.75px" src="Risk%20Management/image%208.png"/></a><figcaption>Risk Registry → </figcaption></figure></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-8036-bd1e-eeaadbdbd8f7" class="bulleted-list"><li style="list-style-type:disc">It is the place where most of the risk information is kept</li></ul></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-809d-bc45-ddffb1f11f8d" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1edeea59-ca7a-80f7-aa19-d5fc5b5b5e23" class="">3. Qualitative Risk Aalysis</h3></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-80ac-bddd-d29fcd2b618e" class="">It is the process of prioritizing project risks for further analysis or action by assessing their probability of occurrence and impact as well as other characteristics</p></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-80df-b585-de6cbd06d9c2" class="bulleted-list"><li style="list-style-type:disc">then quantitative on the important ones</li></ul></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8054-b3ac-de71cb931d09" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-80f3-ac60-e8bc730885a9" class="">Most common:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1edeea59-ca7a-8092-8576-c196fc478c76" class="numbered-list" start="1"><li>probability: how likely a risk event will occur</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1edeea59-ca7a-8050-b3fc-e4976b153acc" class="numbered-list" start="2"><li>Impact/effect: consequences, amount at stake</li></ol></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-80e8-85df-da385ab7aaf2" class="">Others</p></div><div style="display:contents" dir="auto"><ol type="1" id="1edeea59-ca7a-80a3-ae6a-ddc3b424c925" class="numbered-list" start="1"><li>Risk velocity: urgency with which the risk should be addressed</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1edeea59-ca7a-800c-8e02-c7eeb67f137c" class="numbered-list" start="2"><li>Frequency: how often a particular risk is expected to occur over a given period</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1edeea59-ca7a-80dc-ada4-edaae3ea1f21" class="numbered-list" start="3"><li>Timing: when a particular risk is likely to occur or when its impact might be felt</li></ol></div><div style="display:contents" dir="auto"><div id="1edeea59-ca7a-804f-a82a-dec0f3859e13" class="column-list"><div style="display:contents" dir="auto"><div id="1edeea59-ca7a-80a2-b03a-ffdc71251ff8" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-80df-a979-f9b8f26e906f" class="">Risk score = probability * impact</p></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8005-8dbd-fc0ab5bded2c" class="">All risks with  <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>c</mi><mi>o</mi><mi>r</mi><mi>e</mi><mo>&gt;</mo><mi>X</mi></mrow><annotation encoding="application/x-tex">score &gt; X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">score</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span></span><span>﻿</span></span> → consider for further analysis / action</p></div><div style="display:contents" dir="auto"><p id="203eea59-ca7a-8066-9513-d7a81d73fec9" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1edeea59-ca7a-8006-8031-f83b4e20c7ba" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-80b6-a53d-f96505e267bd" class="image"><a href="Risk%20Management/image%209.png"><img style="width:278.875px" src="Risk%20Management/image%209.png"/></a><figcaption>eg score system from 1 to 9 or low-med-high</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-80f7-8e5f-fcc6fc60bb18" class="image"><a href="Risk%20Management/image%2010.png"><img style="width:384px" src="Risk%20Management/image%2010.png"/></a><figcaption>update the risk register</figcaption></figure></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-80e4-8837-ea4e3f4ea491" class="">
+</p></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-80ae-98df-f6e6004985e6" class="bulleted-list"><li style="list-style-type:disc">opportunity needs opposite sign then threats</li></ul></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8008-9307-f7d5b70a08f9" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-80fb-a1b3-c38031a52f7a" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1edeea59-ca7a-809b-83d6-efec4d99fd99" class="column-list"><div style="display:contents" dir="auto"><div id="1edeea59-ca7a-8001-9e13-fdb6e72d7e0f" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-803a-a330-e74fd465fdd8" class="">Risk to fall in the flaw of averages → better probability distributions</p></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-803c-a917-fcbb616366f5" class="bulleted-list"><li style="list-style-type:disc">risk score is an <mark class="highlight-teal">average</mark></li></ul></div><div style="display:contents" dir="auto"><p id="203eea59-ca7a-80da-b5f4-cef03339ad97" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1edeea59-ca7a-8075-83cc-fa232d719fa6" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-803e-aa2c-d1835e80a124" class="image"><a href="Risk%20Management/image%2011.png"><img style="width:278.875px" src="Risk%20Management/image%2011.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-808f-81c2-f40b0ad548db" class="image"><a href="Risk%20Management/image%2012.png"><img style="width:605.7750244140625px" src="Risk%20Management/image%2012.png"/></a><figcaption>may not be a good metric</figcaption></figure></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-80af-81d9-d3a62eb643d7" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1edeea59-ca7a-80e8-98f1-e13f9b903021" class="">4. Quantitative Analysis</h3></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-8090-a458-e2a5a185077d" class="bulleted-list"><li style="list-style-type:disc">EVM = expected monetary value of risks</li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-80da-b0d9-f418b4529a59" class="bulleted-list"><li style="list-style-type:disc">EVM (risk) = Probability * Impact</li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-801c-8590-d4d97cbd6a95" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">EVM (project) = sum of EVM (risk)</mark></li></ul></div><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-8024-9064-e1beb197b132" class="image"><a href="Risk%20Management/image%2013.png"><img style="width:605.7750244140625px" src="Risk%20Management/image%2013.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-8006-aed9-ff9fa5a35fe0" class="image"><a href="Risk%20Management/image%2014.png"><img style="width:605.7750244140625px" src="Risk%20Management/image%2014.png"/></a><figcaption>with decision trees: calculate the expected monetary value of each branch</figcaption></figure></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-803c-baea-faa7780a3c08" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-80eb-ae34-ca6e32aa8b68" class="">Need to go from single value to distribution</p></div><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-8069-8b3e-d51396a1001d" class="image"><a href="Risk%20Management/image%2015.png"><img style="width:605.7750244140625px" src="Risk%20Management/image%2015.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-80bc-a79e-c86b04a82768" class="image"><a href="Risk%20Management/image%2016.png"><img style="width:246.7624969482422px" src="Risk%20Management/image%2016.png"/></a></figure></div><div style="display:contents" dir="auto"><div id="1edeea59-ca7a-8086-b414-e66c3a1c7030" class="column-list"><div style="display:contents" dir="auto"><div id="1edeea59-ca7a-80b1-bb74-ee560dd709e0" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-801f-ae0b-f6c2fe1d0d58" class="">Black Swan → Event very unlikely to happen but if it does happen, might have a huge damaging impact</p></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-800d-9852-ede165d0c0b0" class="bulleted-list"><li style="list-style-type:disc">in retrospective it is predictable</li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-80aa-89d6-cad3d4e67863" class="bulleted-list"><li style="list-style-type:disc">eg. 2008 crisis, covid-19,  9/11</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1edeea59-ca7a-8026-99a3-d00466a92f1f" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-8085-b179-f033d8c1380d" class="image"><a href="Risk%20Management/image%2017.png"><img style="width:288px" src="Risk%20Management/image%2017.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-8048-b003-dbe66936a51f" class="bulleted-list"><li style="list-style-type:disc">Input values are chosen at random for each iteration</li></ul></div><div style="display:contents" dir="auto"><p id="203eea59-ca7a-808f-b6e5-dfeb4bfbd2fd" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="203eea59-ca7a-8030-9cc2-da202b2cff58" class="image"><a href="Risk%20Management/image%2018.png"><img style="width:709.9625244140625px" src="Risk%20Management/image%2018.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-8014-9c93-e6581492a88e" class="image"><a href="Risk%20Management/image%2019.png"><img style="width:605.7875366210938px" src="Risk%20Management/image%2019.png"/></a><figcaption>Montecarlo simulation</figcaption></figure></div><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-80d6-b530-e41a640cabce" class="image"><a href="Risk%20Management/image%2020.png"><img style="width:246.77500915527344px" src="Risk%20Management/image%2020.png"/></a><figcaption>update risk register</figcaption></figure></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8009-a3fb-e8a6b9d4fe20" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1edeea59-ca7a-8080-b2fb-ca050100560a" class="">5. Plan Risk Response</h3></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8001-8af5-f4f970ef102c" class="">Process of developing options, selecting strategies, and agreeing on actions to address overall project risk exposure, as well as to treat individual project risks</p></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-80d8-b304-f289edcc1df4" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-800f-8a3b-c014b66d56be" class="">Options</p></div><div style="display:contents" dir="auto"><ol type="1" id="1edeea59-ca7a-80ac-9912-d08c6bb061c7" class="numbered-list" start="1"><li>Consider radical action (avoid threats or exploit opportunities)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1edeea59-ca7a-80ef-b3d3-f34c5bd17e16" class="numbered-list" start="2"><li>Attempt to influence the level of risk exposure (reduce threats or enhance opportunities)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1edeea59-ca7a-809d-ad7a-d3ba7338d125" class="numbered-list" start="3"><li>Decide to do nothing (accept the risk)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1edeea59-ca7a-80ff-b466-e011104ed7cd" class="numbered-list" start="4"><li>Involve other parties in responding appropriately to the risks (transfer threats or share opportunities)</li></ol></div><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-80ca-b52e-c2c4ab80da3b" class="image"><a href="Risk%20Management/image%2021.png"><img style="width:384px" src="Risk%20Management/image%2021.png"/></a><figcaption>car risk reduction</figcaption></figure></div><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-8077-9a6e-ce599cba6742" class="image"><a href="Risk%20Management/image%2022.png"><img style="width:605.7625122070312px" src="Risk%20Management/image%2022.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-808d-bbc8-e892040cc165" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8004-a702-c8778bc460ad" class="">Strategies for threats</p></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-8089-bcc9-d9eeda28de67" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Avoid</mark>: eliminate threat by eliminating cause</li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-80b9-b4ee-e2ba184c6b8c" class="bulleted-list"><li style="list-style-type:disc">Escalate: a threat is outside the scope of the project or that the proposed response would exceed the project manager’s authority</li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-8087-bb48-fbcafdd91b55" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Transfer</mark>: shift ownership to a third party (e.g. subcontract, warranty, <mark class="highlight-teal">insurance </mark>etc) to manage the risk and to bear the impact if the threat occurs.</li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-8012-9a27-cc825118e37a" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Mitigate</mark>: reduce the Expected Value. Reduce the probability of occurrence and/or impact of a threat. Early mitigation action is often more effective than trying to repair the damage after the threat has occurred.</li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-8012-99af-e51f08798860" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Accept </mark>(defer). “If it happens, it happens”. No proactive action is planned. Can include developing a <mark class="highlight-teal">contingency </mark>plan that would be triggered if the event occurred</li></ul></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8035-ad76-c2b85080b8ac" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8054-86bf-fcbd07b648a8" class="">Strategies for opportunities</p></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-8061-8785-cfffbe4f3db8" class="bulleted-list"><li style="list-style-type:disc">Exploit: “Make the cause more probable? Act to ensure that an opportunity occurs.</li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-80e5-abf5-c421565775e2" class="bulleted-list"><li style="list-style-type:disc">Escalate: an opportunity is outside the scope of the project or that the proposed response would exceed the project manager’s authority.</li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-80ec-95d7-d6ff8712a66a" class="bulleted-list"><li style="list-style-type:disc">Share: allocate ownership of an opportunity to a third party who is best able to capture the benefit</li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-8084-a34e-e68f21ddb67f" class="bulleted-list"><li style="list-style-type:disc">Enhance: increase the probability of occurrence or impact of an opportunity. Early enhancement action is often more effective than trying to improve the opportunity after it has occurred</li></ul></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-8034-8c3d-e099325551d8" class="bulleted-list"><li style="list-style-type:disc">Accept (defer): “If it happens, it happens”</li></ul></div><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-80cc-b7ab-c2133c44b345" class="image"><a href="Risk%20Management/image%2023.png"><img style="width:605.7750244140625px" src="Risk%20Management/image%2023.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8057-b064-c128ff01f099" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8060-a2cf-c56357174177" class=""><mark class="highlight-pink_background">Early warning sign – threat or opportunity is about to occur – launch contingency or fallback plans. Consider:</mark></p></div><div style="display:contents" dir="auto"><ol type="1" id="1edeea59-ca7a-8045-bd47-dfac13f444f1" class="numbered-list" start="1"><li>What will happen just before the risk occurs ?</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1edeea59-ca7a-806b-9091-e15760ad36a1" class="numbered-list" start="2"><li>What can we measure to discover if the risk is about to occur ?</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1edeea59-ca7a-80ab-a6e3-dfcf7f5eb001" class="numbered-list" start="3"><li>How will we know when the risk will occur ?</li></ol></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-80a8-9715-ed72a43add16" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-8046-9654-fbf0d73cf40b" class="image"><a href="Risk%20Management/image%2024.png"><img style="width:605.7750244140625px" src="Risk%20Management/image%2024.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-80c4-9ecd-d563215f1ffc" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8035-8c31-c222a78b86bd" class="">Actions might introduce new risks for all of us to address</p></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-805d-85cc-db2d2e61af85" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Bias toward actions</mark></li></ul></div><div style="display:contents" dir="ltr"><figure id="1edeea59-ca7a-808d-8a7e-d5d30fe73652" class="image"><a href="Risk%20Management/image%2025.png"><img style="width:605.7750244140625px" src="Risk%20Management/image%2025.png"/></a><figcaption>beaware of overmitigation </figcaption></figure></div><div style="display:contents" dir="auto"><ul id="1edeea59-ca7a-805e-90e5-cafb3066a8f1" class="bulleted-list"><li style="list-style-type:disc">Overmitigations create lots of false positives</li></ul></div><div style="display:contents" dir="auto"><p id="1edeea59-ca7a-8035-aed3-e22ad828383a" class="">Beware of <mark class="highlight-orange">secondary risks </mark>- too often our efforts to manage risk create further risks</p></div><div style="display:contents" dir="auto"><p id="1eeeea59-ca7a-80a4-b7c1-ef50d2a2366d" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

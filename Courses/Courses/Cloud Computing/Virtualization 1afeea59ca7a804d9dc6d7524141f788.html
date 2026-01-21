@@ -1,0 +1,754 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Virtualization</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1afeea59-ca7a-804d-9dc6-d7524141f788" class="page sans"><header><h1 class="page-title" dir="auto">Virtualization</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><div id="1afeea59-ca7a-80db-b287-c83c4d3d6954" class="column-list"><div style="display:contents" dir="auto"><div id="1afeea59-ca7a-80c4-8d7b-fb9622bbcbf7" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80bd-8659-d23b9522b57b" class="">Virtualization refers to the representation of physical computing resources in simulated form through an additional software layer</p></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-802e-ae5f-ea54409cdbdc" class="bulleted-list"><li style="list-style-type:disc">Virtualization <mark class="highlight-orange">decouples </mark>physical computing resources from direct access of users</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1afeea59-ca7a-8096-ab95-fc1ebe4d8052" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1afeea59-ca7a-807d-a57f-ce5e53ee5206" class="image"><a href="Virtualization/image.png"><img style="width:331.9875183105469px" src="Virtualization/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="1afeea59-ca7a-807b-814b-c6e8166bf565" class="">Resource Virtualization</h3></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80ea-92c8-c9238faa1a2a" class="">Any kind of IT resources can be virtualized: from the basic computing devices (e.g. processor, RAM, etc) to other resources like storage, network devices or peripheral (keyboard, mouse, printer, etc.)</p></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-8033-aad1-ecb4c71c5b38" class="bulleted-list"><li style="list-style-type:disc">In case of basic computing devices, a virtualized representation can function only when a physical resource empowers the virtual representation (a virtual processor cannot be created without a physical one)</li></ul></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-807f-a15d-c316487e3c7e" class="bulleted-list"><li style="list-style-type:disc">The <mark class="highlight-pink_background">virtualization layer</mark> <mark class="highlight-teal">transforms the physical resources</mark>: the simulated devices produced through virtualization may or may not be equal to the actual physical component, in architecture, quantity or quality</li></ul></div><div style="display:contents" dir="auto"><h3 id="1afeea59-ca7a-8001-88fe-e64842b459f1" class="">Machine-Server Virtualization</h3></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8094-b6d5-ccfd2dda1f73" class="">Machine/server virtualization is the concept of creating a virtual machine (or virtual server) on actual physical machine.</p></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80ce-b05a-e5d6e6bd5424" class="bulleted-list"><li style="list-style-type:disc">The physical machine is called<mark class="highlight-orange"> host system</mark>, the virtual machine is the <mark class="highlight-orange">guest system</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1fdeea59-ca7a-8072-935a-c8642927f0bf" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1afeea59-ca7a-80c9-9a28-cd2942dc749d" class="">Hypervisor</h3></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8084-984f-d51b92160258" class="">The virtualization layer is a set of control programs that creates the environment for the virtual machines to run on</p></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-808a-9270-d8cdd255ffe6" class="bulleted-list"><li style="list-style-type:disc">This layer provides the access to system resources (CPU, RAM, Disk, etc) to the virtual machines and controls and monitors the execution of the virtual machines over it </li></ul></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80f6-a8cc-f82c0e53b894" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1e9eea59-ca7a-803f-8da7-e49f2ebff80d" class="column-list"><div style="display:contents" dir="auto"><div id="1e9eea59-ca7a-80c7-a9c5-ca62366b8287" style="width:62.5%" class="column"><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-809e-98fe-e7d4979b1e40" class="">There are two different techniques of server virtualization:</p></div><div style="display:contents" dir="auto"><p id="1fdeea59-ca7a-80a9-a1df-ec73d363c00d" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1e9eea59-ca7a-80b2-a359-dc201b9a80c0" style="width:37.5%" class="column"><div style="display:contents" dir="ltr"><figure id="1afeea59-ca7a-8076-9bf7-c11b3c6b345f" class="image"><a href="Virtualization/image%201.png"><img style="width:331.9875183105469px" src="Virtualization/image%201.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-8037-bba3-cf99914f1e51" class="numbered-list" start="1"><li><mark class="highlight-orange">Hosted approach</mark>: an operating system (host OS) is first installed on the physical machine. Over the OS a hypervisor (a software program) is installed to run VMs (like VMWare)<div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80b2-a158-f60bfba2617f" class="bulleted-list"><li style="list-style-type:disc">Benefits: The host OS supplies the hardware <mark class="highlight-teal">drivers </mark>for the underlying physical resources. This eases the installation and configuration of the hypervisor, high compatibility</li></ul></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-8007-a037-e7112c95b4f8" class="bulleted-list"><li style="list-style-type:disc">Drawbacks: A hosted hypervisor does not have direct access to the hardware resources and hence, all the requests from virtual machines must go through the host OS. This may degrade the performance of the virtual machines.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-80cc-afe7-e1a6a3532910" class="numbered-list" start="2"><li><mark class="highlight-orange">Bare Metal Approach</mark>: the hypervisor is directly installed over the physical machine. This type 1 hypervisor accesses directly the hardware of the host. VMWare ESX or Microsoft Hyper-V are example of bare-metal hypervisors<div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-8036-ae40-c15edc23655f" class="bulleted-list"><li style="list-style-type:disc">Benefits: performance and advanced features for resource and security management and administrators get more control over the host environment.</li></ul></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-8034-95e4-e2e1c2f58ae7" class="bulleted-list"><li style="list-style-type:disc">Drawbacks: As any hypervisor usually have limited set of device drivers built into it, so the bare metal hypervisors have limited hardware support</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80d1-a3c1-c022303a1b8d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80af-9408-d08a40a3f092" class="">Hypervisor-based virtualization techniques can be divided into different categories:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-80fd-a90c-dc129a9d73dc" class="numbered-list" start="1"><li><mark class="highlight-orange">Full Virtualization</mark> (native virtualization), the VMM fully simulate the underlying hardware<div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-8025-a7d3-db19ee7bf13b" class="bulleted-list"><li style="list-style-type:disc">guest OS unaware that they have been virtualized</li></ul></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-8096-b217-c8ecaec51176" class="bulleted-list"><li style="list-style-type:disc">This enables the unmodified versions of available operating systems (like Windows) to run as guest OS over the hypervisor</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-801a-8a3c-c632f8342492" class="numbered-list" start="2"><li><mark class="highlight-orange">Para Virtualization</mark>: in para-virtualization, a portion of the virtualization management task is<br/>transferred (from the hypervisor) to the guest operating systems<div style="display:contents" dir="auto"><ul id="1b0eea59-ca7a-801b-85b6-fb819a88c8e9" class="bulleted-list"><li style="list-style-type:disc">Normal versions of available operating systems are not capable of doing this, so they cannot be used in para-virtualization</li></ul></div><div style="display:contents" dir="auto"><ul id="1b0eea59-ca7a-80e1-b91f-d79707a6b646" class="bulleted-list"><li style="list-style-type:disc">Each guest OS requires special modifications (porting), and it is explicitly ported for the <mark class="highlight-teal">para application program interface (API) </mark>of the platform → prior knoledge of the hypervisor</li></ul></div><div style="display:contents" dir="auto"><ul id="1b0eea59-ca7a-80a7-8a16-f4791575ff69" class="bulleted-list"><li style="list-style-type:disc">Reduce the hypervisor overhead and exploit the drivers of the guest operating system</li></ul></div><div style="display:contents" dir="auto"><ul id="1b0eea59-ca7a-8036-a329-c3e7f681c63d" class="bulleted-list"><li style="list-style-type:disc">Security is compromised in this approach as the guest OS has a comparatively more control of the underlying hardware</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-809c-89b0-e8e5b591dd07" class="numbered-list" start="3"><li><mark class="highlight-orange">Hardware-assisted Virtualization</mark>:  AMD-Virtualization (AMD-V) and Intel Virtualization Technology (Intel-VT) allow some privileged CPU calls from the guest OS to be directly handled by the CPU</li></ol></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-809f-86b8-c372253d35af" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b0eea59-ca7a-8095-8b68-ed334310ae9f" class=""><mark class="highlight-orange">Operating system level virtualization</mark> (also called as system level virtualization) works in totally different way than the virtualization techniques as discussed</p></div><div style="display:contents" dir="auto"><div id="1b0eea59-ca7a-80f4-9038-c61c034ab971" class="column-list"><div style="display:contents" dir="auto"><div id="1b0eea59-ca7a-80ca-aa3f-e9716bbb2cd8" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="1b0eea59-ca7a-80ee-b4f1-d1865079fdc9" class="bulleted-list"><li style="list-style-type:disc">In this kind of virtualization technique, <mark class="highlight-teal">no hypervisor </mark>is used, and the virtual servers are enabled by the kernel of the operating system of physical machine (shared among all VM)</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1b0eea59-ca7a-80f7-86b1-c6e14274017e" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1b0eea59-ca7a-8083-a184-f6528dac3256" class="image"><a href="Virtualization/image%202.png"><img style="width:331.9624938964844px" src="Virtualization/image%202.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-806b-9741-f7562093332a" class="bulleted-list"><li style="list-style-type:disc">It’s more lightweight → <mark class="highlight-teal">kernel is shared</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1b0eea59-ca7a-8015-825d-d408623d63f1" class="bulleted-list"><li style="list-style-type:disc">All virtual machines have to use the same operating system (due to sharing of OS kernel)</li></ul></div><div style="display:contents" dir="auto"><p id="1e9eea59-ca7a-8054-bdab-e193731a2040" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8063-aeb9-da57a0f3167d" class="">We get also virtualization for:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1b0eea59-ca7a-8037-a819-d66fcf55585a" class="numbered-list" start="1"><li><mark class="highlight-orange">Network Virtualization</mark>: it allows to create a virtual network for VMs to communicate. The virtual network usually exploits the real network infrastructure for data transmission</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b0eea59-ca7a-8000-a3a2-f18d3444ab44" class="numbered-list" start="2"><li><mark class="highlight-orange">Storage Virtualization </mark>creates logical abstraction of the pooling of physical storage devices having linked together by network. Data stored in logical (virtualized) devices ultimately get stored in some physical storage disks.</li></ol></div><div style="display:contents" dir="auto"><p id="1b0eea59-ca7a-8090-9b92-eabb550886f3" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1b0eea59-ca7a-8089-a9d5-e17563ae7fcb" class="">Emulation</h3></div><div style="display:contents" dir="auto"><p id="1b0eea59-ca7a-8026-9e7a-d54632452000" class="">Emulation in computing is the act of making a system <mark class="highlight-pink_background">imitating</mark> another one</p></div><div style="display:contents" dir="auto"><ul id="1b0eea59-ca7a-8019-808a-f3950c2e91d3" class="bulleted-list"><li style="list-style-type:disc">This means a system that has an architecture is enabled through emulation to support the <mark class="highlight-blue">instruction set</mark> of some other machine architecture</li></ul></div><div style="display:contents" dir="auto"><ul id="1b0eea59-ca7a-8010-9f24-f0534a9b24a3" class="bulleted-list"><li style="list-style-type:disc">Emulation software <mark class="highlight-teal">converts binary</mark> data written for execution on one machine to an equivalent binary form suitable to execute on another machine</li></ul></div><div style="display:contents" dir="auto"><p id="1e9eea59-ca7a-8074-9565-f17f288f411b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b0eea59-ca7a-806f-839f-fca5f23fa4ba" class="">There are two ways for implementation of emulations:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1b0eea59-ca7a-80a1-9d93-fa7f83e1142b" class="numbered-list" start="1"><li>In <mark class="highlight-blue">binary translation </mark>(also known as recompilation), a total conversion of the binary data (made for the emulated platform) is done. <div style="display:contents" dir="auto"><ul id="1e9eea59-ca7a-803e-9a1b-f8df023745eb" class="bulleted-list"><li style="list-style-type:disc">There are two types of binary translation like <mark class="highlight-teal">static </mark>recompilation and <mark class="highlight-teal">dynamic </mark>recompilation</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b0eea59-ca7a-805c-9b20-f79236f1f5d8" class="numbered-list" start="2"><li>In <mark class="highlight-blue">interpretation</mark>, each instruction is interpreted by the emulator every time it is being encountered. This method is easier to implement but slower than binary translation process<div style="display:contents" dir="auto"><ul id="1e9eea59-ca7a-80fc-bc50-fb1388486f0d" class="bulleted-list"><li style="list-style-type:disc">the dynamic recompilation translates blocks of instructions ahead of time, meanwhile interpretation just the instruction that is curretly executed</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8094-8a76-ef2409211ba2" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b0eea59-ca7a-8083-aea9-f1b6995f6414" class="">Emulation allows an operating system made for one computer architecture to run on the architecture supported by the emulator → <mark class="highlight-teal">emulation-based virtualization</mark> that is different from regular virtualization</p></div><div style="display:contents" dir="auto"><ul id="1b0eea59-ca7a-8068-ab03-cfdbacb82908" class="bulleted-list"><li style="list-style-type:disc">In regular virtualization, system is same the instruction set used by the virtual system and the actual hardware. Hence, the virtual machine code (OS and programs) can be executed directly by actual physical system</li></ul></div><div style="display:contents" dir="auto"><ul id="1b0eea59-ca7a-8071-a080-e5a51ae5c1c7" class="bulleted-list"><li style="list-style-type:disc">Without the translation layer, the performance of a virtual machine is much faster and nearly approaches the native speed</li></ul></div><div style="display:contents" dir="auto"><ul id="1eaeea59-ca7a-80ad-8020-f384402f546b" class="bulleted-list"><li style="list-style-type:disc">Virtualization therefore is significantly faster than emulation</li></ul></div><div style="display:contents" dir="auto"><p id="1b0eea59-ca7a-8098-9f8d-e9c8cc20809e" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1b0eea59-ca7a-8031-929e-df5c9534cfcf" class="">Virtualization Advantages</h3></div><div style="display:contents" dir="auto"><p id="1b0eea59-ca7a-80a7-8965-c9423ca068f6" class="">This process of running multiple VMs on the same hardware is called <mark class="highlight-teal">server consolidation </mark>and allows to increase hardware utilization. </p></div><div style="display:contents" dir="auto"><ul id="1b0eea59-ca7a-800c-af1c-dc90d4b5fd51" class="bulleted-list"><li style="list-style-type:disc">As a better usage of resources can be achieved, virtualization helps in reducing hardware <mark class="highlight-teal">costs </mark>and computing infrastructure costs</li></ul></div><div style="display:contents" dir="auto"><ul id="1b0eea59-ca7a-80df-a79e-c1363879a79e" class="bulleted-list"><li style="list-style-type:disc">Detaching hardware and software through a virtualization layer helps in simplifying the <mark class="highlight-teal">system administration</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1b0eea59-ca7a-80d0-8a26-d6322c6f0e4b" class="bulleted-list"><li style="list-style-type:disc">Virtualization <mark class="highlight-teal">simplifies system installation</mark>, as a new system can be created by cloning another VM, without requiring the installation and configuration of a full system</li></ul></div><div style="display:contents" dir="auto"><ul id="1b0eea59-ca7a-8085-b8b5-e04cd67f4395" class="bulleted-list"><li style="list-style-type:disc">It improves fault tolerance and enables <mark class="highlight-teal">zero downtime maintenance</mark> by allowing to migrate VMs among different hardware or to backup and recreate VMs</li></ul></div><div style="display:contents" dir="auto"><ul id="1b0eea59-ca7a-802d-9040-c2375c31aad3" class="bulleted-list"><li style="list-style-type:disc">It <mark class="highlight-teal">improves</mark> <mark class="highlight-teal">security </mark>as each VM is isolated from the others thanks to the additional isolation provided by the virtualization layer</li></ul></div><div style="display:contents" dir="auto"><h3 id="1b0eea59-ca7a-8031-8e19-d71b26610c5f" class="">Virtualization Disadvantages </h3></div><div style="display:contents" dir="auto"><ul id="1b0eea59-ca7a-80ec-8856-e6caf2d0f6b4" class="bulleted-list"><li style="list-style-type:disc">It increases the probability of <mark class="highlight-teal">failure </mark>for several virtual servers in cases of failure of single physical machine</li></ul></div><div style="display:contents" dir="auto"><ul id="1b0eea59-ca7a-80b4-be7c-d17fd22ff6ad" class="bulleted-list"><li style="list-style-type:disc">Virtualization results in <mark class="highlight-teal">lower performance</mark>. It has been measured that virtual servers can achieve up to 85 percent to 90 percent of the performance of the actual physical server</li></ul></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-806f-b80e-e079e8a59136" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1afeea59-ca7a-8056-bf51-f81a86a35735" class="">Virtualization Requirements</h3></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-80ea-8851-c82092f7398d" class="numbered-list" start="1"><li><mark class="highlight-blue">Equivalence</mark>: an OS running in a VM under the hypervisor should exhibit a behavior essentially identical to that demonstrated when running on an equivalent machine directly</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-80a1-be5b-cb4bbe85fb43" class="numbered-list" start="2"><li><mark class="highlight-blue">Resource control</mark>: the hypervisor must be in complete control of the physical resources and the OS running in the VM must have complete control of the virtualized resource</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-8049-a100-e6b175a956b9" class="numbered-list" start="3"><li><mark class="highlight-blue">Efficiency</mark>: a statistically dominant fraction of virtual machine instructions must be executed without Hypervisor intervention in order to ensure efficiency</li></ol></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-809b-9208-fd9036b7b1ae" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1afeea59-ca7a-8050-8c8d-f40902479139" class="">Multiprogramming</h3></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80e6-8707-ff658e540742" class="">Through multiprogramming we emulate a machine with more <mark class="highlight-pink_background">processors</mark> (and other peripherals) than we have in the real hardware</p></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80c1-9b08-f5abf7bff0d9" class="bulleted-list"><li style="list-style-type:disc">Each process runs on its own virtual processor (<mark class="highlight-orange">VCPU</mark>)</li></ul></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-8058-8b79-f0005c27e4c8" class="bulleted-list"><li style="list-style-type:disc">Each virtual processor is reserved for the execution of a process</li></ul></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-8005-a4c9-ea217a44fd99" class="bulleted-list"><li style="list-style-type:disc">Virtual processors are multiplexed over time on the host machine physical processors for the execution of a specific program</li></ul></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-8066-8019-e8ae43fdf206" class="bulleted-list"><li style="list-style-type:disc"><span style="border-bottom:0.05em solid">Requirement</span>: the process must have the impression that it has complete control on the processor when it runs, and it is the only process executed on it</li></ul></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-805b-87fd-d4f71e334fa3" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1afeea59-ca7a-8012-883d-d30663f98699" class="">VCPU</h3></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-8064-8307-da1d7ba45e92" class="bulleted-list"><li style="list-style-type:disc">The OS implements multiprogramming by creating a virtual representation of the processor that contains a copy of the <mark class="highlight-teal">state </mark>of the processor (its registers)</li></ul></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-805f-8544-ce5507373686" class="bulleted-list"><li style="list-style-type:disc">Loading the registers of the host processor with the values stored in the virtual <mark class="highlight-teal">processor representation</mark> (a data structure) and then by letting the host processor continuing the execution</li></ul></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-807f-a30e-ec93e704d4e9" class="bulleted-list"><li style="list-style-type:disc">By executing different VCPUs <span style="border-bottom:0.05em solid">frequently</span>, we give processes the impression they are executed continuously</li></ul></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80a0-9432-f03e66eb5bc8" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80a8-a7a2-ee36ffe5d9b1" class="">The operation of switching from one process to another (and switching the corresponding VCPU) is called <mark class="highlight-orange">context switch</mark></p></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80e3-873e-eb9e7d7ac53f" class="bulleted-list"><li style="list-style-type:disc">It is determined by a <mark class="highlight-teal">timer </mark>(the scheduler of the OS) or an <mark class="highlight-teal">interrupt </mark>(as a process that was waiting for hardware input becomes ready)</li></ul></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-801e-9fd6-f18945c8b8ac" class="bulleted-list"><li style="list-style-type:disc">Context switch is typically implemented in software within the OS</li></ul></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8057-9cfa-facf9aed0596" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8053-99bb-e2e0dede44c6" class="">The implementation of a complete multiprogramming environment, still requires some <mark class="highlight-blue">hardware support</mark>:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-8041-9bf2-d23b7f81b9ab" class="numbered-list" start="1"><li>An <mark class="highlight-teal">interruption</mark>, e.g. a periodic timer (or a hardware signal), to trigger a periodic (or event-based) context switch</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-80e9-b3e7-c9cd44e7921c" class="numbered-list" start="2"><li>Automated mechanisms to <mark class="highlight-teal">copy </mark>the state of the registries, e.g. specific instructions (not mandatory but it helps to speed things up)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-8021-a75a-c01d53cd16c5" class="numbered-list" start="3"><li>A protection mechanism that prevents <mark class="highlight-teal">unauthorized </mark>processes to run certain instructions (privileged instructions) and access certain portion of RAM. <div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-800f-8374-c6d6eb41ebd8" class="bulleted-list"><li style="list-style-type:disc">This isolates the VCPU representations in memory to prevent a process accessing the registry values of other VCPUs and prevents VCPUs to run instructions that could alter the execution flow</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8090-a34b-fcf7b9d4cfc5" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1afeea59-ca7a-80ac-b930-d2d3d7fd6e91" class="column-list"><div style="display:contents" dir="auto"><div id="1afeea59-ca7a-804e-a8ee-ca72bb1bcc27" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8006-a463-fdeee568d81a" class="">Modern host processors have support for different privilege levels:</p></div></div></div><div style="display:contents" dir="auto"><div id="1afeea59-ca7a-8048-8027-d687563985c6" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1afeea59-ca7a-801e-8c54-d4c16c1f392e" class="image"><a href="Virtualization/image%203.png"><img style="width:533.1704711914062px" src="Virtualization/image%203.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-8009-a553-c66eda49ba18" class="numbered-list" start="1"><li><mark class="highlight-blue">System (or kernel) level </mark>that it has access to all the memory<div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80cc-880d-eac12c73e399" class="bulleted-list"><li style="list-style-type:disc">For example, the timer interrupts that trigger the context switch, runs a specific <mark class="highlight-teal">OS routine</mark> (handler) that is executed in system level</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-805c-b9ae-d9f63f82d691" class="numbered-list" start="2"><li><mark class="highlight-blue">User level </mark>that has access to only a subset of the memory that does not include VCPU data structures (otherwise could modify the one of other processes)<div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80a0-b9e1-e7deed955807" class="bulleted-list"><li style="list-style-type:disc">Access to privileged memory and execution of privileged instructions from a process executed in user level is denied</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80d8-b74e-cdef34dbf6a1" class="">Semplification, usually system has 4 levels</p></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80f1-817b-d8b3b3241182" class="bulleted-list"><li style="list-style-type:disc">they change the instructions set available</li></ul></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-804a-ba69-f3f4681a7e65" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8024-bf8b-f35c2ba3f10a" class="">Protection support includes:</p></div><div style="display:contents" dir="auto"><div id="1afeea59-ca7a-802b-9c67-d0cfd174eb12" class="column-list"><div style="display:contents" dir="auto"><div id="1afeea59-ca7a-80ee-b7b9-e5b5479e1fc8" style="width:50%" class="column"><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-80c7-a3aa-d44697f507a6" class="numbered-list" start="1"><li>A <mark class="highlight-orange">usr/sys registry</mark>, a flag that specifies if the CPU is currently in system or user mode</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-8085-bb46-f03ae6a03b1a" class="numbered-list" start="2"><li>A<mark class="highlight-orange"> sys-mem registry</mark> that contains the starting address of the privileged memory where VCPUs data structures are stored</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-80e1-81dd-f3371d229063" class="numbered-list" start="3"><li>A <mark class="highlight-orange">ret register</mark> that stores a memory address to be used when returning to user mode from kernel mode</li></ol></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-8003-b378-cabddb5e068b" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1afeea59-ca7a-8006-a562-de4b99f29eac" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1afeea59-ca7a-80cc-88d8-f359faedd427" class="image"><a href="Virtualization/image%204.png"><img style="width:240px" src="Virtualization/image%204.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80a5-8bb3-cc8f74c55662" class="">When the timer for context switch is triggered, the OS performs the following operations:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-8057-9d50-c1e776ba0345" class="numbered-list" start="1"><li>Saves the state of the host CPU on the VCPU representation</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-8024-b236-ca58b1862ea9" class="numbered-list" start="2"><li>Selects a new VCPU to run and loads its state into the registers of the host CPU</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-80ec-ab69-e7aefad2ee6e" class="numbered-list" start="3"><li>Executes a special instruction to jump to the address stored in ret and return in user mode</li></ol></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-800f-8990-c4a86328fa77" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-808d-8d5f-c1c1f0a65a48" class="">Recent CPUs includes also a set of instructions to implement operations (1) and (2) directly in hardware so their execution time is minimal</p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8061-bef3-c821d3ba6a18" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1afeea59-ca7a-8001-9dc9-f2a8e734a88a" class="">Virutal Memory</h3></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8012-999d-f7ae7cf889cf" class="">Virtual Memory is a mechanism introduced to allow processes to abstract from the real memory available on a system and use <mark class="highlight-orange">virtual address space</mark></p></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80ae-ae1e-f429e3d6abad" class="bulleted-list"><li style="list-style-type:disc">A <mark class="highlight-blue">Virtual Address Space</mark> is created and assigned to each application<div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-809a-b50f-e74bcce546a5" class="bulleted-list"><li style="list-style-type:circle">Data can be stored in RAM in <mark class="highlight-teal">non contiguous </mark>data segments in an independent manner from the addresses used by the application</li></ul></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-800b-af51-d2caccdd3cf5" class="bulleted-list"><li style="list-style-type:circle">The result is that each process has the impression that can have access to the whole physical memory → no need to worry about what it can access</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-800c-b483-cb2f1d4d1551" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-804a-8f6b-e59a2d589b24" class="">Virtual memory is implemented through two mechanisms:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-80b8-a731-f2d79ddffd1e" class="numbered-list" start="1"><li>Address translation<div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80ee-a962-e653dc2657e5" class="bulleted-list"><li style="list-style-type:disc">Address translation (from virtual to physical) is performed on the CPU by a specific hardware element called<mark class="highlight-orange"> Memory Management Unit</mark> or MMU that takes care of traslating the virtual address in the corresponding physical address</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-80ea-abe5-e276d0e8e950" class="numbered-list" start="2"><li>Virtual address spaces management<div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80a8-a29e-e4d1973172b1" class="bulleted-list"><li style="list-style-type:disc">Is performed by the <mark class="highlight-teal">OS</mark>, that takes care of managing the virtual address spaces created for each application</li></ul></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-8056-9e27-e5ce7e41c5a0" class="bulleted-list"><li style="list-style-type:disc">The different virtual address spaces are eventually mapped on the physical memory that is shared among all the processes</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8071-8c42-db3fc57e281f" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1afeea59-ca7a-8038-b191-d21a99a73133" class="column-list"><div style="display:contents" dir="auto"><div id="1afeea59-ca7a-802e-9df5-fc5448637d8d" style="width:37.5%" class="column"><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8097-bb57-cced9372ebf0" class="">MMU manages the address translation according to a table named<mark class="highlight-orange"> Page Table</mark></p></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-8060-8c55-d129e97816a1" class="bulleted-list"><li style="list-style-type:disc">The page table is managed by the OS</li></ul></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-8090-b6ef-fa31284da938" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1afeea59-ca7a-80b2-a94d-e897e2d81549" style="width:62.5%" class="column"><div style="display:contents" dir="ltr"><figure id="1afeea59-ca7a-80d2-a447-ed385bfad3e8" class="image"><a href="Virtualization/image%205.png"><img style="width:432px" src="Virtualization/image%205.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80b8-ae56-d43cb915e335" class="">The CPU has a registry the <mark class="highlight-orange">PTBR </mark>(Page Table Base Register) that points to the physical address of the first byte of the page table</p></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80f3-bbde-c686ea36b07e" class="bulleted-list"><li style="list-style-type:disc">The memory is organized into portions of equal size (<mark class="highlight-orange">pages</mark>), e.g. 4 KB</li></ul></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80c5-b853-d8517eff8eef" class="bulleted-list"><li style="list-style-type:disc">The page table is organized into <mark class="highlight-orange">page directories</mark>, each one containing the information to translate a portion of the virtual address into the physical address</li></ul></div><div style="display:contents" dir="ltr"><figure id="1afeea59-ca7a-804b-81a0-e04b921a2ffa" class="image"><a href="Virtualization/image%206.png"><img style="width:384px" src="Virtualization/image%206.png"/></a><figcaption>Hierarchical representations, each of them linked</figcaption></figure></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80a9-b280-fcbc446a1fa5" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8077-a684-ce71d3c790b8" class="">The space of the virtual address can exceed the actual capacity of main memory, using a <mark class="highlight-teal">secondary storage</mark>, e.g. a hard disk</p></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-804f-a26d-e25c2a8106d8" class="bulleted-list"><li style="list-style-type:disc">In this case, some pages can be stored outside RAM, when they are not used</li></ul></div><div style="display:contents" dir="auto"><div id="1afeea59-ca7a-80e0-940f-c800b8c1938e" class="column-list"><div style="display:contents" dir="auto"><div id="1afeea59-ca7a-8013-b6d0-fa33875243fb" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-805d-87bd-f81774c23b09" class="bulleted-list"><li style="list-style-type:disc">Every time a program tries to access a page stored in a secondary storage, a <mark class="highlight-teal">page fault</mark> is triggered, and the OS takes care of retrieving the page and move it to RAM, updating the page table</li></ul></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-801c-a3f5-fe770edfe78b" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1afeea59-ca7a-80de-af0e-c94c5c09fd7b" style="width:43.75%" class="column"><div style="display:contents" dir="ltr"><figure id="1afeea59-ca7a-80ff-98f5-d1a2b4fbf71d" class="image"><a href="Virtualization/image%207.png"><img style="width:336px" src="Virtualization/image%207.png"/></a><figcaption>Transaction Look-aside Buffer</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="1afeea59-ca7a-8060-ba1f-e3c577d26df3" class="">Interrupt/Exception</h3></div><div style="display:contents" dir="auto"><div id="1afeea59-ca7a-803f-8bdb-e33d84b86e44" class="column-list"><div style="display:contents" dir="auto"><div id="1afeea59-ca7a-80bb-b22d-d630b3ff606e" style="width:43.75%" class="column"><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8007-8fe8-ce3c65565cae" class="">Interrupts and exceptions are used to notify the system of events that needs immediate attention during program execution</p></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-803c-bccf-cd6dff58163d" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1afeea59-ca7a-807e-b234-e28c9ff98fa8" style="width:56.25%" class="column"><div style="display:contents" dir="ltr"><figure id="1afeea59-ca7a-80bf-a890-cf56dc9ba087" class="image"><a href="Virtualization/image%208.png"><img style="width:533.1591186523438px" src="Virtualization/image%208.png"/></a><figcaption>eg page miss</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-8029-baa5-d25f42c6f2b3" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Interrupts </mark>are <mark class="highlight-teal">asynchronous event </mark>(e.g. a device that produced some data, etc)</li></ul></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80e4-9ff2-ca87b329c385" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Exceptions </mark>are <mark class="highlight-teal">synchronous </mark>(e.g. a page fault, an error in the execution)</li></ul></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80ed-8d57-f215d43bd852" class="">They alter the normal execution of the program by triggering the execution of a specific <mark class="highlight-teal">function</mark> (handler) in kernel space (unique for any interrupt)</p></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80d5-b305-c6badee25a6f" class="bulleted-list"><li style="list-style-type:disc">transition from:  user mode → kernel mode → user mode</li></ul></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80e5-ae53-f3cfafaf7601" class=""><br/>Another name for exception is trap. A trap can also be invoked by software via the instruction <mark class="highlight-orange">int </mark>(in the instruction set). </p></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80ca-8068-e3aafd39e958" class="bulleted-list"><li style="list-style-type:disc">This is used to implement <mark class="highlight-blue">system calls</mark>, the APIs of the OS and can be invoked from programs in user space<div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1efeea59-ca7a-80a7-bd6e-e6cba0d84147"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-809d-8769-fd756247c4c8" class="">Implemented via privilege switch not necessary context switch</p></div></div></figure></div></li></ul></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8037-b92a-e808f5e75cc5" class="">Interrupts instead are used to notify the CPU of <mark class="highlight-teal">external events</mark>, from devices outside the CPU (e.g. a key pressed in the keyboard)</p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8020-917e-eb60281bd121" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80af-9fed-ef13303e3b16" class="">The Interrupt Descriptor Table (<mark class="highlight-orange">IDV</mark>), also named Interrupt Vector (<mark class="highlight-orange">IV</mark>), is a table used by the processor to link interrupts and exception with handlers</p></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-808c-93a4-eb0245c67b28" class="bulleted-list"><li style="list-style-type:disc">Each <mark class="highlight-teal">handler </mark>is a function in the kernel that performs operations to handle the interrupt exception</li></ul></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-8096-b17d-c786cfc37af4" class="bulleted-list"><li style="list-style-type:disc">Every interrupt-exception is associated with a <mark class="highlight-teal">number</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80cf-b287-d488eed271cf" class="bulleted-list"><li style="list-style-type:disc">The table is populated by the operating system at bootstrap</li></ul></div><div style="display:contents" dir="auto"><h1 id="1afeea59-ca7a-8090-ba37-ef0af13e1bb3" class="">Trap and Emulate Virtualization</h1></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80b6-9bdc-db5563b9b6e7" class="">Not used anymore </p></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80a2-98ac-f514c05eb5fe" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">Multiprogramming </mark>already includes some virtualization techniques that could be exploited to implement System Level virtualization → CPU and RAM by using VCPU and Virtual adresses</li></ul></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80fd-8b15-d0770b0a73ed" class="">In a similar manner, the Hypervisor or Virtual Machine Monitor (<mark class="highlight-orange">VMM</mark>) must give VMs the impression they have complete control of the physical hardware, i.e. full processors, memory and I/O peripherals, to achieve <mark class="highlight-teal">system level virtualization</mark></p></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80bb-9f75-f38fd1efa5b2" class="bulleted-list"><li style="list-style-type:disc">The role of the VMM is far more extended than just supporting multiprogramming, due to the complexity of hiding the virtual environment to VM (A <strong>VM runs an entire OS</strong>, not just user programs)</li></ul></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80a0-a411-d0ef99a52cea" class="bulleted-list"><li style="list-style-type:disc">a VM is a multiprogrammed system itself and hosts an OS (kernel code) and not just a program (user code)</li></ul></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80bf-b429-e9053c6d040c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80ec-a892-c7a3fd6e45c7" class="">The idea is to implement the <span style="border-bottom:0.05em solid">hypervisor</span>, so it creates a virtual representation of the system (and its devices) by reusing the hardware mechanisms that are already available for multiprogramming support</p></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-8002-bd40-deabb96ac1e8" class="bulleted-list"><li style="list-style-type:disc">If the target and host architectures are the same this can be implemented by minimizing the adoption of emulation → no need for <mark class="highlight-teal">binary traslation</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80f3-a305-f4562feb886b" class="bulleted-list"><li style="list-style-type:disc">For most of the time, the code of the OS/Software running inside the VM can be executed directly on the hardware without the need for the intervention of the hypervisor (e.g. to emulate instructions) to reduce the overheads</li></ul></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80be-ba7a-d5c9d468d8d3" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80f3-b670-ec7b74060449" class="">VMM code is executed in system/kernel space space</p></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80d3-a539-cb860c127b1c" class="bulleted-list"><li style="list-style-type:disc">Guest OS code is <mark class="highlight-teal">executed in user</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80fc-8e97-f403e0e5c981" class="">The VMM loads the state of a VCPU into the host processor then it lets the host CPU to run the target code as it is, until the CPU finds an instruction that cannot be executed directly</p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8032-bd99-ef39337d5e0f" class="">As the context switch occurs the VMM regains control and <mark class="highlight-teal">emulate </mark>the target instruction that couldn’t be executed by the guest OS in software and then re-load the virtual CPU into the host CPU to continue the execution</p></div><div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-80ed-b80e-dee52b440995" class="bulleted-list"><li style="list-style-type:disc">emulates = simulates its effect on virtual registers or devices in software</li></ul></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-8071-b964-f097b4fa478e" class="bulleted-list"><li style="list-style-type:disc">If multiple VMs are executed on the same physical host, the VMM could schedule a timer to trigger a context switch periodically, to ensure fairness</li></ul></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80b0-b001-eeb2d52a727a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80fc-9170-d7db895da5a4" class=""><mark class="highlight-pink_background">The VMM has a very similar role as the OS kernel for multiprogramming.</mark> Its role, however, is different:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-8063-b42a-e5cd88332415" class="numbered-list" start="1"><li>The Guest VM code would like to have <mark class="highlight-teal">complete control</mark> of the host hardware, and execute instructions not only at the user level but also at the system level<div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80b9-b099-c984583aebb0" class="bulleted-list"><li style="list-style-type:disc">be able to execute privileged instructions and have access to privileged registers</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-80d5-82f8-c3edd8e15ffc" class="numbered-list" start="2"><li>Consequently, the VMM must emulate the <mark class="highlight-teal">entire processor</mark>, not just user level functions</li></ol></div><div style="display:contents" dir="auto"><div id="1afeea59-ca7a-80cc-912c-f9ad98968b34" class="column-list"><div style="display:contents" dir="auto"><div id="1afeea59-ca7a-80f8-a469-c5a766d0560e" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8013-92c2-f33690f90d4f" class="">In a multiprogrammed environment, every time a privileged instruction is executed in userspace the process is <mark class="highlight-teal">killed </mark>by the kernel, we don’t want the VMM to kill the VM but to manage the exception instead</p></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-8004-a387-c45072909451" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1afeea59-ca7a-8034-8f23-e8e64c3f8f02" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1afeea59-ca7a-801f-b8db-eeda8c247d91" class="image"><a href="Virtualization/image%209.png"><img style="width:288px" src="Virtualization/image%209.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8049-88f6-fa3f73ea1c03" class="">VMM exploits exceptions/traps to trigger a context switch from the VM to the VMM. It traps:</p></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80ce-8fc8-fd11d809265e" class="bulleted-list"><li style="list-style-type:disc">Instructions that need <mark class="highlight-orange">binary emulation</mark>, because they cannot be executed by the istruction set of Ring 1 (drivers)</li></ul></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8062-9164-f451080763fc" class="">If the set of privileged instructions is limited the performance are not affected significantly (but context switch, some code in Hypervisor and another context switch)</p></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-8085-b82b-e5ba3d0046f9" class="bulleted-list"><li style="list-style-type:disc"><code>IN/OUT</code> intructions (input-output) → VVM emulates the operation</li></ul></div><div style="display:contents" dir="auto"><div id="1afeea59-ca7a-8073-b1fa-c0a19a721412" class="column-list"><div style="display:contents" dir="auto"><div id="1afeea59-ca7a-801c-acca-e602dba37979" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80e8-8a12-fcf62e345bc3" class="">Not every instruction is so simple to emulate, e.g. <code>INT</code> used to trigger a system call:</p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80d2-9096-eb6fb3b1fd18" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1afeea59-ca7a-807b-8678-e4ec48386f15" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1afeea59-ca7a-80db-b754-d08dba4919ea" class="image"><a href="Virtualization/image%2010.png"><img style="width:336px" src="Virtualization/image%2010.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-802c-aebb-dca9f0812e4e" class="numbered-list" start="1"><li>The instruction triggers a context switch (to the VMM) because it’s the only interrupt handler vector that exists in memory</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-80fa-b9a9-df1b06349afa" class="numbered-list" start="2"><li>VMM executes the corresponding instruction set by the guest OS via a context switch, because I cannot trust user code to run in kernel mode</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-802c-a33c-e78acb5eca70" class="numbered-list" start="3"><li>The handler will include privileged instructions each one will trigger a context switch to emulate the instruction and back to the handler (4)</li></ol></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8099-b6b5-ccc25d15d774" class="">A lot of context switching, fortunatly not that much system calls</p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-802b-9212-f5956359ba15" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1afeea59-ca7a-8032-be25-f406fd847226" class="">Virtualization of Physical Memory</h3></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80cb-a9e0-d586dd749888" class="">The physical memory of the guest VM is typically implemented using a subset of the host physical memory (in a similar manner it is performed with multiprogramming)</p></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-8070-8ade-ebfd365a1f30" class="bulleted-list"><li style="list-style-type:disc">The guest VM must have only access to the portion assigned to it and it must think that its memory starts from the <mark class="highlight-teal">physical address 0</mark></li></ul></div><div style="display:contents" dir="auto"><div id="1b0eea59-ca7a-80ab-ad2e-da3ec21c2252" class="column-list"><div style="display:contents" dir="auto"><div id="1b0eea59-ca7a-804c-92bc-d62f010d5500" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><ul id="1b0eea59-ca7a-80ac-aba9-e3c3ceffb095" class="bulleted-list"><li style="list-style-type:disc">All’interno del Guest OS permane la distinzione tra indirizzi virtuali (<mark class="highlight-blue">guest virtual addresses</mark>, utilizzati dall’applicazione) e indirizzi fisici (<mark class="highlight-blue">guest physical addresses</mark>): la novità sta nel fatto che quelli che gli indirizzi fisici di un Guest OS sono a loro volta indirizzi virtuali</li></ul></div><div style="display:contents" dir="auto"><p id="1eaeea59-ca7a-802e-ad3f-f50172c8a854" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1b0eea59-ca7a-80bd-993d-c9b170008927" style="width:43.75%" class="column"><div style="display:contents" dir="ltr"><figure id="1afeea59-ca7a-8050-94fd-da0810eeb070" class="image"><a href="Virtualization/image%2011.png"><img style="width:288px" src="Virtualization/image%2011.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1b0eea59-ca7a-8099-b832-d617ef0feac1" class="">In order to map a portion of the physical memory to the host physical memory, the <span style="border-bottom:0.05em solid">MMU</span> unit of the host CPU is used</p></div><div style="display:contents" dir="auto"><ul id="1b0eea59-ca7a-802e-8f74-f470ad582cb6" class="bulleted-list"><li style="list-style-type:disc">If a page fault occurs, the VMM takes care of retrieving the page and move it to memory</li></ul></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-805e-9ff6-ca6e39e637a6" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8086-9566-ef1bbc4b1af6" class="">The guest page table → handled by OS guest</p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-804c-8c86-d1fd365af6e3" class=""><mark class="highlight-pink_background">The mapping of guest physical adress to the host physical adress is done by the VMM</mark></p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80b4-8943-dbb621540c8b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-807c-9ebd-f72f92cdfe6b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80fc-8c47-e6f1a3a27a7f" class="">The <span style="border-bottom:0.05em solid">guest OS</span> should be able to define a <mark class="highlight-teal">G function</mark>, mapping the virtual address of the guest OS to the guest physical addresses, i.e. to map a virtual address <mark class="highlight-teal">V</mark> to a guest physical address <mark class="highlight-teal">F</mark></p></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80dd-88ea-ffb85fcbc990" class="bulleted-list"><li style="list-style-type:disc">The <span style="border-bottom:0.05em solid">VMM</span> is responsible to create and maintain an <mark class="highlight-teal">H function</mark>, which maps the guest physical addresses F to the host physical addresses <mark class="highlight-teal">F’</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1b0eea59-ca7a-808f-8f96-c2a165355cf9" class="bulleted-list"><li style="list-style-type:disc">How it’s possible to perform these two traslation with a single MMU?<div style="display:contents" dir="auto"><ul id="1b0eea59-ca7a-80b8-a19b-dfae0ecd8755" class="bulleted-list"><li style="list-style-type:circle">To this aim the system needs a <mark class="highlight-orange">Virtual MMU</mark> that translates guest virtual addresses to host physical addresses by implementing the <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐺</mi><mo>∙</mo><mi>𝐻</mi></mrow><annotation encoding="application/x-tex">𝐺 ∙ 𝐻</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">G</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∙</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span></span></span></span></span><span>﻿</span></span> mapping in a transparent manner</li></ul></div></li></ul></div><div style="display:contents" dir="ltr"><figure id="1afeea59-ca7a-8056-a8ab-d35f2277be4f" class="image"><a href="Virtualization/image%2012.png"><img style="width:432px" src="Virtualization/image%2012.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80be-b2bf-f6539d341864" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-808e-a2a1-e2e8cc5ca5dc" class="block-color-orange"><mark class="highlight-pink_background">Brute Force Method</mark><mark class="highlight-orange"> </mark><mark class="highlight-default">→</mark> <mark class="highlight-default">for supporting multiple translation when only one real MMU</mark></p></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80eb-917f-ea359414256e" class="bulleted-list"><li style="list-style-type:disc">The host page table is modified in order to add an additional level (the shadow page tables) that <span style="border-bottom:0.05em solid">implements the H function</span>, i.e. the translation from the guest physical address to the host physical address → shadow because hidden from Guest OS</li></ul></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-80e8-8762-de0a01e9aae5" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange"><mark class="highlight-pink_background">Shadow tables</mark></mark><mark class="highlight-pink_background"> are set as </mark><mark class="highlight-teal"><mark class="highlight-pink_background">write-protect</mark></mark>, so any possible action to modify them causes a <mark class="highlight-teal">VM exit</mark><div style="display:contents" dir="auto"><ul id="1b0eea59-ca7a-80d0-89a4-d5085c062e06" class="bulleted-list"><li style="list-style-type:circle">This method has a significant overhead as it requires several context switches and a continuous address translation by the VMM</li></ul></div></li></ul></div><div style="display:contents" dir="ltr"><figure id="1afeea59-ca7a-8088-b648-d8c508868c97" class="image"><a href="Virtualization/image%2013.png"><img style="width:576px" src="Virtualization/image%2013.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8030-a7dd-d7de32531acf" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8090-b3b2-d9f58454af16" class="">In order to introduce this additional level and keep it updated, the VMM must <mark class="highlight-teal">trap </mark>all the possible actions related with the modification of Guest page table:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-8028-b31d-ddb32d0e1bce" class="numbered-list" start="1"><li>A change in the PTBR (e.g. because the guest VM wants to replace the table completely)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1afeea59-ca7a-8030-bff8-e2326dffc867" class="numbered-list" start="2"><li>A change in the page table entries</li></ol></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-805c-a416-daa6c84f32bc" class="bulleted-list"><li style="list-style-type:disc">If a change in the PTBR occurs, the new table is analyzed, and the shadow tables are added</li></ul></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80d6-b9fc-ff6e0244587b" class="">Every time a change in the guest page table occurs a <mark class="highlight-blue">trap is executed</mark> (privilege level), the VMM takes control and update (or add) the shadow table</p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80d3-8beb-cbe528bad355" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1afeea59-ca7a-80e1-816d-ca2c9164adba" class="">Virtualizing I/O Devices</h3></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8051-828c-f1050df28132" class=""><mark class="highlight-pink_background">I/O instructions are usually privileged instructions</mark> → they cannot be executed in userspace</p></div><div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-80a9-ac48-c4367fa85f26" class="bulleted-list"><li style="list-style-type:disc">context switch</li></ul></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80d4-94df-cca897979251" class="">In a multiprogrammed environment processes access the I/O space through the abstraction implemented by the kernel (<mark class="highlight-teal">system calls</mark>)</p></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-804d-99c0-ed730220f8d4" class="bulleted-list"><li style="list-style-type:disc">The VMM, instead, must give the illusion to the guest VM that it is in control of the hardware, and it can access the hardware directly</li></ul></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80f3-93ab-c0560f4f7cd8" class="">The VMM must <mark class="highlight-orange">emulate </mark>the real hardware creating a virtual representation that is implemented as a <mark class="highlight-teal">set of data structures</mark> in memory </p></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-8085-aab8-cce4c3807ff0" class="bulleted-list"><li style="list-style-type:disc">The VMM accesses/updates the representation every time a read/write is executed from the VM</li></ul></div><div style="display:contents" dir="auto"><ul id="1afeea59-ca7a-8028-97a7-c0c43121cc02" class="bulleted-list"><li style="list-style-type:disc">The VMM is the <mark class="highlight-teal">only </mark>controller of the real peripherals, and they can translate the I/O instructions commands performed on the virtualized peripheral to an I/O instruction on the real device</li></ul></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-808d-a46b-d0cebff7715b" class="">The VMM can also emulate the device completely (it depends on the peripheral) → fake a keyboard from file</p></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-8086-b719-dac7e6f4c303" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1afeea59-ca7a-8007-a104-dfe9f8655a1c" class="">Interrupt Management</h3></div><div style="display:contents" dir="auto"><p id="1afeea59-ca7a-80dd-90c0-f9f3259868eb" class="">The VMM must take care of the interrupts coming from the physical devices, it must handle them in a <mark class="highlight-teal">transparent </mark>manner, with respect to the guest VMs</p></div><div style="display:contents" dir="auto"><ul id="1b0eea59-ca7a-801b-bd95-f15a54fbdd48" class="bulleted-list"><li style="list-style-type:disc">VMM must keep a <mark class="highlight-orange">host interrupt description table</mark> (inaccessible to the guests) that the host CPU uses to handle the interrupts</li></ul></div><div style="display:contents" dir="auto"><ul id="1b0eea59-ca7a-80b8-a0df-fb038df6e193" class="bulleted-list"><li style="list-style-type:disc">Each guest VM have its own <mark class="highlight-orange">interrupt descriptor table </mark>managed by the guest OS<br/></li></ul></div><div style="display:contents" dir="auto"><p id="1b0eea59-ca7a-80c1-8c5c-c05e429a5a36" class="">When the VMM wants to emulate the reception of an interrupt in a VM, it must look up the guest<br/>interrupt descriptor table, and perform the operations required to execute the interrupt code in the guest OS:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1b0eea59-ca7a-8056-b87a-e7930ed1aa94" class="numbered-list" start="1"><li>Save the current state</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b0eea59-ca7a-802f-8453-feb9c3551fed" class="numbered-list" start="2"><li>Change the instruction pointer (the registry in the CPU that points to the next instruction to be executed) to the value of the first instruction in the interrupt code of guest OS</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b0eea59-ca7a-80c5-bf57-c042a2eea7fc" class="numbered-list" start="3"><li>Give back control to the guest VM, so the interrupt code is executed</li></ol></div><div style="display:contents" dir="auto"><p id="1b0eea59-ca7a-8000-a829-e9f54bc2bf11" class="">The VMM must consider the fact that the guest CPU could<mark class="highlight-teal"> disable the interrupts</mark>, in that case it must wait until they are enabled again before emulating the interrupt reception</p></div><div style="display:contents" dir="ltr"><figure id="1b0eea59-ca7a-8070-b94d-f1edd03600f4" class="image"><a href="Virtualization/image%2014.png"><img style="width:384px" src="Virtualization/image%2014.png"/></a></figure></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

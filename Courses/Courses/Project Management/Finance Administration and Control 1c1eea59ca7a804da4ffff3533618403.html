@@ -1,0 +1,746 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Finance Administration and Control</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1c1eea59-ca7a-804d-a4ff-ff3533618403" class="page sans"><header><h1 class="page-title" dir="auto">Finance Administration and Control</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80be-b26a-f673fd1431ca" class="">Life Cycle of a Company</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-80b0-97c7-ffafbd790cad" class="numbered-list" start="1"><li><mark class="highlight-blue">Startup phase</mark><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-808f-b2b7-ce3be2c5831b" class="bulleted-list"><li style="list-style-type:disc">Business idea → invention of a product is not enough to make the busineess idea, but needs <mark class="highlight-teal">entrepreneu </mark>(move towards the market), they take the risk<div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-8061-abd7-ebbb92eb289f" class="bulleted-list"><li style="list-style-type:circle">They don’t have money to have a <mark class="highlight-teal">manager</mark>, just the entrepreneus</li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-804f-9400-fbd549e8ce47" class="bulleted-list"><li style="list-style-type:circle">Business plan → typically a document, no need to be too formalized (<mark class="highlight-teal">business plan</mark>)</li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-80e5-a5d8-d3b3e3795cbb" class="bulleted-list"><li style="list-style-type:circle">Not only technical but also marketing</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-80f3-ab24-f7c77df49133" class="bulleted-list"><li style="list-style-type:disc">Not yet production → create the production capacity <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub></mrow><annotation encoding="application/x-tex">Q_{max}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ma</span><span class="mord mathnormal mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span>, but not producing<div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-80cc-89db-fcf07988b0dd" class="bulleted-list"><li style="list-style-type:circle">In this phase they only have costs (pay wages) and not revenues (sell products)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-8017-9e55-f99b9c02c8bc" class="bulleted-list"><li style="list-style-type:disc">Funding </li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-8034-a883-f4a047957054" class="numbered-list" start="2"><li><mark class="highlight-blue">Investment phase</mark> <div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-807e-9fff-e1506bb5aa11" class="bulleted-list"><li style="list-style-type:disc">Investment into assets → something that will last long and is absorbing cash (physical or intangible)</li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-8013-8740-fef8b42159ab" class="bulleted-list"><li style="list-style-type:disc">Cash absorption</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-80b4-911b-ee1200cf49ea" class="numbered-list" start="3"><li><mark class="highlight-blue">Operational phase</mark><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-8011-8a53-c40e054c9d72" class="bulleted-list"><li style="list-style-type:disc">Start production</li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-805f-8273-d5da4a841b62" class="bulleted-list"><li style="list-style-type:disc">Cash generation</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><h1 id="1c1eea59-ca7a-803b-8565-f222724a8036" class="">1. Startup Phase</h1></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80c0-b690-cd6259069b33" class=""><strong><span style="border-bottom:0.05em solid">Business idea</span></strong><strong> → </strong>you cannot <mark class="highlight-teal">patent </mark>an idea, but the invention yes (it’s costly)</p></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-808c-b05c-ec558b84d043" class="bulleted-list"><li style="list-style-type:disc">Entrepreneurship (imprenditorialità)<div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-801c-b0f1-c0ce02d3852f" class="bulleted-list"><li style="list-style-type:circle">Innovation</li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-8060-bcc3-c467cc4bf320" class="bulleted-list"><li style="list-style-type:circle">imitation</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-802b-9c32-fedb783243f4" class="">A business idea is based on the identification of an <mark class="highlight-blue">economic opportunity</mark>: the resources used and consumed in the realization of the enterprise will be <em>lower</em> than the revenues obtained.</p></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-801b-8865-dd6e30e4d87c" class="bulleted-list"><li style="list-style-type:disc">In principle this disequation should be verified only at the end of the overall life of the company.</li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-8088-bef1-f9f684682a52" class="bulleted-list"><li style="list-style-type:disc">In practice this is too long, we conventionally assume <mark class="highlight-teal">the year</mark> as unit of observation and want  <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex"> π &gt; 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span></span><span>﻿</span></span></li></ul></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80b4-8389-ca2d30a46426" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80c2-8339-cce82a616eea" class=""><strong><span style="border-bottom:0.05em solid">Business plan</span></strong></p></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-8088-b95f-c8b524166c97" class="">Formal written document prepared in order to show to all interested parties</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-8079-903d-f8c8255f6652" class="numbered-list" start="1"><li>Business idea</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-80fc-ba8f-c79d60e0ac8a" class="numbered-list" start="2"><li>Pain (what problem they are going to adress) and gain (customer gain to use your product)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-80b1-9e08-c0c7bd8e20f4" class="numbered-list" start="3"><li>Estimated size of the market (how many people are going to buy your product)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-8093-823d-e387180c2a2f" class="numbered-list" start="4"><li>Competitive analysis</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-80f5-a461-c007cd45b681" class="numbered-list" start="5"><li>Appropriability of the business idea (e.g. IPR - intellectual propery rights)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c1eea59-ca7a-8053-8b05-c1c833d903a9" class="numbered-list" start="6"><li>Investment plan</li></ol></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-8099-be5f-f75b2314f624" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c1eea59-ca7a-80d6-b3b5-efa02a19dff6" class="">Expected</p></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-801c-9403-d0551c1919ee" class="bulleted-list"><li style="list-style-type:disc">Profit &amp; Loss</li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-801d-a84e-d1c421fdd65b" class="bulleted-list"><li style="list-style-type:disc">Assets &amp; Liabilities</li></ul></div><div style="display:contents" dir="auto"><ul id="1c1eea59-ca7a-8048-aa90-da1e63baed95" class="bulleted-list"><li style="list-style-type:disc">Breakeven point</li></ul></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-8092-a377-d40e4fe7e29b" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="1c7eea59-ca7a-80e6-8bb1-d716a7c73003" class="">2. Fundings</h1></div><div style="display:contents" dir="auto"><div id="1c7eea59-ca7a-8065-bcfa-f42ac4fabab1" class="column-list"><div style="display:contents" dir="auto"><div id="1c7eea59-ca7a-800b-8080-ecfc4fc60126" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1c3eea59-ca7a-80cb-9af1-e8e81d982981" class="image"><a href="Finance%20Administration%20and%20Control/image.png"><img style="width:480px" src="Finance%20Administration%20and%20Control/image.png"/></a><figcaption>Assets and Liabilities</figcaption></figure></div></div></div><div style="display:contents" dir="auto"><div id="1c7eea59-ca7a-8015-9413-c1ccd60b1a0b" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1c7eea59-ca7a-80c7-954f-ef17521149c6" class="image"><a href="Finance%20Administration%20and%20Control/image%201.png"><img style="width:331.9875183105469px" src="Finance%20Administration%20and%20Control/image%201.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-8068-b53f-cc252196fac6" class="">Two main sources of funding:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c7eea59-ca7a-80fa-ab5b-ef3496b78722" class="numbered-list" start="1"><li>Owner Funds (<mark class="highlight-blue">equity</mark>)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c7eea59-ca7a-8027-8bfd-eba76d8f9d6e" class="numbered-list" start="2"><li>Debt (loans)</li></ol></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-80ab-8657-c106c9b41b88" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-805e-b989-d7f859b87dff" class=""><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>A</mi><mo>&gt;</mo><mi>C</mi><mi>L</mi></mrow><annotation encoding="application/x-tex">CA &gt; CL</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal">L</span></span></span></span></span><span>﻿</span></span> otherwise in the short term I cannot pay the current liabilities</p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80d7-b056-d583995a4252" class="">Equivantely <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mi>A</mi><mo>&lt;</mo><mi>O</mi><mi>F</mi><mo>+</mo><mi>L</mi><mi>T</mi><mi>L</mi></mrow><annotation encoding="application/x-tex">FA  &lt; OF + LTL</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">OF</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">L</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal">L</span></span></span></span></span><span>﻿</span></span></p></div><div style="display:contents" dir="auto"><h2 id="1c7eea59-ca7a-8052-8cf1-d448479ebced" class="">a) Owner Capital (Equity)</h2></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-803c-a58c-fa853027fe16" class="">Funds contributed by the owner, family, or friends (often referred to as the &quot;<mark class="highlight-teal">3Fs</mark>&quot;: fool, family, friends). These funds are typically collected informally.</p></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-8051-a73f-c2f0e01b68f2" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-8042-9d3a-c275159a5ce7" class="">Divided in:</p></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-8076-8ca3-f70122cc6ca1" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Common Stock </mark>(Initial Funds): Divided into shares</li></ul></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-80b0-8c3e-ee73a6949c90" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Profit Reserves</mark>: Profits not distributed as dividends</li></ul></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-80c2-a631-e22b0a30850e" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Current Net Profit</mark>: May be distributed as dividends later</li></ul></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-8096-a9d7-d5500cda0c4f" class="">
+</p></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-8075-bad7-d58164a73b96" class="bulleted-list"><li style="list-style-type:disc">Usually provides a relatively small amount, primarily for starting the business</li></ul></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-8075-855c-fe975145a47f" class="bulleted-list"><li style="list-style-type:disc">In a <mark class="highlight-blue">Personal Company</mark>: Owner needs to repay debts even in bankruptcy</li></ul></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-80a1-82f6-c80a61a71817" class="bulleted-list"><li style="list-style-type:disc">In a <mark class="highlight-blue">Limited Company</mark>: Partners are responsible only for the amount of their shares<div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-8057-9b6b-c6463f4cc39e" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-orange">SRL </mark>(Limited Responsibility Company) → Shareholders&#x27; liability is limited to their capital contribution<div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-801f-b60d-ed9e67b64d46" class="bulleted-list"><li style="list-style-type:square">Shares cannot be offered to the public or listed on stock exchanges</li></ul></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-8044-9af9-f36f70010ed4" class="bulleted-list"><li style="list-style-type:square">Smaller than SPA</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-8048-ab6b-d2ec91564521" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-orange">SPA </mark>(Limited Company) → Shareholders have limited liability (only risk their investment)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-8078-91ff-f71b8ba83784" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1c7eea59-ca7a-80ff-966f-fc57f5b19bfd" class="">b) Debt Capital</h2></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-80fd-800e-d99dc3cf4105" class="">Expands the owner&#x27;s funds by allowing other people to share in financing the company.</p></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-8058-8250-dc9f3f2d5420" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-804e-b2c0-d73085310135" class="">Divides in:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c7eea59-ca7a-8090-a57e-d0f09ebe4eb1" class="numbered-list" start="1"><li><mark class="highlight-blue">Short-term</mark> (Current Liabilities): Less than 1 year</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c7eea59-ca7a-80ea-8841-e8134d8e692b" class="numbered-list" start="2"><li><mark class="highlight-blue">Long-term Loans</mark>: For fixed assets (e.g., plants)<div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-8002-8123-e0965b0001eb" class="bulleted-list"><li style="list-style-type:disc">Typically repaid over the lifetime of the asset</li></ul></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-800a-a96f-ce50d3b09ac4" class="bulleted-list"><li style="list-style-type:disc">Banks rarely provide loans with expiration beyond 20 years</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-803f-89ba-fa6d0cfed226" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-8025-ac5b-fdcbe5be2b1b" class="">Debt characteristic:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c7eea59-ca7a-80cb-85e8-d795c95aa823" class="numbered-list" start="1"><li><mark class="highlight-teal">Interest</mark>: Calculated as a percentage of the nominal value, paid annually regardless of company performance<div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-809d-9813-ee6a2a3846af" class="bulleted-list"><li style="list-style-type:disc">Paid before calculating profits for shareholders</li></ul></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-809c-8ae3-d02420729b27" class="bulleted-list"><li style="list-style-type:disc">Interest can be fixed or variable over the years</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c7eea59-ca7a-80cb-b11c-c8bcf0644813" class="numbered-list" start="2"><li><mark class="highlight-teal">Capital Repayment</mark>: The principal must be repaid by the expiration date<div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-80c0-a5b0-e70f0a2dabb4" class="bulleted-list"><li style="list-style-type:disc">If the company can&#x27;t repay, it goes into default</li></ul></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-8087-a8f4-f4250c429532" class="bulleted-list"><li style="list-style-type:disc">In practice, final capital repayments are often spread out yearly by increasing the interest</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-8038-96e9-e67985e0257f" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1c7eea59-ca7a-802a-aa0c-e8fc020c8b28" class="">Main Differences</h2></div><div style="display:contents" dir="ltr"><table id="1c7eea59-ca7a-800d-814e-c9b48f48a7ee" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="1c7eea59-ca7a-8001-a7d8-f3c12f229a43"><th id="a&gt;\h" class="simple-table-header-color simple-table-header" style="width:150px">Characteristic</th><th id="VmEx" class="simple-table-header-color simple-table-header" style="width:230.0041707356771px">Equity</th><th id="FFFJ" class="simple-table-header-color simple-table-header" style="width:230.0041707356771px">Debt</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="1c7eea59-ca7a-800f-b4fa-cf941e0dff8f"><th id="a&gt;\h" class="simple-table-header-color simple-table-header" style="width:150px">Duration</th><td id="VmEx" class="" style="width:230.0041707356771px">Whole life of company</td><td id="FFFJ" class="" style="width:230.0041707356771px">Has an expiration date</td></tr></div><div style="display:contents" dir="ltr"><tr id="1c7eea59-ca7a-8025-9b60-eea421104ef2"><th id="a&gt;\h" class="simple-table-header-color simple-table-header" style="width:150px">Remuneration</th><td id="VmEx" class="" style="width:230.0041707356771px">Shareholder remuneration</td><td id="FFFJ" class="" style="width:230.0041707356771px">Interest rate</td></tr></div><div style="display:contents" dir="ltr"><tr id="1c7eea59-ca7a-80dd-a2a9-cd1e89408655"><th id="a&gt;\h" class="simple-table-header-color simple-table-header" style="width:150px">Risk</th><td id="VmEx" class="" style="width:230.0041707356771px">Loss of capital</td><td id="FFFJ" class="" style="width:230.0041707356771px">Insolvency risk (lower)</td></tr></div><div style="display:contents" dir="ltr"><tr id="1c7eea59-ca7a-8079-a4c8-d553099af8a4"><th id="a&gt;\h" class="simple-table-header-color simple-table-header" style="width:150px">Liability</th><td id="VmEx" class="" style="width:230.0041707356771px">Limited responsibility</td><td id="FFFJ" class="" style="width:230.0041707356771px">Contractual obligation</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><h2 id="1c7eea59-ca7a-80ea-8c5b-e85f1fc86bd1" class="">Appendix: Common Stock</h2></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-801d-bef3-d4cd588d4703" class="">Common stock (capitale sociale) represents the total amount of money provided by shareholders.</p></div><div style="display:contents" dir="auto"><h3 id="1c7eea59-ca7a-80d7-a0b2-e8112c9f02e7" class="">Capital Increase</h3></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-804f-8fdc-d63a2336cc1c" class="">Companies can request additional capital from shareholders</p></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-8072-a156-f209fc227650" class="bulleted-list"><li style="list-style-type:disc">If existing shareholders can&#x27;t provide more capital, new shareholders can be brought in (requires shareholder <mark class="highlight-teal">assembly </mark>approval) → <mark class="highlight-teal">dilution</mark><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-802a-895e-eb15512add4b" class="bulleted-list"><li style="list-style-type:circle">New shareholders dilute the ownership of existing ones</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-8010-9abd-dfd92b5d5eee" class="bulleted-list"><li style="list-style-type:disc">By law, new stock must be offered <mark class="highlight-teal">proportionally </mark>to existing shareholders if approved by the assembly</li></ul></div><div style="display:contents" dir="auto"><h3 id="1c7eea59-ca7a-8018-8e4c-ceee3ea5cd43" class="">Shares</h3></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-8090-b3aa-d573c32c1ffc" class="">The common stock is divided into a number of shares, each with a <mark class="highlight-teal">nominal value</mark></p></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-80ae-b1fa-e5ff33ab3014" class="">Shares provide <mark class="highlight-blue">legal rights</mark>:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1c7eea59-ca7a-804e-afa5-f64da122ce89" class="numbered-list" start="1"><li><mark class="highlight-teal">Voting Rights</mark>: Typically one vote per share, with decisions made by majority<div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-806e-aa57-e50ba2a9a31c" class="bulleted-list"><li style="list-style-type:disc">The assembly approves the balance sheet (assets and liabilities)</li></ul></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-80cf-b826-fa05332c779e" class="bulleted-list"><li style="list-style-type:disc">If not approved, the CEO typically resigns</li></ul></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-80b5-b760-c7998b05dfed" class="bulleted-list"><li style="list-style-type:disc">The assembly elects the <mark class="highlight-orange">Board </mark>(with a President), which then elects the CEO</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c7eea59-ca7a-80c0-bb4c-c41a88d82c76" class="numbered-list" start="2"><li><mark class="highlight-teal">Profit Rights</mark>: Shareholders are entitled to profits for company performance.<div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-8044-9444-fd5901070995" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Gross profit</mark>  <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><mo>=</mo><mi>T</mi><mi>R</mi><mo>−</mo><mi>T</mi><mi>C</mi></mrow><annotation encoding="application/x-tex">\pi = TR-TC</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">TR</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">TC</span></span></span></span></span><span>﻿</span></span></li></ul></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-8057-ac3c-c11c689db96c" class="bulleted-list"><li style="list-style-type:disc">It is taxed, after it becomes <mark class="highlight-orange">Net profit</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-8062-8d57-f8035a9e4a5b" class="bulleted-list"><li style="list-style-type:disc">Net profit can be used for:<div style="display:contents" dir="auto"><ol type="1" id="1c7eea59-ca7a-80af-8e15-c3e4ddd41885" class="numbered-list" start="1"><li>Reserves: Liquidity for further investments (self-funding)<div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-80f2-ae02-d9a6acdd31de" class="bulleted-list"><li style="list-style-type:disc">Not taking profits now can increase share price in the market</li></ul></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-8004-8bdc-d72eaf8bce6b" class="bulleted-list"><li style="list-style-type:disc">Alternative to bank loans for investments</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1c7eea59-ca7a-80dd-ab7c-c039a81a47a0" class="numbered-list" start="2"><li>Dividends: Distributed based on number of shares held</li></ol></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><h3 id="1c7eea59-ca7a-806c-a858-ef4cc3b7bca9" class="">Share Valuation</h3></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-80a2-83a9-d995f5200ed2" class="">Shares trade on stock markets at their market price, not nominal value</p></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-80e2-ae74-e30a962f9a64" class="bulleted-list"><li style="list-style-type:disc">Current price reflects expected future profits → example NVIDIA or TESLA (drop of buys)</li></ul></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-8024-bd80-d9e38f06c923" class="bulleted-list"><li style="list-style-type:disc">Market dynamics follow game theory principles:<div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-804a-86f9-ef887cdfeb3d" class="bulleted-list"><li style="list-style-type:circle">People sell when they expect profits to decrease</li></ul></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-80b1-84c1-c42d315a0f5d" class="bulleted-list"><li style="list-style-type:circle">Timing is critical to avoid losses</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="1c7eea59-ca7a-8099-a586-e29dcfdfb708" class="">Return on Equity Formula</h3></div><div style="display:contents" dir="auto"><figure id="1c7eea59-ca7a-80ad-b8b6-eafc31bec7e5" class="equation"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>r</mi><mi>E</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>D</mi><mn>1</mn></msub><mo>+</mo><mo stretchy="false">(</mo><msub><mi>V</mi><mn>1</mn></msub><mo>−</mo><msub><mi>V</mi><mn>0</mn></msub><mo stretchy="false">)</mo></mrow><msub><mi>V</mi><mn>0</mn></msub></mfrac><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">r_E = \frac{D_1+(V_1-V_0)}{V_0}\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.263em;vertical-align:-0.836em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.836em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord">%</span></span></span></span></span></div></figure></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-803b-8c9d-ffe66dc30ad2" class="">Where:</p></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-80d2-922c-dbac082f6175" class="bulleted-list"><li style="list-style-type:disc"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>E</mi></msub></mrow><annotation encoding="application/x-tex">r_E</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> = Return on equity (percentage yearly) → remuneration of shareholders (%)</li></ul></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-80c7-a182-dd67bdee53bc" class="bulleted-list"><li style="list-style-type:disc"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>D</mi></msub></mrow><annotation encoding="application/x-tex">r_D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">D</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> = Return to debt → rate of interest payed to banks (%)</li></ul></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-80b1-b4a8-cdf0ba0d1fb9" class="bulleted-list"><li style="list-style-type:disc"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">V_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> = Initial share price</li></ul></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-80c1-bf46-c3c531af43a8" class="bulleted-list"><li style="list-style-type:disc"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">V_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> = Final share price</li></ul></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-8029-8ff2-fb4b0f16089d" class="bulleted-list"><li style="list-style-type:disc"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mn>1</mn></msub><mo>−</mo><msub><mi>V</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">V_1 - V_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> = Capital gain in one year</li></ul></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-80df-b5a8-e88d3f7b4b63" class="bulleted-list"><li style="list-style-type:disc"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">D_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> = Dividend after one year</li></ul></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-8012-9d25-d5ebbf918c9d" class="">Note: <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>E</mi></msub><mo>&gt;</mo><msub><mi>r</mi><mi>D</mi></msub></mrow><annotation encoding="application/x-tex">r_E &gt; r_D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6891em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">D</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> because there&#x27;s a risk of losing everything that banks do not face to the same extent</p></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-80a6-99c0-e5633d419272" class="bulleted-list"><li style="list-style-type:disc">if bankruptcy they will be rapaid partially </li></ul></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-80ea-a5d5-c99ba5c3691a" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1c7eea59-ca7a-80d3-90c6-fe8c43735d91" class="">Weighted Average Cost of Capital (WACC)</h3></div><div style="display:contents" dir="auto"><figure id="1c7eea59-ca7a-8010-b820-f4301cf85eef" class="equation"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>WACC (%)</mtext><mo>=</mo><msub><mi>r</mi><mi>D</mi></msub><mo>×</mo><mfrac><mi>D</mi><mrow><mi>D</mi><mo>+</mo><mi>E</mi></mrow></mfrac><mo>+</mo><msub><mi>r</mi><mi>E</mi></msub><mo>×</mo><mfrac><mi>E</mi><mrow><mi>D</mi><mo>+</mo><mi>E</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\text{WACC (\%)} = r_D \times \frac{D}{D+E} + r_E \times \frac{E}{D+E}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">WACC (%)</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">D</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.1297em;vertical-align:-0.7693em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.1297em;vertical-align:-0.7693em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></div></figure></div><div style="display:contents" dir="auto"><p id="1c7eea59-ca7a-800c-a6da-f1253c1c256d" class="">Where:</p></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-80b4-97e6-ffb5af3f3e85" class="bulleted-list"><li style="list-style-type:disc"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span></span><span>﻿</span></span> = Debt</li></ul></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-809c-b43a-f1821011d088" class="bulleted-list"><li style="list-style-type:disc"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi></mrow><annotation encoding="application/x-tex">E</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span></span></span></span></span><span>﻿</span></span> = Equity</li></ul></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-804e-a369-e244474b743b" class="bulleted-list"><li style="list-style-type:disc"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>D</mi><mrow><mi>D</mi><mo>+</mo><mi>E</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{D}{D+E}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2757em;vertical-align:-0.4033em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8723em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">D</span><span class="mbin mtight">+</span><span class="mord mathnormal mtight" style="margin-right:0.05764em;">E</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">D</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4033em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><span>﻿</span></span> = Weight of debt in total funding</li></ul></div><div style="display:contents" dir="auto"><ul id="1c7eea59-ca7a-8074-9ab8-f76b07b8e30a" class="bulleted-list"><li style="list-style-type:disc"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>E</mi><mrow><mi>D</mi><mo>+</mo><mi>E</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{E}{D+E}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2757em;vertical-align:-0.4033em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8723em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">D</span><span class="mbin mtight">+</span><span class="mord mathnormal mtight" style="margin-right:0.05764em;">E</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">E</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4033em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><span>﻿</span></span> = Weight of equity in total funding</li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80c8-9861-fd1b8253ce69" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8001-92ff-cd6087f9ad08" class=""><mark class="highlight-red">share holder vs stakeholders</mark></p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-805e-a6aa-c4184249154c" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1caeea59-ca7a-80e9-a988-e1b4ab7b3ee9" class="">Fixed Assets</h2></div><div style="display:contents" dir="auto"><h3 id="1caeea59-ca7a-800f-9296-e9212fd79843" class="">Intangibles</h3></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80a5-b7a0-c2e81f3b1e96" class=""><strong>Intangibles </strong>→ long term assets given by knoledge </p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8011-9c0f-fa7dc65a0d7b" class="bulleted-list"><li style="list-style-type:disc">Intellectual Property Rights (patent, copyright, design)</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80f8-9fb6-cbfc99fd27dd" class="bulleted-list"><li style="list-style-type:disc">capitalization of Research and Development expenses (R&amp;D)</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8047-b792-eab2d25634ba" class="bulleted-list"><li style="list-style-type:disc">goodwill (resulting from know how, or brand recognition/ brand equity)</li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-805a-8acd-f71578936e23" class="">They are subject to formal accounting rules for their measurement and representation in the balance sheet.</p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80ee-8dfa-c0ed61e3a944" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1caeea59-ca7a-8063-b2a9-e03f079b8aac" class=""><strong>Net fixed accounts</strong></h3></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80fd-95c3-d0ceacaba25a" class="bulleted-list"><li style="list-style-type:disc">fixed accounts are the accounting measure of fixed assets: building, equipment, machinery, computer, computer network, fleet of cars or trucks and the like</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8024-be9d-caecec741cda" class="bulleted-list"><li style="list-style-type:disc">net becuase there is <mark class="highlight-orange">depreciation</mark>, or amortization</li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-804a-bd95-c100c418f72c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8095-a7d0-d37dab024cc4" class=""><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>Net Fixed Assets</mtext><mo>=</mo><mtext>Gross Fixed Assets</mtext><mo>−</mo><mtext>Accumulated Depreciation</mtext></mrow><annotation encoding="application/x-tex">\text{Net Fixed Assets} = \text{Gross Fixed Assets} - \text{Accumulated Depreciation}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord text"><span class="mord">Net Fixed Assets</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord text"><span class="mord">Gross Fixed Assets</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord">Accumulated Depreciation</span></span></span></span></span></span><span>﻿</span></span></p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8018-8cea-fd32b8236d8d" class="bulleted-list"><li style="list-style-type:disc"><strong>Gross Fixed Assets</strong>: The original purchase cost of long-term tangible assets such as property, plant, and equipment (PP&amp;E).</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-807a-b9de-c5ae2c066c85" class="bulleted-list"><li style="list-style-type:disc"><strong>Accumulated Depreciation</strong>: The total depreciation expense allocated to those assets over time</li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8004-9777-d7f6a34d4637" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-807e-abef-ce8216829673" class="">All is regulated (the depreciation), otherwise in period of high profit, will depreciate a lot, reducing the net profit → less taxation</p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-803e-ba02-fc5c4845cbd8" class="bulleted-list"><li style="list-style-type:disc">the depreciation percentages are fixed by the fiscal authority</li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80f9-bd2f-f227a05ebe01" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1caeea59-ca7a-8029-8d26-f39092ca49b9" class="">Long Term Investment</h3></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-800d-839a-f1d7432d96ef" class="">Financial assets that represent long term investment into</p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8040-b562-fe9378b41118" class="bulleted-list"><li style="list-style-type:disc">shares of other companies</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8064-abaf-e7c00131fdf8" class="bulleted-list"><li style="list-style-type:disc">corporate bonds</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80ec-97f8-f307be8f1480" class="bulleted-list"><li style="list-style-type:disc">sovereign bonds</li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-801d-b7d4-d2152fcaf469" class="">The last investment is mostly done by banks.</p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8098-af3c-c64716427617" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1caeea59-ca7a-809b-a4be-f27d68486824" class="">Current Assets</h2></div><div style="display:contents" dir="auto"><ol type="1" id="1caeea59-ca7a-80ab-ae0a-d54238ad8754" class="numbered-list" start="1"><li>Inventories</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1caeea59-ca7a-802c-8845-e57757c7306c" class="numbered-list" start="2"><li>Cash → banks account</li></ol></div><div style="display:contents" dir="auto"><h3 id="1caeea59-ca7a-8055-8360-d89e7e2446db" class="">Accounts (receivable)</h3></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8038-8fcd-fc6df794e6b8" class="">They are the result of commercial transactions in which the firm has sold products to clients but has not yet received the cash payment.</p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8072-8108-cbf12160c69e" class="bulleted-list"><li style="list-style-type:disc">They represent credits of the firm with respect to clients.</li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8066-9feb-f38d17c6bdd2" class="">Receivable accounts have a date of expiration and may include clauses for penalties in case of late payment.</p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80f6-890b-cff64136ba2b" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="1caeea59-ca7a-8022-9dae-f3a4ef25d014"/></div><div style="display:contents" dir="auto"><h1 id="1caeea59-ca7a-80c9-9288-d1770e5268f5" class="">3. Operational Phase</h1></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8075-beb0-f7f6b56257e4" class="">Financial sources for the startup phase have been acquired.<br/>They have been invested into assets with various levels of liquidity.<br/>Production starts.</p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8003-8740-c0ba68f59e01" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8012-aebe-fcd20a97d07b" class="">Production has two consequences:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1caeea59-ca7a-805e-b743-e1c6a26f6fd7" class="numbered-list" start="1"><li><mark class="highlight-blue">Revenues </mark>→ result of volume and price<div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8013-93b9-d571b04d1dcf" class="bulleted-list"><li style="list-style-type:disc">immediate value (cash) or delayed (credit)</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1caeea59-ca7a-804e-ae28-f050866c2a35" class="numbered-list" start="2"><li><mark class="highlight-blue">Costs </mark><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-800f-b0fb-cac8af4ec3b5" class="bulleted-list"><li style="list-style-type:disc">can be monetary (cash or debit) or non monetary (deprecation)</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80c4-9b59-d06039f53c13" class="">Once per year they are calculated</p></div><div style="display:contents" dir="ltr"><figure id="1caeea59-ca7a-809d-aff1-fdcf3cc1d897" class="image"><a href="Finance%20Administration%20and%20Control/image%202.png"><img style="width:336px" src="Finance%20Administration%20and%20Control/image%202.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8054-b675-edf346f4b720" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1caeea59-ca7a-8069-b888-c04d73abd37a" class="">Economic cycle vs financial cycle</h3></div><div style="display:contents" dir="auto"><ol type="1" id="1caeea59-ca7a-80d7-98c5-f0d48d26d027" class="numbered-list" start="1"><li>The <mark class="highlight-blue">economic cycle </mark>starts with the production and ends with the sales of the products.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1caeea59-ca7a-80ea-a223-d36907450a00" class="numbered-list" start="2"><li>The <mark class="highlight-blue">financial cycle</mark> starts with the payment for the costs needed to produce and ends with the reception of payment from sales.</li></ol></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8044-a0f9-d1b376ae338f" class="">The two cycles <strong>are not synchronized</strong>.</p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8039-bf26-d7531275bfd4" class="">One of the major difficulties in general management, and particularly in the startup phase, is the smooth coordination between the economic and the financial cycles.</p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-809d-8bb4-ec79fd3871db" class="bulleted-list"><li style="list-style-type:disc">startup operate in loss for years, paying salaries and accounts, but not selling anything</li></ul></div><div style="display:contents" dir="auto"><div id="1caeea59-ca7a-80de-adcb-daabafa0cdc6" class="column-list"><div style="display:contents" dir="auto"><div id="1caeea59-ca7a-804d-9753-e3d8217c4d07" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1caeea59-ca7a-8098-9f7c-d2416639a98d" class="image"><a href="Finance%20Administration%20and%20Control/image%203.png"><img style="width:288px" src="Finance%20Administration%20and%20Control/image%203.png"/></a><figcaption>Economic Cycle</figcaption></figure></div></div></div><div style="display:contents" dir="auto"><div id="1caeea59-ca7a-8087-bdb6-f26fa7dbd06b" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1caeea59-ca7a-8032-b0bd-d23c3604c1ec" class="image"><a href="Finance%20Administration%20and%20Control/image%204.png"><img style="width:604.7750244140625px" src="Finance%20Administration%20and%20Control/image%204.png"/></a><figcaption>Financial Cycle</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8032-ab94-f4cfa437a991" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1caeea59-ca7a-80cb-a057-fda3b4d57cd3" class=""><strong>Economic equilibrium</strong></h3></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80be-a936-ddfcdb3f121d" class="bulleted-list"><li style="list-style-type:disc">In each year it must be that total revenues &gt; total cost</li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80fd-a63e-c11e3f317bed" class="">It may happen that there are temporary losses. An economic disequilibrium can be sustained only occasionally and for few years in line</p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8096-82e1-ebd4eb42533e" class="bulleted-list"><li style="list-style-type:disc">Losses can be absorbed by decreasing the Issued common stock, but not beyond a given threshold defined by the legislation. In case of losses that exceed this threshold the company is liquidated<div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1caeea59-ca7a-8031-887f-e8030bf1000a"><div style="font-size:1.5em"><span class="icon">📢</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80f2-94b5-cdcf5a00670c" class="">Losses reduce the value of Owner Common Stock</p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8034-a0b9-c46bfe20cadb" class="bulleted-list"><li style="list-style-type:disc">By law they are reduces</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80e0-a498-f7789fea6fd6" class="bulleted-list"><li style="list-style-type:disc">They more then of 1/3 of losses → legally must go to <mark class="highlight-orange">bankrupcy </mark>(debts never payed)</li></ul></div></div></figure></div></li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-805a-a96c-f6e267145324" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-805f-9b6c-d8db7a72dccd" class="">After economic disequilibrium (losses) firms may experience increasing difficulties in meeting the deadlines for cash payments and enter into liquidity crisis and <mark class="highlight-orange">insolvency</mark></p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80b3-9288-ef4b70c353f6" class="bulleted-list"><li style="list-style-type:disc">Insolvency may lead the firm to the bankrupcy</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-801f-88c9-c2aa48824c5a" class="bulleted-list"><li style="list-style-type:disc">you need economic equilibrium to keep financial equilibrium (otherwise insolvency)</li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8091-bd5d-e2f331c82892" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1caeea59-ca7a-80cf-b36e-e412f00bb3d9" class=""><strong>Financial equilibrium</strong></h3></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8034-ba86-fc3aa72791f1" class="">In each year it must be that:</p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-800f-b459-fb56bc41a75e" class="bulleted-list"><li style="list-style-type:disc">fixed assets are covered by owners’ funds and long term loans</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-809d-bb7b-c73b62d27737" class="bulleted-list"><li style="list-style-type:disc">current liabilities are covered by current assets</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80d1-966b-e306433071fa" class="bulleted-list"><li style="list-style-type:disc">short term cash needs are fully covered</li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80fe-9907-c4055dd6c322" class="">A firm may be profitable but in financial disequilibrium if</p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-800f-85df-e39127a89b22" class="bulleted-list"><li style="list-style-type:disc">credits are subject to high risk of insolvency and</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8022-bb29-f1515228e5a2" class="bulleted-list"><li style="list-style-type:disc">terms of payment of credits largely exceed terms of payment of debts</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8042-92c3-f95b2fd85231" class="bulleted-list"><li style="list-style-type:disc">inventories are not sold regularly and frequently</li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80d8-9dbe-d93bd2f09d66" class="">A firm may be in short term financial equilibrium but unprofitable (hence a candidate for future financial crisis) if</p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8002-9376-f5a662d487b3" class="bulleted-list"><li style="list-style-type:disc">it anticipates cash inflows reducing profits (e.g. selling products at discount price)</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80b1-a45b-dd386f46083d" class="bulleted-list"><li style="list-style-type:disc">it postpones cash outflows (e.g. investment needed to replace old equipment) reducing future profits</li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8066-940f-f2de56605bfc" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1caeea59-ca7a-8061-ae31-d29b36005401" class="">Total Revenues</h3></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8074-a09e-e785aedbe45e" class="">Double keeping techniques (partita doppia) → prendi nota di economic variation e financial variation (credit/debit) <mark class="highlight-red">????</mark></p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8066-a9b3-c6a3ac553cfa" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-800b-becb-c3db53bbeadd" class="">Under normal conditions only <mark class="highlight-orange">operational revenues</mark> can be considered in total revenues:</p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80d7-ac8f-d8a0b5ee0966" class=""><strong>Operational revenues </strong>→ come from production</p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8011-8ebc-e509979b275d" class="bulleted-list"><li style="list-style-type:disc">Sales of products and services</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8045-9108-d2dc3730d6f0" class="bulleted-list"><li style="list-style-type:disc">Discount on purchases → receive discounts when purchasing raw materials or inventory</li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-804c-b902-ddc159d33415" class=""><strong>Financial revenues</strong></p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-807f-89a1-cf21134cdf40" class="bulleted-list"><li style="list-style-type:disc">Interest on bonds and other financial assets</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8092-ba10-d6c43c3a25bd" class="bulleted-list"><li style="list-style-type:disc">Capital gain from sales of shares or other financial assets</li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80e1-ad27-cf0f35a4012e" class=""><strong>Extraordinary revenues (non recurrent)</strong></p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8076-9591-f6487381ee0c" class="bulleted-list"><li style="list-style-type:disc">Capital gain from sales of fixed assets (e.g. sales of used equipment)</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80f6-a855-d5a7aa277d5c" class="bulleted-list"><li style="list-style-type:disc">Cancelation of debts from the creditor</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8075-9f12-f0359ba50cc3" class="bulleted-list"><li style="list-style-type:disc">Fiscal benefits from the government</li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8088-94e5-f7cd20f5c165" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1caeea59-ca7a-8088-8209-fba3684b90e2" class="">Total Costs</h3></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8035-87a9-d229881f4d05" class="">Depends on the company</p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8024-b4e7-d6b2b364cf05" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80ec-a394-d9bbb7b38f7d" class=""><strong>Operational costs</strong></p></div><div style="display:contents" dir="auto"><ol type="1" id="1caeea59-ca7a-8039-bd4e-d814d1795aa6" class="numbered-list" start="1"><li><strong>Research and development</strong><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80ba-ba63-d7bb4a657f70" class=""><strong>- </strong>Direct R&amp;D expenses (intramural, extramural → pay university to do it for you)</p></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1caeea59-ca7a-8098-a323-d7c160e441fd" class="numbered-list" start="2"><li><strong>Industrial costs, or cost of sales</strong><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80c6-a062-e900f4b91f2f" class="bulleted-list"><li style="list-style-type:disc">Cost of production personnel</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8086-8b28-cb654ce37df4" class="bulleted-list"><li style="list-style-type:disc">Purchases (raw materials, components)</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8042-835e-f8ef0906aaec" class="bulleted-list"><li style="list-style-type:disc">Industrial services</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-805d-8d59-f3e4de1c248a" class="bulleted-list"><li style="list-style-type:disc">Depreciation of assets</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1caeea59-ca7a-8031-9bc6-daf394e707bd" class="numbered-list" start="3"><li><strong>Selling costs</strong><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8092-88c2-e3402e1d186f" class="bulleted-list"><li style="list-style-type:disc">Cost of sales personnel</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8002-bccc-d53c7d77a11e" class="bulleted-list"><li style="list-style-type:disc">Promotion and advertising</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1caeea59-ca7a-8043-b1a7-eabc58e4ee27" class="numbered-list" start="4"><li><strong>General administrative expenses</strong><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8073-8cef-da6ab2f5acf6" class="bulleted-list"><li style="list-style-type:disc">General management</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-806a-9e10-c8c2875d1c55" class="bulleted-list"><li style="list-style-type:disc">Corporate research and development</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8045-b288-d9b5833997dd" class="bulleted-list"><li style="list-style-type:disc">Legal and regulatory affairs</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-804a-8975-feacbd1b105d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-804a-be3f-fe3f75ae864e" class=""><strong>Financial costs </strong>→ depends on the choice of the company, about the <mark class="highlight-teal">structure of the liabilaties</mark>, not form the production</p></div><div style="display:contents" dir="auto"><ol type="1" id="1caeea59-ca7a-8007-ae4f-cc6eda3ee055" class="numbered-list" start="1"><li><strong>Interest costs</strong><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8056-845b-f55c26ee1197" class="bulleted-list"><li style="list-style-type:disc">Interest expenses on loans</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8085-ba3d-fd90451b8f33" class="bulleted-list"><li style="list-style-type:disc">Interest expenses on debts<div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80b0-baa4-e6e18adc25b5" class="bulleted-list"><li style="list-style-type:circle">Net of interest income (on bank accounts)</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-808a-9ed6-cf43d1603a31" class="bulleted-list"><li style="list-style-type:circle">Net of interest income on credits</li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1caeea59-ca7a-80ed-b84a-c06eff037eef" class="numbered-list" start="2"><li><strong>Administrative expenses</strong><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-805c-bb81-d7b18782f150" class="bulleted-list"><li style="list-style-type:disc">Bank fees for operations of accounts</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80c2-9f66-cc36d159bc6b" class="bulleted-list"><li style="list-style-type:disc">Bank charges for the management of credit lines and loan authorization</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8041-95fe-f2bbaf52f609" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80c2-a5d1-c6c057c3a7b2" class=""><strong>Depreciation costs</strong></p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8012-85b7-c5761c4d3369" class="">These costs are recorded separately in the <mark class="highlight-orange">EBITDA </mark>definition (Earnings Before Interest, Taxation and Depreciation of Assets).</p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8015-91a8-f4787898551c" class="">This indicator is often used in international comparisons in order to take into account differences in the fiscal treatment of depreciation → Otherwise they are recorded within <mark class="highlight-teal">Operational costs.</mark></p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-80f6-b430-f0a047c12485" class=""><strong>Depreciation</strong></p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-807d-81c4-dadadf509995" class="bulleted-list"><li style="list-style-type:disc">Annual depreciation charge for</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-802a-bf37-ea9bca8dcb15" class="bulleted-list"><li style="list-style-type:disc">buildings</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-806e-a33d-ca5ed335bf31" class="bulleted-list"><li style="list-style-type:disc">equipment and machinery</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80af-8409-d6ff3177e3cd" class="bulleted-list"><li style="list-style-type:disc">vehicles</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80ec-adf4-c1a4950ad88a" class="bulleted-list"><li style="list-style-type:disc">Annual depreciation charge for</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-803b-9a77-dbb3a3ecc111" class="bulleted-list"><li style="list-style-type:disc">Capitalized R&amp;D expenses</li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8088-a42d-d78b9234ac67" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8069-b5a3-e994c98c024f" class=""><strong>Taxation costs</strong></p></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80bb-b275-dd09b19f1097" class="bulleted-list"><li style="list-style-type:disc">taxes on income (% of gross profits)</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-803c-a476-cedbdd3335b2" class="bulleted-list"><li style="list-style-type:disc">taxes on non-income items</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-8024-ab41-d663a2a3f238" class="bulleted-list"><li style="list-style-type:disc">property</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-802a-ad84-d24f7f47e9d6" class="bulleted-list"><li style="list-style-type:disc">regulation</li></ul></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80d4-aca2-e62fe62cc9c4" class="bulleted-list"><li style="list-style-type:disc">others</li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-8052-8e4b-f9bee275b2ee" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="1caeea59-ca7a-80f9-952d-f0ebc15fc054" class="image"><a href="Finance%20Administration%20and%20Control/image%205.png"><img style="width:604.7875366210938px" src="Finance%20Administration%20and%20Control/image%205.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="1caeea59-ca7a-80d6-9fac-cb5a006be31d" class="bulleted-list"><li style="list-style-type:disc">retained earnings → autofinanziamento</li></ul></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-806b-8c66-f5fb68d79d2e" class=""><mark class="highlight-red">perche non considera gli altri costi?</mark></p></div><div style="display:contents" dir="auto"><p id="1caeea59-ca7a-803b-977d-f1df5863b286" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

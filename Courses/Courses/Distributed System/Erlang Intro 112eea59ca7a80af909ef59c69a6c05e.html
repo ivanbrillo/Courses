@@ -1,0 +1,732 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Erlang Intro</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="112eea59-ca7a-80af-909e-f59c69a6c05e" class="page sans"><header><h1 class="page-title" dir="auto">Erlang Intro</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="112eea59-ca7a-807a-a9b7-c3e016753c8a" class="">Two programming paradigms:</p></div><div style="display:contents" dir="auto"><ol type="1" id="112eea59-ca7a-801b-bc92-c9262d5013dc" class="numbered-list" start="1"><li><mark class="highlight-blue">Imperative</mark>: sequence of commands that change the <mark class="highlight-teal">program state</mark></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="112eea59-ca7a-8086-8a91-dd556f8ba6b9" class="numbered-list" start="2"><li><mark class="highlight-blue">Functional</mark>: computations as evaluation of expression/function → lack of state during computation<div style="display:contents" dir="auto"><ol type="a" id="112eea59-ca7a-80c9-ad90-c675622689a0" class="numbered-list" start="1"><li>No side effects</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="178eea59-ca7a-80a1-9f5c-d30f084056c6" class="numbered-list" start="2"><li>Referential integrity / pure functions</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="178eea59-ca7a-8095-85bb-c370a1879fd3" class="numbered-list" start="3"><li>Lack of state</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="178eea59-ca7a-8068-96bd-dc38105713ee" class="numbered-list" start="4"><li>Eager / lazy evaluation</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="178eea59-ca7a-8092-9583-ccb3513b9f92" class="numbered-list" start="5"><li>First-class functions &amp; Higher-order functions</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="178eea59-ca7a-807c-b38c-e9e069a9fd31" class="numbered-list" start="6"><li>Primary role of recursion</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="178eea59-ca7a-802a-aaa6-d22da57498d8" class="numbered-list" start="7"><li>Use of recursive data structures - lists</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-800e-bc4f-c98c5756986c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-8072-b3f8-f34970b89bc3" class="">An expression is said to be <mark class="highlight-blue">referentially transparent</mark> if it can be replaced by its value with no change</p></div><div style="display:contents" dir="auto"><ul id="112eea59-ca7a-80aa-8188-c34c3d32e5cb" class="bulleted-list"><li style="list-style-type:disc">such expression has no side effect</li></ul></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-8084-9943-e24e8ea4280a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-804d-8b41-e93946ddc811" class="">A function is called <mark class="highlight-blue">pure</mark> if its call are referentially transparent</p></div><div style="display:contents" dir="auto"><ul id="112eea59-ca7a-8007-a995-c43ceb877b94" class="bulleted-list"><li style="list-style-type:disc">whenever it hold, we can formally reason on the program as a <mark class="highlight-blue">rewriting system</mark><div style="display:contents" dir="auto"><ul id="12ceea59-ca7a-80e7-affc-e6c8778f786e" class="bulleted-list"><li style="list-style-type:circle">sequences of discrete steps where one term is replaced with another</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-8010-9aca-d3e5505644ee" class="">
+</p></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-80e0-b93b-c931f15c45f3" class="">Lack of state → No mutable variables (no classical assignments)</p></div><div style="display:contents" dir="auto"><ul id="112eea59-ca7a-8043-a3ad-e605a3bf7a24" class="bulleted-list"><li style="list-style-type:disc">A variable is <mark class="highlight-teal">immutable</mark>, once bounded to a value it cannot change</li></ul></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-8080-9f6a-fee9f2d4fcf3" class="">
+</p></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-807c-8d86-f2bb3604bbc8" class=""><mark class="highlight-teal">Eager Evaluation </mark>→ evaluated an expression as soon as it’s encountered</p></div><div style="display:contents" dir="auto"><ul id="112eea59-ca7a-803c-a903-ff0fd8a91934" class="bulleted-list"><li style="list-style-type:disc">usually adopted in call by value or reference in function</li></ul></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-80bf-a18e-c1431a93de69" class="">
+</p></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-80b3-b4b2-e62bb46e1a98" class=""><mark class="highlight-teal">Lazy Evaluation </mark>→ postponed to the time it’s value will be really needed</p></div><div style="display:contents" dir="auto"><ul id="112eea59-ca7a-808e-b223-daee56f272aa" class="bulleted-list"><li style="list-style-type:disc">often they return a function that represent the computation to get to the result</li></ul></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-80a4-b537-ec661bbb5692" class="">
+</p></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-80d9-9d80-e63178ace42f" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="112eea59-ca7a-80ab-8acf-f2e6462d25c6" class="">Recursion</h3></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-80ec-a04b-d69682772b72" class="">Without the help of state variables, recursion is the only way to support repetion of specific computation</p></div><div style="display:contents" dir="auto"><ul id="112eea59-ca7a-8056-8aa6-c7e81960af89" class="bulleted-list"><li style="list-style-type:disc">has the same expressing power of interative methods</li></ul></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-8010-a6a2-df50aaf77b22" class="">
+</p></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-8002-99f1-c08b1734cebb" class=""><mark class="highlight-teal">Tail Call Optimization</mark>: whenever the last executed operation within a function call is another function call, we can substitute the caller’s frame, no need to keep them both</p></div><div style="display:contents" dir="auto"><div id="118eea59-ca7a-80bb-bd74-e7f163c5bb46" class="column-list"><div style="display:contents" dir="auto"><div id="118eea59-ca7a-80dc-a2ad-f25a9ac02c34" style="width:56.25%" class="column"><div style="display:contents" dir="ltr"><figure id="112eea59-ca7a-805d-9e39-fa60500f534b" class="image"><a href="Erlang%20Intro/image.png"><img style="width:384px" src="Erlang%20Intro/image.png"/></a></figure></div></div></div><div style="display:contents" dir="auto"><div id="118eea59-ca7a-809f-81a2-c8190406be67" style="width:43.74999999999999%" class="column"><div style="display:contents" dir="ltr"><figure id="118eea59-ca7a-80cc-b22b-d8dd272437cb" class="image"><a href="Erlang%20Intro/image%201.png"><img style="width:330.97222900390625px" src="Erlang%20Intro/image%201.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-80ca-bf23-ef1913a9392a" class=""><mark class="highlight-teal">Recursive data structure</mark>: linked list as first element + list</p></div><div style="display:contents" dir="auto"><h3 id="112eea59-ca7a-80f2-9927-d0a71f30c3a2" class="">Concurrency</h3></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-8085-874f-f16ee3124cd5" class="">data-races → data mutability</p></div><div style="display:contents" dir="ltr"><figure id="112eea59-ca7a-808d-96ff-ce4ecb408362" class="image"><a href="Erlang%20Intro/image%202.png"><img style="width:340.9942932128906px" src="Erlang%20Intro/image%202.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-80da-b040-d39bfdbb398c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-8038-8a9d-e0ea2b49af28" class="">Mutable states requires <mark class="highlight-teal">synchronizaion</mark></p></div><div style="display:contents" dir="auto"><ul id="112eea59-ca7a-80d5-8d0f-de1f47c9432d" class="bulleted-list"><li style="list-style-type:disc">In imperative languages concurrent computations must be explicit specified (eror prone es: locking with deadlock)</li></ul></div><div style="display:contents" dir="auto"><ul id="112eea59-ca7a-80ec-9efb-ebcf51faccf3" class="bulleted-list"><li style="list-style-type:disc">Pure functional programming is thread-safe, where sub-expression can be evaluated in parallel</li></ul></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-8030-ab2b-c5e67f3caa89" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="112eea59-ca7a-8044-b3b2-f056a91728ab" class="">Erlang</h1></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-8068-937c-e4d25b7b94ac" class="">Is executed by <mark class="highlight-orange">ERTS </mark>(Erlang run-time system) via intermediate language (compilation is needed)</p></div><div style="display:contents" dir="auto"><ul id="112eea59-ca7a-80b8-899d-ed9920019088" class="bulleted-list"><li style="list-style-type:disc">The bytecode is run over a dedicated virtual machine (BEAM) → it uses it’s own schedulers (one per CPU) to distribute the work</li></ul></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="112eea59-ca7a-8083-b633-e09cc2755fda"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="9eb87165-97a2-42cf-8afe-abf3a1152a00" class="">Earlang process ≠ OS process</p></div></div></figure></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-8084-932c-d9dc0bb44c31" class="">
+</p></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-803e-9b12-ddc9c6d2e6de" class=""><mark class="highlight-orange">BEAM </mark>use a separate process queue per scheduler + work stealing to load balancing</p></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-8076-95c7-ff74c6168f8c" class="">It has a garbage collector</p></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-8007-8b2a-e254972375a6" class="">Functions exported by modelus can be accessed after module loading</p></div><div style="display:contents" dir="ltr"><figure id="112eea59-ca7a-80dc-8b86-ead581f96a87" class="image"><a href="Erlang%20Intro/image%203.png"><img style="width:691.0972290039062px" src="Erlang%20Intro/image%203.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-8090-8f85-edcd08b048b8" class="">
+</p></div><div style="display:contents" dir="auto"><p id="112eea59-ca7a-80bb-a11a-e0624021626b" class="">The simplest expression is called term and can be expressed as literal</p></div><div style="display:contents" dir="auto"><ul id="112eea59-ca7a-807f-beef-dcc257e90a0e" class="bulleted-list"><li style="list-style-type:disc">a variable is an expression</li></ul></div><div style="display:contents" dir="ltr"><figure id="112eea59-ca7a-8082-9e1c-ec426eb11d16" class="image"><a href="Erlang%20Intro/image%204.png"><img style="width:691.0694580078125px" src="Erlang%20Intro/image%204.png"/></a></figure></div><div style="display:contents" dir="auto"><div id="113eea59-ca7a-8099-9c1e-f9077defcf42" class="column-list"><div style="display:contents" dir="auto"><div id="113eea59-ca7a-80f2-8348-c171c67e4b9e" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="112eea59-ca7a-80a3-af22-f66374f78264" class="image"><a href="Erlang%20Intro/image%205.png"><img style="width:288px" src="Erlang%20Intro/image%205.png"/></a></figure></div></div></div><div style="display:contents" dir="auto"><div id="113eea59-ca7a-809b-be85-ff247e624e63" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="112eea59-ca7a-80d7-8e5d-f8ddd395f3ab" class="image"><a href="Erlang%20Intro/image%206.png"><img style="width:277.96875px" src="Erlang%20Intro/image%206.png"/></a><figcaption>atoms as constant enum value</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><div id="113eea59-ca7a-800b-9860-f4acfda25d23" class="column-list"><div style="display:contents" dir="auto"><div id="113eea59-ca7a-806e-a921-e060b46102a2" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="112eea59-ca7a-80cb-87f2-c5e5df7be0f1" class="image"><a href="Erlang%20Intro/image%207.png"><img style="width:285.9659118652344px" src="Erlang%20Intro/image%207.png"/></a><figcaption>tuples: fixed number of terms</figcaption></figure></div></div></div><div style="display:contents" dir="auto"><div id="113eea59-ca7a-80cd-9b51-d4d37576aac9" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="112eea59-ca7a-80ce-b4ed-e77924eb160d" class="image"><a href="Erlang%20Intro/image%208.png"><img style="width:244.99998474121094px" src="Erlang%20Intro/image%208.png"/></a><figcaption>List: compound data type, arbitrary number of terms</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure id="112eea59-ca7a-80e2-9e26-e897abae520c" class="image"><a href="Erlang%20Intro/image%209.png"><img style="width:691.0972290039062px" src="Erlang%20Intro/image%209.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="12ceea59-ca7a-80de-ba9d-efc3fd1a0db6" class="bulleted-list"><li style="list-style-type:disc">Size:<div style="display:contents" dir="auto"><ul id="12ceea59-ca7a-80ad-9299-f1f2b69bea8c" class="bulleted-list"><li style="list-style-type:circle">Tuples: Fixed size, known at creation time</li></ul></div><div style="display:contents" dir="auto"><ul id="12ceea59-ca7a-80cc-aca4-f84e0e1f2ee3" class="bulleted-list"><li style="list-style-type:circle">Lists: Variable size, can grow/shrink</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="12ceea59-ca7a-808e-8e1d-d0edb47dc503" class="bulleted-list"><li style="list-style-type:disc">Access:<div style="display:contents" dir="auto"><ul id="12ceea59-ca7a-802a-aa43-dfe2bbfdae3a" class="bulleted-list"><li style="list-style-type:circle">Tuples: Direct access to any element (O(1))</li></ul></div><div style="display:contents" dir="auto"><ul id="12ceea59-ca7a-802d-83da-c7b96f45a635" class="bulleted-list"><li style="list-style-type:circle">Lists: Sequential access, must traverse for nth element (O(n))</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="12ceea59-ca7a-801c-aabe-f216ac149b95" class="bulleted-list"><li style="list-style-type:disc">Memory:<div style="display:contents" dir="auto"><ul id="12ceea59-ca7a-807e-9b45-c9ee1acb1220" class="bulleted-list"><li style="list-style-type:circle">Tuples: Contiguous memory, elements stored together</li></ul></div><div style="display:contents" dir="auto"><ul id="12ceea59-ca7a-80b3-82c3-c53a342d94af" class="bulleted-list"><li style="list-style-type:circle">Lists: Linked structure, elements can be scattered</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="12ceea59-ca7a-8002-ae17-e2535f59575c" class="bulleted-list"><li style="list-style-type:disc">Use Cases:<div style="display:contents" dir="auto"><ul id="12ceea59-ca7a-8042-89d9-d6a3fc99a037" class="bulleted-list"><li style="list-style-type:circle">Tuples: Structured data with known number of elements (like records)</li></ul></div><div style="display:contents" dir="auto"><ul id="12ceea59-ca7a-800e-a5a4-f889feb4376d" class="bulleted-list"><li style="list-style-type:circle">Lists: Collections that need to be processed sequentially or modified</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="113eea59-ca7a-80f8-a03c-d78b6893bf0f" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="113eea59-ca7a-80c5-9449-e0bb0a439813" class="">String</h3></div><div style="display:contents" dir="auto"><p id="113eea59-ca7a-806f-80e8-df70dbab61cf" class="">List of integer → unicode for the char</p></div><div style="display:contents" dir="ltr"><figure id="113eea59-ca7a-800e-949a-ef7a2230b1a4" class="image"><a href="Erlang%20Intro/image%2010.png"><img style="width:337.9971618652344px" src="Erlang%20Intro/image%2010.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="113eea59-ca7a-800e-963c-f8d6d6774646" class="image"><a href="Erlang%20Intro/image%2011.png"><img style="width:707.9861450195312px" src="Erlang%20Intro/image%2011.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="113eea59-ca7a-8054-9a82-d4ec94411e91" class="bulleted-list"><li style="list-style-type:disc">no signature, because it’s not a typed language</li></ul></div><div style="display:contents" dir="auto"><p id="113eea59-ca7a-8097-bb1f-f457a4d5ed6e" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="113eea59-ca7a-809d-9513-d372c1947d64" class="image"><a href="Erlang%20Intro/image%2012.png"><img style="width:707.9722290039062px" src="Erlang%20Intro/image%2012.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="113eea59-ca7a-80b3-a04a-fb8835611b8f"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="f5e3b907-c91e-444d-b09d-f47d2360994c" class="">erlc → compiler</p></div><div style="display:contents" dir="auto"><p id="113eea59-ca7a-80c9-bfcc-e2b0ac36b37b" class="">erl → interpreter</p></div></div></figure></div><div style="display:contents" dir="ltr"><figure id="113eea59-ca7a-803a-b6db-cc5bd408fcca" class="image"><a href="Erlang%20Intro/image%2013.png"><img style="width:642.897705078125px" src="Erlang%20Intro/image%2013.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="113eea59-ca7a-80e5-9e64-d142157e2624" class="bulleted-list"><li style="list-style-type:disc">identified by both name and the arity of the parameters</li></ul></div><div style="display:contents" dir="auto"><ul id="113eea59-ca7a-8014-a85f-cebe2a0d84f6" class="bulleted-list"><li style="list-style-type:disc">clause evaluate to the last expression in its body</li></ul></div><div style="display:contents" dir="ltr"><figure id="113eea59-ca7a-8078-8445-d45775b52a50" class="image"><a href="Erlang%20Intro/image%2014.png"><img style="width:707.9722290039062px" src="Erlang%20Intro/image%2014.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="113eea59-ca7a-80af-946a-eed1f86bb08b" class="bulleted-list"><li style="list-style-type:disc">I use a tuple with the name + parameters required</li></ul></div><div style="display:contents" dir="auto"><ul id="113eea59-ca7a-8096-92b3-e98a0c649b90" class="bulleted-list"><li style="list-style-type:disc">Capitalized letter means it’s a variable</li></ul></div><div style="display:contents" dir="auto"><p id="113eea59-ca7a-806f-8ac1-c93f4321577c" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="113eea59-ca7a-804c-9d22-fd0d21f19b83" class="">Guard</h3></div><div style="display:contents" dir="auto"><div id="113eea59-ca7a-8011-8ea4-cfd7c7c3b7ef" class="column-list"><div style="display:contents" dir="auto"><div id="113eea59-ca7a-801b-902d-e28c184bcb37" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><p id="113eea59-ca7a-80fe-876c-e42c78db482e" class="">Boolean expression that effects the way a program is executed<div class="indented"><div style="display:contents" dir="auto"><ul id="113eea59-ca7a-801c-8c90-e0a32884289d" class="bulleted-list"><li style="list-style-type:disc">augment the power of pattern matching for function</li></ul></div><div style="display:contents" dir="auto"><ul id="113eea59-ca7a-80d5-b46b-e167a7614edc" class="bulleted-list"><li style="list-style-type:disc">No user defined function can be used in guards (sure there is not side-effects)</li></ul></div><div style="display:contents" dir="auto"><ul id="113eea59-ca7a-808d-b468-d84db0cf75e5" class="bulleted-list"><li style="list-style-type:disc">not all expression are valid guards</li></ul></div></div></p></div></div></div><div style="display:contents" dir="auto"><div id="113eea59-ca7a-80e1-8993-d8b62934af61" style="width:43.75000000000001%" class="column"><div style="display:contents" dir="ltr"><figure id="113eea59-ca7a-806a-8942-de7e6ef9cbf5" class="image"><a href="Erlang%20Intro/image%2015.png"><img style="width:289.6111145019531px" src="Erlang%20Intro/image%2015.png"/></a><figcaption>final function is the error menagement one</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="113eea59-ca7a-802a-a8b7-ec5c3a4795be" class="">
+</p></div><div style="display:contents" dir="auto"><div id="113eea59-ca7a-8058-a55a-cc0065e8c96b" class="column-list"><div style="display:contents" dir="auto"><div id="113eea59-ca7a-80f1-b67f-cff2ec5b0fc7" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="113eea59-ca7a-8062-b1f7-dad4df737eed" class="image" style="text-align:center"><a href="Erlang%20Intro/image%2016.png"><img style="width:223.99147033691406px" src="Erlang%20Intro/image%2016.png"/></a><figcaption>Case expression</figcaption></figure></div></div></div><div style="display:contents" dir="auto"><div id="113eea59-ca7a-8088-b172-d4f1d9d25730" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="113eea59-ca7a-80b9-91f4-d334b16d7d73" class="image"><a href="Erlang%20Intro/image%2017.png"><img style="width:218.97726440429688px" src="Erlang%20Intro/image%2017.png"/></a><figcaption>If expression</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="113eea59-ca7a-8077-803a-f07c89fde259" class="bulleted-list"><li style="list-style-type:disc">to avoid an error, the last one is set to true</li></ul></div><div style="display:contents" dir="auto"><ul id="113eea59-ca7a-80c3-94dc-d30d0d6d9c5d" class="bulleted-list"><li style="list-style-type:disc">I can use something from the top expression in the last ones</li></ul></div><div style="display:contents" dir="auto"><p id="113eea59-ca7a-809f-b775-e0edc0bad10b" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="113eea59-ca7a-808e-af6e-cb8712600a22" class="image"><a href="Erlang%20Intro/image%2018.png"><img style="width:258.9772644042969px" src="Erlang%20Intro/image%2018.png"/></a><figcaption>Linear iterative execution (it uses tail recursion)</figcaption></figure></div><div style="display:contents" dir="auto"><h3 id="113eea59-ca7a-809d-a4bc-e50e91b2f44f" class="">Looping over a List</h3></div><div style="display:contents" dir="ltr"><figure id="113eea59-ca7a-8095-95b1-ee50406e9a6a" class="image"><a href="Erlang%20Intro/image%2019.png"><img style="width:306.97442626953125px" src="Erlang%20Intro/image%2019.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="113eea59-ca7a-806e-b29a-cad65bd3faf5" class="bulleted-list"><li style="list-style-type:disc">H to the Head, while T is the remaining list</li></ul></div><div style="display:contents" dir="auto"><p id="113eea59-ca7a-80d8-b427-d4b62bd4a280" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="113eea59-ca7a-8058-b0b5-f84a32080dcc" class="">Funs</h3></div><div style="display:contents" dir="auto"><p id="113eea59-ca7a-80f7-a868-d207944563a2" class="">High order functions → data type for functions</p></div><div style="display:contents" dir="auto"><div id="113eea59-ca7a-80f2-b5e5-e1f265308b7d" class="column-list"><div style="display:contents" dir="auto"><div id="113eea59-ca7a-8066-b6a9-f6f60492341f" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="113eea59-ca7a-806b-8f8c-fe3ce94ca719" class="image"><a href="Erlang%20Intro/image%2020.png"><img style="width:330.97222900390625px" src="Erlang%20Intro/image%2020.png"/></a></figure></div></div></div><div style="display:contents" dir="auto"><div id="113eea59-ca7a-80a0-8691-e04c46c58fda" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="113eea59-ca7a-809a-9947-d35b29ed5e24" class="image"><a href="Erlang%20Intro/image%2021.png"><img style="width:330.9583435058594px" src="Erlang%20Intro/image%2021.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="118eea59-ca7a-80dd-9e40-cc236e48a8d1"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="118eea59-ca7a-80ad-a669-f1455c82d8c0" class=""><mark class="highlight-teal">closures</mark> associate with one function call that saves inside the function also the external references of the object used:  <code>deriv(F, H) -&gt; fun(X) -&gt; (F(X+H)-F(X))/H end.</code></p></div></div></figure></div><div style="display:contents" dir="auto"><p id="118eea59-ca7a-80b7-bc18-ed06663796f7" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

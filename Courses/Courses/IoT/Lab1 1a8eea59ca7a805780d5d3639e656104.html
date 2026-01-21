@@ -1,0 +1,762 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Lab1</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1a8eea59-ca7a-8057-80d5-d3639e656104" class="page sans"><header><h1 class="page-title" dir="auto">Lab1</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="1a8eea59-ca7a-80ce-9724-d2d703f27d00" class="">Operating Systems (OS) for constrained devices are designed to manage hardware resources efficiently, ensuring optimal performance</p></div><div style="display:contents" dir="auto"><ul id="1a8eea59-ca7a-80a2-ba0d-c0ff61aefdb3" class="bulleted-list"><li style="list-style-type:disc">modularity</li></ul></div><div style="display:contents" dir="auto"><ul id="1a8eea59-ca7a-806f-983c-f1b08db8d738" class="bulleted-list"><li style="list-style-type:disc">RealTime operation</li></ul></div><div style="display:contents" dir="auto"><p id="1a8eea59-ca7a-80c0-8cc4-c31361449483" class="">It menages <mark class="highlight-brown">drivers</mark>, connectivity and power menagement</p></div><div style="display:contents" dir="auto"><p id="1a8eea59-ca7a-8088-8fa0-da11d390e731" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1a8eea59-ca7a-80f0-a713-e730a9b35d80" class=""><mark class="highlight-brown">Contiki-NG</mark>: open-source Operating System for resource-constrained devices in the IoT</p></div><div style="display:contents" dir="auto"><ul id="1a8eea59-ca7a-80ba-91b7-dea3ec2a2027" class="bulleted-list"><li style="list-style-type:disc">low poer IPv6 communication</li></ul></div><div style="display:contents" dir="auto"><ul id="1a8eea59-ca7a-80d0-b90e-d540c29d5e43" class="bulleted-list"><li style="list-style-type:disc">code footprint is 100kB, and memory usage 10kB</li></ul></div><div style="display:contents" dir="auto"><p id="1a8eea59-ca7a-80ac-ba83-f88d42de79c5" class="">Programmed in C</p></div><div style="display:contents" dir="auto"><p id="1a8eea59-ca7a-80a1-b3de-d06b510b6259" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1a8eea59-ca7a-8018-8253-cd34457214a7" class="">Uses events and callbacks to manage tasks, minimizing idle CPU usage → <mark class="highlight-brown">Event Driven Kernel</mark></p></div><div style="display:contents" dir="auto"><ul id="1a8eea59-ca7a-80aa-a544-d772f5f437d5" class="bulleted-list"><li style="list-style-type:disc">it’s not a thread based kernel (more complex synch management, like semaphore and consume more resources)</li></ul></div><div style="display:contents" dir="auto"><p id="1a8eea59-ca7a-80f0-a0ff-e3a3e82f6957" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1a8eea59-ca7a-8082-bdcb-cf2bed260711" class=""><mark class="highlight-brown">Protothreads </mark>→ lightweight, <mark class="highlight-teal">stackless </mark>threading library for managing multiple tasks without the<br/>overhead of traditional threading</p></div><div style="display:contents" dir="auto"><ul id="1a8eea59-ca7a-80de-bb60-f75c73f386be" class="bulleted-list"><li style="list-style-type:disc">share the same stack → no context switch overhead</li></ul></div><div style="display:contents" dir="auto"><ul id="1a8eea59-ca7a-80b6-946e-c3be5ffdb99c" class="bulleted-list"><li style="list-style-type:disc">only one protothread per time can be in execution</li></ul></div><div style="display:contents" dir="auto"><p id="1eeeea59-ca7a-8001-b7cb-cbc001fda9e8" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1eeeea59-ca7a-80c8-9b6f-da973c666eb3" class="column-list"><div style="display:contents" dir="auto"><div id="1eeeea59-ca7a-8071-8303-ea8ab948bb61" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><p id="1a8eea59-ca7a-8035-9846-cdaea212d9b5" class=""><mark class="highlight-orange">Processes </mark>are built on top of a lightweight threading library called Protothreads</p></div><div style="display:contents" dir="auto"><p id="1eeeea59-ca7a-801a-87ed-f689fa2a82d2" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1eeeea59-ca7a-800e-80d5-c93fd6200ca7" style="width:43.75%" class="column"><div style="display:contents" dir="ltr"><figure id="1eeeea59-ca7a-80d4-8b60-ebb4411bf95f" class="image"><a href="Lab1/image.png"><img style="width:290.46875px" src="Lab1/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1a8eea59-ca7a-809a-ad64-dc1d8c0a9e90" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all"> #include &quot;contiki.h&quot;  /* Main include file for OS-specific modules. */
+ #include &lt;stdio.h&gt; /* For printf() */
+ /* Declare and auto-start this file&#x27;s process */
+ PROCESS(hello_world_process, &quot;Hello world process&quot;);
+ AUTOSTART_PROCESSES(&amp;hello_world_process);  // autostart at system boot
+
+
+ PROCESS_THREAD(hello_world_process, ev, data){ // values of incoming events
+	 static struct etimer timer;
+	 PROCESS_BEGIN();  // no code above this, only var initialization
+	 /* Setup a periodic timer that expires after 10 seconds. */
+	 etimer_set(&amp;timer, CLOCK_SECOND * 10);
+	 while(1) {
+		 printf(&quot;Hello, world\n&quot;);
+		 /* Wait for the periodic timer to expire and then restart the timer. */
+		 PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&amp;timer));
+		 etimer_reset(&amp;timer);
+	 }
+	 PROCESS_END();
+ }</code></pre></div><div style="display:contents" dir="auto"><ul id="1a8eea59-ca7a-808c-82a1-c4d44d8ad2b1" class="bulleted-list"><li style="list-style-type:disc">macros make the code more efficient by replacing function calls with direct code insertion,<br/>eliminating the overhead of a function call in time-critical cod</li></ul></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-80ea-b895-c90dc72403a8" class="bulleted-list"><li style="list-style-type:disc"><code>AUTOSTART_PROCESSES</code> tells Contiki-NG the process that will be automatically started when the system boots up<div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-80e1-bdf2-e0ce76f32580" class="bulleted-list"><li style="list-style-type:circle">could specify multiple threads</li></ul></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-80d2-b90f-fea0267b0a57" class="bulleted-list"><li style="list-style-type:circle">if not specified I need to call <code>process_start()</code></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1a8eea59-ca7a-8045-b310-c32ceb7f6481" class="">The values local variables are not preserved protothreads across yields (leave up the execution to another protothread):</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1a8eea59-ca7a-8044-ba40-fbfab6ccd1c8" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">int i = 1;
+PROCESS_YIELD();
+printf(&quot;i=%d\n&quot;, i); // &lt;- prints garbage, beacause the stack is shared among protothreads
+										 // and it&#x27;s not preserved
+
+static int i = 1;
+PROCESS_YIELD();
+printf(&quot;i=%d\n&quot;, i); // &lt;- prints 1</code></pre></div><div style="display:contents" dir="auto"><p id="1eeeea59-ca7a-8070-a262-dd029b0994d3" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1eeeea59-ca7a-805a-b22f-fb177a3ff579" class=""><code>PROCESS_WAIT_EVENT_UNTIL()</code> macro gives the control back to the scheduler that resumes the execution when an event is delivered</p></div><div style="display:contents" dir="auto"><p id="1a8eea59-ca7a-80b7-a512-dfe5040d4f50" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1a8eea59-ca7a-8009-b267-f70d46f99a2a" class="">Contiki-NG processes are scheduled <mark class="highlight-orange">cooperatively </mark>(<mark class="highlight-brown">non-preemptive</mark>)</p></div><div style="display:contents" dir="auto"><ul id="1a8eea59-ca7a-8023-a8fe-ce7047c7de99" class="bulleted-list"><li style="list-style-type:disc">Cooperative scheduling means that each process running in the system is responsible for giving up control of the microprocessor or CPU <mark class="highlight-teal">voluntarily </mark>to allow other processes to run</li></ul></div><div style="display:contents" dir="auto"><ul id="1a8eea59-ca7a-801e-8e63-eb60003273a9" class="bulleted-list"><li style="list-style-type:disc">Simpler then preventing → IoT, but risk to miss OS events, like UDP messagges </li></ul></div><div style="display:contents" dir="auto"><p id="1a8eea59-ca7a-80db-9e6f-f7f170ae437a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1a8eea59-ca7a-80e1-bbc1-c1ca813ccad5" class="">Processes run until they either</p></div><div style="display:contents" dir="auto"><ol type="1" id="1a8eea59-ca7a-804a-827b-e3ae73f9fbac" class="numbered-list" start="1"><li>finish their execution</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1a8eea59-ca7a-8021-9095-c33f8e93a82b" class="numbered-list" start="2"><li>voluntarily yield control of the microprocessor or CPU to other processes</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1a8eea59-ca7a-80bd-80d5-fe282c2fc416" class="numbered-list" start="3"><li>wait for an event (I/O operation completion)</li></ol></div><div style="display:contents" dir="auto"><p id="1a8eea59-ca7a-8086-9316-e47d244c1224" class="">
+</p></div><div style="display:contents" dir="auto"><ul id="1a8eea59-ca7a-8073-a246-cadbf4196be2" class="bulleted-list"><li style="list-style-type:disc"><code>PROCESS_PAUSE()</code> The scheduler will deliver any queued events, and then immediately schedule the paused process.</li></ul></div><div style="display:contents" dir="auto"><ul id="1a8eea59-ca7a-8058-9e78-cc2c46719e78" class="bulleted-list"><li style="list-style-type:disc"><code>PROCESS_YIELD()</code> The scheduler is not expected to schedule the paused process in the short term.<div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-8041-964d-e1f64fae23c6" class="bulleted-list"><li style="list-style-type:circle">wait for an incoming event</li></ul></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-806b-8ec3-e32ac615e06f" class="bulleted-list"><li style="list-style-type:circle">can be polled by external process <code>process_poll(&amp;process_name)</code></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1a8eea59-ca7a-8035-8397-ecf2d868aaea" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1a8eea59-ca7a-8045-8e2c-f8eb5b85e1b5" class="">A process can be started</p></div><div style="display:contents" dir="auto"><ul id="1a8eea59-ca7a-8050-8131-c3600686b92c" class="bulleted-list"><li style="list-style-type:disc">by another process, through the process_start() function</li></ul></div><div style="display:contents" dir="auto"><ul id="1a8eea59-ca7a-80fe-a8bc-fb545884b4d7" class="bulleted-list"><li style="list-style-type:disc">automatically, through the AUTOSTART_PROCESSES()</li></ul></div><div style="display:contents" dir="auto"><p id="1a8eea59-ca7a-8034-852a-d2c568caa759" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1a8eea59-ca7a-80df-90ad-d019501afcff" class="">PROCESS_EVENT_INIT and PROCESS_EVENT_EXIT are generated to the thread when another one creates it or kills it</p></div><div style="display:contents" dir="auto"><p id="1a8eea59-ca7a-80d5-9bd4-e2504bff4379" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1a8eea59-ca7a-8067-9c89-e424f541d8e0" class="">Synch and Asynch Communication</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1a8eea59-ca7a-809d-b3cc-fc37af8533a7" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all"> process_post(&amp;process_B, PROCESS_EVENT_MSG, msg);
+ process_poll(&amp;process_B);
+ process_post_synch(&amp;process_B, PROCESS_EVENT_MSG, msg);</code></pre></div><div style="display:contents" dir="auto"><div id="1a8eea59-ca7a-80ef-9f20-dbe2c5e21612" class="column-list"><div style="display:contents" dir="auto"><div id="1a8eea59-ca7a-8009-8da9-efa595d39cad" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1a8eea59-ca7a-80ff-bb73-db6df6befb80" class="">A poll is a specific type of high-priority, <mark class="highlight-brown">asynchronous </mark>event dispatched to a single receiving process or broadcasted</p></div><div style="display:contents" dir="auto"><ul id="1a8eea59-ca7a-800d-8349-da4ec2146198" class="bulleted-list"><li style="list-style-type:disc">the kernel will schedule polled processes before, as well as in-between synchronous event dispatches</li></ul></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-80b2-ab91-dd65832cbe2c" class="bulleted-list"><li style="list-style-type:disc">dispatched in a <mark class="highlight-teal">round robin </mark>fashion</li></ul></div><div style="display:contents" dir="auto"><p id="1eeeea59-ca7a-8074-8bc9-c63d72e28c9b" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1a8eea59-ca7a-802d-86d9-f0fec9a08533" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1a8eea59-ca7a-802d-a602-e338398e285c" class="image"><a href="Lab1/image%201.png"><img style="width:331.97442626953125px" src="Lab1/image%201.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1a8eea59-ca7a-8065-b041-cb30403b7a0a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1a8eea59-ca7a-808c-a02a-f2aba25eb516" class="">Events posted <mark class="highlight-brown">synchronously</mark>, are immediately delivered to the receiving process. There is no event queue.</p></div><div style="display:contents" dir="auto"><ul id="1a8eea59-ca7a-80a9-bcf0-c4438e4a3261" class="bulleted-list"><li style="list-style-type:disc">the posting process execution will stop until the receiving process has finished consuming the event, at which point the posting process resumes</li></ul></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-80d3-a6ff-d9ec45f6ebc8" class="bulleted-list"><li style="list-style-type:disc">cannot be broadcasted</li></ul></div><div style="display:contents" dir="auto"><p id="1eeeea59-ca7a-80f2-8bae-d65dcefa4f74" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1eeeea59-ca7a-8061-acdd-e329c622d8f0" class="column-list"><div style="display:contents" dir="auto"><div id="1eeeea59-ca7a-8030-9075-f18adfd3a876" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1eeeea59-ca7a-80d5-8c8a-c42668b3881f"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1eeeea59-ca7a-808c-a9a7-d4ffbc63856b" class="">Custom events can be defined</p></div></div></figure></div></div></div><div style="display:contents" dir="auto"><div id="1eeeea59-ca7a-80a0-ac1f-df8cea787659" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1eeeea59-ca7a-800f-8c65-d62e198c81fc" class="image"><a href="Lab1/image%202.png"><img style="width:331.96875px" src="Lab1/image%202.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="1a8eea59-ca7a-809d-ac77-f7de5bc2ecf8" class="">Memory Menagement</h3></div><div style="display:contents" dir="auto"><p id="1a8eea59-ca7a-80dc-bf8e-c9b2f509cfd0" class="">Contiki-NG supports both <mark class="highlight-teal">static </mark>and <mark class="highlight-teal">dynamic </mark>memory allocations</p></div><div style="display:contents" dir="auto"><p id="1b4eea59-ca7a-800a-9eef-ede4344d44b3" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b4eea59-ca7a-8061-a09c-e695b16430fc" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b4eea59-ca7a-8087-bcfb-ed77bfad1b75" class=""><code>MEMB(name, structure, num)</code></p></div><div style="display:contents" dir="auto"><ul id="1eeeea59-ca7a-80d0-afa7-f2e7fad70829" class="bulleted-list"><li style="list-style-type:disc">decleare a memory block, static of constant size</li></ul></div><div style="display:contents" dir="auto"><p id="1b4eea59-ca7a-8036-9f3f-cf71c0bc0049" class="">There is another module also for dynamic HeapMemory </p></div><div style="display:contents" dir="auto"><p id="1b4eea59-ca7a-8008-9e7a-eddc6912972c" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="1b4eea59-ca7a-80f5-a05a-f7e6c64ac2e9" class="">Cooja</h1></div><div style="display:contents" dir="auto"><p id="1b4eea59-ca7a-8022-b0bc-cf2539829c9a" class="">Coojaisa network simulation environment for Wireless Sensor Networks (WSNs) that is part of the Contiki-NG OS</p></div><div style="display:contents" dir="auto"><ul id="1b4eea59-ca7a-80db-a258-d856c7053c40" class="bulleted-list"><li style="list-style-type:disc">simulates entire WSNs, where each node in the network can be individually programmed and monitored </li></ul></div><div style="display:contents" dir="auto"><ul id="1b4eea59-ca7a-80d0-988e-f741bf34a9a2" class="bulleted-list"><li style="list-style-type:disc">allows developing and testing applications in scenarios where deploying a physical network might be impractical or expensive</li></ul></div><div style="display:contents" dir="auto"><ul id="1b4eea59-ca7a-80df-952a-d41d0744fa87" class="bulleted-list"><li style="list-style-type:disc">supports simulation at different levels<div style="display:contents" dir="auto"><ol type="1" id="1b4eea59-ca7a-8063-9115-f9656cd9babd" class="numbered-list" start="1"><li>hardware (emulating the microcontroller)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b4eea59-ca7a-80bb-928e-d327eb339a56" class="numbered-list" start="2"><li>software (running the actual Contiki-NG OS and applications)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1b4eea59-ca7a-8075-b79f-f327c228a8d1" class="numbered-list" start="3"><li>network (simulating the radio communication between nodes)</li></ol></div></li></ul></div><div style="display:contents" dir="auto"><p id="1b4eea59-ca7a-806e-a1d6-fbd4bdee89d2" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b4eea59-ca7a-8069-8f52-cce7c866f860" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1b4eea59-ca7a-80b9-bd65-e6e37fbd9387" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

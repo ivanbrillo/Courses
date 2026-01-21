@@ -1,0 +1,751 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Industrial IoT</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1d5eea59-ca7a-80fd-a078-ecf2df7d6815" class="page sans"><header><h1 class="page-title" dir="auto">Industrial IoT</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-8017-9e00-ee74c220b4bd" class="">802.15.4 cannot be used in critical environment (industrial, healthcare, …)</p></div><div style="display:contents" dir="auto"><div id="228eea59-ca7a-8003-8c40-db57d9af7cf1" class="column-list"><div style="display:contents" dir="auto"><div id="228eea59-ca7a-80f7-bd8b-fd0e8cfe7128" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-80a8-a379-fe88a0b29bc1" class="">Is this suitable to critical application?</p></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-8078-8b6d-f51482cdc829" class="bulleted-list"><li style="list-style-type:disc">reliability requirements</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-809c-8c46-c5398a709730" class="bulleted-list"><li style="list-style-type:disc">realt time requirements (really small latency)</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-8001-942d-c9b68ccf823a" class="bulleted-list"><li style="list-style-type:disc">energy efficiency</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-8007-9960-f05692c0f43e" class="bulleted-list"><li style="list-style-type:disc">scalability</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="228eea59-ca7a-8043-8bed-e5544ea9c286" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1d5eea59-ca7a-80f6-bfbe-f25a33076b3b" class="image"><a href="Industrial%20IoT/image.png"><img style="width:528px" src="Industrial%20IoT/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-803d-bdb8-d64c055cb509" class=""><mark class="highlight-orange">Industrial Applications</mark></p></div><div style="display:contents" dir="auto"><ol type="1" id="1d5eea59-ca7a-8027-9f83-c62bedae1bb9" class="numbered-list" start="1"><li><mark class="highlight-blue">Safety-critical applications</mark> (in emergency situations, high reliability and low latency)<div style="display:contents" dir="auto"><ol type="a" id="1d5eea59-ca7a-801e-a6de-c71e443ad7b3" class="numbered-list" start="1"><li>Class 0 (<mark class="highlight-teal">emergency actions</mark>)</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d5eea59-ca7a-8012-ba97-cbb791a03f43" class="numbered-list" start="2"><li><mark class="highlight-blue">Control Applications</mark><div style="display:contents" dir="auto"><ol type="a" id="1d5eea59-ca7a-804f-aef2-d1d1543412ef" class="numbered-list" start="1"><li>Class 1 (<mark class="highlight-teal">closed-loop regulatory control</mark>) → if missing a packet could be dangerous, also very low latency</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1d5eea59-ca7a-80a1-961f-eba6be98887f" class="numbered-list" start="2"><li>Class 2 (<mark class="highlight-teal">closed-loop supervisory control</mark>) → not control app, but just supervisor, little relaxed contrains</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1d5eea59-ca7a-8073-8980-e9e2d8060a5f" class="numbered-list" start="3"><li>Class 3 (<mark class="highlight-teal">open-loop control</mark>) → typically supervised by a human</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d5eea59-ca7a-803c-956c-cf4baea4de30" class="numbered-list" start="3"><li><mark class="highlight-blue">Monitoring applications </mark>→ just collect data, not to control applications<div style="display:contents" dir="auto"><ol type="a" id="1d5eea59-ca7a-8097-8e78-d702aff6ad3b" class="numbered-list" start="1"><li>Class 4 (<mark class="highlight-teal">alerting</mark>) → latency no problem, better to have some sort of reliability</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1d5eea59-ca7a-80c4-97ec-e1b70df328ba" class="numbered-list" start="2"><li>Class 5 (<mark class="highlight-teal">logging and monitoring</mark>)</li></ol></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-80a9-a866-d84a75f6803c" class="bulleted-list"><li style="list-style-type:disc">Typically done in the cloud, since no RT requirements</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-80c7-80eb-d7d53f534cab" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-8020-ae42-c18ebfa95e44" class="">Class 0, 1, 2 that are very critical → <mark class="highlight-orange">wired networks</mark></p></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-8061-9d38-fcfe6a4d98fa" class="bulleted-list"><li style="list-style-type:disc">high reliability and fault tolerance</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-8096-8c10-c27f565568c0" class="bulleted-list"><li style="list-style-type:disc">deterministic latency</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-80e0-a967-f42e15ef782a" class="bulleted-list"><li style="list-style-type:disc">bounded jitter</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-8053-b034-f3bd5406a3cc" class="bulleted-list"><li style="list-style-type:disc">security</li></ul></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-807b-8078-eb0c0bdcaa97" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-804b-89a8-cca4fe8f5eaa" class="">Class 5, 4, 3, 2 → use <mark class="highlight-orange">wireless networks </mark>for non critical functions</p></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-80e8-90fb-c74e8e9349f0" class="">Recently, used also for some critical applications (some advantages: economic advantages, reconfigurability, easy of deployment) → <mark class="highlight-blue">5G</mark></p></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-801c-a54f-d3e8a87c2044" class="bulleted-list"><li style="list-style-type:disc">reliability</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-809d-bd5c-c60a5f919078" class="bulleted-list"><li style="list-style-type:disc">bounded latency</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-8026-90ba-c0ed16a13fad" class="bulleted-list"><li style="list-style-type:disc">scalability</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-803d-b7ff-f8621f20a3ec" class="bulleted-list"><li style="list-style-type:disc">energy efficient</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-8067-90ee-cdcabb90b6b3" class="bulleted-list"><li style="list-style-type:disc">security</li></ul></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-8026-a545-d226a0059025" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d5eea59-ca7a-8072-a5c1-ebd293c9994b" class="">Limits of 802.15.4 CSMA/CA</h3></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-8003-a863-f5d9ec578a76" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">no guarantee on end-to-end delay</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-8052-bb82-d00c49d959bb" class="bulleted-list"><li style="list-style-type:disc">limited communication reliability</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-8002-bf62-d8dd419efff9" class="bulleted-list"><li style="list-style-type:disc">no built-in frequency<mark class="highlight-teal"> </mark><mark class="highlight-teal"><mark class="highlight-pink_background">hopping technique</mark></mark> → then high external interference since we are using low power communication<div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-8070-a70b-f3a775b697ef" class="bulleted-list"><li style="list-style-type:circle">eg change frequency every time slot in bluetooth</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-806f-92a3-cc2b23ae8439" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-pink_background">multi-path fading</mark></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-80a8-91e9-fc38aff5dce0" class="bulleted-list"><li style="list-style-type:disc">powered relay nodes</li></ul></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-809a-8266-ff28b4645d3a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-8022-b053-d9b109ad9847" class="">The MAC unreliability problem is mainly due to the CSMA/CA algorithm</p></div><div style="display:contents" dir="auto"><ol type="1" id="1d5eea59-ca7a-80cc-8af1-d73d2ad81dbb" class="numbered-list" start="1"><li>In BE mode the periodic beacon maximizes contention</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d5eea59-ca7a-806c-a2e8-dffbb62ea887" class="numbered-list" start="2"><li>The problem is exacerbated by the default MAC parameter values<div style="display:contents" dir="auto"><ol type="a" id="1d5eea59-ca7a-8074-92e4-d1b28b04c74c" class="numbered-list" start="1"><li>not appropriate for WSN’s with power management enabled</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1d5eea59-ca7a-80c2-bd4d-ff2b03880bf2" class="numbered-list" start="2"><li>increasing parameters (higer reliability) comes with the cost of higher latency</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-80f6-a212-d579b74cb95b" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d5eea59-ca7a-803e-bbb4-ee336fd75885" class="">Multi-Path Fading</h3></div><div style="display:contents" dir="auto"><div id="21beea59-ca7a-8096-b721-f338b6282602" class="column-list"><div style="display:contents" dir="auto"><div id="21beea59-ca7a-8046-9db0-f54abdd93510" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-8079-96fe-de7a5e7bab5c" class="">WiFi has 11 channels, but the band is really crowded since it’s unlicensed</p></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-80cd-a4ff-fdf0e1458ca6" class="bulleted-list"><li style="list-style-type:disc">imagine having 802.15.4 over those frequency (where there is wifi, blutooth, …)</li></ul></div><div style="display:contents" dir="auto"><ul id="21beea59-ca7a-8066-bf5a-e0f359721c47" class="bulleted-list"><li style="list-style-type:disc">You cannot predict before in which freqency WiFi is communicating</li></ul></div><div style="display:contents" dir="auto"><p id="227eea59-ca7a-80e4-9347-fe78f807d949" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="21beea59-ca7a-8051-bfa6-faaca594f373" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1d5eea59-ca7a-8057-9ff3-d9e5ad32c02f" class="image"><a href="Industrial%20IoT/image%201.png"><img style="width:480px" src="Industrial%20IoT/image%201.png"/></a><figcaption>PDR → packet delivery ratio, depends on wifi bands</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><div id="21beea59-ca7a-80d6-9442-d8046221b62b" class="column-list"><div style="display:contents" dir="auto"><div id="21beea59-ca7a-805b-9c8e-c326654c2107" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-80fa-a4f7-e7b887031d07" class=""><mark class="highlight-orange"><mark class="highlight-pink_background">Multi-Path Fading </mark></mark><mark class="highlight-pink_background">→ signals will arrive to destination with different path (and different delays)</mark></p></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-8053-8440-fafbe603fd29" class="bulleted-list"><li style="list-style-type:disc">they can form constructive or destructive interference</li></ul></div><div style="display:contents" dir="auto"><p id="21beea59-ca7a-803d-92bc-e7bf75bb6eaf" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="21beea59-ca7a-80d7-ad95-d9c156cb0cbc" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1d5eea59-ca7a-80a8-a0fb-fefed9bed123" class="image"><a href="Industrial%20IoT/image%202.png"><img style="width:480px" src="Industrial%20IoT/image%202.png"/></a><figcaption>example of fading</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="auto"><div id="1d5eea59-ca7a-80b2-a2b9-c3ff91ca51ec" class="column-list"><div style="display:contents" dir="auto"><div id="1d5eea59-ca7a-8017-a213-ebec37542d14" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-8095-beaa-c402474a43da" class="">Subsequent packets are sent at a<mark class="highlight-teal"> different frequency </mark>→ presudo-random hopping pattern</p></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-80da-9e5a-f978ed0329c6" class="bulleted-list"><li style="list-style-type:disc">If a transmission fails, retransmission will happen on a different frequency</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-8012-a3fd-fc556aeed0cb" class="bulleted-list"><li style="list-style-type:disc">Increased security against selective Jamming attack</li></ul></div><div style="display:contents" dir="auto"><p id="21beea59-ca7a-80f4-bf37-dce148773ed7" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1d5eea59-ca7a-80ea-a791-c159e135f136" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1d5eea59-ca7a-80e4-a5fd-f616f3d32e77" class="image"><a href="Industrial%20IoT/image%203.png"><img style="width:384px" src="Industrial%20IoT/image%203.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h1 id="1d5eea59-ca7a-80af-ad5e-ebdeaf95b6d3" class="">802.15.4 TSCH</h1></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-80d0-8ade-db6f7b6342fa" class="">Designed specifically for high reliability and low delay</p></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-8073-af2d-c004a7fd9f8b" class="bulleted-list"><li style="list-style-type:disc">Time Slotted Channel Hopping (TSCH) </li></ul></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-800b-98c0-cf3a64063ce2" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-80a1-9632-efa5c157bbdd" class="">Physical layer is the same, replace CSMA/CA that is not suited for these types of applications</p></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-8062-875a-f06b7a483067" class="">Based on:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1d5eea59-ca7a-80cf-b63b-ee3338ca5f3d" class="numbered-list" start="1"><li><mark class="highlight-orange">Time-slotted access</mark> (in CSMA/CA is not devided in time slots, specially the non beacon)<div style="display:contents" dir="auto"><ol type="a" id="1d5eea59-ca7a-80c0-b5e2-e25422540aba" class="numbered-list" start="1"><li>predictable and bounded latency</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1d5eea59-ca7a-808c-94cc-f6f09378f1e0" class="numbered-list" start="2"><li>guaranteed bandwidth (since assigned to a node, no contemption)</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1d5eea59-ca7a-80a3-84ac-c8a4736516c4" class="numbered-list" start="3"><li>no collision</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1d5eea59-ca7a-809c-bcae-ebfa01c67ffe" class="numbered-list" start="4"><li>energy efficient (can be turned off during other slots)</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d5eea59-ca7a-8066-9fa2-df31bfbd3c0d" class="numbered-list" start="2"><li><mark class="highlight-orange">Multi-channel communication</mark><div style="display:contents" dir="auto"><ol type="a" id="1d5eea59-ca7a-80f4-8ea0-ca5c0c2333c2" class="numbered-list" start="1"><li>more nodes can communicate at the same timeslot, using different frequencies</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1d5eea59-ca7a-80ce-8a54-dd84e3e1654e" class="numbered-list" start="2"><li>increased network capacity</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d5eea59-ca7a-800f-9683-c91157f08f41" class="numbered-list" start="3"><li><mark class="highlight-orange">Channel Hopping</mark><div style="display:contents" dir="auto"><ol type="a" id="1d5eea59-ca7a-80ae-b1bb-f0f8f6ae2881" class="numbered-list" start="1"><li>Mitigates the effects of <mark class="highlight-teal">interference </mark>and multipath fading</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1d5eea59-ca7a-808f-a04d-e43487b2aa52" class="numbered-list" start="2"><li>improves communication reliability</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-8040-88cf-f2db64c0b12f" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d5eea59-ca7a-800a-b320-eb798e01b48c" class="">Time Slot Structure</h3></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-80d0-ade2-de55d7177221" class="">Since nodes are <mark class="highlight-teal">not exactly synchronized</mark>, it’s necessary to introduce a <mark class="highlight-pink_background">delay</mark> before transmission, in order to avoid overlapping communication</p></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-80fa-afcd-d3f10cc1ba15" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">difference between the nominal and actual start/end of communications</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-80bb-8fda-d46466db0b17" class="bulleted-list"><li style="list-style-type:disc"><code>startup_time</code>: after a certain period the node B become ready to receive a packet</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-805f-bc54-e393d4bc5b81" class="bulleted-list"><li style="list-style-type:disc">After an additional <code>guardtime</code> the node A node can transmit it’s message (to ensure that the receiver is truly prepared to receive the packet)</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-80e8-a04a-e622271b4ace" class="bulleted-list"><li style="list-style-type:disc">After the transmission of the packet, there’s a certain period were both A and B <mark class="highlight-teal">switch their radio </mark>from Tx mode to Rx mode and vice-versa.</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-80ac-8ccd-f5423514efc9" class="bulleted-list"><li style="list-style-type:disc">Once the node A is ready to receive the ack, but again there’s a <code>guardtime</code> that the node B must wait before transmit the ACK.</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-802e-aa3c-dd94d79846fa" class="bulleted-list"><li style="list-style-type:disc">After the ACK there’s a stop time before the next time slot.</li></ul></div><div style="display:contents" dir="ltr"><figure id="1d5eea59-ca7a-801b-9fab-d6a8adabc0a8" class="image"><a href="Industrial%20IoT/image%204.png"><img style="width:624px" src="Industrial%20IoT/image%204.png"/></a><figcaption>we have many multiple channels per time slots</figcaption></figure></div><div style="display:contents" dir="ltr"><figure id="1d5eea59-ca7a-801b-8feb-fb48ced6a4d7" class="image"><a href="Industrial%20IoT/image%205.png"><img style="width:605.7750244140625px" src="Industrial%20IoT/image%205.png"/></a><figcaption>each cell is a <mark class="highlight-orange">link</mark></figcaption></figure></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-806a-8793-ce2753cdd31d" class=""><mark class="highlight-teal">Channel offset </mark>uniquely identify a frequency channel</p></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-80e2-8782-d970bea68771" class="">A <mark class="highlight-orange">link </mark>is defined as a pairwise assignment of directed communication between devices in a specific time slot, utilizing a particular channel offset</p></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-8088-9627-e646d040afcf" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-806c-8e12-fbc61c4ed6e3" class="">Using <mark class="highlight-blue">dedicated links</mark>, <mark class="highlight-pink_background">no collision can occur</mark></p></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-8015-b978-e3ef92c037ed" class="bulleted-list"><li style="list-style-type:disc">determistic traffic</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-806d-94e1-c726542fae05" class="bulleted-list"><li style="list-style-type:disc">one trasmitter, one receiver</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-80a6-9e3d-f77b5e190301" class="bulleted-list"><li style="list-style-type:disc">direct access</li></ul></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-80ed-b3f1-cfaef81e52fb" class="">Using <mark class="highlight-blue">shared links </mark>there could be collision (if E, G will communicate together)</p></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-80d3-8d49-fdeab8c916c7" class="bulleted-list"><li style="list-style-type:disc">can be used if the communication is <mark class="highlight-pink_background">sporadic</mark>, unpredictable traffic</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-8027-830a-cf7a0a7a11c8" class="bulleted-list"><li style="list-style-type:disc">typically used for discovery and routing messages </li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-80c5-8733-e69889fb7902" class="bulleted-list"><li style="list-style-type:disc">multiple trasmitters/receivers</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-8076-8b7b-c04d9d96d3cf" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">CSMA-CA based access</mark></li></ul></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-8056-b816-e4bed2123f5b" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d5eea59-ca7a-80ee-a47f-f952db5e2621" class="">Shared Links</h3></div><div style="display:contents" dir="auto"><div id="1d5eea59-ca7a-80d0-8e9b-ebaf51f19c2d" class="column-list"><div style="display:contents" dir="auto"><div id="1d5eea59-ca7a-8076-be3b-f2b5ef26e979" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-8088-9135-e008ff3a273b" class="">It’s necessary to avoid repeated collision (introducing some randomness) → if they have syncronized messaging</p></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-8059-bb43-e7b37e214eb8" class="bulleted-list"><li style="list-style-type:disc">Name a little wrong since there is <mark class="highlight-pink_background">no carrier sensing of the channel before trasmitting</mark> (proactive process) → this is <mark class="highlight-teal"><mark class="highlight-pink_background">reactive</mark></mark><mark class="highlight-teal"> </mark>(only after collision is occured)</li></ul></div><div style="display:contents" dir="auto"><ol type="1" id="1d5eea59-ca7a-8005-93d3-e29498d89e12" class="numbered-list" start="1"><li>Calculate a random number of shared links (number of slots to be skipped)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d5eea59-ca7a-80f0-8ab5-f10762945d41" class="numbered-list" start="2"><li>then retry the trasmission for at most RTXs counter</li></ol></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-80e8-9376-cafdeaaf65f5" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1d5eea59-ca7a-808c-9303-dd8bc70150d4" style="width:43.75%" class="column"><div style="display:contents" dir="ltr"><figure id="1d5eea59-ca7a-80de-8fa0-e9b38c245ce9" class="image"><a href="Industrial%20IoT/8d1d1034-5db4-4a9d-9cb4-f9e1ba2a2eb4.png"><img style="width:288px" src="Industrial%20IoT/8d1d1034-5db4-4a9d-9cb4-f9e1ba2a2eb4.png"/></a><figcaption>TSCH CSMA/CA for Shared links</figcaption></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1d5eea59-ca7a-80bd-8a03-e08dbf62da61"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-80e0-9fc7-c2a0eff4bb2a" class="">There’s a sort of backoff delay (the number of shared link that must be skipped by the specific node to retransmit the packet), then the node try to transmit again and wait for ACK</p></div></div></figure></div><div style="display:contents" dir="auto"><h3 id="1d5eea59-ca7a-8031-890d-cab5a6aa2351" class="">Dedicated Links</h3></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-8073-96e3-fcbfb9a5926e" class="">the frequency change is obtained by an algorithm that is known by all the nodes of the networks</p></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-8030-9472-fcfffbc46eeb" class="">The channel offset of a <code>Link = (t, chOf)</code> is translated in an operating frequency <code>f</code></p></div><div style="display:contents" dir="auto"><figure id="1d5eea59-ca7a-803a-af6b-d6298ab8d94e" class="equation"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>f</mi><mo>=</mo><mi>F</mi><mo stretchy="false">{</mo><mo stretchy="false">(</mo><mi>A</mi><mi>S</mi><mi>N</mi><mo>+</mo><mi>c</mi><mi>h</mi><mi>O</mi><mi>f</mi><mo stretchy="false">)</mo><mtext> </mtext><mi>m</mi><mi>o</mi><mi>d</mi><mtext> </mtext><msub><mi>n</mi><mrow><mi>c</mi><mi>h</mi></mrow></msub><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">f = F\{(ASN+chOf) \space mod \space n_{ch}\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mopen">{(</span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.10903em;">SN</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">c</span><span class="mord mathnormal">h</span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mclose">)</span><span class="mspace"> </span><span class="mord mathnormal">m</span><span class="mord mathnormal">o</span><span class="mord mathnormal">d</span><span class="mspace"> </span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mord mathnormal mtight">h</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">}</span></span></span></span></span></div></figure></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-801a-85cf-db75e97d5f8e" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>S</mi><mi>N</mi></mrow><annotation encoding="application/x-tex">ASN </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.10903em;">SN</span></span></span></span></span><span>﻿</span></span></mark>(absolute slot number) → total number of slots elapsed since the network was deployed</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-8058-a04e-f4e30bb0cee1" class="bulleted-list"><li style="list-style-type:disc"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mrow><mi>c</mi><mi>h</mi></mrow></msub></mrow><annotation encoding="application/x-tex">n_{ch}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mord mathnormal mtight">h</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> is the number of used physical channels<div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-80bc-ac4c-d5f3d1bfe58f" class="bulleted-list"><li style="list-style-type:circle">not wise to use it all (16), since they are near each other and interference could happen (wiser to use 4, 8)</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-80b7-bffd-d9b0a6dd4817" class="bulleted-list"><li style="list-style-type:circle">I could decide to not use a channel if there is an high interference → <mark class="highlight-blue">black-list </mark>(no part of the standard)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-805c-9367-db68e2cda57b" class="bulleted-list"><li style="list-style-type:disc"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi></mrow><annotation encoding="application/x-tex">F</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span></span></span></span></span><span>﻿</span></span> function that is a look-up table containing the set of available channels<div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-8036-af17-f96d41ed1dcc" class="bulleted-list"><li style="list-style-type:circle">typically the identity function</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-80f3-b981-e7797d52535a" class="bulleted-list"><li style="list-style-type:disc"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mi>h</mi><mi>O</mi><mi>f</mi></mrow><annotation encoding="application/x-tex">chOf</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">c</span><span class="mord mathnormal">h</span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span></span></span></span></span><span>﻿</span></span> channel offset (on the same timeslot)</li></ul></div><div style="display:contents" dir="ltr"><figure id="1d5eea59-ca7a-8069-9a66-f3795e9a4f03" class="image"><a href="Industrial%20IoT/image%206.png"><img style="width:605.7750244140625px" src="Industrial%20IoT/image%206.png"/></a><figcaption>assuming using 16 channels together</figcaption></figure></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-807f-8555-ea727737612b" class="bulleted-list"><li style="list-style-type:disc">why just using 4 different frequencies? because 16 and 4 are multiples<div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-8088-bb3b-d2256aa71224" class="bulleted-list"><li style="list-style-type:circle">they should be <mark class="highlight-pink_background">coprime</mark> in the standard to use all the 16 channels available</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h1 id="1d5eea59-ca7a-8054-a6a6-cd755ba5f6ed" class="">WirelessHART</h1></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-8096-9c79-ff4aaf77380a" class="">many ideas in 802.15.4 TSCH are borrowed from wirelessHart</p></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-80cc-8411-f5992b1ec10c" class="bulleted-list"><li style="list-style-type:disc">it uses a TDMA based MAC protocol</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-8054-8cf6-f25876bcd511" class="bulleted-list"><li style="list-style-type:disc">channel blacklisting, frequency hopping, pre scheduled timeslots, AES encryption</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-8067-842b-f4bea641a7e9" class="bulleted-list"><li style="list-style-type:disc">Self-organizing and <mark class="highlight-blue">self-healing</mark> <mark class="highlight-teal">mesh </mark>networking → under control of <mark class="highlight-orange">network manager </mark>(very centralized approach)</li></ul></div><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-80e2-b510-cd4c9bbb65dc" class="bulleted-list"><li style="list-style-type:disc">Everything is centralized</li></ul></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-80ab-83e9-c753128faba8" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="1d5eea59-ca7a-80cc-87da-dbad729470fd" class="numbered-list" start="1"><li>A device could be a device with WirelessHART built-in, or an existing installed HART-enabled device with a WirelessHART adapter attached to it</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d5eea59-ca7a-808f-a03f-f92b0c2f0d24" class="numbered-list" start="2"><li>Gateways enable communications with host applications</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d5eea59-ca7a-8050-9377-c58569220fbc" class="numbered-list" start="3"><li><mark class="highlight-pink_background">Network Manager responsible for configuring network, scheduling, routing, monitoring</mark><div style="display:contents" dir="auto"><ol type="a" id="1d5eea59-ca7a-805e-9426-c32a8cd9acba" class="numbered-list" start="1"><li>can be integrated into the gateway or the app host</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-8019-9341-d1d7367aa735" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-80c8-bece-efb3ea917962" class=""><mark class="highlight-blue">Graph Routing</mark> → calculatate the path in a graph, all centralized by the network manager, <mark class="highlight-teal"><mark class="highlight-pink_background">calculated in advance</mark></mark></p></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-80ff-943a-f1394181b453" class="bulleted-list"><li style="list-style-type:disc">Paths in each graph are explicitly created by the network manager and downloaded to each individual network device</li></ul></div><div style="display:contents" dir="auto"><ul id="1d5eea59-ca7a-80f5-a8fa-c22e42aa5870" class="bulleted-list"><li style="list-style-type:disc">To send a packet, the source device writes a specific <mark class="highlight-orange">path ID</mark> in the network header (known by the middle devices where to forward)</li></ul></div><div style="display:contents" dir="auto"><p id="1d5eea59-ca7a-8027-a4ec-eab8b3528ada" class=""><mark class="highlight-blue">Source Routing</mark> → graph routing, but the path is contained in the message</p></div><div style="display:contents" dir="auto"><h1 id="1dfeea59-ca7a-80af-9291-db7e343344b6" class="">6TiSCH</h1></div><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-8001-9cc7-cc14c2339033" class="bulleted-list"><li style="list-style-type:disc">how to integrate a 802.15.4 TSCH network to the internet</li></ul></div><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-8090-bea5-e0a8e9a6a18d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-80b3-aeeb-f25f9bbab2ea" class="">I cannot just substitute the protocol for MAC in the protocol STACK, because it’s being designed based on the idea that it is CSMA/CA</p></div><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-80c2-bbd0-de448371e798" class="">Assumptions of the protocol stack:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1dfeea59-ca7a-80bb-9a1e-dc04562aaeb5" class="numbered-list" start="1"><li>asynchronous</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1dfeea59-ca7a-802f-af75-ef3266cad793" class="numbered-list" start="2"><li>always active nodes</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1dfeea59-ca7a-80ba-b417-ec149049a183" class="numbered-list" start="3"><li>nodes can be added and removed dynamically</li></ol></div><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-806c-8900-c6322bcf97ad" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-8005-b504-c8d6d081d6ae" class=""><mark class="highlight-pink_background">TSCH does not define the policies to build and maintain the communication schedule (how cell are assigned to nodes) → assume that the scheduling is done by upper layers</mark></p></div><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-8052-8ffa-f7597b13a17b" class="bulleted-list"><li style="list-style-type:disc">In CSMA/CA there is not slots so they do not need to be assigned</li></ul></div><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-809c-b2b6-d6645ba20e0b" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1dfeea59-ca7a-80ea-a537-d406675041e4" class="column-list"><div style="display:contents" dir="auto"><div id="1dfeea59-ca7a-8029-9a18-d364b0ff0e11" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-8068-baa3-fb717443cce4" class="">The policies for allocating cells is been created by an architecture called 6TiSCH </p></div><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-80e3-9120-d0dfeea24df1" class="bulleted-list"><li style="list-style-type:disc">enable IPv6 connections</li></ul></div><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-8015-a3a2-eb1bfbae896c" class="">They needs to introduce a new adaptation layer above the MAC, called <mark class="highlight-orange">6TOP</mark></p></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1dfeea59-ca7a-8017-bb3a-dd334b7fe90c"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-80de-a223-d3413e53e469" class="">The new layer defines allocation algorithms and protocols for negotiation of communication resources</p></div></div></figure></div></div></div><div style="display:contents" dir="auto"><div id="1dfeea59-ca7a-803d-80d8-f105fbff34ff" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1dfeea59-ca7a-8063-968e-c82502495ec4" class="image"><a href="Industrial%20IoT/image%207.png"><img style="width:709.9715576171875px" src="Industrial%20IoT/image%207.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-808c-858a-d4a6be4f3dc0" class="">Different approaches for scheduling</p></div><div style="display:contents" dir="auto"><ol type="1" id="1dfeea59-ca7a-80a9-8cfa-f8d8144df588" class="numbered-list" start="1"><li><mark class="highlight-blue">Static </mark>→ predefined and cannot change</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1dfeea59-ca7a-803d-aa47-e30b5363d977" class="numbered-list" start="2"><li><mark class="highlight-blue">Centralized </mark>→ similar to wirelessHart, where there is a master that distribute the best shedule of different nodes<div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-8018-86b2-f7fa8c94fb40" class="bulleted-list"><li style="list-style-type:disc">not good in all the environments</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1dfeea59-ca7a-80cb-a577-de5573b73038" class="numbered-list" start="3"><li><mark class="highlight-blue">Decentralized </mark>→ calculated autonomously by nodes <div style="display:contents" dir="auto"><ol type="a" id="1dfeea59-ca7a-8063-a30b-e49ffaf96db4" class="numbered-list" start="1"><li><mark class="highlight-teal">Collaborative</mark> → exchange information in order to create a schedule (typically suboptimal schedule, local optimum because it can rely only on local information)<div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-800b-bcaa-cbbb2453694b" class="bulleted-list"><li style="list-style-type:disc">not good in practice, is not very dynamic since they need to negotiate every time (consume bandwidth and takes time in critical application)</li></ul></div><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-801d-8c20-d67049119ed9" class="bulleted-list"><li style="list-style-type:disc">prone to security attacks from a malicious node</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1dfeea59-ca7a-80bc-9061-c5724a101d12" class="numbered-list" start="2"><li><mark class="highlight-teal">Autonomous </mark>→ slots are assigned without negotiation </li></ol></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1dfeea59-ca7a-8016-a0cc-c22e337ec4a0" class="numbered-list" start="4"><li><mark class="highlight-blue">Hybrid </mark>→ combining two or more scheduling approaches</li></ol></div><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-8080-bf56-c4fb3acae608" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1dfeea59-ca7a-8019-b069-cca63ebcc119" class="">Static Scheduling</h2></div><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-8000-ac14-e5c44eeef01d" class="">Used only in the initial phase of the network, preconfigured</p></div><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-808c-8d3f-fb6729def9a7" class="bulleted-list"><li style="list-style-type:disc">nodes learn it when they join the network</li></ul></div><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-8065-a284-db09d149f58f" class=""><mark class="highlight-blue">Minimal configuration </mark>→ initial timeslot used for control messages, but not to trasmit data</p></div><div style="display:contents" dir="ltr"><figure id="1dfeea59-ca7a-803b-a68c-c9f5bc9a5617" class="image"><a href="Industrial%20IoT/image%208.png"><img style="width:432px" src="Industrial%20IoT/image%208.png"/></a></figure></div><div style="display:contents" dir="auto"><h2 id="1dfeea59-ca7a-808b-82b2-fc6ae5445535" class="">Centralized Scheduling</h2></div><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-80d9-a752-f61c9c004e27" class="">Network manager decide the communication scheduling in a centralized way</p></div><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-8000-9e94-d9f718c5864a" class="bulleted-list"><li style="list-style-type:disc">To calculate the optimal one, it needs to collect informations of the network <mark class="highlight-pink_background">topology</mark>, <mark class="highlight-pink_background">traffic </mark>requirements of different nodes → <mark class="highlight-orange">collected by the path computation element (</mark><mark class="highlight-orange"><mark class="highlight-pink_background">PCE</mark></mark><mark class="highlight-orange">)</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-80d8-a7da-faeda0f00773" class="bulleted-list"><li style="list-style-type:disc">can have some requirements, like no collision, maximum delay requirements, …</li></ul></div><div style="display:contents" dir="ltr"><figure id="1dfeea59-ca7a-802c-8d4d-e695dfbfcf81" class="image"><a href="Industrial%20IoT/image%209.png"><img style="width:528px" src="Industrial%20IoT/image%209.png"/></a><figcaption>PCE works</figcaption></figure></div><div style="display:contents" dir="auto"><h3 id="1dfeea59-ca7a-806c-9c46-ef5953ce690c" class="">AMUS - Adaptive Multi-hop Scheduling</h3></div><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-8049-89b8-de197dca7671" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">collision free and interference free</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-809f-96d1-da79e2ece621" class="bulleted-list"><li style="list-style-type:disc">energy efficient</li></ul></div><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-8015-a29b-f0abe9382bfd" class="bulleted-list"><li style="list-style-type:disc">optimal resource allocation based on topology and traffic demand</li></ul></div><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-8003-8d9a-e5f803bed58a" class="">Based on <mark class="highlight-orange">tentative cells</mark> → virtual resources assigned to improve reliability and achive ultra-low latency, by retrasmitting the packet</p></div><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-8016-958b-c88952efa43b" class="bulleted-list"><li style="list-style-type:disc">no deterministic bounds are provided </li></ul></div><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-804a-9f48-c6f26698d3e1" class="">Schedule can be changed → dynamic</p></div><div style="display:contents" dir="ltr"><figure id="1dfeea59-ca7a-8013-94c3-c9e27cc101a9" class="image"><a href="Industrial%20IoT/image%2010.png"><img style="width:480px" src="Industrial%20IoT/image%2010.png"/></a></figure></div><div style="display:contents" dir="auto"><div id="21beea59-ca7a-8090-b553-f92d46b86059" class="column-list"><div style="display:contents" dir="auto"><div id="21beea59-ca7a-80a3-bdcb-d43207929a7f" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-8089-ac73-ce8b5084f108" class="bulleted-list"><li style="list-style-type:disc">collision since the ratio of node one (one radio), can be syntonized to <mark class="highlight-pink_background">one single frequency</mark> → collision of the two pakets</li></ul></div><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-8095-93f2-d72082a3d463" class="bulleted-list"><li style="list-style-type:disc">interference since 2 and 3 are near each other</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="21beea59-ca7a-80dc-abcc-efe4ce2f4def" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1dfeea59-ca7a-8041-a2f5-d2d12a3c3058" class="image"><a href="Industrial%20IoT/2b63b3b2-41ac-4d96-b8c6-e96c0d8b7aa4.png"><img style="width:432px" src="Industrial%20IoT/2b63b3b2-41ac-4d96-b8c6-e96c0d8b7aa4.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><div id="21beea59-ca7a-8005-becc-cbc24bc18d82" class="column-list"><div style="display:contents" dir="auto"><div id="21beea59-ca7a-802a-a71e-cab52acb706c" style="width:50%" class="column"><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-8063-a867-d163dcfa5011" class="bulleted-list"><li style="list-style-type:disc">schedule is correct (number of slots reserved per requirements)</li></ul></div><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-80c4-bd5b-fad58c40f732" class="bulleted-list"><li style="list-style-type:disc">It’s not <mark class="highlight-teal">efficient </mark>since msg from node 4 needs to pass to node 2, but will be performed in the new time slot</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="21beea59-ca7a-8060-a859-f21776077429" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1dfeea59-ca7a-809d-b77f-e8ccce92f05d" class="image"><a href="Industrial%20IoT/image%2011.png"><img style="width:407.9829406738281px" src="Industrial%20IoT/image%2011.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure id="1dfeea59-ca7a-80b4-a7d8-f7772a82800c" class="image"><a href="Industrial%20IoT/image%2012.png"><img style="width:411.9460144042969px" src="Industrial%20IoT/image%2012.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-805d-a605-c1a13c76347a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-804f-8af8-ff2f51810d21" class="">How to calculate the topology?</p></div><div style="display:contents" dir="auto"><div id="1dfeea59-ca7a-8029-939f-e19dedcd262a" class="column-list"><div style="display:contents" dir="auto"><div id="1dfeea59-ca7a-80d1-b4b5-d26941c25403" style="width:50%" class="column"><div style="display:contents" dir="auto"><ol type="1" id="1dfeea59-ca7a-8070-ba0d-e99d931a5e99" class="numbered-list" start="1"><li>define <mark class="highlight-orange"><mark class="highlight-pink_background">traffic matrix</mark></mark> (for each node, specify the data rate)</li></ol></div></div></div><div style="display:contents" dir="auto"><div id="1dfeea59-ca7a-80bc-a616-cfe533169d0e" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1dfeea59-ca7a-8098-8ee8-e5e35037818e" class="image"><a href="Industrial%20IoT/image%2013.png"><img style="width:300.9516906738281px" src="Industrial%20IoT/image%2013.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><div id="1dfeea59-ca7a-80cf-8672-c9bc4d75fb73" class="column-list"><div style="display:contents" dir="auto"><div id="1dfeea59-ca7a-8056-8140-e84851e7f7da" style="width:50%" class="column"><div style="display:contents" dir="auto"><ol type="1" id="1dfeea59-ca7a-8075-a05d-d692815a4af1" class="numbered-list" start="2"><li>extend it to the <mark class="highlight-orange"><mark class="highlight-pink_background">multipath traffic matrix</mark></mark><mark class="highlight-pink_background"> </mark>(consider the entire path, not just the sender)<div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-80fe-8459-d68886f808e6" class="bulleted-list"><li style="list-style-type:disc">more 3-1 path since there is the one between 5-1 and the one 3-1</li></ul></div><div style="display:contents" dir="auto"><p id="231eea59-ca7a-80f2-b03e-d4cf6122c454" class="">
+</p></div></li></ol></div></div></div><div style="display:contents" dir="auto"><div id="1dfeea59-ca7a-801c-b202-f6bd6fa130d4" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1dfeea59-ca7a-801e-bd75-ee1f9bfdf7e9" class="image"><a href="Industrial%20IoT/image%2014.png"><img style="width:443.9488525390625px" src="Industrial%20IoT/image%2014.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ol type="1" id="1dfeea59-ca7a-802a-a53f-ef5ab26e956d" class="numbered-list" start="3"><li>Apply scheduling rules to each of the column in the MSS<div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-805b-8b37-d4f62085b443" class="bulleted-list"><li style="list-style-type:disc">how many slots to assign</li></ul></div></li></ol></div><div style="display:contents" dir="ltr"><figure id="1dfeea59-ca7a-80bf-a8d8-ec71c7bab00f" class="image"><a href="Industrial%20IoT/image%2015.png"><img style="width:528px" src="Industrial%20IoT/image%2015.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-80c8-b12c-ff7f5cb4e989" class="bulleted-list"><li style="list-style-type:disc">We can use only two channel offsets to accomodate all the network requirements</li></ul></div><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-8004-aab8-e31a7f178c32" class="bulleted-list"><li style="list-style-type:disc">Unused slots can be used to retrasmit msg (<mark class="highlight-orange"><mark class="highlight-pink_background">tentative cell</mark></mark><mark class="highlight-pink_background">)</mark><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-800f-9538-dd9538c6d6bb" class="bulleted-list"><li style="list-style-type:circle">Different policies to assign them → like proportional to the number of packets trasmitted</li></ul></div><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-8080-a870-cbc7bb0109e1" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-pink_background">The receiver may wake up for the tentative cell</mark> → consume more energy<div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-80df-9752-e1c914619057" class="bulleted-list"><li style="list-style-type:square">Every time a trasmitter sends the last packet in the queue, will send a <mark class="highlight-pink_background">notification</mark> since there will not be any other packet (receiver can sleep for the entire slot frame) </li></ul></div></li></ul></div></li></ul></div><div style="display:contents" dir="ltr"><figure id="1dfeea59-ca7a-8085-91d3-e6824edfe213" class="image"><a href="Industrial%20IoT/image%2016.png"><img style="width:528px" src="Industrial%20IoT/image%2016.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-8039-8624-cae87fd06411" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-8053-b95d-eccfab14d3da" class=""><mark class="highlight-teal">Optimal </mark>for:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1dfeea59-ca7a-80ca-b19e-d5925acfec80" class="numbered-list" start="1"><li><mark class="highlight-pink_background">static topology</mark> and stationary traffic pattern</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1dfeea59-ca7a-8046-82ba-fdb531f46a7f" class="numbered-list" start="2"><li>optimal communication schedule</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1dfeea59-ca7a-80fb-83fb-e7488762c3b9" class="numbered-list" start="3"><li>low latency and high reliability (but not deterministic bouds, best effort algorithm)</li></ol></div><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-80d5-b7d5-f088974b9dca" class=""><mark class="highlight-teal">Not Optimal </mark>for:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1dfeea59-ca7a-8076-845f-eee94e4c728b" class="numbered-list" start="1"><li>Dynamic networks (eg some nodes fails or traffic change for external meteorology) → the communication schedule must be recomputed frequently and also trasmitted </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1dfeea59-ca7a-8033-846b-f120f2fd11d3" class="numbered-list" start="2"><li><mark class="highlight-pink_background">Large Networks</mark> → really complex algorithm that may not converge → not finding the schedule wanted (cannot implement divide and conquer approach)</li></ol></div><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-8085-9e67-e0b79f994b07" class="">In these cases we will use decentralized scheduling</p></div><div style="display:contents" dir="auto"><h2 id="1dfeea59-ca7a-8062-a266-c3b8fc9c47cf" class="">Decentralized Scheduling</h2></div><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-8051-9c70-df45a2ce7ce5" class="bulleted-list"><li style="list-style-type:disc">schedule computed based on partial informations, the founded schedule will typically be non optimal</li></ul></div><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-804d-b4c1-d6e7d344b268" class="bulleted-list"><li style="list-style-type:disc">Limited overhead → suitable for energy-constrained nodes</li></ul></div><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-8031-9d09-e7128d4c8d27" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1dfeea59-ca7a-80e4-877f-f686e79734cf" class="">1) Cooperative Scheduling</h3></div><div style="display:contents" dir="ltr"><figure id="1dfeea59-ca7a-800e-951b-c7e61b79f630" class="image"><a href="Industrial%20IoT/image%2017.png"><img style="width:624px" src="Industrial%20IoT/image%2017.png"/></a></figure></div><div style="display:contents" dir="auto"><ol type="1" id="1dfeea59-ca7a-80d6-a768-f900fc236432" class="numbered-list" start="1"><li>Demand estimation of packets requirement via a Scheduling Function (SF)<div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-8090-9530-da2934a4860c" class="bulleted-list"><li style="list-style-type:disc">Can be domain specific or the default one (MSF)</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1dfeea59-ca7a-807a-abac-ef87ccb4cd55" class="numbered-list" start="2"><li>Negotiate the assignment of those slots → <mark class="highlight-teal">6P</mark></li></ol></div><div style="display:contents" dir="ltr"><figure id="1dfeea59-ca7a-8030-bde0-d0791149e4ba" class="image"><a href="Industrial%20IoT/image%2018.png"><img style="width:576px" src="Industrial%20IoT/image%2018.png"/></a><figcaption>6P negotiation, <mark class="highlight-orange">2 way handshake</mark></figcaption></figure></div><div style="display:contents" dir="ltr"><figure id="228eea59-ca7a-8097-a9df-fc4dbb82e798" class="image"><a href="Industrial%20IoT/image%2019.png"><img style="width:709.9874877929688px" src="Industrial%20IoT/image%2019.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1e3eea59-ca7a-8041-880a-d985686f11a8"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8064-965b-e12fb7a74129" class=""> <mark class="highlight-pink_background">If the two neighbors already have a dedicated TSCH cell, the 6P control frames go there</mark>; only if no such link exists (e.g. at boot) the protocol allow using a shared/contended cell for the exchange</p></div></div></figure></div><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-80c0-b023-ea853fff46c1" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-80f5-8ce4-dc5e6e4fd8d5" class=""><mark class="highlight-orange">MSF Algorithm </mark>(Minimal Scheduling Function)</p></div><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-802d-8758-c9039ddccebf" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">autonomous scheduled cells are used to transmit control messages</mark>, such as 6P messages for the negotiation of cells</li></ul></div><div style="display:contents" dir="auto"><ul id="227eea59-ca7a-80b9-9bd4-cfd8642c33ac" class="bulleted-list"><li style="list-style-type:disc">Negotiated cells with 6Top Protocol</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-801f-ba8f-f3a8a65be6fc" class="bulleted-list"><li style="list-style-type:disc">MSF periodically (every <code>NUM_MAX_CELLS</code>) checks the utilization of the node</li></ul></div><div style="display:contents" dir="ltr"><figure id="1dfeea59-ca7a-8078-a38f-ff4918621153" class="image"><a href="Industrial%20IoT/image%2020.png"><img style="width:576px" src="Industrial%20IoT/image%2020.png"/></a><figcaption>for negotiated cells</figcaption></figure></div><div style="display:contents" dir="ltr"><figure id="1dfeea59-ca7a-803c-ab4d-d16522d61fef" class="image"><a href="Industrial%20IoT/image%2021.png"><img style="width:528px" src="Industrial%20IoT/image%2021.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-80ab-895f-fe90d93460e0" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">not very reactive</mark> since one by one modification is not fast (good just for almost stationary rates)</li></ul></div><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-80bb-9f74-f3ae7e3807dc" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1dfeea59-ca7a-80bb-bce2-d81faa0a1ea2" class=""><mark class="highlight-orange">On the Fly Reservation (OTF)</mark></p></div><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-80a0-ba33-c5ef75b22acb" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">only negotiated cells</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1dfeea59-ca7a-8018-88f0-c7e077b0b61a" class="bulleted-list"><li style="list-style-type:disc">everything is based on the estimation (not just one cell at the time)</li></ul></div><div style="display:contents" dir="ltr"><figure id="1dfeea59-ca7a-80d5-b9e5-f49108c4e8db" class="image"><a href="Industrial%20IoT/image%2022.png"><img style="width:528px" src="Industrial%20IoT/image%2022.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="227eea59-ca7a-8042-8538-d2c137a2437e" class="image"><a href="Industrial%20IoT/image%2023.png"><img style="width:576px" src="Industrial%20IoT/image%2023.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="1e3eea59-ca7a-8004-a911-caca0d78a0d2" class="">→ Performance Evaluation</h3></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8015-a1f5-e5244e88c3a0" class=""><mark class="highlight-orange"><mark class="highlight-pink_background">Overprovisioning </mark></mark><mark class="highlight-pink_background">→ allocating more cells to a node than what it’s necessary</mark></p></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80f7-a8bc-f51b34ba4aa4" class="bulleted-list"><li style="list-style-type:disc">This can help avoid frequent cell allocation and deallocation, thereby <mark class="highlight-teal">reducing </mark>the number of 6P <mark class="highlight-teal">transactions</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80f7-9d42-c40a6702bd9c" class="bulleted-list"><li style="list-style-type:disc">However, this approach consumes <mark class="highlight-teal">more bandwidth </mark>due to the increased number of allocated cells, and more importantly, it can lead to <mark class="highlight-teal">failures </mark>due to a lack of resources<div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80b0-a227-ceeb80333fd8" class="bulleted-list"><li style="list-style-type:circle">nodes that asks more cells will get a failure</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-80fa-a3f3-f076ef979cfa" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-808b-97c6-e5b36dc019a0" class=""><span style="border-bottom:0.05em solid">Experiment setup</span>: 5 replicas that will generate messages with different data rates</p></div><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-8024-a26a-ecd7fdf78b23" class="column-list"><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-8057-820a-d407140fe036" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-801f-8e96-e95533187e18" class="">6LowPan mean <mark class="highlight-blue">transactions number</mark> for a specific SF and a specific data rate </p></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80bc-a5de-ee8ea2413572" class="bulleted-list"><li style="list-style-type:disc">needs to keep it low to reduce negotiation overhead and improve system performance</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-80df-8a84-fd1f10803a9b" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1e3eea59-ca7a-806b-bc21-de593ec0980e" class="image"><a href="Industrial%20IoT/image%2024.png"><img style="width:576px" src="Industrial%20IoT/image%2024.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure id="1e3eea59-ca7a-80d2-9e5b-c859369e3e72" class="image"><a href="Industrial%20IoT/image%2025.png"><img style="width:624px" src="Industrial%20IoT/image%2025.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8020-9fe7-e37c441b38bb" class="">MSF have an <mark class="highlight-teal">higher failure</mark> rate than OTF </p></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-806c-8380-f3ec4da14797" class="bulleted-list"><li style="list-style-type:disc">Lack of resources (especially at high rates), due to <mark class="highlight-pink_background">overprovisioning </mark>(more cells than needed, maybe when one node drops the packet needed) and <mark class="highlight-pink_background">Buffer Overflow at MAC layer</mark> (packets pile up waiting for cells, until the queue is full)</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-8028-8f13-c9a16d96568d" class="bulleted-list"><li style="list-style-type:disc">Anyway even OTF fails, especially at high traffic rates. Indeed, we observed that when transitioning from T=2 to T=6, many negotiations fail due to <mark class="highlight-pink_background">overprovisioning</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80d6-92d1-d584452fddf3" class="bulleted-list"><li style="list-style-type:disc">Not neglegible (sometime higher then 50%) → depends strongly on SF and parameters setting</li></ul></div><div style="display:contents" dir="auto"><p id="227eea59-ca7a-8064-8169-cb52e73f9d39" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-8068-acb9-fb0f40eea865" class="column-list"><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-80d6-84c0-f70e5a27de74" style="width:62.5%" class="column"><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8088-bae1-cb47669a1eb2" class="">The transaction delay, measures the time interval between the transmission of a request and the reception of the corresponding successful response</p></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8089-a057-e0b84bc032f2" class=""><mark class="highlight-pink_background">6P Transaction Delay in the order of seconds </mark>→ not neglegible</p></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8042-b183-d746bfc7e62e" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-8096-b7b2-ce3c33401bc7" style="width:37.49999999999999%" class="column"><div style="display:contents" dir="ltr"><figure id="1e3eea59-ca7a-8083-b1de-c394d9647eb0" class="image"><a href="Industrial%20IoT/image%2026.png"><img style="width:480px" src="Industrial%20IoT/image%2026.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8040-9821-f4c9cca783ea" class="">Limits of distributed scheduling are:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1e3eea59-ca7a-80db-bec6-f5ceffd35154" class="numbered-list" start="1"><li>6P transactions experience an avg. delay in the order of seconds</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e3eea59-ca7a-80f5-9f72-d90cfd179821" class="numbered-list" start="2"><li>A significant % of 6P transaction fail</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e3eea59-ca7a-80f5-ad92-ed57e24d1167" class="numbered-list" start="3"><li><mark class="highlight-pink_background">6P negotiations increases the network overhead</mark></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e3eea59-ca7a-801e-b665-f81b5868a573" class="numbered-list" start="4"><li>6P transactions are prone to <mark class="highlight-pink_background">attacks</mark><div style="display:contents" dir="auto"><ol type="a" id="1e3eea59-ca7a-804f-af70-c0cd967f6e58" class="numbered-list" start="1"><li>Traffic Dispersion Attack → Destroy 6P message destined to a victim node</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="1e3eea59-ca7a-8095-875a-e256a4ffb5dd" class="numbered-list" start="2"><li>Overloading Attack →Allocation of unnecessary cells, increasing the energy consumption of the victim node</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8062-b3a6-c1bdcf084885" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1e3eea59-ca7a-8014-8dc6-d18c492e8f5a" class="">2) Autonomous Scheduling</h3></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-801b-91cc-cbcb1c0afac7" class="">In autonomous scheduling, the communication schedule is computed locally and cooperatively by the nodes. </p></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-8069-9893-d6b2f45c19e6" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">6P protocol is no longer used for cell allocation → overcome its problems</mark><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-8017-b2f3-f95644f71291" class="bulleted-list"><li style="list-style-type:circle">no additional delay or network overhead introduced by 6P transactions and no 6P security attacks</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-806f-92cc-d0b3330041c6" class="bulleted-list"><li style="list-style-type:disc">In autonomous scheduling, <mark class="highlight-pink_background">nodes independently calculate the number of cells to allocate</mark> based on their own criteria</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80a4-abcf-e9b598bfc570" class="bulleted-list"><li style="list-style-type:disc">They also autonomously allocate these cells using a <mark class="highlight-pink_background">pre-defined </mark><mark class="highlight-teal"><mark class="highlight-pink_background">hash function</mark></mark><mark class="highlight-teal"> </mark>that is computed based on the node&#x27;s address<div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-8034-8028-cdf29af65de9" class="bulleted-list"><li style="list-style-type:circle">computing the corresponding timeslot and channel offset using the hash function</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8057-a7fd-f7c4ae40490e" class="">
+</p></div><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-8018-ae87-c9a5ccd54ee5" class="column-list"><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-802d-8a93-df3d4e6000fa" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8078-b2cb-f06e9cb93a57" class="">How to allocate cells autonomously?</p></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-8009-bb6a-d997e55ac982" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Node based approach</mark>: Receiver-based approach, Sender-based approach</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80cc-9fd1-ccb92a7ccfdf" class="bulleted-list"><li style="list-style-type:disc">Link-based approach</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-80cb-91b3-fadba0cd58ad" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1e3eea59-ca7a-80f2-89e5-c3b6715a1576" class="image"><a href="Industrial%20IoT/image%2027.png"><img style="width:331.9659118652344px" src="Industrial%20IoT/image%2027.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-8046-95b5-f13854f74930" class="column-list"><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-806f-a78f-c97626ef8eaa" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-80a6-9461-eb387aaa8f0e" class=""><mark class="highlight-blue">Receiver based approach</mark>: with respect to this example, the node will allocate one single cell to receive packet from all other nodes.</p></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-8087-8bb9-e83deec16651" class="bulleted-list"><li style="list-style-type:disc">In addition to this, allocate also one cell to transmit for each of all its neighbor.</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-800e-8665-d6cbef050d43" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1e3eea59-ca7a-8029-8a3c-fc3274adc062" class="image"><a href="Industrial%20IoT/image%2028.png"><img style="width:528px" src="Industrial%20IoT/image%2028.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-801e-9222-fecdb101c250" class="bulleted-list"><li style="list-style-type:disc">Both node, C and D, should use the same cell to transmit to B → <mark class="highlight-orange">collisions</mark></li></ul></div><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-8030-806c-d229893c5432" class="column-list"><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-8030-8a0a-eeb0522a9f31" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8080-aa18-d5310e373f9d" class=""><mark class="highlight-blue">Sender based approach</mark>: is the opposite. One cell is allocated for sending to any of the neighboring nodes, and one cell is allocated for receiving from each individual neighbor</p></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80fe-8b9e-c9bc0b393adf" class="bulleted-list"><li style="list-style-type:disc">no collision occurs</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-809c-aa2c-d508b8df90d7" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">more energy usage since more Rx cells</mark></li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-8014-be57-cd216de814d9" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1e3eea59-ca7a-8041-a2ae-f3e162bf9e07" class="image"><a href="Industrial%20IoT/image%2029.png"><img style="width:331.977294921875px" src="Industrial%20IoT/image%2029.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-80ca-aa7b-f54375650df1" class="column-list"><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-80a2-95b0-f768f0403d7c" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-80b2-adca-e0574d068ad3" class=""><mark class="highlight-blue">Link based approach (ALICE)</mark> → the number of allocated cells is determined by the number of links (number of neighbor nodes)</p></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80dd-a97c-d36c62aa19cb" class="bulleted-list"><li style="list-style-type:disc">For each link allocate a cell for Rx and one for Tx → <mark class="highlight-teal">Higher number </mark>of cells allocated then the prev approches</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-80ab-8834-c0305787bd05" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1e3eea59-ca7a-80a3-9cb6-c2ec53397748" class="image"><a href="Industrial%20IoT/image%2030.png"><img style="width:709.9886474609375px" src="Industrial%20IoT/image%2030.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8015-aa2f-fb583b22862d" class="">Note that:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1e3eea59-ca7a-8024-a87c-e8c169ffdd3b" class="numbered-list" start="1"><li><mark class="highlight-orange">Fixed Allocation</mark><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-8006-a1c8-e05080a3f2c0" class="bulleted-list"><li style="list-style-type:disc">The number of allocated slots per slotframe is <mark class="highlight-pink_background">fixed in all the considered schemes</mark><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-8065-a7c4-ed229847d631" class="bulleted-list"><li style="list-style-type:circle">It’s not dynamic and based on packet generation rate</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80cd-925a-cd003394f6c1" class="bulleted-list"><li style="list-style-type:disc">A <mark class="highlight-teal">longer slotframe</mark> implies lower bandwidth allocation (since the number of slots will be the same) but better energy efficiency (can be for more time shutdown)</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e3eea59-ca7a-8028-a2db-ef6a7d98d2f1" class="numbered-list" start="2"><li>Receiver-based performs worse than sender-based, but typically consumes more energy<div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80f4-bb92-e48f76cc6e40" class="bulleted-list"><li style="list-style-type:disc">A single Rx slot for all neighbors → collisions </li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e3eea59-ca7a-80b7-8c4a-d0810aaceff4" class="numbered-list" start="3"><li>ALICE performs better than sender-based<div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80b2-b234-f7f8ac649ec6" class="bulleted-list"><li style="list-style-type:disc">Due to its link-based allocation, instead of node-based allocation → <mark class="highlight-teal">more slots</mark> per slotframe are allocated to the same node</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-804c-a83a-cfc600dfb788" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">more energy consumptions </mark>since the radio need to stay awake for more Rx cells</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e3eea59-ca7a-8083-b62c-d1a94ec85baf" class="numbered-list" start="4"><li><mark class="highlight-orange">Cell rescheduling</mark> in ALICE<div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80b8-84ee-c48c5a0e7d77" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">Performed at each slotframe </mark>in ALICE to avoid conflicts that comes from collisions of the hash function</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80fa-95e0-de64349bfa6c" class="bulleted-list"><li style="list-style-type:disc">However, it has been observed that this rescheduling has <mark class="highlight-teal">no significant average-case effect</mark>. It may only have a significant impact in worst-case situations, and therefore rescheduling is typically <mark class="highlight-pink_background">not used in practice</mark></li></ul></div></li></ol></div><div style="display:contents" dir="ltr"><table id="1e3eea59-ca7a-8091-afd4-ea7298ebbf91" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="1e3eea59-ca7a-8051-82f9-e24fb6164a15"><th id="HWOU" class="simple-table-header-color simple-table-header" style="width:192.7045440673828px">Feature</th><th id="=QEp" class="simple-table-header-color simple-table-header" style="width:254.89773559570312px">Node-Based</th><th id="~Mlq" class="simple-table-header-color simple-table-header" style="width:234.68182373046875px">Link-Based (ALICE)</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="1e3eea59-ca7a-809f-9821-ffe72ec4dcd4"><th id="HWOU" class="simple-table-header-color simple-table-header" style="width:192.7045440673828px"><strong>Granularity</strong></th><td id="=QEp" class="" style="width:254.89773559570312px">One cell per node</td><td id="~Mlq" class="" style="width:234.68182373046875px">One cell per directional link</td></tr></div><div style="display:contents" dir="ltr"><tr id="1e3eea59-ca7a-808b-ba81-db771ff09966"><th id="HWOU" class="simple-table-header-color simple-table-header" style="width:192.7045440673828px"><strong>Hash inputs</strong></th><td id="=QEp" class="" style="width:254.89773559570312px">Node ID (or neighbor’s ID)</td><td id="~Mlq" class="" style="width:234.68182373046875px">Pair of IDs (and ASFN)</td></tr></div><div style="display:contents" dir="ltr"><tr id="1e3eea59-ca7a-808f-a91e-f1e7efdbbebd"><th id="HWOU" class="simple-table-header-color simple-table-header" style="width:192.7045440673828px"><strong>Contention</strong></th><td id="=QEp" class="" style="width:254.89773559570312px">Shared among all neighbors</td><td id="~Mlq" class="" style="width:234.68182373046875px">None (per-link isolation)</td></tr></div><div style="display:contents" dir="ltr"><tr id="1e3eea59-ca7a-801a-b24d-dbbadefc9193"><th id="HWOU" class="simple-table-header-color simple-table-header" style="width:192.7045440673828px"><strong>Scalability</strong></th><td id="=QEp" class="" style="width:254.89773559570312px">Degrades with many links</td><td id="~Mlq" class="" style="width:234.68182373046875px">Scales linearly with links</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="21beea59-ca7a-8010-869b-eefb9683cb5a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-801e-87a9-d78f52344085" class=""><mark class="highlight-orange">Frame Pending (FP) bit </mark><mark class="highlight-default">in ALICE</mark></p></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-8077-91bc-e2634b681a3a" class="bulleted-list"><li style="list-style-type:disc">Flag in the Frame Control Field of the TSCH frame</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80a2-bef8-c3139e941b2e" class="bulleted-list"><li style="list-style-type:disc">When set, the FP bit indicates that the recipient should remain active in the <mark class="highlight-teal">next timeslot </mark>and on the <mark class="highlight-teal">same channel</mark>, unless the next cell is already allocated for other purposes</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80bd-9af1-ee96e5b7fd25" class="bulleted-list"><li style="list-style-type:disc">no msgs overhead (FP bit is piggybacked to a message) and no security attacks</li></ul></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8064-9fc7-f6dcfa20ec61" class="">ALICE with Frame Pending bit is a simple mechanism to <mark class="highlight-pink_background">make ALICE adaptive</mark>. It’s a mechanism provided by the underling TSCH access protocol</p></div><div style="display:contents" dir="auto"><h2 id="1e3eea59-ca7a-80a0-b835-dd15f9777a11" class="">Performance Comparison</h2></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-800b-b9b7-d8cd70ed6df3" class="">Metrics used:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1e3eea59-ca7a-80b8-bfc7-ef1b54ee3dc7" class="numbered-list" start="1"><li><mark class="highlight-blue">Packet Delivery Ratio</mark> (PDR)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e3eea59-ca7a-8009-b295-f82467c0914a" class="numbered-list" start="2"><li><mark class="highlight-blue">End-to-end Latency</mark>, definedas the time interval between the generation of a data packet at the source node and its correct reception at the final destination</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1e3eea59-ca7a-8051-9f27-c3a82ff0a83b" class="numbered-list" start="3"><li><mark class="highlight-blue">Duty Cycle</mark> → ration between number of cells a node stay active over the slotframe length<div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-805a-b9f9-f215e54bfca0" class="bulleted-list"><li style="list-style-type:disc">indirect measure of energy consumption</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-805f-998f-c395007d8446" class="">Many-to-One communication → <mark class="highlight-teal">upward traffic</mark> from sensor to root</p></div><div style="display:contents" dir="ltr"><figure id="1e3eea59-ca7a-809d-9581-d968249e3406" class="image"><a href="Industrial%20IoT/d8c57638-01c8-4e00-9a92-09e42d5354d5.png"><img style="width:576px" src="Industrial%20IoT/d8c57638-01c8-4e00-9a92-09e42d5354d5.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="1e3eea59-ca7a-8069-ada2-f77aaaefeba4" class="">Periodic Traffic</h3></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-808f-80bc-e4a99e8c2cc1" class="">Typical of <mark class="highlight-teal">monitoring applications</mark></p></div><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-8061-8eca-c1f4b0d74f1c" class="column-list"><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-80ae-9e42-fa39d1eee3cd" style="width:37.5%" class="column"><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8035-9176-daf68f7af476" class="">When the number of nodes grows up → PDR tends to decrease</p></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-8064-a9d8-ca276a2fffcc" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">However, this decrease is very remarkable with ALICE, while negligible for the others</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-8024-a947-ff49ea9c7175" class="bulleted-list"><li style="list-style-type:disc">since ALICE is fixed and the others are dynamic</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-80c1-8fa4-e8324c46d1a7" style="width:62.5%" class="column"><div style="display:contents" dir="ltr"><figure id="1e3eea59-ca7a-8046-9b02-fe940fdedc28" class="image"><a href="Industrial%20IoT/image%2031.png"><img style="width:432px" src="Industrial%20IoT/image%2031.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-807a-a1be-f2287b3aa467" class="">With Frame Pending, the situation improve since also ALICE can adapt to network variations</p></div><div style="display:contents" dir="ltr"><figure id="1e3eea59-ca7a-8026-ba7f-e7302f6ee4b4" class="image"><a href="Industrial%20IoT/image%2032.png"><img style="width:528px" src="Industrial%20IoT/image%2032.png"/></a></figure></div><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-806b-a7d9-dd4b99ca778f" class="column-list"><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-802d-af85-f23692842c2a" style="width:37.5%" class="column"><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-8063-aea2-c58b8ef3670b" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-pink_background">The cost to pay for the better performance of E-OTF and<br/>MSF, with respect to ALICE, is the higher duty cycle</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-8073-b6ef-db6ba98537c6" class="bulleted-list"><li style="list-style-type:disc">E-OTF typically has a larger duty-cycle than MSF because it allocates more cells</li></ul></div><div style="display:contents" dir="auto"><p id="231eea59-ca7a-806d-82e9-f2e887cbb42c" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-80ce-94bd-c88f9e01e16e" style="width:62.5%" class="column"><div style="display:contents" dir="ltr"><figure id="1e3eea59-ca7a-8046-ad97-e15e3c25a2e7" class="image"><a href="Industrial%20IoT/image%2033.png"><img style="width:528px" src="Industrial%20IoT/image%2033.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="1e3eea59-ca7a-80d8-812b-c30190993a21" class="">Burst Traffic</h3></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8024-b671-ebf29d215ef7" class="">Typical of <mark class="highlight-teal">event driven applications</mark></p></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8000-bb9d-fbc5ddf4c596" class="">A lot msgs in a short period of time, then idle</p></div><div style="display:contents" dir="ltr"><figure id="1e3eea59-ca7a-8031-9bee-fa48baf118a8" class="image"><a href="Industrial%20IoT/image%2034.png"><img style="width:709.9573364257812px" src="Industrial%20IoT/image%2034.png"/></a><figcaption>Frame Pending Enable that mitigate the bad performance above</figcaption></figure></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8098-a301-faeab472dd0a" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1e3eea59-ca7a-806b-9aa9-d566c7a6b28c" class="">Conclusions</h3></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-804b-9765-e351c84898b7" class="">ALICE is the optimal choice with moderate workload</p></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80ec-91d9-c1ec0a65f5c9" class="bulleted-list"><li style="list-style-type:disc">no negotiation overhead</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-8014-90ea-e98bb4f4b5c0" class="bulleted-list"><li style="list-style-type:disc">lower duty cycle → longer lifetime</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-8084-810c-f7a8adce4edf" class="bulleted-list"><li style="list-style-type:disc">moderate adaptation with FP bit</li></ul></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8066-859b-fe17f78e1913" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8037-9a26-ef73e275d2f8" class="">E-OTF and MSF is mandatory with high workload</p></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80b8-ac61-db2242d473a1" class="bulleted-list"><li style="list-style-type:disc">dynamic cell allocations ensure better traffic peaks handling</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-8011-a7d3-d205be8696f5" class="bulleted-list"><li style="list-style-type:disc">the cost is an increased duty cycle</li></ul></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-80ed-9462-ce26bb511402" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-80bc-a3bd-d08eea6aebb1" class="">E-OTF outperforms MSF with<mark class="highlight-teal"> bursty traffic</mark> and very <mark class="highlight-teal">dynamic networks</mark></p></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-8069-9c02-e1baead7b5b8" class="bulleted-list"><li style="list-style-type:disc">it adapts more rapidly to changes</li></ul></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-80a0-a7b5-faa4a437cf04" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="1e3eea59-ca7a-8026-ae5e-ed8095222f49" class="">Cloud-to-Things Continuum</h1></div><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-8019-af5d-f6c67edaad65" class="column-list"><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-801b-8349-d163bd2bb980" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-8000-a3f1-f2cf85df4ebc" class=""><strong>Fog Nodes (FNs):</strong></p></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-804f-a7e6-d4e97d118b1c" class="bulleted-list"><li style="list-style-type:disc">Located between cloud and edge, forming an intermediate computing layer</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80a0-b3ef-de307010f4f8" class="bulleted-list"><li style="list-style-type:disc">Aggregate data from multiple edge devices</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80e4-8fd5-ea2269c43b88" class="bulleted-list"><li style="list-style-type:disc">Provide more computing power and storage than edge nodes</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80b7-8de7-f5e155d48005" class="bulleted-list"><li style="list-style-type:disc">Handle preprocessing, filtering, and initial analytics</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-8017-9a8d-c68c7d9af75f" class="bulleted-list"><li style="list-style-type:disc">Reduce latency compared to cloud processing</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-80af-bcb0-c4e97209851a" class="bulleted-list"><li style="list-style-type:disc">Typically fixed infrastructure with stable power and network connections</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="1e3eea59-ca7a-80f8-bd8a-efc6547dd89c" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1e3eea59-ca7a-80b6-b63a-cf38a3e7f1fa" class="image"><a href="Industrial%20IoT/image%2035.png"><img style="width:487.9829406738281px" src="Industrial%20IoT/image%2035.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-80d3-b0b7-e76f8905ef7c" class=""><strong>Edge Nodes (ENs):</strong></p></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-8047-8665-e9dd1e24c5fb" class="bulleted-list"><li style="list-style-type:disc">Directly interface with sensors, actuators, and end devices</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-806e-9378-d3bb1c6bab3f" class="bulleted-list"><li style="list-style-type:disc">Lower computational power but faster response time</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-8022-95d0-e4bbec2b3acd" class="bulleted-list"><li style="list-style-type:disc">Operate under constrained resources (power, storage, processing)</li></ul></div><div style="display:contents" dir="auto"><ul id="1e3eea59-ca7a-809b-a8cd-dbd6fd1cc0ff" class="bulleted-list"><li style="list-style-type:disc">Often connected wirelessly to end devices</li></ul></div><div style="display:contents" dir="auto"><p id="1e3eea59-ca7a-806a-8d8e-c43e61f332a8" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="1e3eea59-ca7a-80b2-a124-f925fc236553" class="image"><a href="Industrial%20IoT/image%2036.png"><img style="width:709.9573364257812px" src="Industrial%20IoT/image%2036.png"/></a><figcaption>QoE in C2TC</figcaption></figure></div><div style="display:contents" dir="auto"><p id="228eea59-ca7a-807a-ae25-dec2dd3057a0" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

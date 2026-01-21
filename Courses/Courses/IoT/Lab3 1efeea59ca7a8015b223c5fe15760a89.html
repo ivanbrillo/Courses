@@ -1,0 +1,874 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Lab3</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1efeea59-ca7a-8015-b223-c5fe15760a89" class="page sans"><header><h1 class="page-title" dir="auto">Lab3</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-8011-9fc6-ddc449769288" class="">Assumptions on the IPv6 implementation</p></div><div style="display:contents" dir="auto"><ol type="1" id="1efeea59-ca7a-8052-86dd-d81776edd23c" class="numbered-list" start="1"><li>each node has a single interface</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1efeea59-ca7a-8087-83f7-ebc089bef73a" class="numbered-list" start="2"><li>each interface can have up to UIP_CONF_NETIF_MAX_ADDRESSES unicast IPv6 addresses<br/>including its link-local address<div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-80f3-91ab-f796381faced" class="bulleted-list"><li style="list-style-type:disc">default value is 3</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-808f-b1f6-edbedda94c27" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-8074-b0aa-ff53e68301a3" class="">The prefix (0xfd00) may also be 0xfe80, depending if we refer to a global or a link local IPv6 address</p></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-803f-9bdd-f6c597271e44" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-80c6-9ead-dcbb0163290e" class="">Each Contiki node must be configured with at least one IPv6 address before it can send or receive IPv6 packets. </p></div><div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-80a6-b64f-f6a78d60eb0c" class="bulleted-list"><li style="list-style-type:disc">You typically construct a full 128-bit address from a chosen prefix and the node’s link-layer address</li></ul></div><div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-8049-9881-d98b19effc88" class="bulleted-list"><li style="list-style-type:disc">embed the 64-bit Interface Identifier (IID) based on its MAC into the lower half of that address, and </li></ul></div><div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-80f6-ace5-f0b0710e0aef" class="bulleted-list"><li style="list-style-type:disc">register it with the IPv6 interface </li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1efeea59-ca7a-80c3-8e10-dfa32ab1f4c2" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">  uip_ipaddr_t ipaddr;
+  
+  uip_ip6addr(&amp;ipaddr, 0xfd00,0,0,0,0,0,0,0);    /* 1. Build prefix */
+  uip_ds6_set_addr_iid(&amp;ipaddr, &amp;uip_lladdr);    /* 2. Set IID from MAC */
+  uip_ds6_addr_add(&amp;ipaddr, 0, ADDR_AUTOCONF);   /* 3. Add to interface  */</code></pre></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-80e2-b662-daa856482df2" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1efeea59-ca7a-80d4-ab63-c755a58f2760" class="">UDP Communication</h2></div><div style="display:contents" dir="auto"><div id="1efeea59-ca7a-80ca-974d-e368f7e0197f" class="column-list"><div style="display:contents" dir="auto"><div id="1efeea59-ca7a-80b4-b188-db70c4f203ab" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-8077-a7ab-f7b718680ea8" class="">both the sender and the receiver must register an UDP connection, a <mark class="highlight-orange">socket</mark>, with the following structure</p></div></div></div><div style="display:contents" dir="auto"><div id="1efeea59-ca7a-80e7-9267-cc7f801acfa6" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1efeea59-ca7a-80f0-ad82-e0f71bfb1de1" class="image"><a href="Lab3/image.png"><img style="width:331.984375px" src="Lab3/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1efeea59-ca7a-80ca-be3c-cb0e5364a283" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">int simple_udp_register(
+    struct simple_udp_connection *c,  /* Connection state structure */
+    uint16_t local_port,              /* Local UDP port to bind */
+    uip_ipaddr_t *remote_addr,        /* Remote IP (NULL = any) */
+    uint16_t remote_port,             /* Remote UDP port */
+    simple_udp_callback receive_callback    /* Callback on packet receipt */
+);</code></pre></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-8072-9e91-c62586ad2cb6" class="">The remote IP address can be NULL, to indicate that packets from any IP address should be accepted</p></div><div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-8025-b488-e6f055c45126" class="bulleted-list"><li style="list-style-type:disc">There are no <mark class="highlight-orange">broadcast </mark>addresses in IPv6. In IPv6, multicast addresses serve the same purpose as broadcasts<div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-8004-a895-c3100a102831" class="bulleted-list"><li style="list-style-type:circle">needs to configure also the multicast adress</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-8000-8160-cc4a3355e1e0" class="bulleted-list"><li style="list-style-type:disc">Then, to send there are 3 functions: <code>simple_upd_send</code>, <code>simple_udp_sendto</code>, <code>simple_udp_sendto_port</code></li></ul></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-8098-9f16-ef2a2555455d" class=""><br/>The <code>udp_rx_callback</code> function is the <strong>receive handler</strong> you provide to <code>simple_udp_register()</code>.  Whenever a matching UDP datagram arrives, Contiki-NG invokes this callback with the following parameters:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1efeea59-ca7a-80d3-bbd1-f1ab26168216" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">static void
+udp_rx_callback(
+  struct simple_udp_connection *c,   // [1] Connection state (your udp_conn)
+  const uip_ipaddr_t *sender_addr,   // [2] IPv6 address of the packet’s source
+  uint16_t sender_port,              // [3] UDP port number of the source
+  const uip_ipaddr_t *receiver_addr, // [4] IPv6 address we (the node) received it on
+  uint16_t receiver_port,            // [5] UDP port number we bound to
+  const uint8_t *data,               // [6] Pointer to the payload bytes
+  uint16_t datalen                   // [7] Length of the payload in bytes
+) { ... }</code></pre></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-807b-987c-f346dce0eab3" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1efeea59-ca7a-801d-b7cd-c3a091b83a2f" class="">WSN Configuration</h2></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-80ed-8749-e38fc4b33b91" class="">(Wireless sensor network)</p></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-804c-a8f5-d67756d7fad3" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-80cb-be24-dc2a121635ed" class="">Boththe server and client nodes must:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1efeea59-ca7a-80e5-9e26-e630175fdd0d" class="numbered-list" start="1"><li>define their ports<div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1efeea59-ca7a-8008-b340-e9c27d4025df" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#define UDP_CLIENT_PORT 8765
+#define UDP_SERVER_PORT 5678</code></pre></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1efeea59-ca7a-80b8-8c42-ecee8223e9d6" class="numbered-list" start="2"><li>declare the UDP connection and the callback function to handle received data<div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1efeea59-ca7a-8079-9f8f-f460e2dcc209" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">static struct simple_udp_connection udp_conn;</code></pre></div></li></ol></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-8081-8ac1-db1e5508aa96" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-808d-b1bf-dc2d5beb4ff9" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-80c3-a9e7-f9147cfee7d1" class="">The server must: register the connection. Remember that the first port is the local one</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1efeea59-ca7a-802b-8037-f1636df23b8e" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">simple_udp_register(&amp;udp_conn, UDP_SERVER_PORT, NULL, UDP_CLIENT_PORT, udp_rx_callback);</code></pre></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-80de-a9ff-fee55a69c3a7" class="">The client must: register the connection. Remember that the first port is the local one</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1efeea59-ca7a-80cd-b30b-ee7e7b7f3701" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">simple_udp_register(&amp;udp_conn, UDP_CLIENT_PORT, NULL, UDP_ SERVER_PORT, udp_rx_callback);</code></pre></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-80a9-a044-e881264fefd8" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1efeea59-ca7a-80c6-a544-cf9ec4181e8c" class="">RPL Routing</h2></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-801d-ac30-cb63717204cf" class="">The routing protocol (RPL in our case) enables multi-hop communication to allow nodes far from the network collection point to deliver their data.</p></div><div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-809d-ad60-c4b9b8101f28" class="bulleted-list"><li style="list-style-type:disc">Only hop-by-hop (layer 2 communication) is possible with link-local IPv6 addresses.</li></ul></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-80b3-8aa0-f13474e2b041" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-80ab-bdc0-ec0c9e3cabe3" class="">RPL builds and maintains a <mark class="highlight-orange">Destination-Oriented Directed Acyclic Graph </mark>(DODAG) topology that originates from an RPL root node, which is also the border router to the Internet.</p></div><div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-80ac-a6ec-cbde62efceaa" class="bulleted-list"><li style="list-style-type:disc">Routing control messages are disseminated through broadcast beacons periodically.</li></ul></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-809f-a50b-d72a442c5453" class="">The topology is built following a goal defined by an <mark class="highlight-blue">Objective Function</mark>.</p></div><div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-8022-9acd-dfdd6d79e8e4" class="bulleted-list"><li style="list-style-type:disc">e.g., minimize the estimated transmission count during transmission.</li></ul></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-805a-9bd0-f26a2aeddb20" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-8047-93cd-cc848c18e675" class="">RPL supports different directions of traffic:</p></div><div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-8019-b4f1-ebecb7e090a9" class="bulleted-list"><li style="list-style-type:disc"><strong>Upward routing</strong>: from any node to a root.</li></ul></div><div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-80de-94af-f4495ccff8e7" class="bulleted-list"><li style="list-style-type:disc"><strong>Downward routing</strong>: from the root to any node.</li></ul></div><div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-8015-a1a4-cd3fc577a05f" class="bulleted-list"><li style="list-style-type:disc"><strong>Any-to-any routing</strong>: where traffic flows between arbitrary pairs of nodes in the DODAG by routing upwards to their <mark class="highlight-blue">closest common ancestor </mark>(or the root in non-storing mode), and then downward to the destination node.</li></ul></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-8067-acaa-e95649cf8131" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-8024-beba-cd057281ce5f" class="">Downward routing is handled with two types of modes: <strong>non-storing</strong> and <strong>storing</strong> mode.</p></div><div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-800d-a53b-e9d3c5494955" class="bulleted-list"><li style="list-style-type:disc"><strong>Storing mode</strong>:<div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-805d-b2c9-d567e10b2409" class="bulleted-list"><li style="list-style-type:circle">Routing tables are stored on each node.</li></ul></div><div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-80f2-8631-e3c27f2fe145" class="bulleted-list"><li style="list-style-type:circle">Can impose a significant memory footprint in large networks and be hard to maintain consistently.</li></ul></div><div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-8075-8f4f-d9f573a78671" class="bulleted-list"><li style="list-style-type:circle">No need for potentially large source routing headers in the IPv6 packets.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-8035-bca5-c737cf20477e" class="bulleted-list"><li style="list-style-type:disc"><strong>Non-storing mode</strong>:<div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-807a-9f9c-c049c8a34552" class="bulleted-list"><li style="list-style-type:circle">IPv6 source routing is employed.</li></ul></div><div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-8030-96b5-db5cebeeab48" class="bulleted-list"><li style="list-style-type:circle">Nodes do not have to store routing tables.</li></ul></div><div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-8022-bc35-d0cbb703df4b" class="bulleted-list"><li style="list-style-type:circle">Packets can get large if many hops are along the path (due to source routing headers).</li></ul></div><div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-80ca-b0c0-fa0498388f69" class="bulleted-list"><li style="list-style-type:circle">Only downward packets get the extra headers; packets traveling upward are not affected.</li></ul></div><div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-80ed-b7fc-ec4c40dec72e" class="bulleted-list"><li style="list-style-type:circle">The DODAG root node has to store the routing table of the whole network, so its memory usage will still be high in large networks.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-8044-99ee-d7507cb0e5ae" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-80ad-8624-d3f3f389af75" class="">To initialize the DAG root:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1efeea59-ca7a-80ca-a9f5-f78924597595" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">NETSTACK_ROUTING.root_start();</code></pre></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-8053-8f0f-e9c20b1c1e62" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-80c1-b8e6-ed6dd57f043f" class="">
+</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1efeea59-ca7a-808e-8e64-cafb586b12e0" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &quot;contiki.h&quot;                        // Core Contiki definitions
+#include &quot;net/routing/routing.h&quot;           // For network stack routing functions (e.g., to start DAG root)
+#include &quot;net/netstack.h&quot;                  // Provides access to the networking stack
+#include &quot;net/ipv6/simple-udp.h&quot;           // Simplified UDP API
+#include &quot;sys/log.h&quot;                       // Logging facilities
+
+#define LOG_MODULE &quot;App&quot;                   // Log label for this module
+#define LOG_LEVEL LOG_LEVEL_INFO           // Log verbosity level
+
+#define UDP_CLIENT_PORT 8765               // Port where the client sends from
+#define UDP_SERVER_PORT 5678               // Port where this server listens
+
+static struct simple_udp_connection udp_conn; // Global structure for UDP connection
+
+// Declare and register the UDP server process
+PROCESS(udp_server_process, &quot;UDP server&quot;);
+AUTOSTART_PROCESSES(&amp;udp_server_process);  // Automatically start the server process when node boots
+
+// Callback function called when a UDP packet is received
+static void udp_rx_callback(struct simple_udp_connection *c,
+                            const uip_ipaddr_t *sender_addr,        // IP address of the sender
+                            uint16_t sender_port,                   // UDP port of the sender
+                            const uip_ipaddr_t *receiver_addr,      // IP address of receiver (this node)
+                            uint16_t receiver_port,                 // UDP port on which data was received
+                            const uint8_t *data,                    // Pointer to received data
+                            uint16_t datalen)                       // Length of received data
+{
+  // Log the received message and the sender&#x27;s address
+  LOG_INFO(&quot;Received request %s &quot;, data);
+  LOG_INFO_6ADDR(sender_addr);
+  LOG_INFO_(&quot;\n&quot;);
+}
+
+// Main thread of the UDP server process
+PROCESS_THREAD(udp_server_process, ev, data)
+{
+  PROCESS_BEGIN();
+
+  // Start this node as the DAG root (RPL root), which makes it the network&#x27;s coordinator
+  NETSTACK_ROUTING.root_start();
+
+  // Register a UDP connection: 
+  // - listen on UDP_SERVER_PORT
+  // - accept data from any IP address (NULL)
+  // - expect data to come from UDP_CLIENT_PORT
+  // - use `udp_rx_callback` as handler when a datagram arrives
+  simple_udp_register(&amp;udp_conn, UDP_SERVER_PORT, NULL,
+                      UDP_CLIENT_PORT, udp_rx_callback);
+
+  PROCESS_END();
+}</code></pre></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1efeea59-ca7a-80a4-9464-f6f0aa5c8d9f" class="code code-wrap"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &quot;contiki.h&quot;                       // Core Contiki definitions
+#include &quot;net/routing/routing.h&quot;          // For checking routing and getting root IP
+#include &quot;random.h&quot;                        // For generating random delays
+#include &quot;net/netstack.h&quot;                 // Access to the network stack
+#include &quot;net/ipv6/simple-udp.h&quot;          // Simplified UDP API
+#include &quot;net/linkaddr.h&quot;                 // For accessing the node link-layer address
+#include &quot;sys/log.h&quot;                      // Logging utilities
+
+#define LOG_MODULE &quot;App&quot;                  // Log label for this module
+#define LOG_LEVEL LOG_LEVEL_INFO          // Log verbosity level
+
+#define UDP_CLIENT_PORT 8765              // Local port to send from
+#define UDP_SERVER_PORT 5678              // Destination server port
+
+static struct simple_udp_connection udp_conn; // UDP connection handle
+
+#define START_INTERVAL (5 * CLOCK_SECOND) // Timer interval (first message after 5 seconds)
+
+PROCESS(udp_client_process, &quot;UDP client&quot;);           // Declare the process
+AUTOSTART_PROCESSES(&amp;udp_client_process);            // Automatically start on boot
+
+// Callback function called when a UDP response is received
+static void udp_rx_callback(struct simple_udp_connection *c,
+                            const uip_ipaddr_t *sender_addr,
+                            uint16_t sender_port,
+                            const uip_ipaddr_t *receiver_addr,
+                            uint16_t receiver_port,
+                            const uint8_t *data,
+                            uint16_t datalen) {
+  LOG_INFO(&quot;Received response %s&quot;, data);
+  LOG_INFO_6ADDR(sender_addr);
+  LOG_INFO_(&quot;\n&quot;);
+}
+
+PROCESS_THREAD(udp_client_process, ev, data) {
+  static struct etimer periodic_timer;        // Timer to control sending interval
+  static uip_ipaddr_t dest_ipaddr;            // IP address of the DAG root (server)
+  static unsigned int message_number = 0;     // Counter for sent messages
+
+  PROCESS_BEGIN();
+
+  // Register UDP connection: this client sends from UDP_CLIENT_PORT,
+  // expects responses from UDP_SERVER_PORT, and uses `udp_rx_callback` to handle replies
+  simple_udp_register(&amp;udp_conn, UDP_CLIENT_PORT, NULL, UDP_SERVER_PORT, udp_rx_callback);
+
+  // Set initial timer
+  etimer_set(&amp;periodic_timer, START_INTERVAL);
+
+  while(1) {
+    // Wait until timer expires
+    PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&amp;periodic_timer));
+
+    // Check if the DAG root is reachable and get its IP address
+    if(NETSTACK_ROUTING.node_is_reachable() &amp;&amp; NETSTACK_ROUTING.get_root_ipaddr(&amp;dest_ipaddr)) {
+      // Log the destination and message number
+      LOG_INFO(&quot;Sending request %u to &quot;, message_number);
+      LOG_INFO_6ADDR(&amp;dest_ipaddr);
+      LOG_INFO_(&quot;\n&quot;);
+
+      // Create the message payload
+      char buf[300];
+      sprintf(buf, &quot;Message %d from node %d&quot;, message_number, linkaddr_node_addr.u8[7]);
+      message_number++;
+
+      // Send the message via UDP
+      simple_udp_sendto(&amp;udp_conn, buf, strlen(buf) + 1, &amp;dest_ipaddr);
+    } else {
+      LOG_INFO(&quot;Not reachable yet\n&quot;);  // Routing not yet ready
+    }
+
+    // Set the next timer with a randomized delay to reduce collisions
+    etimer_set(&amp;periodic_timer, (random_rand() % START_INTERVAL));
+  }
+
+  PROCESS_END();
+}
+</code></pre></div><div style="display:contents" dir="auto"><ul id="1efeea59-ca7a-80fd-aaf1-e2180b4da71b" class="bulleted-list"><li style="list-style-type:disc">IPs are automatically assigned</li></ul></div><div style="display:contents" dir="auto"><p id="1efeea59-ca7a-8016-ac73-cbdcba121481" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
