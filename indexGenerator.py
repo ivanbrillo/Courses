@@ -24,6 +24,17 @@ GITHUB_LINKS = {
     "Process Mining and Intelligence": "./../HEART DISEASE DETECTOR.zip",
     "Project Management": "https://github.com/ivanbrillo/SignLearnAI",
 }
+# --- DISPLAY NAME DICTIONARY ---
+# Rename course titles for display on the main page
+# Key: original title from Notion, Value: display title
+# If a course is not in this dictionary, the original title will be used
+DISPLAY_NAMES = {
+    "Large scale database": "Large Scale DB",
+    "ML": "Machine Learning & Data Mining",
+    "MOEA and RL": "Reinforcement Learning and MOEA",
+    "IR, CV and LM": "Information Retrieval & Computer Vision",
+}
+
 
 # --- HTML TEMPLATE ---
 html_top = f"""
@@ -383,6 +394,9 @@ def main():
         # Get GitHub link from dictionary
         github_link = GITHUB_LINKS.get(course_name, "")
         
+        # Get display name from dictionary, use original if not found
+        display_name = DISPLAY_NAMES.get(course_name, course_data["title"])
+        
         # Create intermediate page with all links for this course
         intermediate_link = create_intermediate_page(
             course_data["title"],
@@ -393,7 +407,7 @@ def main():
         )
         
         cards.append({
-            "title": course_data["title"],
+            "title": display_name,  # Use display name for card
             "link": intermediate_link,
             "icon": course_data["icon"],
             "cover": course_data["cover"],
