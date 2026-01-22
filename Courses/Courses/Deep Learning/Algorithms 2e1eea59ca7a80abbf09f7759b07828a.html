@@ -710,5 +710,839 @@ blockquote.quote-large {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="2e1eea59-ca7a-80ab-bf09-f7759b07828a" class="page sans"><header><h1 class="page-title" dir="auto">Algorithms </h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="2e1eea59-ca7a-80ae-90cb-c722be416fe2" class="">Simulated Annealing</h1></div><div style="display:contents" dir="ltr"><figure id="2e1eea59-ca7a-8000-858e-de15d393600b" class="image"><a href="Algorithms/image.png"><img style="width:710px" src="Algorithms/image.png"/></a></figure></div><div style="display:contents" dir="auto"><h1 id="2e1eea59-ca7a-80fe-9d38-f76540a3d4d7" class=""><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(1+1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> ES</h1></div><div style="display:contents" dir="ltr"><figure id="2e1eea59-ca7a-80f5-b4f8-fdf152ca3901" class="image"><a href="Algorithms/image%201.png"><img style="width:709.977294921875px" src="Algorithms/image%201.png"/></a></figure></div><div style="display:contents" dir="auto"><h1 id="2e1eea59-ca7a-80bf-a754-eb9bc4b99156" class=""><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>μ</mi><mo>+</mo><mi>λ</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(\mu + \lambda ) </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">μ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">λ</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> ES</h1></div><div style="display:contents" dir="ltr"><figure id="2e1eea59-ca7a-800d-82f8-d34cfeecc6ec" class="image"><a href="Algorithms/image%202.png"><img style="width:709.9886474609375px" src="Algorithms/image%202.png"/></a></figure></div><div style="display:contents" dir="auto"><h1 id="2e1eea59-ca7a-80de-ab13-eed3a85151b3" class="">GA</h1></div><div style="display:contents" dir="ltr"><figure id="2e1eea59-ca7a-80a1-878a-e202ebc0483f" class="image"><a href="Algorithms/image%203.png"><img style="width:709.977294921875px" src="Algorithms/image%203.png"/></a></figure></div><div style="display:contents" dir="auto"><h1 id="2e1eea59-ca7a-8084-a8cb-f937a5c50b7c" class="">SBX</h1></div><div style="display:contents" dir="ltr"><figure id="2e1eea59-ca7a-80e8-a524-e4f109082516" class="image"><a href="Algorithms/image%204.png"><img style="width:709.9886474609375px" src="Algorithms/image%204.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="2e1eea59-ca7a-8043-a47c-d529c9112024" class="image"><a href="Algorithms/image%205.png"><img style="width:710px" src="Algorithms/image%205.png"/></a></figure></div><div style="display:contents" dir="auto"><h1 id="2e1eea59-ca7a-80f7-bfbc-e6e8d973c727" class="">Surrogate GA</h1></div><div style="display:contents" dir="ltr"><figure id="2e1eea59-ca7a-80d0-83af-f7292086a9f3" class="image"><a href="Algorithms/image%206.png"><img style="width:710px" src="Algorithms/image%206.png"/></a></figure></div><div style="display:contents" dir="auto"><h1 id="2e1eea59-ca7a-808b-befc-fcf48c58e400" class="">PSO</h1></div><div style="display:contents" dir="ltr"><figure id="2e1eea59-ca7a-80b8-bc82-c7cd400d8b55" class="image"><a href="Algorithms/image%207.png"><img style="width:709.9886474609375px" src="Algorithms/image%207.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="2e1eea59-ca7a-80be-a750-c0939514329e" class="image"><a href="Algorithms/image%208.png"><img style="width:710px" src="Algorithms/image%208.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="2e1eea59-ca7a-80bd-800d-fd6e2db55e19" class="">
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+</style></head><body><article id="2e1eea59-ca7a-80ab-bf09-f7759b07828a" class="page sans"><header><h1 class="page-title" dir="auto">Algorithms </h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="2e1eea59-ca7a-80ae-90cb-c722be416fe2" class="">Simulated Annealing</h1></div><div style="display:contents" dir="ltr"><figure id="2e1eea59-ca7a-8000-858e-de15d393600b" class="image"><a href="Algorithms/image.png"><img style="width:710px" src="Algorithms/image.png"/></a></figure></div><div style="display:contents" dir="auto"><h1 id="2e1eea59-ca7a-80fe-9d38-f76540a3d4d7" class=""><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(1+1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> ES</h1></div><div style="display:contents" dir="ltr"><figure id="2e1eea59-ca7a-80f5-b4f8-fdf152ca3901" class="image"><a href="Algorithms/image%201.png"><img style="width:709.977294921875px" src="Algorithms/image%201.png"/></a></figure></div><div style="display:contents" dir="auto"><h1 id="2e1eea59-ca7a-80bf-a754-eb9bc4b99156" class=""><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>μ</mi><mo>+</mo><mi>λ</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(\mu + \lambda ) </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">μ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">λ</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> ES</h1></div><div style="display:contents" dir="ltr"><figure id="2e1eea59-ca7a-800d-82f8-d34cfeecc6ec" class="image"><a href="Algorithms/image%202.png"><img style="width:709.9886474609375px" src="Algorithms/image%202.png"/></a></figure></div><div style="display:contents" dir="auto"><h1 id="2e1eea59-ca7a-80de-ab13-eed3a85151b3" class="">GA</h1></div><div style="display:contents" dir="ltr"><figure id="2e1eea59-ca7a-80a1-878a-e202ebc0483f" class="image"><a href="Algorithms/image%203.png"><img style="width:709.977294921875px" src="Algorithms/image%203.png"/></a></figure></div><div style="display:contents" dir="auto"><h1 id="2e1eea59-ca7a-8084-a8cb-f937a5c50b7c" class="">SBX</h1></div><div style="display:contents" dir="ltr"><figure id="2e1eea59-ca7a-80e8-a524-e4f109082516" class="image"><a href="Algorithms/image%204.png"><img style="width:709.9886474609375px" src="Algorithms/image%204.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="2e1eea59-ca7a-8043-a47c-d529c9112024" class="image"><a href="Algorithms/image%205.png"><img style="width:710px" src="Algorithms/image%205.png"/></a></figure></div><div style="display:contents" dir="auto"><h1 id="2e1eea59-ca7a-80f7-bfbc-e6e8d973c727" class="">Surrogate GA</h1></div><div style="display:contents" dir="ltr"><figure id="2e1eea59-ca7a-80d0-83af-f7292086a9f3" class="image"><a href="Algorithms/image%206.png"><img style="width:710px" src="Algorithms/image%206.png"/></a></figure></div><div style="display:contents" dir="auto"><h1 id="2e1eea59-ca7a-808b-befc-fcf48c58e400" class="">PSO</h1></div><div style="display:contents" dir="ltr"><figure id="2e1eea59-ca7a-80b8-bc82-c7cd400d8b55" class="image"><a href="Algorithms/image%207.png"><img style="width:709.9886474609375px" src="Algorithms/image%207.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="2e1eea59-ca7a-80be-a750-c0939514329e" class="image"><a href="Algorithms/image%208.png"><img style="width:710px" src="Algorithms/image%208.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="2e1eea59-ca7a-80bd-800d-fd6e2db55e19" class="">
 </p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

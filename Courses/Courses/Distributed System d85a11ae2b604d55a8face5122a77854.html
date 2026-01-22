@@ -710,7 +710,285 @@ blockquote.quote-large {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="d85a11ae-2b60-4d55-a8fa-ce5122a77854" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/webb2.jpg" style="object-position:center 70%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">👨‍👨‍👦‍👦</span></div><h1 class="page-title" dir="auto">Distributed System</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/clock_gray.svg" style="width:14px;height:14px;display:block"/></span>Created</th><td><time>@September 23, 2024 1:53 PM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/list_gray.svg" style="width:14px;height:14px;display:block"/></span>Tags</th><td></td></tr></tbody></table></header><div class="page-body"><div style="display:contents" dir="auto"><p id="10aeea59-ca7a-80fd-a502-f88d139f2fa3" class="">
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+</style></head><body><article id="d85a11ae-2b60-4d55-a8fa-ce5122a77854" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/webb2.jpg" style="object-position:center 70%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">👨‍👨‍👦‍👦</span></div><h1 class="page-title" dir="auto">Distributed System</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="10aeea59-ca7a-80fd-a502-f88d139f2fa3" class="">
 </p></div><div style="display:contents" dir="ltr"><figure id="10aeea59-ca7a-8076-b9cc-f9e8646a378b" class="link-to-page"><a href="Distributed%20System/Concurrency%2010aeea59ca7a8076b9ccf9e8646a378b.html">Concurrency</a></figure></div><div style="display:contents" dir="ltr"><figure id="10ceea59-ca7a-80ad-9086-c6f22f0d3b0b" class="link-to-page"><a href="Distributed%20System/Message%20Passing%20Systems%2010ceea59ca7a80ad9086c6f22f0d3b0b.html">Message Passing Systems</a></figure></div><div style="display:contents" dir="ltr"><figure id="112eea59-ca7a-80af-909e-f59c69a6c05e" class="link-to-page"><a href="Distributed%20System/Erlang%20Intro%20112eea59ca7a80af909ef59c69a6c05e.html">Erlang Intro</a></figure></div><div style="display:contents" dir="ltr"><figure id="118eea59-ca7a-8028-b05a-c0ad7ee6cf12" class="link-to-page"><a href="Distributed%20System/Erlang%20Concurrency%20and%20Distibution%20118eea59ca7a8028b05ac0ad7ee6cf12.html">Erlang Concurrency and Distibution</a></figure></div><div style="display:contents" dir="ltr"><figure id="11aeea59-ca7a-802f-9225-e989ee29a2c7" class="link-to-page"><a href="Distributed%20System/Client-Server%2011aeea59ca7a802f9225e989ee29a2c7.html">Client-Server</a></figure></div><div style="display:contents" dir="ltr"><figure id="11feea59-ca7a-8018-bf2c-f1e899b4d0c4" class="link-to-page"><a href="Distributed%20System/Erlang%20Distributed%20Application%2011feea59ca7a8018bf2cf1e899b4d0c4.html">Erlang Distributed Application</a></figure></div><div style="display:contents" dir="auto"><p id="134eea59-ca7a-8011-86c4-e922a6bcad3d" class="">
 </p></div><div style="display:contents" dir="ltr"><figure id="134eea59-ca7a-8032-a1b9-d4bffb1ce13f" class="link-to-page"><a href="Distributed%20System/Remote%20Call%20134eea59ca7a8032a1b9d4bffb1ce13f.html">Remote Call</a></figure></div><div style="display:contents" dir="ltr"><figure id="13ceea59-ca7a-80fc-a0a0-db8aa6e0a4d1" class="link-to-page"><a href="Distributed%20System/Enterprise%20Apps%20and%20Jakarta%20EE%20(JEE)%2013ceea59ca7a80fca0a0db8aa6e0a4d1.html">Enterprise Apps and Jakarta EE (JEE)</a></figure></div><div style="display:contents" dir="auto"><p id="121eea59-ca7a-80fd-a506-fd98da885ed0" class="">
 </p></div><div style="display:contents" dir="ltr"><figure id="121eea59-ca7a-80e0-9c67-e78dc05252d3" class="link-to-page"><a href="Distributed%20System/Java%20121eea59ca7a80e09c67e78dc05252d3.html">Java</a></figure></div><div style="display:contents" dir="ltr"><figure id="126eea59-ca7a-8006-8c0e-c7562939acc9" class="link-to-page"><a href="Distributed%20System/Java%20Threads%20and%20Synchronizers%20126eea59ca7a80068c0ec7562939acc9.html">Java Threads and Synchronizers</a></figure></div><div style="display:contents" dir="ltr"><figure id="12deea59-ca7a-80b9-81c5-cc28e0b89b56" class="link-to-page"><a href="Distributed%20System/Memory%20Consistecy%20Rules%2012deea59ca7a80b981c5cc28e0b89b56.html">Memory Consistecy Rules</a></figure></div><div style="display:contents" dir="auto"><p id="150eea59-ca7a-8041-a401-c77c29afcaa2" class="">
