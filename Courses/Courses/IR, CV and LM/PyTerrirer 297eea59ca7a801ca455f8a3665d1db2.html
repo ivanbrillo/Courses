@@ -1665,7 +1665,8 @@ blockquote {
     color: inherit;
 }
 
-</style></head><body><article id="297eea59-ca7a-801c-a455-f8a3665d1db2" class="page sans"><header><h1 class="page-title" dir="auto">PyTerrirer</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2c3eea59-ca7a-80d0-9688-e7b54e91dcd1" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">vaswani_dataset = pt.get_dataset(&quot;vaswani&quot;)
+</style><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head><body><article id="297eea59-ca7a-801c-a455-f8a3665d1db2" class="page sans"><header><h1 class="page-title" dir="auto">PyTerrirer</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2c3eea59-ca7a-80d0-9688-e7b54e91dcd1" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">vaswani_dataset = pt.get_dataset(&quot;vaswani&quot;)
 index = pt.IndexFactory.of(vaswani_dataset.get_index())  # this creates a datastructure 
 
 tfidf = pt.terrier.Retriever(index, wmodel=&quot;TF_IDF&quot;)  #default is DF
@@ -1675,4 +1676,5 @@ tfidf.transform(vaswani_dataset.get_topics().head(1))</code></pre></div><div sty
     vaswani.get_qrels(),  # judgements
     eval_metrics=[&quot;map&quot;, &quot;recip_rank&quot;]
 )</code></pre></div><div style="display:contents" dir="auto"><p id="2c3eea59-ca7a-808c-ac29-d010359481c5" class="">
-</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</body></html>

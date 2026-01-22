@@ -154,11 +154,21 @@ def process_html_file(file_path):
         if katex_css not in content and '<head>' in content:
             content = content.replace('<head>', f'<head>\n{katex_css}')
         
-        # 2. Add dark theme CSS before </style>
+        # 2. Add Prism.js for code syntax highlighting (dark theme)
+        prism_css = '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">'
+        prism_js = '<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>'
+        
+        if prism_css not in content and '<head>' in content:
+            content = content.replace('</head>', f'{prism_css}\n</head>')
+        
+        if prism_js not in content and '</body>' in content:
+            content = content.replace('</body>', f'{prism_js}\n</body>')
+        
+        # 3. Add dark theme CSS before </style>
         if DARK_THEME_CSS not in content:
             content = content.replace('</style>', f'{DARK_THEME_CSS}\n</style>')
         
-        # 3. Remove the properties table (tags, created date, etc.)
+        # 4. Remove the properties table (tags, created date, etc.)
         # This regex matches the entire <table class="properties">...</table> block
         content = re.sub(
             r'<table class="properties">.*?</table>',
