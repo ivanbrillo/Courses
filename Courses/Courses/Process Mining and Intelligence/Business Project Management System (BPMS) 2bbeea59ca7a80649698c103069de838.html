@@ -1,0 +1,1002 @@
+<html><head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" crossorigin="anonymous"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Business Project Management System (BPMS)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #f0f0f0;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #f0f0f0;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #f0f0f0;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Fix KaTeX equations - show only rendered version, hide MathML source */
+.notion-text-equation-token .katex-mathml,
+.katex-mathml {
+    display: none !important;
+}
+
+.notion-text-equation-token .katex-html,
+.katex-html {
+    display: inline !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+</style><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head><body><article id="2bbeea59-ca7a-8064-9698-c103069de838" class="page sans"><header><h1 class="page-title" dir="auto">Business Project Management System (BPMS)</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><div id="2c0eea59-ca7a-80d8-9c70-e5d3e06c31e4" class="column-list"><div style="display:contents" dir="auto"><div id="2c0eea59-ca7a-8081-8dd1-c4dde70cd493" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-80ee-9ad7-d0163a7d790d" class="">In a business rule task, business rules are applied in order to make a decision, by<br/>means of a <mark class="highlight-orange">Business Rule Management System</mark> (BRMS) which is called by the<br/>process engine.</p></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-80a9-b711-f382dbd9d66c" class="bulleted-list"><li style="list-style-type:disc">Business rule task could be written as case-base rules</li></ul></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-8033-b613-d6cd62ce33d1" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="2c0eea59-ca7a-8092-a7f0-d347d63bb74a" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="2c0eea59-ca7a-8086-94b2-ed0c645134ca" class="image"><a href="Business%20Project%20Management%20System%20(BPMS)/image.png"><img style="width:480px" src="Business%20Project%20Management%20System%20(BPMS)/image.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure id="2c0eea59-ca7a-80d7-97f7-e1287f17e82b" class="image"><a href="Business%20Project%20Management%20System%20(BPMS)/image%201.png"><img style="width:480px" src="Business%20Project%20Management%20System%20(BPMS)/image%201.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-80f2-a188-c371efbb7b3b" class="">Each firm inherits two properties from the generalized concept Firm. </p></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-801e-8aef-cd730058dd33" class="bulleted-list"><li style="list-style-type:disc">A firm has an in progress orders and retains a Residual Production Capacity. Both properties can assume the value “true” or “false”</li></ul></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-80ed-83e8-c2fda8717a3c" class="bulleted-list"><li style="list-style-type:disc">I can translate the natural language business rules in <mark class="highlight-orange">IF-THEN </mark>rules</li></ul></div><div style="display:contents" dir="ltr"><figure id="2c0eea59-ca7a-808b-839e-ce1ca1c884ba" class="image"><a href="Business%20Project%20Management%20System%20(BPMS)/image%202.png"><img style="width:480px" src="Business%20Project%20Management%20System%20(BPMS)/image%202.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-8078-b077-da74335c8526" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-808f-b440-d97c6cd9f3cd" class=""><mark class="highlight-orange">Collaborative Analytics</mark></p></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-8068-9861-eef8324caa42" class="">Business rules are usually designed according to goals which are measurable via related Key Performance Indicators (<mark class="highlight-teal">KPIs</mark>).</p></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-80a1-86f3-c070cf9cfaf3" class="">In the dilemma, a typical buyer does not like to share the performance of his good providers (keeping a competitive advantage over its rivals) and like to share the performance of a bad provider (showing his collaborative spirit)</p></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-80d2-af1a-f66ad1fad714" class="bulleted-list"><li style="list-style-type:disc">The fundamental question of a buyer is: how much are my providers good/bad?<br/>To solve this question, providers’ performance should be shared. This way, buyers with good providers would lose the competitive advantage</li></ul></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-80aa-a939-f852639f049b" class="bulleted-list"><li style="list-style-type:disc">The <mark class="highlight-teal">server </mark>orchestrates step-by-step a random sequence of buyers. At each step, the next buyer is asked to the server, which does not manage partial summations.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-8095-ac66-ff2d6c9f189a" class="bulleted-list"><li style="list-style-type:disc">Collective datum is anonymously sent to the extracted buyer, who adds his private datum to it and ask the System for the next buyer</li></ul></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-8059-a978-cb8ffb6b1bae" class="bulleted-list"><li style="list-style-type:disc">The last extracted buyer will be provided with a fictitious buyer by the system. Such fictitious buyer actually corresponds to the System itself. After receiving the collective datum, the System subtracts the initial fictitious datum, thus obtaining the actual collective datum, which is then processed (so as to extract some common features) and sent to all buyers.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-80cb-8099-e1b1ad524f63" class="bulleted-list"><li style="list-style-type:disc">By comparing the collective datum with his private datum, each buyer will be able to assess his position with respect to the collective performance</li></ul></div><div style="display:contents" dir="auto"><div id="2c1eea59-ca7a-802b-b1be-ec69b5049968" class="column-list"><div style="display:contents" dir="auto"><div id="2c1eea59-ca7a-8076-841e-e80cceb8e387" style="width:62.5%" class="column"><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-803d-8296-d142ff0d1103" class="bulleted-list"><li style="list-style-type:disc"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #f0f0f0;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #f0f0f0;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #f0f0f0;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Fix KaTeX equations - show only rendered version, hide MathML source */
+.notion-text-equation-token .katex-mathml,
+.katex-mathml {
+    display: none !important;
+}
+
+.notion-text-equation-token .katex-html,
+.katex-html {
+    display: inline !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">t_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7651em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> is a random summation of prices</li></ul></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-8021-b7c4-ce8c0c64fd23" class="bulleted-list"><li style="list-style-type:disc">Buyer1 is not aware he is talking with the server → I could change the order also</li></ul></div><div style="display:contents" dir="auto"><p id="2c9eea59-ca7a-801d-8471-f145120b1719" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="2c1eea59-ca7a-8035-9f8e-fdf18ebf9735" style="width:37.49999999999999%" class="column"><div style="display:contents" dir="ltr"><figure id="2c0eea59-ca7a-80a8-a5a3-cc08f3165201" class="image"><a href="Business%20Project%20Management%20System%20(BPMS)/6d700e6b-7924-43eb-b1ff-993729691d99.png"><img style="width:336px" src="Business%20Project%20Management%20System%20(BPMS)/6d700e6b-7924-43eb-b1ff-993729691d99.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h3 id="2c1eea59-ca7a-804c-ad6f-d5a742c619a4" class="">BONITA</h3></div><div style="display:contents" dir="auto"><div id="2c1eea59-ca7a-802e-ae9f-e80f2837ce63" class="column-list"><div style="display:contents" dir="auto"><div id="2c1eea59-ca7a-806f-b818-fa671ed911d9" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-804c-90c8-ef0478ae2003" class="">Bonita BPM adopts the <mark class="highlight-teal">model-driven approach</mark> → automatic code generation</p></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-804d-80ce-f0b30f9e9610" class="bulleted-list"><li style="list-style-type:disc">Bonita BPM 7 is a powerful application platform for building personalized, process-based business applications</li></ul></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-8031-be25-c7bda135e8a7" class="bulleted-list"><li style="list-style-type:disc">Connector to send email, DBC, web services, …</li></ul></div></div></div><div style="display:contents" dir="auto"><div id="2c1eea59-ca7a-8068-892a-cb9f5b046ec8" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="2c1eea59-ca7a-80a3-a4c5-e36d98682efe" class="image"><a href="Business%20Project%20Management%20System%20(BPMS)/image%203.png"><img style="width:336px" src="Business%20Project%20Management%20System%20(BPMS)/image%203.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h1 id="2c0eea59-ca7a-807d-b924-ca0cc475bd4d" class="">Enterprise systems</h1></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-8082-b0d4-e66e0cccfa03" class="bulleted-list"><li style="list-style-type:disc">A computer Information System (<mark class="highlight-teal">IS</mark>) is a system, composed of people and computers systems, that processes or interprets information.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-8051-860e-eb279e732b69" class="bulleted-list"><li style="list-style-type:disc">An Enterprise Information System (<mark class="highlight-teal">EIS</mark>) is an IS which supports enterprise business processes</li></ul></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-801d-9140-ef65cbabd290" class="bulleted-list"><li style="list-style-type:disc">A <mark class="highlight-teal">business process </mark>is a collection of related, structured activities/tasks producing a specific service/product for a particular kind of customer (customer-centric perspective)</li></ul></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-804b-903c-eab260cdd2df" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-80a6-85b3-c2e5cf930433" class=""><mark class="highlight-teal">1st era</mark>: mainframes host monolithic applications, developed in assembler, managing all tasks in a single huge program with textual user interface, application logic, and data files (accessed via OS)</p></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-8074-a469-c9c08529b298" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-801e-a4bf-f93de734f9ee" class="">With the advent of DBMS and GUI, lowering cost of computers, it is typical for a single enterprise to have different applications → thus different DBs</p></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-802d-8fd1-cd61a4fb145d" class="bulleted-list"><li style="list-style-type:disc">Dependencies between data stored in multiple systems are represented by identifiers (e.g. contract id, employee id)</li></ul></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-800a-ab53-ffc9bbc4d189" class="bulleted-list"><li style="list-style-type:disc">However, changes (e.g. a customer address) are hard to propagate without inconsistency</li></ul></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-801d-a255-e22de3d6ccdf" class="">
+</p></div><div style="display:contents" dir="auto"><div id="2c0eea59-ca7a-8072-adc6-f94e177c0c2d" class="column-list"><div style="display:contents" dir="auto"><div id="2c0eea59-ca7a-8015-8db1-f5b6ecb0b8fb" style="width:56.25%" class="column"><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-8027-83f1-cc464fe592ef" class="">In this context the first Enterprise Resource Planning systems (<mark class="highlight-teal">ERP</mark>) are developed: to host disparate enterprise applications over centralized DBMS.</p></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-8031-b381-e704214cbe47" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="2c0eea59-ca7a-80f8-bc7b-c69af2589e93" style="width:43.75000000000001%" class="column"><div style="display:contents" dir="ltr"><figure id="2c0eea59-ca7a-80f8-99cc-da339e585630" class="image"><a href="Business%20Project%20Management%20System%20(BPMS)/image%204.png"><img style="width:336px" src="Business%20Project%20Management%20System%20(BPMS)/image%204.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-8076-97ee-dabb53d37591" class="">Supply Chain Management (<mark class="highlight-teal">SCM</mark>) systems, Customer Relationship Management (<mark class="highlight-teal">CRM</mark>) systems, with the purpose of supporting the planning, operation, and control of supply chains, including inventory management, warehouse management, management of suppliers relationships (<mark class="highlight-teal">SRM</mark>), and demand planning</p></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-8006-9c5c-f26357ec36d6" class="bulleted-list"><li style="list-style-type:disc">New types of ISs enter the market, often developed by different<br/>vendors, hosting their own DBMS → <mark class="highlight-teal">siloed applications </mark>(not logically integrated)</li></ul></div><div style="display:contents" dir="auto"><div id="2c0eea59-ca7a-805c-826f-c253d3afda73" class="column-list"><div style="display:contents" dir="auto"><div id="2c0eea59-ca7a-800e-b85e-cb770bde6e5e" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-801c-b259-f8127d5eab3e" class="">System architects face again the problem of heterogeneous enterprise applications: for instance, call centers are not able to know the complete status of the customer</p></div></div></div><div style="display:contents" dir="auto"><div id="2c0eea59-ca7a-8065-aad7-c5baaa6e8316" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="2c0eea59-ca7a-807f-bd46-fcff3403dfed" class="image"><a href="Business%20Project%20Management%20System%20(BPMS)/image%205.png"><img style="width:528px" src="Business%20Project%20Management%20System%20(BPMS)/image%205.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-8083-a38a-fd4de2de7595" class="bulleted-list"><li style="list-style-type:disc">cannot connect and reate a huge enterprise system, since the systems are too complex to do so</li></ul></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-8001-8a61-c9b7e05ccbfc" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-801c-8295-fb87745a61b8" class="">This leads to new middleware systems: <mark class="highlight-teal">EAI </mark>(Enterprise Application Integration) systems</p></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-8022-ab5a-c6ff55979fc1" class="bulleted-list"><li style="list-style-type:disc">in EAI, a system performs certain steps and transfers control to another system, which takes results and continues operation</li></ul></div><div style="display:contents" dir="auto"><ul id="2c0eea59-ca7a-8059-8d91-eddf875291ae" class="bulleted-list"><li style="list-style-type:disc">EAI technology can be used to cope with syntactic and semantic differences between data (<mark class="highlight-blue">data integration</mark>) → e.g. addresses in different formats, … </li></ul></div><div style="display:contents" dir="auto"><div id="2c1eea59-ca7a-803c-ab95-c306014b37df" class="column-list"><div style="display:contents" dir="auto"><div id="2c1eea59-ca7a-8060-88c7-d43c9753812f" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="2c0eea59-ca7a-8031-b882-fee2b568bb81" class="image"><a href="Business%20Project%20Management%20System%20(BPMS)/image%206.png"><img style="width:528px" src="Business%20Project%20Management%20System%20(BPMS)/image%206.png"/></a></figure></div></div></div><div style="display:contents" dir="auto"><div id="2c1eea59-ca7a-803d-95ac-f8dbcc77a12b" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="2c0eea59-ca7a-8081-9a6b-c6e4a649bea6" class="image"><a href="Business%20Project%20Management%20System%20(BPMS)/image%207.png"><img style="width:528px" src="Business%20Project%20Management%20System%20(BPMS)/image%207.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure id="2c0eea59-ca7a-8035-98ed-d1fcba122ebf" class="image"><a href="Business%20Project%20Management%20System%20(BPMS)/image%208.png"><img style="width:336px" src="Business%20Project%20Management%20System%20(BPMS)/image%208.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-8070-9441-fb212f133703" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-808a-a6ab-e7ae359a4715" class="">The sender of a message does not encode the receiver, since the message structure and content is used to automatically detect the receiver or receivers of a message (<mark class="highlight-orange">content-based routing</mark>)</p></div><div style="display:contents" dir="auto"><p id="2c0eea59-ca7a-808e-9271-d8c8cf054286" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-802e-9de6-de0ea66e5657" class="">Message brokers are used to define communication applications, rules for between in a <mark class="highlight-teal">declarative </mark>way, in the central hub</p></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-8003-a076-f0f1896a69ac" class="bulleted-list"><li style="list-style-type:disc">applications will publish/subscribe to broker to get certain messages</li></ul></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-80d3-a9a4-e028beaf3324" class="bulleted-list"><li style="list-style-type:disc">The broker will send the msgs</li></ul></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-802d-9778-ed7f670e0741" class="bulleted-list"><li style="list-style-type:disc">Data integration is typically performed using data mapping tools allowing the mapping of data structures</li></ul></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-80af-8247-d45a221fa28a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-80b8-ada3-d2f67bf36d70" class=""><strong>Evolution of Enterprise System Architectures</strong></p></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-808f-9bc8-fe1a7b9eed7e" class="bulleted-list"><li style="list-style-type:disc">In enterprise application integration, different applications work together through a sequence of steps that form a <mark class="highlight-teal"><strong>business process</strong></mark><mark class="highlight-teal"> </mark>aimed at a common goal.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-80ac-bc0d-e26fdd8dd4db" class="bulleted-list"><li style="list-style-type:disc">Early systems embedded these process rules inside the <strong>message broker</strong>, but this became limiting.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-80b4-b8b0-f24c0e04b9a6" class="bulleted-list"><li style="list-style-type:disc">A major advancement was introducing an <strong>explicit representation of processes</strong>, leading to <strong>workflow management</strong>, a foundational idea in modern information systems.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-809c-91d1-cc754c144aed" class="bulleted-list"><li style="list-style-type:disc">At the same time, business management introduced <mark class="highlight-teal"><strong>Process Orientation (PO)</strong></mark>, shifting focus from isolated tasks to whole processes.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-806b-b219-f2279635964b" class="bulleted-list"><li style="list-style-type:disc">PO emerged as a reaction to <strong>Taylorism</strong>, which relied on tiny specialized tasks—effective for simple manufacturing in the early 20th century.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-80d9-8c55-e43f0ac3be6a" class="bulleted-list"><li style="list-style-type:disc">Modern organizations deal mainly with <strong>information</strong>, where tasks are interdependent, require shared context, and involve coordination across companies—making explicit process management essential.</li></ul></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-80f8-af0e-d33bff91b5f4" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-805e-9d9b-eec7db0bfc38" class="">A workflow management system (<mark class="highlight-teal">WfMS</mark>) is a software system that defines, creates, and manages the execution of workflows through the use of software, running on one or more workflow engines, which is able to interpret the process definition, interact with workflow participants, and, where required, invoke the use of IT tools and applications</p></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-80ef-9140-e1a9bb1d588c" class="bulleted-list"><li style="list-style-type:disc">Today, most enterprise application systems, such as ERP, embed a workflow engine</li></ul></div><div style="display:contents" dir="ltr"><figure id="2c1eea59-ca7a-8061-8b43-faec4c2125a3" class="image"><a href="Business%20Project%20Management%20System%20(BPMS)/image%209.png"><img style="width:336px" src="Business%20Project%20Management%20System%20(BPMS)/image%209.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-80fd-ab1b-ed6fcae80430" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="2c1eea59-ca7a-807b-a3fd-cec812d87f05" class="numbered-list" start="1"><li>In the case of multiple-application workflows, a dedicated workflow management system makes sure that the application systems are invoked as specified in the process model.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c1eea59-ca7a-80cb-8bb4-e549fe0e5914" class="numbered-list" start="2"><li>In addition, data transfer between application systems is also handled by the workflow management system, by using adapters </li></ol></div><div style="display:contents" dir="ltr"><figure id="2c1eea59-ca7a-806b-81ec-f3883e923d17" class="image"><a href="Business%20Project%20Management%20System%20(BPMS)/image%2010.png"><img style="width:336px" src="Business%20Project%20Management%20System%20(BPMS)/image%2010.png"/></a><figcaption>without user involvment</figcaption></figure></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-806e-b9d3-fdb9c853c433" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-80d2-a5b6-ddcd7c9aeecd" class="">Not all environments ask for a WfMS. In cases where no changes to the process structure are envisioned, a coding of the process flow can be an attractive and adequate choice</p></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-80aa-8ce7-ffd0d52ec2e4" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-8098-bc30-d258ff0469ad" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="2c1eea59-ca7a-801c-9444-c8dcab71a89f" class="">web services</h3></div><div style="display:contents" dir="auto"><div id="2c1eea59-ca7a-80f3-ab5b-cd00bbd392f7" class="column-list"><div style="display:contents" dir="auto"><div id="2c1eea59-ca7a-808b-80de-c27eee22a215" style="width:68.75%" class="column"><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-801c-a429-ebedf16adfd4" class="">A WS is a software whose operations are provided, in a platform independent format (XML), by a host to any another host of the WWW. In a WS, web technology such as the HTTP protocol, originally designed for human-to-machine communication, is utilized for <mark class="highlight-teal">machine-to-machine communication</mark></p></div></div></div><div style="display:contents" dir="auto"><div id="2c1eea59-ca7a-80f7-8e9e-e9c80ec72683" style="width:31.25%" class="column"><div style="display:contents" dir="ltr"><figure id="2c1eea59-ca7a-80db-a450-d6932909188e" class="image"><a href="Business%20Project%20Management%20System%20(BPMS)/image%2011.png"><img style="width:150.239990234375px" src="Business%20Project%20Management%20System%20(BPMS)/image%2011.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure id="2c1eea59-ca7a-8034-9951-f2ff1db0ae26" class="image"><a href="Business%20Project%20Management%20System%20(BPMS)/image%2012.png"><img style="width:240px" src="Business%20Project%20Management%20System%20(BPMS)/image%2012.png"/></a><figcaption>Composite applications</figcaption></figure></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-80d8-8cf6-e6d89fb1ef42" class="">The structure of composite applications can in many cases be expressed as a business process</p></div><div style="display:contents" dir="auto"><div id="2c3eea59-ca7a-80fe-b8d1-d63208da477b" class="column-list"><div style="display:contents" dir="auto"><div id="2c3eea59-ca7a-8060-b50c-f9db4408494a" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="2c1eea59-ca7a-806e-98bb-f87d6f54fd72" class="image"><a href="Business%20Project%20Management%20System%20(BPMS)/image%2013.png"><img style="width:432px" src="Business%20Project%20Management%20System%20(BPMS)/image%2013.png"/></a></figure></div></div></div><div style="display:contents" dir="auto"><div id="2c3eea59-ca7a-804e-978b-e7e0e90f465e" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="2c1eea59-ca7a-808f-9703-d5c3508269cd" class="image"><a href="Business%20Project%20Management%20System%20(BPMS)/image%2014.png"><img style="width:432px" src="Business%20Project%20Management%20System%20(BPMS)/image%2014.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-808d-bfe5-c93c2ba0cc08" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-808d-9452-e0a12baa1abc" class="">SOAP (Simple Object Access Protocol) over HTTP is used to exchange XML messages between the Requester and the Provider of the service</p></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-804a-ad75-cda5a3e029a7" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-8020-906f-cdd3665a2743" class=""><mark class="highlight-orange">WS-BPEL</mark>: Business Process Execution Language for WS, is a related XML standard → handles ws composition via system workflows</p></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-80a8-a9c0-c2957e5fde32" class="bulleted-list"><li style="list-style-type:disc">it is an extension of an <mark class="highlight-teal">imperative </mark>programming language</li></ul></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-80fb-ad00-fe12f6dbe98f" class="bulleted-list"><li style="list-style-type:disc">offers loops, if-else, xml data types → it is <mark class="highlight-teal">turing complete</mark></li></ul></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-8029-956a-d91a5e514032" class="bulleted-list"><li style="list-style-type:disc">I can translate BPMN to BPEL</li></ul></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-80d3-b5a7-f70a16dd8c76" class="bulleted-list"><li style="list-style-type:disc">In <mark class="highlight-teal">dynamic binding</mark>, service implementations can be discovered at runtime: the application (or a supporting middleware) asks the service registry for a list of suitable services, selects and binds to one of them</li></ul></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-80e5-9277-dfa35f47475c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-80aa-9d73-e485455fdd2a" class="">data should be semantically annotated by using <mark class="highlight-orange">Semantic Web standard </mark>(otherwise really diffcult the data integration)</p></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-805b-abad-d62ab355caac" class="bulleted-list"><li style="list-style-type:disc">agreed by a set of stakeholders</li></ul></div><div style="display:contents" dir="auto"><div id="2c1eea59-ca7a-80b6-8ba5-ff20d1a7dc41" class="column-list"><div style="display:contents" dir="auto"><div id="2c1eea59-ca7a-80ad-b7e4-fdb5b6dbaabd" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="2c1eea59-ca7a-80d1-a9e4-d89d779845f3" class="image"><a href="Business%20Project%20Management%20System%20(BPMS)/image%2015.png"><img style="width:336px" src="Business%20Project%20Management%20System%20(BPMS)/image%2015.png"/></a></figure></div></div></div><div style="display:contents" dir="auto"><div id="2c1eea59-ca7a-8002-ab00-c5e9ee754bc3" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="2c1eea59-ca7a-8036-b6b1-fc374ee3b624" class="image"><a href="Business%20Project%20Management%20System%20(BPMS)/image%2016.png"><img style="width:331.989990234375px" src="Business%20Project%20Management%20System%20(BPMS)/image%2016.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-8043-b933-c34cb17e5a1f" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-802a-94e4-cb762f84226c" class="">How to make a process executable:</p></div><div style="display:contents" dir="auto"><ol type="1" id="2c1eea59-ca7a-80e2-9fd4-f9b017fd85cc" class="numbered-list" start="1"><li><mark class="highlight-blue">process variables</mark> are managed by the BPMS engine<div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-80e4-8256-eab192976e87" class="bulleted-list"><li style="list-style-type:disc">their lifetime is confined to the one of the process</li></ul></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-805a-b33a-f9610338d810" class="bulleted-list"><li style="list-style-type:disc">We need a data-type for each variable → <mark class="highlight-teal">XSD </mark>(XML shema definition)</li></ul></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-8099-af6f-c45bd5a86fec" class="bulleted-list"><li style="list-style-type:disc">I could have complex data types</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c1eea59-ca7a-8059-80e1-e320ffd0baf7" class="numbered-list" start="2"><li><mark class="highlight-blue">task variables </mark>are visibile only inside a task (data input and output)<div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-8093-ba1c-cc9e38cc935b" class="bulleted-list"><li style="list-style-type:disc">The association between data objects and task data inputs/outputs is defined via a <mark class="highlight-teal">data mapping</mark></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c1eea59-ca7a-8081-9252-dbd12b3c870d" class="numbered-list" start="3"><li>A <mark class="highlight-blue">service task</mark> specifies how to communicate with the external application that will execute the task<div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-807e-b0c9-c989b9698874" class="bulleted-list"><li style="list-style-type:disc">An operation can either be in-out or in-only, thus expecting a request/response message or request only</li></ul></div><div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-8084-897c-cdb8765a93b2" class="bulleted-list"><li style="list-style-type:disc">A send task is a special case of the service task: it sends a message to an external service using its data input, but there is no response. A receive task waits for an incoming message and uses its data output to store the message content [e.g. async service]</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c1eea59-ca7a-8067-bf0e-f0a0a9025fdd" class="numbered-list" start="4"><li>For <mark class="highlight-blue">script task</mark>, provide the snippet of code that will be executed by the BPMS, in a programming language such as JavaScript or Groovy</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c1eea59-ca7a-804d-96ee-e1003b6c45cf" class="numbered-list" start="5"><li>For <mark class="highlight-blue">user task</mark>, specify the rules for assigning work items of this task to process participants at runtime, the data in and data out<div style="display:contents" dir="auto"><ul id="2c1eea59-ca7a-8026-84eb-fbd258582687" class="bulleted-list"><li style="list-style-type:disc">email, UI, …?</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-8002-882d-e007483b2733" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-8050-85fc-db8936334884" class="">e.g. instead of implementing “Check stock availability” as a service task, generic database lookup <mark class="highlight-teal">adapter </mark>can be used if available.</p></div><div style="display:contents" dir="auto"><p id="2c1eea59-ca7a-8064-85c3-c6b00b9737e2" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</body></html>
