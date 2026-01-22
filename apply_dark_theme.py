@@ -149,12 +149,17 @@ def process_html_file(file_path):
         
         original_content = content
         
-        # 1. Add KaTeX CSS link in head if not present
+        # 1. Add favicon link in head if not present
+        favicon_link = '<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">'
+        if 'favicon.svg' not in content and '<head>' in content:
+            content = content.replace('<head>', f'<head>\n{favicon_link}')
+        
+        # 2. Add KaTeX CSS link in head if not present
         katex_css = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" crossorigin="anonymous">'
         if katex_css not in content and '<head>' in content:
             content = content.replace('<head>', f'<head>\n{katex_css}')
         
-        # 2. Add Prism.js for code syntax highlighting (dark theme)
+        # 3. Add Prism.js for code syntax highlighting (dark theme)
         prism_css = '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">'
         prism_js = '<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>'
         
@@ -164,11 +169,11 @@ def process_html_file(file_path):
         if prism_js not in content and '</body>' in content:
             content = content.replace('</body>', f'{prism_js}\n</body>')
         
-        # 3. Add dark theme CSS before </style>
+        # 4. Add dark theme CSS before </style>
         if DARK_THEME_CSS not in content:
             content = content.replace('</style>', f'{DARK_THEME_CSS}\n</style>')
         
-        # 4. Remove the properties table (tags, created date, etc.)
+        # 5. Remove the properties table (tags, created date, etc.)
         # This regex matches the entire <table class="properties">...</table> block
         content = re.sub(
             r'<table class="properties">.*?</table>',

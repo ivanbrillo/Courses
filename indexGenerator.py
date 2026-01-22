@@ -5,7 +5,7 @@ import urllib.parse
 # --- SETTINGS ---
 INPUT_FILE = "courses.html"  # Your Notion export file
 OUTPUT_FILE = "index.html"   # The resulting dashboard
-PAGE_TITLE = "My Learning Dashboard"
+PAGE_TITLE = "AIDE Courses"
 INTERMEDIATE_PAGES_DIR = "course_pages"  # Directory for intermediate pages
 
 # --- GITHUB LINKS DICTIONARY ---
