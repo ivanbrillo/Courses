@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Project</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: #191919;
+            color: #FFFFFF;
+            padding: 40px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .course-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-weight: 700;
+            font-size: 36px;
+            margin: 0;
+        }
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #888;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .back-link:hover {
+            color: #FFF;
+        }
+        .options-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            width: 100%;
+        }
+        .option-card {
+            background-color: #2F3437;
+            border-radius: 8px;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: transform 0.2s ease, background 0.2s;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #333;
+        }
+        .option-card:not(.disabled):hover {
+            background-color: #3F4447;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+        }
+        .option-cover {
+            height: 150px;
+            width: 100%;
+            background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+            background-size: cover;
+            background-position: center;
+        }
+        .option-content {
+            padding: 24px;
+            text-align: center;
+        }
+        .option-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+        .option-title {
+            font-weight: 600;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+        .option-description {
+            color: #AAA;
+            font-size: 14px;
+        }
+        .disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-link">← Back to Dashboard</a>
+    
+    <div class="header">
+        <div class="course-icon">💻</div>
+        <h1>View Project</h1>
+    </div>
+
+    <div class="options-container">
+
+        <a href="../Courses/Courses/Cloud%20Computing%201a4eea59ca7a80a0b836e90366079610.html" class="option-card">
+            <div class="option-cover" style="background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);"></div>
+            <div class="option-content">
+                <div class="option-icon">📚</div>
+                <div class="option-title">HTML notes and course materials</div>
+                <div class="option-description">HTML notes and course materials</div>
+            </div>
+        </a>
+
+        <a href="https://github.com/ivanbrillo/CloudProject" class="option-card " >
+            <div class="option-cover" style="background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);"></div>
+            <div class="option-content">
+                <div class="option-icon">💻</div>
+                <div class="option-title">View Project</div>
+                <div class="option-description">GitHub repository and project code</div>
+            </div>
+        </a>
+
+    </div>
+</body>
+</html>
