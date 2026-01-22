@@ -44,6 +44,7 @@ html_top = f"""
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{PAGE_TITLE}</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <style>
         body {{
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
@@ -167,6 +168,7 @@ def create_intermediate_page(title, icon, cover, notes_links, github_link=""):
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <style>
         body {{
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
