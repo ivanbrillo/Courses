@@ -1,4 +1,5 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Parallelism</title><style>
+<html><head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" crossorigin="anonymous"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Parallelism</title><style>
 /* cspell:disable-file */
 /* webkit printing magic: print all background colors */
 html {
@@ -988,6 +989,682 @@ blockquote {
     color: inherit;
 }
 
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Hide LaTeX source code in equations (keep only rendered version) */
+.katex-mathml {
+    display: none !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Hide LaTeX source code in equations (keep only rendered version) */
+.katex .katex-mathml {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0;
+    border: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+}
+
+.katex .katex-html {
+    display: inline-block;
+}
+
+annotation {
+    display: none !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Hide LaTeX source code in equations (keep only rendered version) */
+.katex .katex-mathml {
+    position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    padding: 0 !important;
+    border: 0 !important;
+    height: 1px !important;
+    width: 1px !important;
+    overflow: hidden !important;
+}
+
+.katex .katex-html {
+    display: inline-block !important;
+}
+
+/* Show the rendered equation even though it has aria-hidden */
+.katex-html[aria-hidden="true"] {
+    display: inline-block !important;
+    visibility: visible !important;
+}
+
+annotation {
+    display: none !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Fix KaTeX equations - show only rendered version, hide MathML source */
+.notion-text-equation-token .katex-mathml,
+.katex-mathml {
+    display: none !important;
+}
+
+.notion-text-equation-token .katex-html,
+.katex-html {
+    display: inline !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #f0f0f0;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #f0f0f0;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #f0f0f0;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Fix KaTeX equations - show only rendered version, hide MathML source */
+.notion-text-equation-token .katex-mathml,
+.katex-mathml {
+    display: none !important;
+}
+
+.notion-text-equation-token .katex-html,
+.katex-html {
+    display: inline !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
 </style></head><body><article id="1aceea59-ca7a-80e5-95b4-cdd90e131abd" class="page sans"><header><h1 class="page-title" dir="auto">Parallelism</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="1aceea59-ca7a-8070-b65c-e3863cc02830" class="">In a sequential algorithm I have a function <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')
 /* Dark Theme */
 @media only screen {
@@ -1215,6 +1892,682 @@ pre {
 
 blockquote {
     border-left-color: #404040;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Hide LaTeX source code in equations (keep only rendered version) */
+.katex-mathml {
+    display: none !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Hide LaTeX source code in equations (keep only rendered version) */
+.katex .katex-mathml {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0;
+    border: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+}
+
+.katex .katex-html {
+    display: inline-block;
+}
+
+annotation {
+    display: none !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Hide LaTeX source code in equations (keep only rendered version) */
+.katex .katex-mathml {
+    position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    padding: 0 !important;
+    border: 0 !important;
+    height: 1px !important;
+    width: 1px !important;
+    overflow: hidden !important;
+}
+
+.katex .katex-html {
+    display: inline-block !important;
+}
+
+/* Show the rendered equation even though it has aria-hidden */
+.katex-html[aria-hidden="true"] {
+    display: inline-block !important;
+    visibility: visible !important;
+}
+
+annotation {
+    display: none !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Fix KaTeX equations - show only rendered version, hide MathML source */
+.notion-text-equation-token .katex-mathml,
+.katex-mathml {
+    display: none !important;
+}
+
+.notion-text-equation-token .katex-html,
+.katex-html {
+    display: inline !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #f0f0f0;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #f0f0f0;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #f0f0f0;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Fix KaTeX equations - show only rendered version, hide MathML source */
+.notion-text-equation-token .katex-mathml,
+.katex-mathml {
+    display: none !important;
+}
+
+.notion-text-equation-token .katex-html,
+.katex-html {
+    display: inline !important;
 }
 
 /* Fix highlight text colors for dark theme */
@@ -1545,6 +2898,682 @@ blockquote {
     color: inherit;
 }
 
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Hide LaTeX source code in equations (keep only rendered version) */
+.katex-mathml {
+    display: none !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Hide LaTeX source code in equations (keep only rendered version) */
+.katex .katex-mathml {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0;
+    border: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+}
+
+.katex .katex-html {
+    display: inline-block;
+}
+
+annotation {
+    display: none !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Hide LaTeX source code in equations (keep only rendered version) */
+.katex .katex-mathml {
+    position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    padding: 0 !important;
+    border: 0 !important;
+    height: 1px !important;
+    width: 1px !important;
+    overflow: hidden !important;
+}
+
+.katex .katex-html {
+    display: inline-block !important;
+}
+
+/* Show the rendered equation even though it has aria-hidden */
+.katex-html[aria-hidden="true"] {
+    display: inline-block !important;
+    visibility: visible !important;
+}
+
+annotation {
+    display: none !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Fix KaTeX equations - show only rendered version, hide MathML source */
+.notion-text-equation-token .katex-mathml,
+.katex-mathml {
+    display: none !important;
+}
+
+.notion-text-equation-token .katex-html,
+.katex-html {
+    display: inline !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #f0f0f0;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #f0f0f0;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #f0f0f0;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Fix KaTeX equations - show only rendered version, hide MathML source */
+.notion-text-equation-token .katex-mathml,
+.katex-mathml {
+    display: none !important;
+}
+
+.notion-text-equation-token .katex-html,
+.katex-html {
+    display: inline !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
 </style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi></mrow><annotation encoding="application/x-tex">F</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span></span></span></span></span><span>﻿</span></span> into subtask and obtaining a <mark class="highlight-brown">pipeline</mark>:</p></div><div style="display:contents" dir="auto"><p id="1aceea59-ca7a-80ac-92b0-c877ede325a7" class=""><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')
 /* Dark Theme */
 @media only screen {
@@ -1772,6 +3801,682 @@ pre {
 
 blockquote {
     border-left-color: #404040;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Hide LaTeX source code in equations (keep only rendered version) */
+.katex-mathml {
+    display: none !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Hide LaTeX source code in equations (keep only rendered version) */
+.katex .katex-mathml {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0;
+    border: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+}
+
+.katex .katex-html {
+    display: inline-block;
+}
+
+annotation {
+    display: none !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Hide LaTeX source code in equations (keep only rendered version) */
+.katex .katex-mathml {
+    position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    padding: 0 !important;
+    border: 0 !important;
+    height: 1px !important;
+    width: 1px !important;
+    overflow: hidden !important;
+}
+
+.katex .katex-html {
+    display: inline-block !important;
+}
+
+/* Show the rendered equation even though it has aria-hidden */
+.katex-html[aria-hidden="true"] {
+    display: inline-block !important;
+    visibility: visible !important;
+}
+
+annotation {
+    display: none !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Fix KaTeX equations - show only rendered version, hide MathML source */
+.notion-text-equation-token .katex-mathml,
+.katex-mathml {
+    display: none !important;
+}
+
+.notion-text-equation-token .katex-html,
+.katex-html {
+    display: inline !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #f0f0f0;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #f0f0f0;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #f0f0f0;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Fix KaTeX equations - show only rendered version, hide MathML source */
+.notion-text-equation-token .katex-mathml,
+.katex-mathml {
+    display: none !important;
+}
+
+.notion-text-equation-token .katex-html,
+.katex-html {
+    display: inline !important;
 }
 
 /* Fix highlight text colors for dark theme */
@@ -2103,6 +4808,682 @@ blockquote {
     color: inherit;
 }
 
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Hide LaTeX source code in equations (keep only rendered version) */
+.katex-mathml {
+    display: none !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Hide LaTeX source code in equations (keep only rendered version) */
+.katex .katex-mathml {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0;
+    border: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+}
+
+.katex .katex-html {
+    display: inline-block;
+}
+
+annotation {
+    display: none !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Hide LaTeX source code in equations (keep only rendered version) */
+.katex .katex-mathml {
+    position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    padding: 0 !important;
+    border: 0 !important;
+    height: 1px !important;
+    width: 1px !important;
+    overflow: hidden !important;
+}
+
+.katex .katex-html {
+    display: inline-block !important;
+}
+
+/* Show the rendered equation even though it has aria-hidden */
+.katex-html[aria-hidden="true"] {
+    display: inline-block !important;
+    visibility: visible !important;
+}
+
+annotation {
+    display: none !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Fix KaTeX equations - show only rendered version, hide MathML source */
+.notion-text-equation-token .katex-mathml,
+.katex-mathml {
+    display: none !important;
+}
+
+.notion-text-equation-token .katex-html,
+.katex-html {
+    display: inline !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #f0f0f0;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #f0f0f0;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #f0f0f0;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Fix KaTeX equations - show only rendered version, hide MathML source */
+.notion-text-equation-token .katex-mathml,
+.katex-mathml {
+    display: none !important;
+}
+
+.notion-text-equation-token .katex-html,
+.katex-html {
+    display: inline !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
 </style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo>=</mo><msub><mi>F</mi><mn>3</mn></msub><mo stretchy="false">(</mo><mi>F</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mi>F</mi><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O = F_3(F(1), F(2))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord">2</span><span class="mclose">))</span></span></span></span></span><span>﻿</span></span></p></div><div style="display:contents" dir="auto"><p id="1aceea59-ca7a-808f-aa93-d0520de4dd12" class="">
 </p></div></div></div><div style="display:contents" dir="auto"><div id="1aceea59-ca7a-8011-aea0-dde7193d9ad0" style="width:25.000000000000007%" class="column"><div style="display:contents" dir="ltr"><figure id="1aceea59-ca7a-804d-af5c-f93aa8905b18" class="image"><a href="Parallelism/image%201.png"><img style="width:120.98863983154297px" src="Parallelism/image%201.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1aceea59-ca7a-80a2-a96f-f49edfed97a2" class="">The different tasks can share infos via a <mark class="highlight-blue">shared memory</mark> (if same memory) or via <mark class="highlight-blue">message passing</mark></p></div><div style="display:contents" dir="auto"><h1 id="1aceea59-ca7a-8086-82ae-ee025659f8a2" class="">Task Dependency Graph</h1></div><div style="display:contents" dir="auto"><p id="1aceea59-ca7a-807b-bd19-ea47331eb597" class="">A given problem may be decomposed into tasks in many different ways.</p></div><div style="display:contents" dir="auto"><ul id="1aceea59-ca7a-80f3-8017-d44452a76159" class="bulleted-list"><li style="list-style-type:disc">Tasks may be of same, different, or even indeterminate sizes</li></ul></div><div style="display:contents" dir="auto"><ul id="1aceea59-ca7a-801b-ac5d-d0cdcd2fe484" class="bulleted-list"><li style="list-style-type:disc">I can use TDG to model the decomposition → it’s a <mark class="highlight-brown">DAG </mark>(no loops, otherwise computation will never stop)</li></ul></div><div style="display:contents" dir="auto"><div id="1aceea59-ca7a-8061-a6f9-c9355bab106c" class="column-list"><div style="display:contents" dir="auto"><div id="1aceea59-ca7a-80cc-b275-d0386bfcdcdc" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="1aceea59-ca7a-800d-9aa1-e8eb33754dfe" class="">The <mark class="highlight-teal">labels </mark>are the computational size/weight of the task</p></div><div style="display:contents" dir="auto"><p id="1aceea59-ca7a-807c-95f6-f6f9b8ed4357" class=""><mark class="highlight-teal">Nodes </mark>are tasks</p></div></div></div><div style="display:contents" dir="auto"><div id="1aceea59-ca7a-8016-a56a-c6c2581d4411" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="1aceea59-ca7a-805c-8774-e73791d6b468" class="image"><a href="Parallelism/image%202.png"><img style="width:241.97727966308594px" src="Parallelism/image%202.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><p id="1aceea59-ca7a-80ac-b3e9-f1a83c6ec440" class=""><mark class="highlight-teal">Edges </mark>represent the control dependency among tasks</p></div><div style="display:contents" dir="auto"><p id="1aceea59-ca7a-807d-a2c6-d9691a8d7d9c" class="">
 </p></div><div style="display:contents" dir="auto"><h3 id="1aceea59-ca7a-808d-aec6-cfbd15604511" class="">Granularity</h3></div><div style="display:contents" dir="auto"><div id="1aceea59-ca7a-80e7-8461-c763e50d19ba" class="column-list"><div style="display:contents" dir="auto"><div id="1aceea59-ca7a-8021-843c-e31596afed36" style="width:43.75%" class="column"><div style="display:contents" dir="auto"><p id="1aceea59-ca7a-803b-906b-f4cd9a124504" class="">The number of tasks into which a problem is decomposed determines its<br/>granularity</p></div></div></div><div style="display:contents" dir="auto"><div id="1aceea59-ca7a-8037-a3f5-ed8b1286ff06" style="width:56.25%" class="column"><div style="display:contents" dir="ltr"><figure id="1aceea59-ca7a-8013-8165-ec2e07a4f513" class="image"><a href="Parallelism/image%203.png"><img style="width:384px" src="Parallelism/image%203.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><ol type="1" id="1aceea59-ca7a-8099-b6c7-e351a9bc4aa0" class="numbered-list" start="1"><li>Decomposition into a large number of tasks results in <mark class="highlight-brown">fine-grained decomposition</mark></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1aceea59-ca7a-80a9-944b-f49508fc8c2e" class="numbered-list" start="2"><li>Decomposition into a small number of tasks results in a <mark class="highlight-brown">coarse grained<br/>decomposition</mark></li></ol></div><div style="display:contents" dir="auto"><p id="1aceea59-ca7a-809a-b8d9-ebe12b29fa9b" class="">
@@ -2337,6 +5718,682 @@ pre {
 
 blockquote {
     border-left-color: #404040;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Hide LaTeX source code in equations (keep only rendered version) */
+.katex-mathml {
+    display: none !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Hide LaTeX source code in equations (keep only rendered version) */
+.katex .katex-mathml {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0;
+    border: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+}
+
+.katex .katex-html {
+    display: inline-block;
+}
+
+annotation {
+    display: none !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Hide LaTeX source code in equations (keep only rendered version) */
+.katex .katex-mathml {
+    position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    padding: 0 !important;
+    border: 0 !important;
+    height: 1px !important;
+    width: 1px !important;
+    overflow: hidden !important;
+}
+
+.katex .katex-html {
+    display: inline-block !important;
+}
+
+/* Show the rendered equation even though it has aria-hidden */
+.katex-html[aria-hidden="true"] {
+    display: inline-block !important;
+    visibility: visible !important;
+}
+
+annotation {
+    display: none !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #d4d4d4;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Fix KaTeX equations - show only rendered version, hide MathML source */
+.notion-text-equation-token .katex-mathml,
+.katex-mathml {
+    display: none !important;
+}
+
+.notion-text-equation-token .katex-html,
+.katex-html {
+    display: inline !important;
+}
+
+/* Fix highlight text colors for dark theme */
+.highlight-default {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-default_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-gray_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-brown_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-orange_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-yellow_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-teal_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-blue_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-purple_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-pink_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.highlight-red_background {
+    color: rgba(212, 212, 212, 1) !important;
+}
+
+.block-color-default {
+    color: inherit;
+}
+
+
+/* Dark Theme */
+@media only screen {
+    body {
+        background-color: #1e1e1e;
+        color: #f0f0f0;
+    }
+}
+
+html {
+    background-color: #1e1e1e;
+}
+
+body {
+    color: #f0f0f0;
+}
+
+h1, h2, h3 {
+    color: #e4e4e4;
+}
+
+a, a.visited {
+    color: #4a9eff;
+}
+
+.page-title {
+    color: #ffffff;
+}
+
+code {
+    background: #2d2d2d;
+    color: #f0f0f0;
+}
+
+.callout {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+table, th, td {
+    border-color: #404040;
+}
+
+th {
+    color: rgba(212, 212, 212, 0.6);
+}
+
+hr {
+    border-bottom-color: rgba(212, 212, 212, 0.09);
+}
+
+.source {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+.pdf-relative-link-path {
+    color: #b4b4b4;
+}
+
+.table_of_contents-link {
+    border-bottom-color: rgba(212, 212, 212, 0.18);
+}
+
+pre {
+    background: #2d2d2d;
+}
+
+blockquote {
+    border-left-color: #404040;
+}
+
+/* Fix KaTeX equations - show only rendered version, hide MathML source */
+.notion-text-equation-token .katex-mathml,
+.katex-mathml {
+    display: none !important;
+}
+
+.notion-text-equation-token .katex-html,
+.katex-html {
+    display: inline !important;
 }
 
 /* Fix highlight text colors for dark theme */

@@ -13,7 +13,7 @@ DARK_THEME_CSS = """
 @media only screen {
     body {
         background-color: #1e1e1e;
-        color: #d4d4d4;
+        color: #f0f0f0;
     }
 }
 
@@ -22,7 +22,7 @@ html {
 }
 
 body {
-    color: #d4d4d4;
+    color: #f0f0f0;
 }
 
 h1, h2, h3 {
@@ -39,7 +39,7 @@ a, a.visited {
 
 code {
     background: #2d2d2d;
-    color: #d4d4d4;
+    color: #f0f0f0;
 }
 
 .callout {
@@ -78,6 +78,17 @@ pre {
 
 blockquote {
     border-left-color: #404040;
+}
+
+/* Fix KaTeX equations - show only rendered version, hide MathML source */
+.notion-text-equation-token .katex-mathml,
+.katex-mathml {
+    display: none !important;
+}
+
+.notion-text-equation-token .katex-html,
+.katex-html {
+    display: inline !important;
 }
 
 /* Fix highlight text colors for dark theme */
@@ -138,11 +149,16 @@ def process_html_file(file_path):
         
         original_content = content
         
-        # 1. Add dark theme CSS before </style>
+        # 1. Add KaTeX CSS link in head if not present
+        katex_css = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" crossorigin="anonymous">'
+        if katex_css not in content and '<head>' in content:
+            content = content.replace('<head>', f'<head>\n{katex_css}')
+        
+        # 2. Add dark theme CSS before </style>
         if DARK_THEME_CSS not in content:
             content = content.replace('</style>', f'{DARK_THEME_CSS}\n</style>')
         
-        # 2. Remove the properties table (tags, created date, etc.)
+        # 3. Remove the properties table (tags, created date, etc.)
         # This regex matches the entire <table class="properties">...</table> block
         content = re.sub(
             r'<table class="properties">.*?</table>',
