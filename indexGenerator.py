@@ -134,17 +134,17 @@ def create_intermediate_page(title, icon, cover, notes_links, github_link=""):
     if github_link is not None:
         # Determine if it's a zip file or GitHub link
         is_zip = github_link.lower().endswith('.zip') if github_link else False
-        icon = "📦" if is_zip else "💻"
-        title = "Download Project" if is_zip else "View Project"
-        description = "Download project zip file" if is_zip else ('GitHub repository and project code' if github_link else 'GitHub link coming soon...')
+        project_icon = "📦" if is_zip else "💻"
+        project_title = "Download Project" if is_zip else "View Project"
+        project_description = "Download project zip file" if is_zip else ('GitHub repository and project code' if github_link else 'GitHub link coming soon...')
         
         options_html += f"""
         <a href="{github_link if github_link else '#'}" class="option-card {'disabled' if not github_link else ''}" {'onclick="return false;"' if not github_link else ''}>
             <div class="option-cover" style="{cover}"></div>
             <div class="option-content">
-                <div class="option-icon">{icon}</div>
-                <div class="option-title">{title}</div>
-                <div class="option-description">{description}</div>
+                <div class="option-icon">{project_icon}</div>
+                <div class="option-title">{project_title}</div>
+                <div class="option-description">{project_description}</div>
             </div>
         </a>
 """
