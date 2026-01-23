@@ -11,17 +11,44 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
             background-color: #191919;
             color: #FFFFFF;
-            padding: 40px;
+            padding: 0;
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             min-height: 100vh;
+        }
+        .page-banner {
+            width: 100vw;
+            height: 200px;
+            background-image: url('https://www.notion.so/images/page-cover/woodcuts_14.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .page-banner::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: linear-gradient(to bottom, transparent, #191919);
+        }
+        .content-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .header {
             text-align: center;
             margin-bottom: 40px;
+            margin-top: -60px;
+            z-index: 1;
+            position: relative;
         }
         .course-icon {
             font-size: 64px;
@@ -39,9 +66,15 @@
             color: #888;
             text-decoration: none;
             font-size: 14px;
+            z-index: 10;
+            background: rgba(25, 25, 25, 0.7);
+            padding: 8px 12px;
+            border-radius: 4px;
+            backdrop-filter: blur(10px);
         }
         .back-link:hover {
             color: #FFF;
+            background: rgba(25, 25, 25, 0.9);
         }
         .options-container {
             display: grid;
@@ -70,7 +103,6 @@
         .option-cover {
             height: 150px;
             width: 100%;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             background-size: cover;
             background-position: center;
         }
@@ -100,12 +132,15 @@
 <body>
     <a href="../index.html" class="back-link">← Back to Dashboard</a>
     
-    <div class="header">
-        <div class="course-icon">📄</div>
-        <h1>Process Mining and Intelligence</h1>
-    </div>
+    <div class="page-banner"></div>
+    
+    <div class="content-wrapper">
+        <div class="header">
+            <div class="course-icon">📄</div>
+            <h1>Process Mining and Intelligence</h1>
+        </div>
 
-    <div class="options-container">
+        <div class="options-container">
 
         <a href="../Courses/Courses/Process%20Mining%20and%20Intelligence%20277eea59ca7a8042ac14df1eaabf885f.html" class="option-card">
             <div class="option-cover" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
@@ -125,6 +160,7 @@
             </div>
         </a>
 
+        </div>
     </div>
 </body>
 </html>

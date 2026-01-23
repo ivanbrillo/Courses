@@ -129,11 +129,14 @@ def create_intermediate_page(title, icon, cover, notes_links, github_link=""):
     # Build the options HTML
     options_html = ""
     
+    # Generate gradient for option cards
+    option_gradient = get_fallback_cover(title)
+    
     # Add all notes/resource options
     for link, description, link_icon in notes_links:
         options_html += f"""
         <a href="../{link}" class="option-card">
-            <div class="option-cover" style="{cover}"></div>
+            <div class="option-cover" style="{option_gradient}"></div>
             <div class="option-content">
                 <div class="option-icon">{link_icon}</div>
                 <div class="option-title">{description}</div>
@@ -152,7 +155,7 @@ def create_intermediate_page(title, icon, cover, notes_links, github_link=""):
         
         options_html += f"""
         <a href="{github_link if github_link else '#'}" class="option-card {'disabled' if not github_link else ''}" {'onclick="return false;"' if not github_link else ''}>
-            <div class="option-cover" style="{cover}"></div>
+            <div class="option-cover" style="{option_gradient}"></div>
             <div class="option-content">
                 <div class="option-icon">{project_icon}</div>
                 <div class="option-title">{project_title}</div>
@@ -174,17 +177,44 @@ def create_intermediate_page(title, icon, cover, notes_links, github_link=""):
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
             background-color: #191919;
             color: #FFFFFF;
-            padding: 40px;
+            padding: 0;
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             min-height: 100vh;
+        }}
+        .page-banner {{
+            width: 100vw;
+            height: 200px;
+            {cover}
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }}
+        .page-banner::after {{
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: linear-gradient(to bottom, transparent, #191919);
+        }}
+        .content-wrapper {{
+            width: 100%;
+            max-width: 1200px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }}
         .header {{
             text-align: center;
             margin-bottom: 40px;
+            margin-top: -60px;
+            z-index: 1;
+            position: relative;
         }}
         .course-icon {{
             font-size: 64px;
@@ -202,9 +232,15 @@ def create_intermediate_page(title, icon, cover, notes_links, github_link=""):
             color: #888;
             text-decoration: none;
             font-size: 14px;
+            z-index: 10;
+            background: rgba(25, 25, 25, 0.7);
+            padding: 8px 12px;
+            border-radius: 4px;
+            backdrop-filter: blur(10px);
         }}
         .back-link:hover {{
             color: #FFF;
+            background: rgba(25, 25, 25, 0.9);
         }}
         .options-container {{
             display: grid;
@@ -233,7 +269,6 @@ def create_intermediate_page(title, icon, cover, notes_links, github_link=""):
         .option-cover {{
             height: 150px;
             width: 100%;
-            {cover}
             background-size: cover;
             background-position: center;
         }}
@@ -263,13 +298,17 @@ def create_intermediate_page(title, icon, cover, notes_links, github_link=""):
 <body>
     <a href="../index.html" class="back-link">← Back to Dashboard</a>
     
-    <div class="header">
-        <div class="course-icon">{icon}</div>
-        <h1>{title}</h1>
-    </div>
+    <div class="page-banner"></div>
+    
+    <div class="content-wrapper">
+        <div class="header">
+            <div class="course-icon">{icon}</div>
+            <h1>{title}</h1>
+        </div>
 
-    <div class="options-container">
+        <div class="options-container">
 {options_html}
+        </div>
     </div>
 </body>
 </html>
@@ -302,19 +341,35 @@ def get_fallback_cover(seed):
     return f"background: {gradients[index]};"
 
 def find_image_for_link(link_path):
-    # Tries to find if the sub-page has a _files folder with an image
+    # Tries to find the cover image from the Notion HTML page itself
     try:
         decoded_path = urllib.parse.unquote(link_path)
-        base_name = os.path.splitext(decoded_path)[0]
-        files_dir = base_name + "_files"
         
-        if os.path.exists(files_dir):
-            for f in os.listdir(files_dir):
-                if f.lower().endswith(('.jpg', '.jpeg', '.png', '.gif')):
-                    path = urllib.parse.quote(files_dir + '/' + f)
-                    return f"background-image: url('{path}');"
-    except:
-        pass
+        # Read the HTML file to find the page-cover-image
+        if os.path.exists(decoded_path):
+            with open(decoded_path, 'r', encoding='utf-8') as f:
+                html_content = f.read()
+            
+            # Look for page-cover-image with src attribute (img tag)
+            img_match = re.search(r'<img[^>]*class="page-cover-image"[^>]*src="([^"]+)"', html_content)
+            if img_match:
+                image_url = img_match.group(1)
+                return f"background-image: url('{image_url}');"
+            
+            # Also check for background-image style (alternative format)
+            cover_match = re.search(r'page-cover-image[^>]*style="([^"]*)"', html_content)
+            if cover_match:
+                style_content = cover_match.group(1)
+                # Extract the URL from background-image
+                url_match = re.search(r'background-image:\s*url\(["\']?([^"\')\s]+)["\']?\)', style_content)
+                if url_match:
+                    image_url = url_match.group(1)
+                    # Make the path relative if it's a local file
+                    if not image_url.startswith('http'):
+                        image_url = urllib.parse.quote(image_url)
+                    return f"background-image: url('{image_url}');"
+    except Exception as e:
+        print(f"Warning: Could not extract cover from {link_path}: {e}")
     return None
 
 def main():
