@@ -1681,6 +1681,12 @@ blockquote {
 
 
 
+
+
+
+
+
+
 /* Enhanced Banner and Layout for Main Course Pages */
 
 /* Remove body margins for full-width banner effect */
@@ -1721,13 +1727,17 @@ header {
     margin-top: -2.5rem !important;
     margin-left: 2rem !important;
     font-size: 4rem !important;
-    background: rgba(30, 30, 30, 0.9);
-    padding: 0.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
-    display: inline-block;
-    border: 2px solid rgba(74, 158, 255, 0.3);
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.page-header-icon-with-cover .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
 }
 
 /* Enhanced title styling */
