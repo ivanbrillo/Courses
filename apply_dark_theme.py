@@ -141,8 +141,117 @@ blockquote {
 }
 """
 
-def process_html_file(file_path):
-    """Process a single HTML file to add dark theme and remove properties table."""
+# Enhanced styling for main course pages (full-width banner, modern design)
+MAIN_PAGE_ENHANCED_CSS = """
+/* Enhanced Banner and Layout for Main Course Pages */
+
+/* Remove body margins for full-width banner effect */
+@media only screen {
+    body {
+        margin: 0 !important;
+        padding: 0;
+    }
+}
+
+/* Full-width banner image - reduced height for banner effect */
+.page-cover-image {
+    display: block;
+    object-fit: cover;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 200px !important;
+    max-height: 200px !important;
+    min-height: 200px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    filter: brightness(0.85);
+}
+
+/* Enhanced header styling */
+header {
+    position: relative;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: linear-gradient(to bottom, rgba(30, 30, 30, 0) 0%, rgba(30, 30, 30, 0.8) 80%, rgba(30, 30, 30, 1) 100%);
+}
+
+/* Icon positioned over banner */
+.page-header-icon-with-cover {
+    position: relative;
+    margin-top: -2.5rem !important;
+    margin-left: 2rem !important;
+    font-size: 4rem !important;
+    background: rgba(30, 30, 30, 0.9);
+    padding: 0.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    display: inline-block;
+    border: 2px solid rgba(74, 158, 255, 0.3);
+}
+
+/* Enhanced title styling */
+.page-title {
+    font-size: 3rem !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    margin: 1rem 0 0 0 !important;
+    padding: 0 2rem 1rem 2rem !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    letter-spacing: -0.02em;
+}
+
+/* Content area with max-width and centered */
+.page-body {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Enhanced link boxes */
+.link-to-page {
+    margin: 1em 0;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, rgba(45, 45, 45, 0.8) 0%, rgba(35, 35, 35, 0.9) 100%);
+    border: 1px solid rgba(74, 158, 255, 0.3);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.link-to-page:hover {
+    border-color: rgba(74, 158, 255, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(74, 158, 255, 0.2);
+}
+
+.link-to-page a {
+    color: #4a9eff !important;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    display: block;
+}
+
+.link-to-page a:hover {
+    color: #6cb3ff !important;
+}
+
+/* Article content styling */
+article.page {
+    background: #1e1e1e;
+}
+"""
+
+def process_html_file(file_path, is_main_page=False):
+    """Process a single HTML file to add dark theme and remove properties table.
+    
+    Args:
+        file_path: Path to the HTML file
+        is_main_page: If True, applies enhanced styling for main course pages
+    """
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
@@ -173,7 +282,20 @@ def process_html_file(file_path):
         if DARK_THEME_CSS not in content:
             content = content.replace('</style>', f'{DARK_THEME_CSS}\n</style>')
         
-        # 5. Remove the properties table (tags, created date, etc.)
+        # 5. For main pages, remove any existing enhanced CSS and add the current one
+        if is_main_page:
+            # Remove old enhanced CSS if present
+            content = re.sub(
+                r'/\* Enhanced Banner and Layout for Main Course Pages \*/.*?/\* Article content styling \*/\n[^}]+}',
+                '',
+                content,
+                flags=re.DOTALL
+            )
+            # Add current enhanced CSS
+            if MAIN_PAGE_ENHANCED_CSS not in content:
+                content = content.replace('</style>', f'{MAIN_PAGE_ENHANCED_CSS}\n</style>')
+        
+        # 6. Remove the properties table (tags, created date, etc.)
         # This regex matches the entire <table class="properties">...</table> block
         content = re.sub(
             r'<table class="properties">.*?</table>',
@@ -212,15 +334,28 @@ def find_and_process_html_files(root_dir):
     print(f"Found {len(html_files)} HTML files to process...\n")
     
     processed_count = 0
+    main_page_count = 0
+    
     for html_file in html_files:
-        if process_html_file(html_file):
+        # Determine if this is a main course page (directly in Courses/Courses/, not in a subdirectory)
+        # Main pages are like: Courses/Courses/Cloud Computing 1a4eea59ca7a80a0b836e90366079610.html
+        # Subpages are like: Courses/Courses/Cloud Computing/Foundamental Concepts 1a4eea59ca7a80139ef8fa93e18e38b6.html
+        relative_path = html_file.relative_to(courses_dir)
+        is_main_page = len(relative_path.parts) == 1  # Only one part means it's directly in Courses/Courses/
+        
+        if process_html_file(html_file, is_main_page):
             processed_count += 1
-            print(f"✓ Processed: {html_file.relative_to(root_path)}")
+            if is_main_page:
+                main_page_count += 1
+                print(f"✓ Processed (Main Page): {html_file.relative_to(root_path)}")
+            else:
+                print(f"✓ Processed: {html_file.relative_to(root_path)}")
         else:
             print(f"○ Skipped (no changes): {html_file.relative_to(root_path)}")
     
     print(f"\n{'='*60}")
     print(f"Complete! Modified {processed_count} out of {len(html_files)} files.")
+    print(f"Enhanced styling applied to {main_page_count} main course pages.")
     print(f"{'='*60}")
 
 if __name__ == "__main__":
