@@ -217,7 +217,7 @@ header {
 /* Enhanced link boxes */
 .link-to-page {
     margin: 1em 0;
-    padding: 1rem 1.5rem;
+    padding: 0 !important;
     background: linear-gradient(135deg, rgba(45, 45, 45, 0.8) 0%, rgba(35, 35, 35, 0.9) 100%);
     border: 1px solid rgba(74, 158, 255, 0.3);
     border-radius: 8px;
@@ -237,6 +237,7 @@ header {
     font-weight: 500;
     font-size: 1.1rem;
     display: block;
+    padding: 1rem 1.5rem;
 }
 
 .link-to-page a:hover {
