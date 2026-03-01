@@ -6,28 +6,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AIDE Courses</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
     
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
             background-color: #191919;
             color: #FFFFFF;
-            padding: 40px;
             margin: 0;
-            
-            /* Flexbox setup for Sticky Footer */
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh; /* Ensures body takes full screen height */
-            box-sizing: border-box; /* Includes padding in height calculation */
+            padding: 40px;
+            min-height: 100vh;
         }
-        h1 { font-weight: 700; margin-bottom: 20px; font-size: 32px; border-bottom: 1px solid #333; padding-bottom: 20px; }
+
+        /* Top header bar */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-weight: 700;
+            font-size: 32px;
+            margin: 0;
+        }
+
+        /* Two-column wrapper */
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+            align-items: start;
+        }
+
+        /* Left column: course grid */
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 20px;
-            margin-top: 20px;
+            border-right: 1px solid #333;
+            padding-right: 40px;
         }
+
         .card {
             background-color: #2F3437;
             border-radius: 6px;
@@ -60,8 +87,45 @@
         }
         .card-icon { font-size: 22px; margin-right: 10px; }
         .card-title { font-weight: 600; font-size: 16px; line-height: 1.3; }
-        
-        /* Footer Links Style */
+
+        /* Right column: sidebar */
+        .sidebar {
+            position: sticky;
+            top: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 24px;
+        }
+
+        /* Reserve space to avoid layout shift */
+        .linkedin-wrapper {
+            width: 100%;
+            min-height: 260px;
+            /* We removed the flex properties that the script was ignoring */
+        }
+
+        /* MANUAL TWEAK: Adjust the margin-left value below to push the badge */
+        .manual-center-tweak {
+            margin-left: 20px; /* <--- Increase or decrease this number (e.g., 15px, 30px) */
+            display: block;
+            width: fit-content;
+        }
+
+        /* Hide fallback blue link */
+        .badge-base__link.LI-simple-link {
+            display: none !important;
+        }
+
+        .sidebar-text {
+            text-align: center;
+            color: #ccc;
+            font-size: 14px;
+            line-height: 1.6;
+            border-bottom: 1px solid #333;
+            padding-bottom: 16px;
+        }
+
         .footer-link {
             color: #fff;
             text-decoration: none;
@@ -71,131 +135,132 @@
         .footer-link:hover {
             border-bottom: 1px solid #fff;
         }
-
-        footer {
-            /* Pushes footer to the bottom of the flex container */
-            margin-top: auto; 
-            
-            border-top: 1px solid #333; 
-            padding-top: 40px; 
-            padding-bottom: 20px;
-            text-align: center; 
-            color: #ccc; 
-            font-size: 18px; 
-            line-height: 1.6;
-        }
     </style>
 </head>
 
 <body>
 
-    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 20px; margin-bottom: 20px;">
-        <h1 style="margin: 0; border: none; padding: 0;">AIDE Courses (2024-2026)</h1>
+    <div class="header">
+        <h1>AIDE Courses (2024-2026)</h1>
         <a href="https://hits.sh/ivanbrillo.github.io/Courses/"><img alt="Hits" src="https://hits.sh/ivanbrillo.github.io/Courses.svg?view=today-total&style=for-the-badge&label=Today%2FTotal%20Visits&color=ffffff"/></a>
     </div>
 
-    <div class="grid-container">
+    <div class="layout">
 
-        <a href="course_pages/Cloud_Computing.html" class="card">
-            <div class="card-cover" style="background-image: url('https://www.notion.so/images/page-cover/met_william_morris_1875.jpg');"></div>
-            <div class="card-content">
-                <span class="card-icon">☁️</span>
-                <span class="card-title">Cloud Computing</span>
+        <div class="grid-container">
+
+            <a href="course_pages/Cloud_Computing.html" class="card">
+                <div class="card-cover" style="background-image: url('https://www.notion.so/images/page-cover/met_william_morris_1875.jpg');"></div>
+                <div class="card-content">
+                    <span class="card-icon">☁️</span>
+                    <span class="card-title">Cloud Computing</span>
                 </div>
-        </a>
-        
-        <a href="course_pages/Deep_Learning.html" class="card">
-            <div class="card-cover" style="background-image: url('https://www.notion.so/images/page-cover/met_klimt_1912.jpg');"></div>
-            <div class="card-content">
-                <span class="card-icon">🔦</span>
-                <span class="card-title">Deep Learning</span>
+            </a>
+
+            <a href="course_pages/Deep_Learning.html" class="card">
+                <div class="card-cover" style="background-image: url('https://www.notion.so/images/page-cover/met_klimt_1912.jpg');"></div>
+                <div class="card-content">
+                    <span class="card-icon">🔦</span>
+                    <span class="card-title">Deep Learning</span>
                 </div>
-        </a>
-        
-        <a href="course_pages/Distributed_System.html" class="card">
-            <div class="card-cover" style="background-image: url('https://www.notion.so/images/page-cover/webb2.jpg');"></div>
-            <div class="card-content">
-                <span class="card-icon">👨‍👨‍👦‍👦</span>
-                <span class="card-title">Distributed System</span>
+            </a>
+
+            <a href="course_pages/Distributed_System.html" class="card">
+                <div class="card-cover" style="background-image: url('https://www.notion.so/images/page-cover/webb2.jpg');"></div>
+                <div class="card-content">
+                    <span class="card-icon">👨‍👨‍👦‍👦</span>
+                    <span class="card-title">Distributed System</span>
                 </div>
-        </a>
-        
-        <a href="course_pages/Industrial_Applications.html" class="card">
-            <div class="card-cover" style="background-image: url('https://www.notion.so/images/page-cover/rijksmuseum_claesz_1628.jpg');"></div>
-            <div class="card-content">
-                <span class="card-icon">📄</span>
-                <span class="card-title">Industrial Applications</span>
+            </a>
+
+            <a href="course_pages/Industrial_Applications.html" class="card">
+                <div class="card-cover" style="background-image: url('https://www.notion.so/images/page-cover/rijksmuseum_claesz_1628.jpg');"></div>
+                <div class="card-content">
+                    <span class="card-icon">📄</span>
+                    <span class="card-title">Industrial Applications</span>
                 </div>
-        </a>
-        
-        <a href="course_pages/IR_CV_and_LM.html" class="card">
-            <div class="card-cover" style="background-image: url('https://www.notion.so/images/page-cover/met_horace_pippin.jpg');"></div>
-            <div class="card-content">
-                <span class="card-icon">📸</span>
-                <span class="card-title">Information Retrieval & Computer Vision</span>
+            </a>
+
+            <a href="course_pages/IR_CV_and_LM.html" class="card">
+                <div class="card-cover" style="background-image: url('https://www.notion.so/images/page-cover/met_horace_pippin.jpg');"></div>
+                <div class="card-content">
+                    <span class="card-icon">📸</span>
+                    <span class="card-title">Information Retrieval & Computer Vision</span>
                 </div>
-        </a>
-        
-        <a href="course_pages/IoT.html" class="card">
-            <div class="card-cover" style="background-image: url('https://www.notion.so/images/page-cover/nasa_carina_nebula.jpg');"></div>
-            <div class="card-content">
-                <span class="card-icon">💻</span>
-                <span class="card-title">IoT</span>
+            </a>
+
+            <a href="course_pages/IoT.html" class="card">
+                <div class="card-cover" style="background-image: url('https://www.notion.so/images/page-cover/nasa_carina_nebula.jpg');"></div>
+                <div class="card-content">
+                    <span class="card-icon">💻</span>
+                    <span class="card-title">IoT</span>
                 </div>
-        </a>
-        
-        <a href="course_pages/Large_scale_database.html" class="card">
-            <div class="card-cover" style="background-image: url('https://www.notion.so/images/page-cover/rijksmuseum_avercamp_1620.jpg');"></div>
-            <div class="card-content">
-                <span class="card-icon">💾</span>
-                <span class="card-title">Large Scale DB</span>
+            </a>
+
+            <a href="course_pages/Large_scale_database.html" class="card">
+                <div class="card-cover" style="background-image: url('https://www.notion.so/images/page-cover/rijksmuseum_avercamp_1620.jpg');"></div>
+                <div class="card-content">
+                    <span class="card-icon">💾</span>
+                    <span class="card-title">Large Scale DB</span>
                 </div>
-        </a>
-        
-        <a href="course_pages/ML.html" class="card">
-            <div class="card-cover" style="background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);"></div>
-            <div class="card-content">
-                <span class="card-icon">📕</span>
-                <span class="card-title">Machine Learning & Data Mining</span>
+            </a>
+
+            <a href="course_pages/ML.html" class="card">
+                <div class="card-cover" style="background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);"></div>
+                <div class="card-content">
+                    <span class="card-icon">📕</span>
+                    <span class="card-title">Machine Learning & Data Mining</span>
                 </div>
-        </a>
-        
-        <a href="course_pages/Process_Mining_and_Intelligence.html" class="card">
-            <div class="card-cover" style="background-image: url('https://www.notion.so/images/page-cover/woodcuts_14.jpg');"></div>
-            <div class="card-content">
-                <span class="card-icon">📄</span>
-                <span class="card-title">Process Mining and Intelligence</span>
+            </a>
+
+            <a href="course_pages/Process_Mining_and_Intelligence.html" class="card">
+                <div class="card-cover" style="background-image: url('https://www.notion.so/images/page-cover/woodcuts_14.jpg');"></div>
+                <div class="card-content">
+                    <span class="card-icon">📄</span>
+                    <span class="card-title">Process Mining and Intelligence</span>
                 </div>
-        </a>
-        
-        <a href="course_pages/Project_Management.html" class="card">
-            <div class="card-cover" style="background-image: url('https://www.notion.so/images/page-cover/met_silk_kashan_carpet.jpg');"></div>
-            <div class="card-content">
-                <span class="card-icon">🖊️</span>
-                <span class="card-title">Project Management</span>
+            </a>
+
+            <a href="course_pages/Project_Management.html" class="card">
+                <div class="card-cover" style="background-image: url('https://www.notion.so/images/page-cover/met_silk_kashan_carpet.jpg');"></div>
+                <div class="card-content">
+                    <span class="card-icon">🖊️</span>
+                    <span class="card-title">Project Management</span>
                 </div>
-        </a>
-        
-        <a href="course_pages/MOEA_and_RL.html" class="card">
-            <div class="card-cover" style="background: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);"></div>
-            <div class="card-content">
-                <span class="card-icon">📕</span>
-                <span class="card-title">Reinforcement Learning and MOEA</span>
+            </a>
+
+            <a href="course_pages/MOEA_and_RL.html" class="card">
+                <div class="card-cover" style="background: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);"></div>
+                <div class="card-content">
+                    <span class="card-icon">📕</span>
+                    <span class="card-title">Reinforcement Learning and MOEA</span>
                 </div>
-        </a>
+            </a>
+
         </div>
 
-    <footer>
+        <div class="sidebar">
 
-        <p style="margin-bottom: 20px;">
-            ⚠️ Found an error? Something unclear? 
+            <div class="sidebar-text">
+                <p style="margin: 0 0 12px 0;">
+                    ⚠️ Found an error? Please <a href="https://github.com/ivanbrillo/Courses/issues" class="footer-link" target="_blank">open an issue</a> or contact me directly.
+                </p>
+                <p style="margin: 0; color: #fff; font-weight: 600; font-size: 15px;">
+                    ⭐ If useful, please <a href="https://github.com/ivanbrillo/Courses" class="footer-link" target="_blank">star the repo</a>!
+                </p>
+            </div>
 
-            Please <a href="https://github.com/ivanbrillo/Courses/issues" class="footer-link" target="_blank">open an issue</a> or contact me directly.
-        </p>
-        <p style="color: #fff; font-weight: 600; font-size: 20px;">
-            ⭐ If you find these notes useful, please <a href="https://github.com/ivanbrillo/Courses" class="footer-link" target="_blank">star the repo</a>!
-        </p>
-    </footer>
+            <div class="linkedin-wrapper">
+                <div class="manual-center-tweak">
+                    <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="dark" data-type="VERTICAL" data-vanity="ivan-brillo-3074a0261" data-version="v1">
+                        <a class="badge-base__link LI-simple-link" href="https://it.linkedin.com/in/ivan-brillo-3074a0261?trk=profile-badge">Ivan Brillo</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
 
 </body>
 </html>
